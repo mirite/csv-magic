@@ -39,16 +39,27 @@ class Table extends Component<IProps, IState> {
 	getHeaders() {
 		const cells = [];
 		for (const [key, value] of Object.entries(this.props.data[0])) {
-			cells.push(<div style={{ backgroundColor: 'grey' }}>{key}</div>)
+			cells.push(
+				<div style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
+					<span className="m-1"><strong>{key}</strong></span>
+					<button className="btn btn-primary m-1">Sort</button>
+					<button className="btn btn-primary m-1">Filter</button>
+				</div>
+			)
 		}
 		return cells;
 	}
 
+	applyFiltersAndSorting() {
+		return this.props.data;
+	}
+
 	render() {
+		const activeData = this.applyFiltersAndSorting();
 		return (
 			<div style={this.state.style}>
 				{this.getHeaders()}
-				{this.props.data.map((row, index) => <Row key={index} data={row} />)}
+				{activeData.map((row, index) => <Row key={index} data={row} />)}
 				{this.getHeaders()}
 			</div>
 		);
