@@ -6,7 +6,10 @@ function App() {
 
 	return (
 		<div className="App">
-			<main>
+			<header className="container-fluid mb-1 p-1" style={{ backgroundColor:'green', color:'white'}}>
+				<h1>CSV Magic</h1>
+			</header>
+			<main className="container-xxl mb-1">
 				<Editor />
 			</main>
 		</div>

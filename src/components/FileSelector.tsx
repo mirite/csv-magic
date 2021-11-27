@@ -1,21 +1,21 @@
 import React, { Component, FormEvent } from 'react';
-import CSVLoader from '../modules/csv-loader';
-import { ITable } from './Table';
+import CSVLoader, { IFile } from '../modules/csv-loader';
 
 interface IState {
 	processing: boolean;
 	fileText: string;
+	fileName: string;
 }
 
 interface IProps {
-	onChange: (data:ITable) => void;
+	onChange: (data:IFile) => void;
 }
 
 class FileSelector extends Component<IProps, IState> {
 
 	constructor(props: IProps) {
 		super(props);
-		this.state = { processing: false, fileText: '' };
+		this.state = { processing: false, fileText: '', fileName: ''};
 	}
 
 
@@ -23,13 +23,14 @@ class FileSelector extends Component<IProps, IState> {
 		const files = (e.target as HTMLInputElement).files;
 		const file = files?.item(0);
 		const fileText = await file?.text();
-		this.setState({ 'fileText': fileText ? fileText : '' });
+		const fileName = file?.name;
+		this.setState({ 'fileText': fileText ?? '', fileName: fileName ?? 'untitled' });
 	}
 
 	async process(e: FormEvent): Promise<void> {
 		e.preventDefault();
 		this.setState({ 'processing': true });
-		const data = await CSVLoader(this.state.fileText);
+		const data = await CSVLoader(this.state.fileName, this.state.fileText);
 		this.props.onChange(data);
 	}
 	render() {

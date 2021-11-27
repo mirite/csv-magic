@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
+import { IFile } from '../modules/csv-loader';
+import EditorTab from './EditorTab';
 import FilePane from './FilePane';
 
-interface IProps { }
 
-interface IState{
+interface IProps {
 }
-class Editor extends Component {
+
+interface IState {
+	files: Array<IFile>;
+	currentIndex: number;
+}
+class Editor extends Component<IProps, IState>{
+	constructor(props: IProps) {
+		super(props);
+		this.state = { files: [{}], currentIndex: 0 };
+	}
+
+	handleLoad(file?: IFile) {
+		if (!file) return;
+		const prevFiles = [...this.state.files];
+		prevFiles.push(file);
+		const newIndex = prevFiles.length - 1;
+		this.setState({ files: prevFiles, currentIndex: newIndex });
+	}
+
+	handleClick(index: number) {
+		this.setState({ currentIndex: index });
+	}
+
 
 	render() {
+		const { currentIndex } = this.state;
+		const file = this.state.files[currentIndex];
 		return (
-			<div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: '1400px', overflowX: 'scroll' }}>
+			<div>
 				<ul className="nav nav-tabs">
-					<li className="nav-item">
-						<a className="nav-link active" aria-current="page" href="#">File1</a>
-					</li>
-					<li className="nav-item">
-						<a className="nav-link" href="#">File2</a>
-					</li>
+					{this.state.files.map((file, index) => <EditorTab key={index} name={file.fileName ?? 'CSV Magic'} onClick={() => this.handleClick(index)} active={index === currentIndex} />)}
 				</ul>
-				<FilePane />
-				<FilePane />
+				<FilePane file={file.data} onLoad={(file) => this.handleLoad(file)} />
 			</div>
 		);
 	}
