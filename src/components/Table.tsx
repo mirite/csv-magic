@@ -1,4 +1,6 @@
 import React, { Component, CSSProperties } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowsAltV, faArrowUp, faArrowDown, faFilter, faFill, faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import Row, { IRow } from './Row';
 
 export interface ITable extends Array<IRow> { }
@@ -9,8 +11,15 @@ interface IProps {
 
 interface IState {
 	style: React.CSSProperties;
-	activeFilters: Array<(table: ITable) => ITable>;
-	activeSorts: Array<(table: ITable) => ITable>;
+	activeFilters: Array<[string, string]>;
+	activeSorts: Array<[string, boolean]>;
+	activeData: ITable;
+}
+
+enum ESorts {
+	None,
+	Ascending,
+	Descending
 }
 
 class Table extends Component<IProps, IState> {
@@ -21,7 +30,8 @@ class Table extends Component<IProps, IState> {
 		this.state = {
 			style: this.createStyle(props),
 			activeFilters: [],
-			activeSorts: []
+			activeSorts: [],
+			activeData: props.data,
 		};
 	}
 
@@ -40,26 +50,67 @@ class Table extends Component<IProps, IState> {
 		}
 	}
 
+
+
+	getSortStateIcon(key: string): IconDefinition {
+		const sort = this.state.activeSorts.find(e => e[0] === key)
+		if (!sort) return faArrowsAltV;
+		if (sort[1]) return faArrowUp;
+		return faArrowDown;
+	}
+
+	addSort(key: string) {
+		let sorts = [...this.state.activeSorts];
+		const match = sorts.find(e => e[0] === key)
+		if (match) {
+			if (match[1]) match[1] = false;
+			else {
+				sorts = sorts.filter(e => e[0] !== key);
+			}
+		} else {
+			sorts.push([key, true]);
+		}
+		
+		const data = this.applyFiltersAndSorting(sorts, this.state.activeFilters);
+		this.setState({ activeSorts: sorts, activeData: data })
+	}
+
 	getHeaders() {
 		const cells = [];
 		for (const [key, value] of Object.entries(this.props.data[0])) {
 			cells.push(
-				<div style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+				<div key={key} style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
 					<span className="m-1"><strong>{key}</strong></span>
-					<button className="btn btn-primary m-1">Sort</button>
-					<button className="btn btn-primary m-1">Filter</button>
+					<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+						<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faSearch} /></button>
+						<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faFilter} /></button>
+						<button className="btn btn-primary m-1" onClick={() => this.addSort(key)}><FontAwesomeIcon icon={this.getSortStateIcon(key)} /></button>
+					</div>
 				</div>
 			)
 		}
 		return cells;
 	}
 
-	applyFiltersAndSorting() {
-		return this.props.data;
+	applyFiltersAndSorting(sorts:[string, boolean][], filters:[string,string][]) {
+		let { data } = this.props;
+		sorts.forEach(sort => {
+			const [key, ascending] = sort;
+			data = data.sort((row1, row2) => {
+				if (String(row1[key]).toUpperCase() > String(row2[key]).toUpperCase()) return ascending ? 1 : -1;
+				if (String(row1[key]).toUpperCase() < String(row2[key]).toUpperCase()) return ascending ? -1 : 1;
+				return 0;
+			})
+		});
+
+		filters.forEach(filter => {
+			data = data.filter(row => filter[1].includes(String(row[filter[0]])));
+		});
+		return data;
 	}
 
 	render() {
-		const activeData = this.applyFiltersAndSorting();
+		const { activeData } = this.state;
 		return (
 			<div style={this.state.style}>
 				{this.getHeaders()}

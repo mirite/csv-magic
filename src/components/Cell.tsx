@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { ChangeEvent, Component } from 'react';
 
 interface IProps {
 	value: string;
@@ -15,11 +15,22 @@ class Cell extends Component<IProps, IState> {
 		super(props);
 		this.state = { value: this.props.value };
 	}
+
+	componentDidUpdate(prevProps: IProps) {
+		if (this.props !== prevProps) {
+			this.setState( { value: this.props.value });
+		}
+	}
+
+	update(e: ChangeEvent) {
+		const newValue = (e.currentTarget as HTMLInputElement).value;
+		this.setState({value: newValue});
+	}
 	
 	render() {
 		return (
 			<div style={this.containerStyle}>
-				<input type='text' value={ this.state.value } style={ this.inputStyle } />
+				<input type='text' value={ this.state.value } onChange={(e) => this.update(e)}style={ this.inputStyle } />
 			</div>
 		);
 	}
