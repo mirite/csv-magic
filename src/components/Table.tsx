@@ -9,6 +9,8 @@ interface IProps {
 
 interface IState {
 	style: React.CSSProperties;
+	activeFilters: Array<(table: ITable) => ITable>;
+	activeSorts: Array<(table: ITable) => ITable>;
 }
 
 class Table extends Component<IProps, IState> {
@@ -17,16 +19,18 @@ class Table extends Component<IProps, IState> {
 		super(props);
 
 		this.state = {
-			style: this.createStyle(props)
+			style: this.createStyle(props),
+			activeFilters: [],
+			activeSorts: []
 		};
 	}
 
-	createStyle(props: IProps):CSSProperties {
+	createStyle(props: IProps): CSSProperties {
 		const cols = Object.keys(props.data[0]).length;
 		const rows = props.data.length + 2;
 		const colTemplate = 'minmax(min-content, max-content) '.repeat(cols);
 		return {
-			 display: 'grid', gridTemplateColumns: colTemplate, gridTemplateRows: `repeat(${rows}, 1fr)`,
+			display: 'grid', gridTemplateColumns: colTemplate, gridTemplateRows: `repeat(${rows}, 1fr)`,
 		};
 	}
 
@@ -40,7 +44,7 @@ class Table extends Component<IProps, IState> {
 		const cells = [];
 		for (const [key, value] of Object.entries(this.props.data[0])) {
 			cells.push(
-				<div style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
+				<div style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
 					<span className="m-1"><strong>{key}</strong></span>
 					<button className="btn btn-primary m-1">Sort</button>
 					<button className="btn btn-primary m-1">Filter</button>
