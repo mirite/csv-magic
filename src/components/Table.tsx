@@ -1,8 +1,9 @@
-import React, { Component, CSSProperties } from 'react';
+import React, { Component, CSSProperties, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsAltV, faArrowUp, faArrowDown, faFilter, faFill, faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import Row, { IRow } from './Row';
 import Sorting from '../modules/sorting';
+import Filters from './Filters';
 
 export interface ITable extends Array<IRow> { }
 
@@ -15,6 +16,7 @@ interface IState {
 	activeFilters: Array<[string, string]>;
 	activeSorts: Array<[string, boolean]>;
 	activeData: ITable;
+	filtersShowing: boolean;
 }
 
 enum ESorts {
@@ -33,6 +35,7 @@ class Table extends Component<IProps, IState> {
 			activeFilters: [],
 			activeSorts: [],
 			activeData: props.data,
+			filtersShowing: false
 		};
 	}
 
@@ -73,7 +76,7 @@ class Table extends Component<IProps, IState> {
 					<span className="m-1"><strong>{key}</strong></span>
 					<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 						<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faSearch} /></button>
-						<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faFilter} /></button>
+						<button className="btn btn-primary m-1" onClick={() => this.showFilters(key)}><FontAwesomeIcon icon={faFilter} /></button>
 						<button className="btn btn-primary m-1" onClick={() => this.handleSort(key)}><FontAwesomeIcon icon={this.getSortStateIcon(key)} /></button>
 					</div>
 				</div>
@@ -82,31 +85,35 @@ class Table extends Component<IProps, IState> {
 		return cells;
 	}
 
-	applyFiltersAndSorting(sorts:[string, boolean][], filters:[string,string][]) {
-		let { data } = this.props;
-		sorts.forEach(sort => {
-			const [key, ascending] = sort;
-			data = data.sort((row1, row2) => {
-				if (String(row1[key]).toUpperCase() > String(row2[key]).toUpperCase()) return ascending ? 1 : -1;
-				if (String(row1[key]).toUpperCase() < String(row2[key]).toUpperCase()) return ascending ? -1 : 1;
-				return 0;
-			})
-		});
+	handleApply(): void {
+		throw new Error('Method not implemented.');
+	}
+	handleClose(): void {
+		this.setState({filtersShowing: false});
+	}
 
-		filters.forEach(filter => {
-			data = data.filter(row => filter[1].includes(String(row[filter[0]])));
-		});
-		return data;
+	getModals() {
+		if (this.state.filtersShowing) {
+			return 	<Filters title='Filter' onClose={() => this.handleClose()} onApply={() => this.handleApply()}/>
+		}
+	}
+
+	showFilters(key: string) {
+		this.setState({'filtersShowing':true})
 	}
 
 	render() {
 		const { activeData } = this.state;
 		return (
-			<div style={this.state.style}>
-				{this.getHeaders()}
-				{activeData.map((row, index) => <Row key={index} data={row} />)}
-				{this.getHeaders()}
-			</div>
+			<Fragment>
+				<div style={this.state.style}>
+					{this.getHeaders()}
+					{activeData.map((row, index) => <Row key={index} data={row} />)}
+					{this.getHeaders()}
+				</div>
+				{this.getModals()}
+			</Fragment>
+
 		);
 	}
 }
