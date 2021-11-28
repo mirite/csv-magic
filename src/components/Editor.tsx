@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IFile } from '../modules/csv-loader';
 import EditorTab from './EditorTab';
 import FilePane from './FilePane';
+import Popover from './Popover';
 
 
 interface IProps {
@@ -39,8 +40,12 @@ class Editor extends Component<IProps, IState>{
 					{this.state.files.map((file, index) => <EditorTab key={index} name={file.fileName ?? 'CSV Magic'} onClick={() => this.handleClick(index)} active={index === currentIndex} />)}
 				</ul>
 				<FilePane file={file.data} onLoad={(file) => this.handleLoad(file)} />
+				<Popover title='Testing' onClose={() => this.handleClose()}/>
 			</div>
 		);
+	}
+	handleClose(): void {
+		throw new Error('Method not implemented.');
 	}
 }
 

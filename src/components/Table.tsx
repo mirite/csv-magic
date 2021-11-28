@@ -2,6 +2,7 @@ import React, { Component, CSSProperties } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsAltV, faArrowUp, faArrowDown, faFilter, faFill, faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import Row, { IRow } from './Row';
+import Sorting from '../modules/sorting';
 
 export interface ITable extends Array<IRow> { }
 
@@ -50,8 +51,6 @@ class Table extends Component<IProps, IState> {
 		}
 	}
 
-
-
 	getSortStateIcon(key: string): IconDefinition {
 		const sort = this.state.activeSorts.find(e => e[0] === key)
 		if (!sort) return faArrowsAltV;
@@ -59,20 +58,11 @@ class Table extends Component<IProps, IState> {
 		return faArrowDown;
 	}
 
-	addSort(key: string) {
-		let sorts = [...this.state.activeSorts];
-		const match = sorts.find(e => e[0] === key)
-		if (match) {
-			if (match[1]) match[1] = false;
-			else {
-				sorts = sorts.filter(e => e[0] !== key);
-			}
-		} else {
-			sorts.push([key, true]);
-		}
-		
-		const data = this.applyFiltersAndSorting(sorts, this.state.activeFilters);
-		this.setState({ activeSorts: sorts, activeData: data })
+	handleSort(key: string) {
+		const { activeSorts, activeData } = this.state;
+		const newSorts = Sorting.setSort([...activeSorts], key);
+		const newData = Sorting.applySorting(activeData, newSorts);
+		this.setState({ activeSorts: newSorts, activeData: newData })
 	}
 
 	getHeaders() {
@@ -84,7 +74,7 @@ class Table extends Component<IProps, IState> {
 					<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 						<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faSearch} /></button>
 						<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faFilter} /></button>
-						<button className="btn btn-primary m-1" onClick={() => this.addSort(key)}><FontAwesomeIcon icon={this.getSortStateIcon(key)} /></button>
+						<button className="btn btn-primary m-1" onClick={() => this.handleSort(key)}><FontAwesomeIcon icon={this.getSortStateIcon(key)} /></button>
 					</div>
 				</div>
 			)
