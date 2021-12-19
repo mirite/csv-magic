@@ -12,7 +12,6 @@ interface IProps {
 }
 
 interface IState {
-	style: React.CSSProperties;
 	activeFilters: Array<[string, string]>;
 	activeSorts: Array<[string, boolean]>;
 	activeData: ITable;
@@ -31,27 +30,11 @@ class Table extends Component<IProps, IState> {
 		super(props);
 
 		this.state = {
-			style: this.createStyle(props),
 			activeFilters: [],
 			activeSorts: [],
 			activeData: props.data,
 			filtersShowing: false
 		};
-	}
-
-	createStyle(props: IProps): CSSProperties {
-		const cols = Object.keys(props.data[0]).length;
-		const rows = props.data.length + 2;
-		const colTemplate = 'minmax(min-content, max-content) '.repeat(cols);
-		return {
-			display: 'grid', gridTemplateColumns: colTemplate, gridTemplateRows: `repeat(${rows}, 1fr)`,
-		};
-	}
-
-	componentDidUpdate(prevProps: IProps, prevState: IState) {
-		if (this.props != prevProps) {
-			this.setState({ style: this.createStyle(this.props) })
-		}
 	}
 
 	getSortStateIcon(key: string): IconDefinition {
@@ -72,17 +55,29 @@ class Table extends Component<IProps, IState> {
 		const cells = [];
 		for (const [key, value] of Object.entries(this.props.data[0])) {
 			cells.push(
-				<div key={key} style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-					<span className="m-1"><strong>{key}</strong></span>
-					<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-						<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faSearch} /></button>
-						<button className="btn btn-primary m-1" onClick={() => this.showFilters(key)}><FontAwesomeIcon icon={faFilter} /></button>
-						<button className="btn btn-primary m-1" onClick={() => this.handleSort(key)}><FontAwesomeIcon icon={this.getSortStateIcon(key)} /></button>
+				<th scope="col" key={key} >
+					<div style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+						<span className="m-1"><strong>{key}</strong></span>
+						<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+							<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faSearch} /></button>
+							<button className="btn btn-primary m-1" onClick={() => this.showFilters(key)}><FontAwesomeIcon icon={faFilter} /></button>
+							<button className="btn btn-primary m-1" onClick={() => this.handleSort(key)}><FontAwesomeIcon icon={this.getSortStateIcon(key)} /></button>
+						</div>
 					</div>
-				</div>
+				</th>
 			)
 		}
-		return cells;
+		return <tr>{cells}</tr>;
+	}
+
+	getHead() {
+		const cells = this.getHeaders();
+		return <thead>{cells}</thead>;
+	}
+
+	getFoot() {
+		const cells = this.getHeaders();
+		return <tfoot>{cells}</tfoot>;
 	}
 
 	handleApply(): void {
@@ -106,11 +101,13 @@ class Table extends Component<IProps, IState> {
 		const { activeData } = this.state;
 		return (
 			<Fragment>
-				<div style={this.state.style}>
-					{this.getHeaders()}
-					{activeData.map((row, index) => <Row key={index} data={row} />)}
-					{this.getHeaders()}
-				</div>
+				<table>
+					{this.getHead()}
+					<tbody>
+						{activeData.map((row, index) => <Row key={index} data={row} />)}
+					</tbody>
+					{this.getFoot()}
+				</table>
 				{this.getModals()}
 			</Fragment>
 

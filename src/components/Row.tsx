@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment as tr } from 'react';
 import Cell from './Cell';
 
 export interface IRow {
@@ -20,9 +20,9 @@ class Row extends Component<IProps> {
 	}
 	render() {
 		return (
-			<Fragment>
+			<tr>
 				{this.generateRow()}
-			</Fragment>
+			</tr>
 		);
 	}
 }

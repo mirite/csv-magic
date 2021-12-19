@@ -29,9 +29,9 @@ class Cell extends Component<IProps, IState> {
 	
 	render() {
 		return (
-			<div style={this.containerStyle}>
+			<td style={this.containerStyle}>
 				<input type='text' value={ this.state.value } onChange={(e) => this.update(e)}style={ this.inputStyle } />
-			</div>
+			</td>
 		);
 	}
 }
