@@ -19,13 +19,13 @@ interface IProps {
  * Displays a row of cells within a table.
  */
 class Row extends Component<IProps> {
-
 	/**
 	 * Renders out the inner array of Cells and returns it.
-	 * @returns 
+	 *
+	 * @return an array of cells.
 	 */
-	generateRow(): Array<JSX.Element> {
-		const {data, activeCell} = this.props;
+	generateInnerCells(): Array<JSX.Element> {
+		const { data, activeCell } = this.props;
 		const cells = [];
 		for (const cell of data) {
 			const { id } = cell;
@@ -38,11 +38,7 @@ class Row extends Component<IProps> {
 		return cells;
 	}
 	render() {
-		return (
-			<tr key={this.props.data.id}>
-				{this.generateRow()}
-			</tr>
-		);
+		return <tr key={this.props.data.id}>{this.generateInnerCells()}</tr>;
 	}
 }
 

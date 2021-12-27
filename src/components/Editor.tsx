@@ -3,14 +3,13 @@ import { IFile } from '../types';
 import EditorTab from './EditorTab';
 import FilePane from './FilePane';
 
-interface IProps {
-}
+interface IProps {}
 
 interface IState {
 	files: Array<IFile>;
 	currentIndex: number;
 }
-class Editor extends Component<IProps, IState>{
+class Editor extends Component<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
 		this.state = { files: [{}], currentIndex: 0 };
@@ -30,17 +29,26 @@ class Editor extends Component<IProps, IState>{
 
 	render() {
 		const { currentIndex } = this.state;
-		const file = this.state.files[currentIndex];
+		const currentFile = this.state.files[currentIndex];
 		return (
 			<div>
 				<ul className="nav nav-tabs">
-					{this.state.files.map((file, index) => <EditorTab key={index} name={file.fileName ?? 'CSV Magic'} onClick={() => this.handleClick(index)} active={index === currentIndex} />)}
+					{this.state.files.map((file, index) => (
+						<EditorTab
+							key={index}
+							name={file.fileName ?? 'CSV Magic'}
+							onClick={() => this.handleClick(index)}
+							active={index === currentIndex}
+						/>
+					))}
 				</ul>
-				<FilePane file={file.data} onLoad={(file) => this.handleLoad(file)} />
+				<FilePane
+					file={currentFile.data}
+					onLoad={(file) => this.handleLoad(file)}
+				/>
 			</div>
 		);
 	}
-
 }
 
 export default Editor;

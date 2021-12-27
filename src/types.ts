@@ -12,7 +12,7 @@ export interface IRow extends Array<ICell> {
 }
 
 export interface ICell {
-	key: string,
+	key: string;
 	value: string;
 	id: string;
 }

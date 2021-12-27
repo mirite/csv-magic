@@ -1,1 +1,1 @@
-export function silenceIsGolder() { }
+export function silenceIsGolder() {}

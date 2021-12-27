@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from "react";
-import { IRow } from "../types";
-import TableHeading from "./TableHeading";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import React, { FunctionComponent } from 'react';
+import { IRow } from '../types';
+import TableHeading from './TableHeading';
 
 interface TableHeadingsProps {
 	exampleRow: IRow;
@@ -8,17 +9,23 @@ interface TableHeadingsProps {
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
 }
- 
-const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 
+const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 	const cells = [];
 	const { activeSorts, exampleRow, onShowFilter, onSort } = props;
 	for (const cell of exampleRow) {
 		const { key } = cell;
-		cells.push(<TableHeading key={key} exampleCell={cell} activeSorts={activeSorts} onShowFilter={ () => onShowFilter(key) } onSort={ () => onSort(key)}/>);
-		
+		cells.push(
+			<TableHeading
+				key={key}
+				exampleCell={cell}
+				activeSorts={activeSorts}
+				onShowFilter={() => onShowFilter(key)}
+				onSort={() => onSort(key)}
+			/>
+		);
 	}
-	return (<tr>{cells}</tr>);
-}
- 
+	return <tr>{cells}</tr>;
+};
+
 export default TableHeadings;

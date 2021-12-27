@@ -14,15 +14,10 @@ export interface IState {
  * A single cell within a table.
  */
 class Cell extends Component<IProps, IState> {
-	constructor(props: IProps) {
-		super(props);
-		
-	}
-
 	render() {
 		return (
 			<td className={styles.container}>
-				<span className={ styles.label }>{this.props.data.value }</span>
+				<span className={styles.label}>{this.props.data.value}</span>
 			</td>
 		);
 	}

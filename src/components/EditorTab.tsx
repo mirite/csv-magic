@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 
 interface IProps {
@@ -14,13 +12,19 @@ class EditorTab extends Component<IProps> {
 		const classList = 'nav-link' + (active ? ' active' : '');
 		return (
 			<li className="nav-item">
-				<a className={classList} aria-current="page" href="#" onClick={(e)=> this.handleClick(e)}>{name}</a>
+				<button
+					className={classList}
+					aria-current="page"
+					onClick={(e) => this.handleClick(e)}
+				>
+					{name}
+				</button>
 			</li>
 		);
 	}
-	handleClick(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void {
+	handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
 		e.preventDefault();
-		this.props.onClick()
+		this.props.onClick();
 	}
 }
 

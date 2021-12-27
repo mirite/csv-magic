@@ -5,7 +5,6 @@ import Filters from './Filters';
 import { ITable } from '../types';
 import TableHeadings from './TablesHeadings';
 
-
 interface IProps {
 	data: ITable;
 }
@@ -18,14 +17,7 @@ interface IState {
 	activeCell?: string;
 }
 
-enum ESorts {
-	None,
-	Ascending,
-	Descending
-}
-
 class Table extends Component<IProps, IState> {
-
 	constructor(props: IProps) {
 		super(props);
 
@@ -42,12 +34,19 @@ class Table extends Component<IProps, IState> {
 		const { activeSorts, activeData } = this.state;
 		const newSorts = Sorting.setSort([...activeSorts], key);
 		const newData = Sorting.applySorting(activeData, newSorts);
-		this.setState({ activeSorts: newSorts, activeData: newData })
+		this.setState({ activeSorts: newSorts, activeData: newData });
 	}
 
 	getHeaders() {
 		const row = this.props.data[0];
-		return <TableHeadings exampleRow={row} activeSorts={this.state.activeSorts} onSort={(key: string) => this.handleSort(key)} onShowFilter={(key:string) => this.handleShowFilter(key)} />
+		return (
+			<TableHeadings
+				exampleRow={row}
+				activeSorts={this.state.activeSorts}
+				onSort={(key: string) => this.handleSort(key)}
+				onShowFilter={(key: string) => this.handleShowFilter(key)}
+			/>
+		);
 	}
 
 	getHead() {
@@ -64,17 +63,23 @@ class Table extends Component<IProps, IState> {
 		throw new Error('Method not implemented.');
 	}
 	handleClose(): void {
-		this.setState({filtersShowing: false});
+		this.setState({ filtersShowing: false });
 	}
 
 	getModals() {
 		if (this.state.filtersShowing) {
-			return 	<Filters title='Filter' onClose={() => this.handleClose()} onApply={() => this.handleApply()}/>
+			return (
+				<Filters
+					title="Filter"
+					onClose={() => this.handleClose()}
+					onApply={() => this.handleApply()}
+				/>
+			);
 		}
 	}
 
 	handleShowFilter(key: string) {
-		this.setState({'filtersShowing':true})
+		this.setState({ filtersShowing: true });
 	}
 
 	render() {
@@ -84,13 +89,18 @@ class Table extends Component<IProps, IState> {
 				<table>
 					{this.getHead()}
 					<tbody>
-						{activeData.map((row) => <Row key={row.id} data={row} activeCell={this.state.activeCell} />)}
+						{activeData.map((row) => (
+							<Row
+								key={row.id}
+								data={row}
+								activeCell={this.state.activeCell}
+							/>
+						))}
 					</tbody>
 					{this.getFoot()}
 				</table>
 				{this.getModals()}
 			</Fragment>
-
 		);
 	}
 }
