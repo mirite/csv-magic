@@ -1,4 +1,4 @@
-import Popover from './Popover';
+import Popover from '../Popover';
 import React, { Component } from 'react';
 
 /**

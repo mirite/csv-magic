@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import Row from './table-parts/Row';
-import Sorting from '../modules/sorting';
+import Sorting from '../../modules/sorting';
 import Filters from './Filters';
-import { ICell, ITable } from '../types';
+import { ICell, ITable } from '../../types';
 import TableHeadings from './table-parts/TablesHeadings';
+import { updateCell } from '../../modules/editing';
 
 interface IProps {
 	/**
@@ -157,7 +158,8 @@ class Table extends Component<IProps, IState> {
 	 * @param  e The new cell data.
 	 */
 	handleCellChange(e: ICell) {
-		throw new Error('Method not implemented.');
+		const newData = updateCell(this.state.activeData, e);
+		this.setState({ activeData: newData });
 	}
 
 	render() {

@@ -8,8 +8,8 @@ import {
 	faFill,
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
-import { ICell } from '../../types';
-import styles from '../../styles/TableHeading.module.css';
+import { ICell } from '../../../types';
+import styles from '../../../styles/TableHeading.module.css';
 
 interface HeadingsProps {
 	exampleCell: ICell;

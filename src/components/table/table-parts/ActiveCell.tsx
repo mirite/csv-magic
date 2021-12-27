@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import Cell, { IProps } from './Cell';
-import styles from '../../styles/Cell.module.css';
+import styles from '../../../styles/Cell.module.css';
 
 /**
  * A table cell that is currently selected. This changes the text label into an input for editing.
@@ -22,6 +22,14 @@ class ActiveCell extends Cell {
 		}
 	}
 
+	componentWillUnmount() {
+		const { id, key } = this.props.data;
+		const { value } = this.state;
+		//Call the parent event handler if one was set.
+		if (this.props.onCellChange)
+			this.props.onCellChange({ id, key, value });
+	}
+
 	/**
 	 * Handles the change event in the cell input field.
 	 *
@@ -32,12 +40,7 @@ class ActiveCell extends Cell {
 		 * The new value from the input.
 		 */
 		const newValue = (e.currentTarget as HTMLInputElement).value;
-		const { id, key } = this.props.data;
 		this.setState({ value: newValue });
-
-		//Call the parent event handler if one was set.
-		if (this.props.onCellChange)
-			this.props.onCellChange({ id, key, value: newValue });
 	}
 
 	render() {

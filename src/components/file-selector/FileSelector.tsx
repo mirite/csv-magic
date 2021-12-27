@@ -1,6 +1,8 @@
 import React, { Component, FormEvent } from 'react';
-import CSVLoader from '../modules/csv-loader';
-import { IFile } from '../types';
+import CSVLoader from '../../modules/csv-loader';
+import { IFile } from '../../types';
+import FileInput from './FileInput';
+import SubmitButton from './SubmitButton';
 
 interface IState {
 	/**
@@ -34,11 +36,11 @@ class FileSelector extends Component<IProps, IState> {
 	}
 
 	/**
-	 * Gets the file that was selected and add it to the componenet state.
+	 * Gets the file that was selected and add it to the component state.
 	 *
 	 * @param  e The form on change even.t
 	 */
-	async attachFile(e: FormEvent): Promise<void> {
+	async handleAttachFile(e: FormEvent): Promise<void> {
 		const { files } = e.target as HTMLInputElement;
 		const file = files?.item(0);
 		const fileText = await file?.text();
@@ -65,27 +67,13 @@ class FileSelector extends Component<IProps, IState> {
 	}
 
 	render() {
+		const { processing } = this.state;
 		return (
 			<div>
 				<form onSubmit={(e) => this.process(e)}>
-					<div className="mb-3">
-						<label htmlFor="source-file" className="form-label">
-							File:
-						</label>
-						<input
-							id="source-file"
-							className="form-control"
-							onChange={(e) => this.attachFile(e)}
-							type="file"
-						/>
-					</div>
+					<FileInput onAttachFile={(e) => this.handleAttachFile(e)} />
 					<div className="mb-3 text-end">
-						<button
-							className="btn btn-primary btn-lg"
-							disabled={this.state.processing}
-						>
-							{this.state.processing ? 'Processing' : 'Open'}
-						</button>
+						<SubmitButton processing={processing} />
 					</div>
 				</form>
 			</div>

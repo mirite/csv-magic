@@ -41,7 +41,7 @@ class EditorTab extends Component<IProps> {
 	 *
 	 * @param  e The click event object.
 	 */
-	handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+	handleClick(e: React.MouseEvent): void {
 		e.preventDefault();
 		this.props.onClick();
 	}
