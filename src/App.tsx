@@ -6,10 +6,10 @@ import styles from './styles/App.module.css';
 function App() {
 	return (
 		<div className="App">
-			<header className="container-fluid mb-1 p-1">
+			<header className={styles.header}>
 				<h1>CSV Magic</h1>
 			</header>
-			<main className="container-xxl mb-1">
+			<main className={styles.main}>
 				<Editor />
 			</main>
 		</div>

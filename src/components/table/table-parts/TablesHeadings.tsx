@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import React, { FunctionComponent } from 'react';
 import { IRow } from '../../../types';
 import TableHeading from './TableHeading';
