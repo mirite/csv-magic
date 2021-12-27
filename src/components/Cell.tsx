@@ -1,5 +1,6 @@
-import React, { ChangeEvent, Component } from 'react';
+import React, { Component } from 'react';
 import { ICell } from '../types';
+import styles from '../styles/Cell.module.css';
 
 export interface IProps {
 	data: ICell;
@@ -9,9 +10,10 @@ export interface IState {
 	value: string;
 }
 
+/**
+ * A single cell within a table.
+ */
 class Cell extends Component<IProps, IState> {
-	inputStyle:React.CSSProperties = { width: '100%', height: '100%', textAlign:'center'};
-	containerStyle: React.CSSProperties = { };
 	constructor(props: IProps) {
 		super(props);
 		
@@ -19,8 +21,8 @@ class Cell extends Component<IProps, IState> {
 
 	render() {
 		return (
-			<td style={this.containerStyle}>
-				<span style={this.inputStyle}>{this.props.data.value }</span>
+			<td className={styles.container}>
+				<span className={ styles.label }>{this.props.data.value }</span>
 			</td>
 		);
 	}

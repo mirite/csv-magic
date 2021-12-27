@@ -1,4 +1,4 @@
-import { getCellValue } from "../components/Row";
+import { getCellValue } from "./access-helpers";
 import { ITable } from "../types";
 
 function setSort(sorts:Array<[string, boolean]>, key: string) {

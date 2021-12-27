@@ -1,0 +1,12 @@
+.container {
+	background-color: grey;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end
+}
+
+.actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}

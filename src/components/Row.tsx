@@ -4,25 +4,35 @@ import ActiveCell from './ActiveCell';
 import Cell from './Cell';
 
 interface IProps {
+	/**
+	 * The data to use for the row.
+	 */
 	data: IRow;
+
+	/**
+	 * The ID of the active cell within the table (if there is one)
+	 */
 	activeCell?: string;
 }
 
-export function getCellValue(row: IRow, key: string):string {
-	const foundCell = row.find(cell => cell.key === key);
-	if (foundCell) return foundCell.value;
-	return '';
-}
-
+/**
+ * Displays a row of cells within a table.
+ */
 class Row extends Component<IProps> {
 
-	generateRow() {
+	/**
+	 * Renders out the inner array of Cells and returns it.
+	 * @returns 
+	 */
+	generateRow(): Array<JSX.Element> {
+		const {data, activeCell} = this.props;
 		const cells = [];
-		for (const cell of this.props.data) {
-			if (cell.id === this.props.activeCell) {
-				cells.push(<ActiveCell key={cell.id} data={cell} />);
+		for (const cell of data) {
+			const { id } = cell;
+			if (id === activeCell) {
+				cells.push(<ActiveCell key={id} data={cell} />);
 			} else {
-				cells.push(<Cell key={cell.id} data={cell} />);
+				cells.push(<Cell key={id} data={cell} />);
 			}
 		}
 		return cells;

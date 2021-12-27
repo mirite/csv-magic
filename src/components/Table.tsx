@@ -1,11 +1,9 @@
-import React, { Component, CSSProperties, Fragment } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowsAltV, faArrowUp, faArrowDown, faFilter, faFill, faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import React, { Component, Fragment } from 'react';
 import Row from './Row';
 import Sorting from '../modules/sorting';
 import Filters from './Filters';
 import { ITable } from '../types';
-
+import TableHeadings from './TablesHeadings';
 
 
 interface IProps {
@@ -40,13 +38,6 @@ class Table extends Component<IProps, IState> {
 		};
 	}
 
-	getSortStateIcon(key: string): IconDefinition {
-		const sort = this.state.activeSorts.find(e => e[0] === key)
-		if (!sort) return faArrowsAltV;
-		if (sort[1]) return faArrowUp;
-		return faArrowDown;
-	}
-
 	handleSort(key: string) {
 		const { activeSorts, activeData } = this.state;
 		const newSorts = Sorting.setSort([...activeSorts], key);
@@ -55,33 +46,18 @@ class Table extends Component<IProps, IState> {
 	}
 
 	getHeaders() {
-		const cells = [];
-		for (const cell of this.props.data[0]) {
-			const { key } = cell;
-			cells.push(
-				<th scope="col" key={cell.key} >
-					<div style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-						<span className="m-1"><strong>{key}</strong></span>
-						<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-							<button className="btn btn-primary m-1"><FontAwesomeIcon icon={faSearch} /></button>
-							<button className="btn btn-primary m-1" onClick={() => this.showFilters(key)}><FontAwesomeIcon icon={faFilter} /></button>
-							<button className="btn btn-primary m-1" onClick={() => this.handleSort(key)}><FontAwesomeIcon icon={this.getSortStateIcon(key)} /></button>
-						</div>
-					</div>
-				</th>
-			)
-		}
-		return <tr>{cells}</tr>;
+		const row = this.props.data[0];
+		return <TableHeadings exampleRow={row} activeSorts={this.state.activeSorts} onSort={(key: string) => this.handleSort(key)} onShowFilter={(key:string) => this.handleShowFilter(key)} />
 	}
 
 	getHead() {
-		const cells = this.getHeaders();
-		return <thead>{cells}</thead>;
+		const headings = this.getHeaders();
+		return <thead>{headings}</thead>;
 	}
 
 	getFoot() {
-		const cells = this.getHeaders();
-		return <tfoot>{cells}</tfoot>;
+		const headings = this.getHeaders();
+		return <tfoot>{headings}</tfoot>;
 	}
 
 	handleApply(): void {
@@ -97,7 +73,7 @@ class Table extends Component<IProps, IState> {
 		}
 	}
 
-	showFilters(key: string) {
+	handleShowFilter(key: string) {
 		this.setState({'filtersShowing':true})
 	}
 
