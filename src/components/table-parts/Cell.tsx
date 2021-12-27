@@ -4,6 +4,7 @@ import styles from '../../styles/Cell.module.css';
 
 export interface IProps {
 	data: ICell;
+	onCellChange?: (event: ICell) => any;
 }
 
 export interface IState {

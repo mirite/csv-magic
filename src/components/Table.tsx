@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Row from './table-parts/Row';
 import Sorting from '../modules/sorting';
 import Filters from './Filters';
-import { ITable } from '../types';
+import { ICell, ITable } from '../types';
 import TableHeadings from './table-parts/TablesHeadings';
 
 interface IProps {
@@ -94,6 +94,9 @@ class Table extends Component<IProps, IState> {
 								key={row.id}
 								data={row}
 								activeCell={this.state.activeCell}
+								onCellChange={(e: ICell) =>
+									this.handleCellChange(e)
+								}
 							/>
 						))}
 					</tbody>
@@ -102,6 +105,9 @@ class Table extends Component<IProps, IState> {
 				{this.getModals()}
 			</Fragment>
 		);
+	}
+	handleCellChange(e: ICell) {
+		throw new Error('Method not implemented.');
 	}
 }
 

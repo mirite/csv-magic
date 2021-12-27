@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IRow } from '../../types';
+import { ICell, IRow } from '../../types';
 import ActiveCell from './ActiveCell';
 import Cell from './Cell';
 
@@ -8,6 +8,11 @@ interface IProps {
 	 * The data to use for the row.
 	 */
 	data: IRow;
+
+	/**
+	 * Handler for when the data in a cell is changed.
+	 */
+	onCellChange: (arg0: ICell) => any;
 
 	/**
 	 * The ID of the active cell within the table (if there is one)
@@ -25,12 +30,18 @@ class Row extends Component<IProps> {
 	 * @return an array of cells.
 	 */
 	generateInnerCells(): Array<JSX.Element> {
-		const { data, activeCell } = this.props;
+		const { data, activeCell, onCellChange } = this.props;
 		const cells = [];
 		for (const cell of data) {
 			const { id } = cell;
 			if (id === activeCell) {
-				cells.push(<ActiveCell key={id} data={cell} />);
+				cells.push(
+					<ActiveCell
+						key={id}
+						data={cell}
+						onCellChange={(e: ICell) => onCellChange(e)}
+					/>
+				);
 			} else {
 				cells.push(<Cell key={id} data={cell} />);
 			}

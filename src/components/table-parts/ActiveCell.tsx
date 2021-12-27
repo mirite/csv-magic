@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component } from 'react';
+import React, { ChangeEvent } from 'react';
 import Cell, { IProps } from './Cell';
 import styles from '../../styles/Cell.module.css';
 
@@ -19,7 +19,10 @@ class ActiveCell extends Cell {
 
 	update(e: ChangeEvent) {
 		const newValue = (e.currentTarget as HTMLInputElement).value;
+		const { id, key } = this.props.data;
 		this.setState({ value: newValue });
+		if (this.props.onCellChange)
+			this.props.onCellChange({ id, key, value: newValue });
 	}
 
 	render() {
