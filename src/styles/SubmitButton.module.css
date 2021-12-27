@@ -1,0 +1,3 @@
+.button {
+	composes: btn btn-primary btn-lg from 'bootstrap/dist/css/bootstrap.css';
+}

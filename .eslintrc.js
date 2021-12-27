@@ -15,7 +15,7 @@ module.exports = {
 		ecmaVersion: 13,
 		sourceType: 'module',
 	},
-	plugins: ['react', '@typescript-eslint', 'import'],
+	plugins: ['react', 'import'],
 	settings: {
 		'import/parsers': {
 			'@typescript-eslint/parser': ['.ts', '.tsx'],

@@ -3,6 +3,7 @@ import CSVLoader from '../../modules/csv-loader';
 import { IFile } from '../../types';
 import FileInput from './FileInput';
 import SubmitButton from './SubmitButton';
+import styles from '../../styles/FileSelector.module.css';
 
 interface IState {
 	/**
@@ -72,7 +73,7 @@ class FileSelector extends Component<IProps, IState> {
 			<div>
 				<form onSubmit={(e) => this.process(e)}>
 					<FileInput onAttachFile={(e) => this.handleAttachFile(e)} />
-					<div className="mb-3 text-end">
+					<div className={styles.submitButtonContainer}>
 						<SubmitButton processing={processing} />
 					</div>
 				</form>
