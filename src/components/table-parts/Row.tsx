@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IRow } from '../types';
+import { IRow } from '../../types';
 import ActiveCell from './ActiveCell';
 import Cell from './Cell';
 

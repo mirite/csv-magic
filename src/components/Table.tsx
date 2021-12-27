@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import Row from './Row';
+import Row from './table-parts/Row';
 import Sorting from '../modules/sorting';
 import Filters from './Filters';
 import { ITable } from '../types';
-import TableHeadings from './TablesHeadings';
+import TableHeadings from './table-parts/TablesHeadings';
 
 interface IProps {
 	data: ITable;
