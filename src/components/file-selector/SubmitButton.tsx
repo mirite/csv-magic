@@ -11,6 +11,7 @@ const SubmitButton: FunctionComponent<SubmitButtonProps> = (props) => {
 			className="btn btn-primary btn-lg"
 			type="submit"
 			aria-disabled={processing}
+			disabled={processing}
 		>
 			{processing ? 'Processing' : 'Open'}
 		</button>
