@@ -1,5 +1,6 @@
 import { getCellValue } from './access-helpers';
 import { ITable } from '../types';
+import _ from 'lodash';
 
 /**
  * Either adds a sort on the provided key, or toggles direction, removes the sort if it was already toggled.
@@ -9,20 +10,21 @@ import { ITable } from '../types';
  * @return The new sorts array with the sort applied.
  */
 function setSort(sorts: Array<[string, boolean]>, key: string) {
+	let newSorts = _.cloneDeep(sorts);
 	/**
 	 * The existing sort (if any) on the key.
 	 */
-	const match = sorts.find((e) => e[0] === key);
+	const match = newSorts.find((e) => e[0] === key);
 	if (match) {
 		if (match[1]) match[1] = false;
 		else {
-			sorts = sorts.filter((e) => e[0] !== key);
+			newSorts = newSorts.filter((e) => e[0] !== key);
 		}
 	} else {
-		sorts.push([key, true]);
+		newSorts.push([key, true]);
 	}
 
-	return sorts;
+	return newSorts;
 }
 
 /**
@@ -33,9 +35,10 @@ function setSort(sorts: Array<[string, boolean]>, key: string) {
  * @return The table after all sorts have been applied.
  */
 function applySorting(data: ITable, sorts: Array<[string, boolean]>) {
+	let newData = _.cloneDeep(data);
 	sorts.forEach((sort) => {
 		const [key, ascending] = sort;
-		data = data.sort((row1, row2) => {
+		newData = newData.sort((row1, row2) => {
 			if (
 				getCellValue(row1, key).toUpperCase() >
 				getCellValue(row2, key).toUpperCase()
@@ -50,7 +53,7 @@ function applySorting(data: ITable, sorts: Array<[string, boolean]>) {
 		});
 	});
 
-	return data;
+	return newData;
 }
 
 export default {
