@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 
 interface IProps {
+	/**
+	 * The title of the popover.
+	 */
 	title: string;
+
+	/**
+	 * The event handler for when the popover is closed.
+	 */
 	onClose: () => void;
+
+	/**
+	 * The event handler for when the popover has apply clicked.
+	 */
 	onApply: () => void;
 }
 
+/**
+ * A modal to show on top of the table with different options to select.
+ */
 abstract class Popover extends Component<IProps> {
+	/**
+	 * A function to get the inner content of the popover.
+	 */
 	abstract getContent(): JSX.Element;
 	render() {
 		return (

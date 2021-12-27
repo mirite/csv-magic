@@ -3,11 +3,21 @@ import { ICell } from '../../types';
 import styles from '../../styles/Cell.module.css';
 
 export interface IProps {
+	/**
+	 * The id, key, and value of the cell.
+	 */
 	data: ICell;
+
+	/**
+	 * The event handler to call if the value of the cell changes.
+	 */
 	onCellChange?: (event: ICell) => any;
 }
 
 export interface IState {
+	/**
+	 * The current text value of the cell.
+	 */
 	value: string;
 }
 

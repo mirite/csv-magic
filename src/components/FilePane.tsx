@@ -2,15 +2,31 @@ import React, { Component } from 'react';
 import { ITable, IFile } from '../types';
 import FileSelector from './FileSelector';
 import Table from './Table';
+import styles from '../styles/FilePane.module.css';
 
 interface IState {}
 
 interface IProps {
+	/**
+	 * The current open file (if any).
+	 */
 	file?: ITable;
+
+	/**
+	 * The event handler to call when a new file is loaded.
+	 */
 	onLoad: (file?: IFile) => void;
 }
 
+/**
+ * A pane for a file. Shows the open file dialog if there isn't a file yet, or the file if there is.
+ */
 class FilePane extends Component<IProps, IState> {
+	/**
+	 * Returns The appropriate view based on whether or not the FilePane has a file open.
+	 *
+	 * @return The appropriate view based on whether or not the FilePane has a file open.
+	 */
 	getView() {
 		if (this.props.file) {
 			return <Table data={this.props.file} />;
@@ -19,7 +35,7 @@ class FilePane extends Component<IProps, IState> {
 	}
 
 	render() {
-		return <div style={{ overflowX: 'auto' }}>{this.getView()}</div>;
+		return <div className={styles.container}>{this.getView()}</div>;
 	}
 }
 

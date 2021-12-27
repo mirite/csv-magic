@@ -31,9 +31,15 @@ class Row extends Component<IProps> {
 	 */
 	generateInnerCells(): Array<JSX.Element> {
 		const { data, activeCell, onCellChange } = this.props;
+
+		/**
+		 * An array of the cell components that make up the row.
+		 */
 		const cells = [];
 		for (const cell of data) {
 			const { id } = cell;
+
+			//If the id of one of our cells matches the active cell id, render it as that component instead.
 			if (id === activeCell) {
 				cells.push(
 					<ActiveCell

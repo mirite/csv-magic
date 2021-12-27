@@ -11,16 +11,31 @@ class ActiveCell extends Cell {
 		this.state = { value: this.props.data.value };
 	}
 
+	/**
+	 * Update the input state if the outside cell props were changed.
+	 *
+	 * @param  prevProps The previous props object.
+	 */
 	componentDidUpdate(prevProps: IProps) {
 		if (this.props !== prevProps) {
 			this.setState({ value: this.props.data.value });
 		}
 	}
 
-	update(e: ChangeEvent) {
+	/**
+	 * Handles the change event in the cell input field.
+	 *
+	 * @param  e The input change event.
+	 */
+	handleChange(e: ChangeEvent) {
+		/**
+		 * The new value from the input.
+		 */
 		const newValue = (e.currentTarget as HTMLInputElement).value;
 		const { id, key } = this.props.data;
 		this.setState({ value: newValue });
+
+		//Call the parent event handler if one was set.
 		if (this.props.onCellChange)
 			this.props.onCellChange({ id, key, value: newValue });
 	}
@@ -32,7 +47,7 @@ class ActiveCell extends Cell {
 					type="text"
 					className={styles.input}
 					value={this.state.value}
-					onChange={(e) => this.update(e)}
+					onChange={(e) => this.handleChange(e)}
 				/>
 			</td>
 		);
