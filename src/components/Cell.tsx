@@ -1,10 +1,11 @@
 import React, { ChangeEvent, Component } from 'react';
+import { ICell } from '../types';
 
-interface IProps {
-	value: string;
+export interface IProps {
+	data: ICell;
 }
 
-interface IState {
+export interface IState {
 	value: string;
 }
 
@@ -13,24 +14,13 @@ class Cell extends Component<IProps, IState> {
 	containerStyle: React.CSSProperties = { };
 	constructor(props: IProps) {
 		super(props);
-		this.state = { value: this.props.value };
+		
 	}
 
-	componentDidUpdate(prevProps: IProps) {
-		if (this.props !== prevProps) {
-			this.setState( { value: this.props.value });
-		}
-	}
-
-	update(e: ChangeEvent) {
-		const newValue = (e.currentTarget as HTMLInputElement).value;
-		this.setState({value: newValue});
-	}
-	
 	render() {
 		return (
 			<td style={this.containerStyle}>
-				<input type='text' value={ this.state.value } onChange={(e) => this.update(e)}style={ this.inputStyle } />
+				<span style={this.inputStyle}>{this.props.data.value }</span>
 			</td>
 		);
 	}

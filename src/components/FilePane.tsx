@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { IFile } from '../modules/csv-loader';
+import { ITable, IFile } from '../types';
 import FileSelector from './FileSelector';
-import Table, { ITable } from './Table';
+import Table from './Table';
 
 interface IState {
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IFile } from '../modules/csv-loader';
+import { IFile } from '../types';
 import EditorTab from './EditorTab';
 import FilePane from './FilePane';
 

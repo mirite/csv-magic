@@ -1,5 +1,6 @@
 import React, { Component, FormEvent } from 'react';
-import CSVLoader, { IFile } from '../modules/csv-loader';
+import CSVLoader from '../modules/csv-loader';
+import { IFile } from '../types';
 
 interface IState {
 	processing: boolean;

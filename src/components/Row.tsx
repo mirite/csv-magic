@@ -1,26 +1,35 @@
-import React, { Component, Fragment as tr } from 'react';
+import React, { Component } from 'react';
+import { IRow } from '../types';
+import ActiveCell from './ActiveCell';
 import Cell from './Cell';
-
-export interface IRow {
-	[key: string]: string | boolean | number;
-}
 
 interface IProps {
 	data: IRow;
+	activeCell?: string;
+}
+
+export function getCellValue(row: IRow, key: string):string {
+	const foundCell = row.find(cell => cell.key === key);
+	if (foundCell) return foundCell.value;
+	return '';
 }
 
 class Row extends Component<IProps> {
 
 	generateRow() {
 		const cells = [];
-		for (const [index, value] of Object.entries(this.props.data)) {
-			cells.push(<Cell key={index} value={String(value)} />);
+		for (const cell of this.props.data) {
+			if (cell.id === this.props.activeCell) {
+				cells.push(<ActiveCell key={cell.id} data={cell} />);
+			} else {
+				cells.push(<Cell key={cell.id} data={cell} />);
+			}
 		}
 		return cells;
 	}
 	render() {
 		return (
-			<tr>
+			<tr key={this.props.data.id}>
 				{this.generateRow()}
 			</tr>
 		);

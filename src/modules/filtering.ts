@@ -1,1 +1,1 @@
-import { ITable } from "../components/Table";
+export function silenceIsGolder() { }

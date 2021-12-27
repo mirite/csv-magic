@@ -1,11 +1,12 @@
 import React, { Component, CSSProperties, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsAltV, faArrowUp, faArrowDown, faFilter, faFill, faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import Row, { IRow } from './Row';
+import Row from './Row';
 import Sorting from '../modules/sorting';
 import Filters from './Filters';
+import { ITable } from '../types';
 
-export interface ITable extends Array<IRow> { }
+
 
 interface IProps {
 	data: ITable;
@@ -16,6 +17,7 @@ interface IState {
 	activeSorts: Array<[string, boolean]>;
 	activeData: ITable;
 	filtersShowing: boolean;
+	activeCell?: string;
 }
 
 enum ESorts {
@@ -33,7 +35,8 @@ class Table extends Component<IProps, IState> {
 			activeFilters: [],
 			activeSorts: [],
 			activeData: props.data,
-			filtersShowing: false
+			filtersShowing: false,
+			activeCell: props.data.firstCellId,
 		};
 	}
 
@@ -53,9 +56,10 @@ class Table extends Component<IProps, IState> {
 
 	getHeaders() {
 		const cells = [];
-		for (const [key, value] of Object.entries(this.props.data[0])) {
+		for (const cell of this.props.data[0]) {
+			const { key } = cell;
 			cells.push(
-				<th scope="col" key={key} >
+				<th scope="col" key={cell.key} >
 					<div style={{ backgroundColor: 'grey', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
 						<span className="m-1"><strong>{key}</strong></span>
 						<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -104,7 +108,7 @@ class Table extends Component<IProps, IState> {
 				<table>
 					{this.getHead()}
 					<tbody>
-						{activeData.map((row, index) => <Row key={index} data={row} />)}
+						{activeData.map((row) => <Row key={row.id} data={row} activeCell={this.state.activeCell} />)}
 					</tbody>
 					{this.getFoot()}
 				</table>
