@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
 import Row from './table-parts/Row';
 import Sorting from '../../modules/sorting';
@@ -180,11 +182,13 @@ class Table extends Component<IProps, IState> {
 		return (
 			<Fragment>
 				<div>
-					<button type="button" onClick={()=>this.saveTable()}>Save As</button>
+					<button type="button" onClick={() => this.saveTable()}>
+						Save As
+					</button>
 				</div>
 				<table>
 					{this.getHead()}
-					<tbody onClick={ (e) =>  this.handleActiveCellChange(e)}>
+					<tbody onClick={(e) => this.handleActiveCellChange(e)}>
 						{activeData.map((row) => (
 							<Row
 								key={row.id}

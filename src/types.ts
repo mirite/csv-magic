@@ -20,7 +20,7 @@ export interface ICell {
 /**
  * A table row as loaded from the file without any additional processing.
  */
- export interface IRawRow {
+export interface IRawRow {
 	[key: string]: string;
 }
 
