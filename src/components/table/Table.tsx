@@ -3,7 +3,8 @@
 import React, { Component, Fragment } from 'react';
 import Row from './table-parts/Row';
 import Sorting from '../../modules/sorting';
-import Filters from './Filters';
+import Filtering from '../../modules/filtering';
+import FiltersModal from './FiltersModal';
 import { ICell, ITable } from '../../types';
 import TableHeadings from './table-parts/TablesHeadings';
 import { updateCell } from '../../modules/editing';
@@ -119,10 +120,13 @@ class Table extends Component<IProps, IState> {
 	/**
 	 * Handles the application of a filter.
 	 *
-	 * @param  newFilter
+	 * @param  newFilters
 	 */
-	handleApply(newFilter: Array<[string, string]>): void {
-		throw new Error('Method not implemented.');
+	handleApplyFilters(newFilters: Array<[string, string]>): void {
+		const { activeData, activeFilters } = this.state;
+		const newFilterState = [...activeFilters, ...newFilters];
+		const newData = Filtering.applyFilters(activeData, newFilterState);
+		this.setState({ activeFilters: newFilterState, activeData: newData });
 	}
 
 	/**
@@ -143,10 +147,12 @@ class Table extends Component<IProps, IState> {
 			);
 
 			return (
-				<Filters
+				<FiltersModal
 					title="Filter"
 					onClose={() => this.handleFilterClose()}
-					onApply={(newFilter) => this.handleApply(newFilter)}
+					onApply={(newFilters) =>
+						this.handleApplyFilters(newFilters)
+					}
 					table={this.state.activeData}
 					column={filtersShowing}
 					activeFilters={filtersOnColumn}

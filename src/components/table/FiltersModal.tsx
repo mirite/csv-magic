@@ -20,7 +20,11 @@ interface IState {
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class Filters extends Popover<IProps, IState> {
+export default class FiltersModal extends Popover<IProps, IState> {
+	constructor(props: IProps) {
+		super(props);
+		this.state = { filterList: [] };
+	}
 	getContent(): JSX.Element {
 		const { table, column } = this.props;
 		return (
@@ -50,7 +54,38 @@ export default class Filters extends Popover<IProps, IState> {
 		return false;
 	}
 
-	handleChange(value: string, status: boolean) {}
+	handleChange(value: string, status: boolean) {
+		/**
+		 * The filter list previously existing in the state.
+		 */
+		const oldFilterList = this.state.filterList;
+
+		/**
+		 * The new filter list once our change is applied.
+		 */
+		let newFilterList: Array<[string, string]>;
+
+		//If the filter status was switched to off, we just need the filter list with that filter removed
+		//(Even if it was never there to begin with)
+		if (!status) {
+			newFilterList = oldFilterList.filter((pair) => pair[1] !== value);
+		} else {
+			/**
+			 * Any existing filters on value.
+			 */
+			const existingFilter = oldFilterList.find(
+				(pair) => pair[1] === value
+			);
+
+			//If we are already filtering on this value no need to update the state.
+			if (existingFilter) return;
+
+			const { column } = this.props;
+			newFilterList = [...oldFilterList, [column, value]];
+		}
+
+		this.setState({ filterList: newFilterList });
+	}
 
 	handleApply(): void {
 		const { filterList } = this.state;
