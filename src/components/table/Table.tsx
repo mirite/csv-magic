@@ -179,7 +179,9 @@ class Table extends Component<IProps, IState> {
 		const { activeData } = this.state;
 		return (
 			<Fragment>
-				<button type="button" onClick={()=>this.saveTable()}>Save As</button>
+				<div>
+					<button type="button" onClick={()=>this.saveTable()}>Save As</button>
+				</div>
 				<table>
 					{this.getHead()}
 					<tbody onClick={ (e) =>  this.handleActiveCellChange(e)}>

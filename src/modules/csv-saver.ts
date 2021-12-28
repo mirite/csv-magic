@@ -26,10 +26,11 @@ function download(filename:string, text:string):void {
 	document.body.removeChild(element);
 }
 
-export default (data:ITable) => {
+export default (data:ITable, fileName?: string) => {
 	const rawData = convertToRawTable(data);
 	const parser = new Parser();
 	const outputData = parser.parse(rawData);
-	download(`csv_magic_${Date.now()}.csv`, outputData);
+	const name = fileName ?? `csv_magic_${Date.now()}.csv`;
+	download(name, outputData);
 }
 
