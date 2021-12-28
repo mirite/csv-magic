@@ -24,38 +24,44 @@ interface IProps {
  * Displays a row of cells within a table.
  */
 class Row extends Component<IProps> {
-	/**
-	 * Renders out the inner array of Cells and returns it.
-	 *
-	 * @return an array of cells.
-	 */
-	generateInnerCells(): Array<JSX.Element> {
-		const { data, activeCell, onCellChange } = this.props;
+	renderNormalRow() {
+		const { contents } = this.props.data;
+		return contents.map((cell) => {
+			return <Cell key={cell.id} data={cell} />;
+		});
+	}
 
-		/**
-		 * An array of the cell components that make up the row.
-		 */
-		const cells = [];
-		for (const cell of data.contents) {
-			const { id } = cell;
-
-			//If the id of one of our cells matches the active cell id, render it as that component instead.
-			if (id === activeCell) {
-				cells.push(
+	renderRowWithActiveCell() {
+		const { contents } = this.props.data;
+		const { activeCell, onCellChange } = this.props;
+		return contents.map((cell) => {
+			if (cell.id === activeCell) {
+				return (
 					<ActiveCell
-						key={id}
+						key={cell.id}
 						data={cell}
 						onCellChange={(e: ICell) => onCellChange(e)}
 					/>
 				);
-			} else {
-				cells.push(<Cell key={id} data={cell} />);
 			}
-		}
-		return cells;
+			return <Cell key={cell.id} data={cell} />;
+		});
 	}
+
+	isActiveCellInRow() {
+		const { activeCell, data } = this.props;
+		if (!activeCell || !data.id) return false;
+		return activeCell.includes(data.id);
+	}
+
 	render() {
-		return <tr>{this.generateInnerCells()}</tr>;
+		let elems;
+		if (this.isActiveCellInRow()) {
+			elems = this.renderRowWithActiveCell();
+		} else {
+			elems = this.renderNormalRow();
+		}
+		return <tr>{elems}</tr>;
 	}
 }
 

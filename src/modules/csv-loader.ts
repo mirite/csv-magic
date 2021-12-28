@@ -31,16 +31,22 @@ function convertToTable(raw: IRawTable): ITable {
 		 * A new row within the output table.
 		 */
 		const newRow: IRow = { contents: [] };
+
+		/**
+		 * Counter to make cell ids somewhat predictable.
+		 */
+		let i = 0;
 		newRow.id = uuidv4();
 		for (const cell of Object.entries(rawRow)) {
 			/**
 			 * Give each cell a unique ID for finding it later on.
 			 */
-			const id = uuidv4();
+			const id = newRow.id + '?' + String(i);
 
 			//If the table doesn't have an active cell yet, indicate that this cell is the first in the table.
 			if (!newTable.firstCellId) newTable.firstCellId = id;
 			newRow.contents.push({ id, value: cell[1], key: cell[0] });
+			i++;
 		}
 		newTable.contents.push(newRow);
 	});
