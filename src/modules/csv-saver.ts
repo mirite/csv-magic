@@ -3,9 +3,9 @@ import { Parser } from 'json2csv';
 
 function convertToRawTable(data: ITable) {
 	const rawTable: IRawTable = [];
-	for (const row of data) {
+	for (const row of data.contents) {
 		const rawRow: IRawRow = {};
-		for (const cell of row) {
+		for (const cell of row.contents) {
 			rawRow[cell.key] = cell.value;
 		}
 		rawTable.push(rawRow);

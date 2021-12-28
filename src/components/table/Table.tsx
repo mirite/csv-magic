@@ -86,7 +86,7 @@ class Table extends Component<IProps, IState> {
 	 * @return A heading component created from a sample row in the table.
 	 */
 	getHeaders() {
-		const row = this.props.data[0];
+		const row = this.props.data.contents[0];
 		return (
 			<TableHeadings
 				exampleRow={row}
@@ -179,6 +179,7 @@ class Table extends Component<IProps, IState> {
 
 	render() {
 		const { activeData } = this.state;
+		const { contents } = activeData;
 		return (
 			<Fragment>
 				<div>
@@ -189,7 +190,7 @@ class Table extends Component<IProps, IState> {
 				<table>
 					{this.getHead()}
 					<tbody onClick={(e) => this.handleActiveCellChange(e)}>
-						{activeData.map((row) => (
+						{contents.map((row) => (
 							<Row
 								key={row.id}
 								data={row}

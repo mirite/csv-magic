@@ -8,7 +8,7 @@ import { IRow } from '../types';
  * @return The value at the specified key. Blank if the key was not present.
  */
 export function getCellValue(row: IRow, key: string): string {
-	const foundCell = row.find((cell) => cell.key === key);
+	const foundCell = row.contents.find((cell) => cell.key === key);
 	if (foundCell) return foundCell.value;
 	return '';
 }

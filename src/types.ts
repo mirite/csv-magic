@@ -3,12 +3,14 @@ export interface IFile {
 	data?: ITable;
 }
 
-export interface ITable extends Array<IRow> {
+export interface ITable {
 	firstCellId?: string;
+	contents: Array<IRow>;
 }
 
-export interface IRow extends Array<ICell> {
+export interface IRow {
 	id?: string;
+	contents: Array<ICell>;
 }
 
 export interface ICell {

@@ -2,8 +2,8 @@ import _ from 'lodash';
 import { ICell, ITable } from '../types';
 
 function getCell(data: ITable, id: string) {
-	for (const row of data) {
-		for (const cell of row) {
+	for (const row of data.contents) {
+		for (const cell of row.contents) {
 			if (cell.id === id) {
 				return cell;
 			}

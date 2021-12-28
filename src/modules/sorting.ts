@@ -35,10 +35,10 @@ function setSort(sorts: Array<[string, boolean]>, key: string) {
  * @return The table after all sorts have been applied.
  */
 function applySorting(data: ITable, sorts: Array<[string, boolean]>) {
-	let newData = _.cloneDeep(data);
+	const newData = _.cloneDeep(data);
 	sorts.forEach((sort) => {
 		const [key, ascending] = sort;
-		newData = newData.sort((row1, row2) => {
+		newData.contents = newData.contents.sort((row1, row2) => {
 			if (
 				getCellValue(row1, key).toUpperCase() >
 				getCellValue(row2, key).toUpperCase()

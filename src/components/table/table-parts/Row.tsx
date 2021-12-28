@@ -36,7 +36,7 @@ class Row extends Component<IProps> {
 		 * An array of the cell components that make up the row.
 		 */
 		const cells = [];
-		for (const cell of data) {
+		for (const cell of data.contents) {
 			const { id } = cell;
 
 			//If the id of one of our cells matches the active cell id, render it as that component instead.
@@ -55,7 +55,7 @@ class Row extends Component<IProps> {
 		return cells;
 	}
 	render() {
-		return <tr key={this.props.data.id}>{this.generateInnerCells()}</tr>;
+		return <tr>{this.generateInnerCells()}</tr>;
 	}
 }
 

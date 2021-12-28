@@ -24,13 +24,13 @@ function convertToTable(raw: IRawTable): ITable {
 	/**
 	 * The table being created from the raw data.
 	 */
-	const newTable: ITable = [];
+	const newTable: ITable = { contents: [] };
 
 	raw.forEach((rawRow: IRawRow) => {
 		/**
 		 * A new row within the output table.
 		 */
-		const newRow: IRow = [];
+		const newRow: IRow = { contents: [] };
 		newRow.id = uuidv4();
 		for (const cell of Object.entries(rawRow)) {
 			/**
@@ -40,9 +40,9 @@ function convertToTable(raw: IRawTable): ITable {
 
 			//If the table doesn't have an active cell yet, indicate that this cell is the first in the table.
 			if (!newTable.firstCellId) newTable.firstCellId = id;
-			newRow.push({ id, value: cell[1], key: cell[0] });
+			newRow.contents.push({ id, value: cell[1], key: cell[0] });
 		}
-		newTable.push(newRow);
+		newTable.contents.push(newRow);
 	});
 
 	return newTable;
