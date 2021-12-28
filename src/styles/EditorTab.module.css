@@ -6,7 +6,8 @@
 
 .navLink {
 	composes: nav-link from 'bootstrap/dist/css/bootstrap.css';
-
+	border-bottom: 1px solid grey;
+	color: black;
 }
 
 .title {
@@ -19,6 +20,8 @@
 
 .active {
 	border-bottom: 0;
+	background-color: lightgreen;
+	
 }
 
 .titleButton {
