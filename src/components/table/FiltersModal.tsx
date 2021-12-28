@@ -2,7 +2,8 @@ import Popover, { PopoverProps } from '../Popover';
 import React, { Component } from 'react';
 import { IFilter, ITable } from '../../types';
 import { getUniqueValuesInColumn } from '../../modules/access-helpers';
-import FilterValue from '../filter-controls/FilterValue';
+import FilterValue from './filter-controls/FilterValue';
+import styles from '../../styles/FiltersModal.module.css';
 
 interface IProps extends PopoverProps {
 	column: string;
@@ -28,7 +29,7 @@ export default class FiltersModal extends Popover<IProps, IState> {
 	getContent(): JSX.Element {
 		const { table, column } = this.props;
 		return (
-			<ul>
+			<ul className={styles.list}>
 				{getUniqueValuesInColumn(table, column).map((pair) => (
 					<FilterValue
 						key={pair[0]}
@@ -81,5 +82,6 @@ export default class FiltersModal extends Popover<IProps, IState> {
 	handleApply(): void {
 		const { filterList } = this.state;
 		this.props.onApply(filterList);
+		this.props.onClose();
 	}
 }

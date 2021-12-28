@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from '../styles/Popover.module.css';
 
 export interface PopoverProps {
 	/**
@@ -33,7 +34,7 @@ abstract class Popover<
 	render() {
 		return (
 			<div className="modal" style={{ display: 'block' }}>
-				<div className="modal-dialog">
+				<div className={styles.container}>
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title">{this.props.title}</h5>
