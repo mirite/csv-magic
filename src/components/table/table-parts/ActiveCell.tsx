@@ -23,11 +23,11 @@ class ActiveCell extends Cell {
 	}
 
 	componentWillUnmount() {
-		const { id, key } = this.props.data;
+		const { id, key, value: initValue } = this.props.data;
 		const { value } = this.state;
-		//Call the parent event handler if one was set.
-		if (this.props.onCellChange)
-			this.props.onCellChange({ id, key, value });
+		//Call the parent event handler if one was set. and if the cell was actually changed.
+		if (value === initValue || !this.props.onCellChange) return;
+		this.props.onCellChange({ id, key, value });
 	}
 
 	/**

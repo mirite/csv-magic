@@ -1,4 +1,4 @@
-import { getCellValue } from './access-helpers';
+import { getCellValueByKey } from './access-helpers';
 import { ITable } from '../types';
 import _ from 'lodash';
 
@@ -40,13 +40,13 @@ function applySorting(data: ITable, sorts: Array<[string, boolean]>) {
 		const [key, ascending] = sort;
 		newData.contents = newData.contents.sort((row1, row2) => {
 			if (
-				getCellValue(row1, key).toUpperCase() >
-				getCellValue(row2, key).toUpperCase()
+				getCellValueByKey(row1, key).toUpperCase() >
+				getCellValueByKey(row2, key).toUpperCase()
 			)
 				return ascending ? 1 : -1;
 			if (
-				getCellValue(row1, key).toUpperCase() <
-				getCellValue(row2, key).toUpperCase()
+				getCellValueByKey(row1, key).toUpperCase() <
+				getCellValueByKey(row2, key).toUpperCase()
 			)
 				return ascending ? -1 : 1;
 			return 0;

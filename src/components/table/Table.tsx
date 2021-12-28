@@ -158,10 +158,10 @@ class Table extends Component<IProps, IState> {
 	/**
 	 * Handles the change of a value within a cell.
 	 *
-	 * @param  e The new cell data.
+	 * @param  changedCell The new cell data.
 	 */
-	handleCellChange(e: ICell) {
-		const newData = updateCell(this.state.activeData, e);
+	handleCellChange(changedCell: ICell) {
+		const newData = updateCell(this.state.activeData, changedCell);
 		this.setState({ activeData: newData });
 	}
 
