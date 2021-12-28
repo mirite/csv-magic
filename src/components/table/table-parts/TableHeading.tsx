@@ -8,20 +8,17 @@ import {
 	faFill,
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
-import { ICell } from '../../../types';
 import styles from '../../../styles/TableHeading.module.css';
 
 interface HeadingsProps {
-	exampleCell: ICell;
+	key: string;
 	onShowFilter: Function;
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
 }
 
 const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
-	const cell = props.exampleCell;
-	const { key } = cell;
-
+	const { key } = props;
 	const getSortStateIcon = () => {
 		const sort = props.activeSorts.find((e) => e[0] === key);
 		if (!sort) return faArrowsAltV;
@@ -30,7 +27,7 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 	};
 
 	return (
-		<th scope="col" key={cell.key}>
+		<th scope="col" key={key}>
 			<div className={styles.container}>
 				<span className="m-1">
 					<strong>{key}</strong>

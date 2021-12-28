@@ -51,6 +51,11 @@ class Editor extends Component<IProps, IState> {
 		this.setState({ currentIndex: index });
 	}
 
+	/**
+	 * Handles the closing of a tab. Removes that tab from the list of open files and moves the current index back one if necessary.
+	 *
+	 * @param  index The index of the tab to close.
+	 */
 	handleTabClose(index: number): void {
 		const { currentIndex } = this.state;
 		let newIndex = currentIndex;
@@ -58,6 +63,9 @@ class Editor extends Component<IProps, IState> {
 			newIndex -= 1;
 		}
 
+		/**
+		 * The new file list with the file that is being closed removed.
+		 */
 		const remainingFiles = this.state.files.filter(
 			(file, i) => i !== index
 		);

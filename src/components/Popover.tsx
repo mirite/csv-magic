@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-interface IProps {
+export interface PopoverProps {
 	/**
 	 * The title of the popover.
 	 */
@@ -20,7 +20,7 @@ interface IProps {
 /**
  * A modal to show on top of the table with different options to select.
  */
-abstract class Popover extends Component<IProps> {
+abstract class Popover<P extends PopoverProps> extends Component<P> {
 	/**
 	 * A function to get the inner content of the popover.
 	 */

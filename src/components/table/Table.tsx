@@ -33,9 +33,9 @@ interface IState {
 	activeData: ITable;
 
 	/**
-	 * True indicates that a filter modal is being shown.
+	 * A column name indicates that a filter modal is being shown for that column.
 	 */
-	filtersShowing: boolean;
+	filtersShowing: string;
 
 	/**
 	 * The uuid of the cell that is currently being edited.
@@ -55,7 +55,7 @@ class Table extends Component<IProps, IState> {
 			activeFilters: [],
 			activeSorts: [],
 			activeData: data,
-			filtersShowing: false,
+			filtersShowing: '',
 			activeCell: data.firstCellId,
 		};
 	}
@@ -86,10 +86,9 @@ class Table extends Component<IProps, IState> {
 	 * @return A heading component created from a sample row in the table.
 	 */
 	getHeaders() {
-		const row = this.props.data.contents[0];
 		return (
 			<TableHeadings
-				exampleRow={row}
+				table={this.state.activeData}
 				activeSorts={this.state.activeSorts}
 				onSort={(key: string) => this.handleSort(key)}
 				onShowFilter={(key: string) => this.handleShowFilter(key)}
@@ -128,7 +127,7 @@ class Table extends Component<IProps, IState> {
 	 * Handles the closing of the filter window.
 	 */
 	handleFilterClose(): void {
-		this.setState({ filtersShowing: false });
+		this.setState({ filtersShowing: '' });
 	}
 
 	/**
@@ -141,6 +140,8 @@ class Table extends Component<IProps, IState> {
 					title="Filter"
 					onClose={() => this.handleFilterClose()}
 					onApply={() => this.handleApply()}
+					table={this.state.activeData}
+					column={this.state.filtersShowing}
 				/>
 			);
 		}
@@ -152,7 +153,7 @@ class Table extends Component<IProps, IState> {
 	 * @param  key The key to filter on.
 	 */
 	handleShowFilter(key: string) {
-		this.setState({ filtersShowing: true });
+		this.setState({ filtersShowing: key });
 	}
 
 	/**

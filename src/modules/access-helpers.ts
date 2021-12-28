@@ -34,3 +34,29 @@ export function getCellByID(table: ITable, id: string): ICell | undefined {
 	const cell = foundRow?.contents[cellIndex];
 	return cell;
 }
+
+export function getColumnNames(table: ITable): Array<string> {
+	const exampleRow = table.contents[0];
+	if (!exampleRow) throw new Error('No Rows Found In Table');
+	return exampleRow.contents.map((cell) => cell.key);
+}
+
+export function getUniqueValuesInColumn(
+	table: ITable,
+	column: string
+): Array<[string, number]> {
+	const values: Array<[string, number]> = [];
+	for (const row of table.contents) {
+		const cellValue = getCellValueByKey(row, column);
+		const existingRecord = values.find(
+			(valuePair) => valuePair[0] === cellValue
+		);
+
+		if (existingRecord) {
+			existingRecord[1]++;
+		} else {
+			values.push([cellValue, 1]);
+		}
+	}
+	return values;
+}
