@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from '../styles/EditorTab.module.css';
 
 interface IProps {
 	/**
@@ -23,16 +24,20 @@ interface IProps {
 class EditorTab extends Component<IProps> {
 	render() {
 		const { label: name, active } = this.props;
-		const classList = 'nav-link' + (active ? ' active' : '');
+		const titleClass =
+			styles.titleButton + (active ? ' ' + styles.active : '');
+		const closeClass =
+			styles.closeButton + (active ? ' ' + styles.active : '');
 		return (
-			<li className="nav-item">
+			<li className={styles.navItem}>
 				<button
-					className={classList}
+					className={titleClass}
 					aria-current="page"
 					onClick={(e) => this.handleClick(e)}
 				>
 					{name}
 				</button>
+				<button className={closeClass}>X</button>
 			</li>
 		);
 	}

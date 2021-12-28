@@ -1,0 +1,30 @@
+.navItem {
+	composes: nav-item from 'bootstrap/dist/css/bootstrap.css';
+	display: flex;
+	margin-right: 5px;
+}
+
+.navLink {
+	composes: nav-link from 'bootstrap/dist/css/bootstrap.css';
+
+}
+
+.title {
+	border-right: 0;
+}
+
+.close {
+	border-left: 0;
+}
+
+.active {
+	border-bottom: 0;
+}
+
+.titleButton {
+	composes: navLink title;
+}
+.closeButton {
+	composes: navLink close;
+
+}
