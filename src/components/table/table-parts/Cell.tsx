@@ -25,10 +25,12 @@ export interface IState {
  * A single cell within a table.
  */
 class Cell extends Component<IProps, IState> {
+	
 	render() {
+		const { value, id } = this.props.data;
 		return (
-			<td className={styles.container}>
-				<span className={styles.label}>{this.props.data.value}</span>
+			<td className={styles.container} data-id={id}>
+				<span className={styles.label} data-id={id}>{value}</span>
 			</td>
 		);
 	}

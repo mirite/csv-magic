@@ -162,13 +162,21 @@ class Table extends Component<IProps, IState> {
 		this.setState({ activeData: newData });
 	}
 
+	handleActiveCellChange(e: React.MouseEvent) {
+		const { target } = e;
+		const { dataset } = target as HTMLElement;
+		if (dataset && dataset.id) {
+			this.setState({ activeCell: dataset.id });
+		}
+	}
+
 	render() {
 		const { activeData } = this.state;
 		return (
 			<Fragment>
 				<table>
 					{this.getHead()}
-					<tbody>
+					<tbody onClick={ (e) =>  this.handleActiveCellChange(e)}>
 						{activeData.map((row) => (
 							<Row
 								key={row.id}
