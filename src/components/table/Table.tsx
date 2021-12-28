@@ -5,6 +5,7 @@ import Filters from './Filters';
 import { ICell, ITable } from '../../types';
 import TableHeadings from './table-parts/TablesHeadings';
 import { updateCell } from '../../modules/editing';
+import CSVSaver from '../../modules/csv-saver';
 
 interface IProps {
 	/**
@@ -170,10 +171,15 @@ class Table extends Component<IProps, IState> {
 		}
 	}
 
+	saveTable() {
+		CSVSaver(this.state.activeData);
+	}
+
 	render() {
 		const { activeData } = this.state;
 		return (
 			<Fragment>
+				<button type="button" onClick={()=>this.saveTable()}>Save As</button>
 				<table>
 					{this.getHead()}
 					<tbody onClick={ (e) =>  this.handleActiveCellChange(e)}>

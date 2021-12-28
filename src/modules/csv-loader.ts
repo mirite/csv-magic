@@ -1,18 +1,6 @@
 import csv from 'csvtojson';
 import { v4 as uuidv4 } from 'uuid';
-import { ITable, IRow, IFile } from '../types';
-
-/**
- * A table row as loaded from the file without any additional processing.
- */
-interface IRawRow {
-	[key: string]: string;
-}
-
-/**
- * A table as loaded from the file without any additional processing.
- */
-interface IRawTable extends Array<IRawRow> {}
+import { ITable, IRow, IFile, IRawRow, IRawTable } from '../types';
 
 /**
  * Takes the text content of a CSV file and returns the raw table from it (an array of objects (rows) with keys and values).

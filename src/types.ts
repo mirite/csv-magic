@@ -16,3 +16,15 @@ export interface ICell {
 	value: string;
 	id: string;
 }
+
+/**
+ * A table row as loaded from the file without any additional processing.
+ */
+ export interface IRawRow {
+	[key: string]: string;
+}
+
+/**
+ * A table as loaded from the file without any additional processing.
+ */
+export interface IRawTable extends Array<IRawRow> {}
