@@ -5,7 +5,7 @@ import Row from './table-parts/Row';
 import Sorting from '../../modules/sorting';
 import Filtering from '../../modules/filtering';
 import FiltersModal from './FiltersModal';
-import { ICell, ITable } from '../../types';
+import { ICell, IFilter, ITable } from '../../types';
 import TableHeadings from './table-parts/TablesHeadings';
 import { updateCell } from '../../modules/editing';
 import CSVSaver from '../../modules/csv-saver';
@@ -21,7 +21,7 @@ interface IState {
 	/**
 	 * An array of the active filters applied with their key and value to show.
 	 */
-	activeFilters: Array<[string, string]>;
+	activeFilters: Array<IFilter>;
 
 	/**
 	 * An array of currently active sorting methods.
@@ -122,9 +122,9 @@ class Table extends Component<IProps, IState> {
 	 *
 	 * @param  newFilters
 	 */
-	handleApplyFilters(newFilters: Array<[string, string]>): void {
+	handleApplyFilters(newFilters: IFilter): void {
 		const { activeData, activeFilters } = this.state;
-		const newFilterState = [...activeFilters, ...newFilters];
+		const newFilterState = [...activeFilters, newFilters];
 		const newData = Filtering.applyFilters(activeData, newFilterState);
 		this.setState({ activeFilters: newFilterState, activeData: newData });
 	}
@@ -142,20 +142,13 @@ class Table extends Component<IProps, IState> {
 	getModals() {
 		const { filtersShowing } = this.state;
 		if (filtersShowing) {
-			const filtersOnColumn = this.state.activeFilters.filter(
-				(item) => item[0] === filtersShowing
-			);
-
 			return (
 				<FiltersModal
 					title="Filter"
 					onClose={() => this.handleFilterClose()}
-					onApply={(newFilters) =>
-						this.handleApplyFilters(newFilters)
-					}
+					onApply={(newFilter) => this.handleApplyFilters(newFilter)}
 					table={this.state.activeData}
 					column={filtersShowing}
-					activeFilters={filtersOnColumn}
 				/>
 			);
 		}

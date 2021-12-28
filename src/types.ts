@@ -30,3 +30,8 @@ export interface IRawRow {
  * A table as loaded from the file without any additional processing.
  */
 export interface IRawTable extends Array<IRawRow> {}
+
+export interface IFilter {
+	column: string;
+	values: string[];
+}
