@@ -44,13 +44,15 @@ class ActiveCell extends Cell {
 	}
 
 	render() {
+		const { value } = this.state;
+		const rowCount = value.split('\\n').length;
 		return (
 			<td className={styles.container}>
-				<input
-					type="text"
+				<textarea
 					className={styles.input}
-					value={this.state.value}
 					onChange={(e) => this.handleChange(e)}
+					rows={rowCount}
+					value={value}
 				/>
 			</td>
 		);
