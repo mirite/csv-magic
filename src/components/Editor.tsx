@@ -51,6 +51,20 @@ class Editor extends Component<IProps, IState> {
 		this.setState({ currentIndex: index });
 	}
 
+	handleTabClose(index: number): void {
+		const { currentIndex } = this.state;
+		let newIndex = currentIndex;
+		if (currentIndex === index) {
+			newIndex -= 1;
+		}
+
+		const remainingFiles = this.state.files.filter(
+			(file, i) => i !== index
+		);
+
+		this.setState({ files: remainingFiles, currentIndex: newIndex });
+	}
+
 	render() {
 		const { currentIndex } = this.state;
 		/**
@@ -65,7 +79,9 @@ class Editor extends Component<IProps, IState> {
 							key={index}
 							label={file.fileName ?? 'CSV Magic'}
 							onClick={() => this.handleTabClick(index)}
+							onClose={() => this.handleTabClose(index)}
 							active={index === currentIndex}
+							home={index === 0}
 						/>
 					))}
 				</ul>

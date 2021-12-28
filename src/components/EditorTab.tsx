@@ -16,18 +16,37 @@ interface IProps {
 	 * The event to call when the tab is clicked on.
 	 */
 	onClick: () => void;
+
+	/**
+	 * The event to call when the tabs close button is clicked.
+	 */
+	onClose: () => void;
+
+	/**
+	 * Whether or not this tab is the home tab.
+	 */
+	home: boolean;
 }
 
 /**
  * A tab in the app representing an open file.
  */
 class EditorTab extends Component<IProps> {
+	closeButton() {
+		const { active } = this.props;
+		const closeClass =
+			styles.closeButton + (active ? ' ' + styles.active : '');
+		return (
+			<button className={closeClass} onClick={() => this.props.onClose()}>
+				X
+			</button>
+		);
+	}
 	render() {
 		const { label: name, active } = this.props;
 		const titleClass =
 			styles.titleButton + (active ? ' ' + styles.active : '');
-		const closeClass =
-			styles.closeButton + (active ? ' ' + styles.active : '');
+
 		return (
 			<li className={styles.navItem}>
 				<button
@@ -37,7 +56,7 @@ class EditorTab extends Component<IProps> {
 				>
 					{name}
 				</button>
-				<button className={closeClass}>X</button>
+				{this.props.home ? '' : this.closeButton()}
 			</li>
 		);
 	}
