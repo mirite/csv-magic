@@ -14,13 +14,18 @@ export interface PopoverProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: () => void;
+	onApply: (arg0: any) => void;
 }
+
+interface PopoverState {}
 
 /**
  * A modal to show on top of the table with different options to select.
  */
-abstract class Popover<P extends PopoverProps> extends Component<P> {
+abstract class Popover<
+	P extends PopoverProps,
+	S extends PopoverState
+> extends Component<P, S> {
 	/**
 	 * A function to get the inner content of the popover.
 	 */
@@ -47,7 +52,7 @@ abstract class Popover<P extends PopoverProps> extends Component<P> {
 							</button>
 							<button
 								className="btn btn-primary"
-								onClick={this.props.onApply}
+								onClick={() => this.handleApply()}
 							>
 								Apply
 							</button>
@@ -57,6 +62,7 @@ abstract class Popover<P extends PopoverProps> extends Component<P> {
 			</div>
 		);
 	}
+	abstract handleApply(): void;
 }
 
 export default Popover;

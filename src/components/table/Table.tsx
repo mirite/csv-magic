@@ -28,7 +28,7 @@ interface IState {
 	activeSorts: Array<[string, boolean]>;
 
 	/**
-	 * The current data showing after filters, sorts, and edits have been applied.
+	 * The current data showing after filters, sorts have been applied.
 	 */
 	activeData: ITable;
 
@@ -118,8 +118,10 @@ class Table extends Component<IProps, IState> {
 
 	/**
 	 * Handles the application of a filter.
+	 *
+	 * @param  newFilter
 	 */
-	handleApply(): void {
+	handleApply(newFilter: Array<[string, string]>): void {
 		throw new Error('Method not implemented.');
 	}
 
@@ -134,14 +136,20 @@ class Table extends Component<IProps, IState> {
 	 * Displays the filter modal if it is active.
 	 */
 	getModals() {
-		if (this.state.filtersShowing) {
+		const { filtersShowing } = this.state;
+		if (filtersShowing) {
+			const filtersOnColumn = this.state.activeFilters.filter(
+				(item) => item[0] === filtersShowing
+			);
+
 			return (
 				<Filters
 					title="Filter"
 					onClose={() => this.handleFilterClose()}
-					onApply={() => this.handleApply()}
+					onApply={(newFilter) => this.handleApply(newFilter)}
 					table={this.state.activeData}
-					column={this.state.filtersShowing}
+					column={filtersShowing}
+					activeFilters={filtersOnColumn}
 				/>
 			);
 		}

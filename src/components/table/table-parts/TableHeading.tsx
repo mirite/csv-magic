@@ -11,14 +11,14 @@ import {
 import styles from '../../../styles/TableHeading.module.css';
 
 interface HeadingsProps {
-	key: string;
+	fieldName: string;
 	onShowFilter: Function;
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
 }
 
 const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
-	const { key } = props;
+	const { fieldName: key } = props;
 	const getSortStateIcon = () => {
 		const sort = props.activeSorts.find((e) => e[0] === key);
 		if (!sort) return faArrowsAltV;

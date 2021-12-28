@@ -13,13 +13,14 @@ interface TableHeadingsProps {
 const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 	const cells = [];
 	const { activeSorts, table, onShowFilter, onSort } = props;
-	for (const key of getColumnNames(table)) {
+	for (const fieldName of getColumnNames(table)) {
 		cells.push(
 			<TableHeading
-				key={key}
+				key={fieldName}
+				fieldName={fieldName}
 				activeSorts={activeSorts}
-				onShowFilter={() => onShowFilter(key)}
-				onSort={() => onSort(key)}
+				onShowFilter={() => onShowFilter(fieldName)}
+				onSort={() => onSort(fieldName)}
 			/>
 		);
 	}
