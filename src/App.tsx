@@ -7,7 +7,7 @@ function App() {
 	return (
 		<div className="App">
 			<header className={styles.header}>
-				<h1>CSV Magic</h1>
+				<h1>🪄CSV Magic🪄</h1>
 			</header>
 			<main className={styles.main}>
 				<p>
