@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { ITable, IFile } from '../types';
 import FileSelector from './file-selector/FileSelector';
-import Table from './table/Table';
-import styles from '../styles/FilePane.module.css';
+import styles from '../styles/MainView.module.css';
+import Editor from './Editor';
 
 interface IState {}
 
@@ -21,7 +21,7 @@ interface IProps {
 /**
  * A pane for a file. Shows the open file dialog if there isn't a file yet, or the file if there is.
  */
-class FilePane extends Component<IProps, IState> {
+class MainView extends Component<IProps, IState> {
 	/**
 	 * Returns The appropriate view based on whether or not the FilePane has a file open.
 	 *
@@ -29,7 +29,7 @@ class FilePane extends Component<IProps, IState> {
 	 */
 	getView() {
 		if (this.props.file) {
-			return <Table data={this.props.file} />;
+			return <Editor data={this.props.file} />;
 		}
 		return <FileSelector onChange={(data) => this.props.onLoad(data)} />;
 	}
@@ -39,4 +39,4 @@ class FilePane extends Component<IProps, IState> {
 	}
 }
 
-export default FilePane;
+export default MainView;

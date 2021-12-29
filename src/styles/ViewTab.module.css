@@ -14,9 +14,6 @@
 	border-right: 0;
 }
 
-.close {
-	border-left: 0;
-}
 
 .active {
 	border-bottom: 0;
@@ -24,10 +21,21 @@
 	
 }
 
+.active:hover {
+	color: black;
+}
+
+.close {
+	border-left: 0;
+}
+
+.close:hover {
+	color: red;
+}
 .titleButton {
 	composes: navLink title;
 }
 .closeButton {
 	composes: navLink close;
-
+	
 }

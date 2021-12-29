@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Editor from './components/Editor';
+import ViewContainer from './components/ViewContainer';
 import styles from './styles/App.module.css';
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
 						View On GitHub
 					</a>
 				</p>
-				<Editor />
+				<ViewContainer />
 			</main>
 		</div>
 	);

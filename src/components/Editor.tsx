@@ -1,103 +1,147 @@
-import React, { Component } from 'react';
-import { IFile } from '../types';
-import EditorTab from './EditorTab';
-import FilePane from './FilePane';
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { Component, Fragment } from 'react';
+import Sorting from './../modules/sorting';
+import Filtering from './../modules/filtering';
+import FiltersModal from './FiltersModal';
+import { IFilter, ITable } from '../types';
+import Chrome from './chrome/Chrome';
+import Table from './table/Table';
 
-interface IProps {}
-
-interface IState {
+interface IProps {
 	/**
-	 * The files currently open in the editor.
+	 * The data from the file that was opened.
 	 */
-	files: Array<IFile>;
-	/**
-	 * The file whose tab is currently active.
-	 */
-	currentIndex: number;
+	data: ITable;
 }
-class Editor extends Component<IProps, IState> {
+
+export interface IEditorState {
+	/**
+	 * An array of the active filters applied with their key and value to show.
+	 */
+	activeFilters: Array<IFilter>;
+
+	/**
+	 * An array of currently active sorting methods.
+	 */
+	activeSorts: Array<[string, boolean]>;
+
+	/**
+	 * The current data showing after filters, sorts have been applied.
+	 */
+	activeData: ITable;
+
+	/**
+	 * A column name indicates that a filter modal is being shown for that column.
+	 */
+	filtersShowing: string;
+}
+
+/**
+ * A file that has been opened and is being displayed as a table in the editor.
+ */
+class Editor extends Component<IProps, IEditorState> {
 	constructor(props: IProps) {
 		super(props);
-		this.state = { files: [{}], currentIndex: 0 };
+		const { data } = props;
+
+		this.state = {
+			activeFilters: [],
+			activeSorts: [],
+			activeData: data,
+			filtersShowing: '',
+		};
 	}
 
 	/**
-	 * Handles when a new file has been loaded by the FileSelector.
+	 * Handles the sorting on a key.
 	 *
-	 * @param  file The file contents that have just been added.
+	 * @param  key The field to sort on.
 	 */
-	handleLoad(file?: IFile) {
-		if (!file) return;
+	handleSort(key: string) {
+		const { activeSorts, activeData } = this.state;
 
 		/**
-		 * The files previously loaded.
+		 * Adds the new sort to the list of sorts if it isn't present or toggles direction/removes sort if it is already present.
 		 */
-		const prevFiles = [...this.state.files];
-		prevFiles.push(file);
+		const newSorts = Sorting.setSort([...activeSorts], key);
 
 		/**
-		 * The index of the newly loaded file.
+		 * The updated data with sorting applied.
 		 */
-		const newIndex = prevFiles.length - 1;
-		this.setState({ files: prevFiles, currentIndex: newIndex });
+		const newData = Sorting.applySorting(activeData, newSorts);
+		this.setState({ activeSorts: newSorts, activeData: newData });
 	}
 
 	/**
-	 * Handles the click on an EditorTab.
+	 * Handles the application of a filter.
 	 *
-	 * @param  index The index of the tab that was clicked.
+	 * @param  newFilters
 	 */
-	handleTabClick(index: number) {
-		this.setState({ currentIndex: index });
+	handleApplyFilters(newFilters: IFilter): void {
+		const { activeData, activeFilters } = this.state;
+		const newFilterState = [...activeFilters, newFilters];
+		const newData = Filtering.applyFilters(activeData, newFilterState);
+		this.setState({ activeFilters: newFilterState, activeData: newData });
 	}
 
 	/**
-	 * Handles the closing of a tab. Removes that tab from the list of open files and moves the current index back one if necessary.
-	 *
-	 * @param  index The index of the tab to close.
+	 * Handles the closing of the filter window.
 	 */
-	handleTabClose(index: number): void {
-		const { currentIndex } = this.state;
-		let newIndex = currentIndex;
-		if (currentIndex === index) {
-			newIndex -= 1;
+	handleFilterClose(): void {
+		this.setState({ filtersShowing: '' });
+	}
+
+	/**
+	 * Displays the filter modal if it is active.
+	 */
+	getModals() {
+		const { filtersShowing } = this.state;
+		if (filtersShowing) {
+			return (
+				<FiltersModal
+					title="Filter"
+					onClose={() => this.handleFilterClose()}
+					onApply={(newFilter) => this.handleApplyFilters(newFilter)}
+					table={this.state.activeData}
+					column={filtersShowing}
+				/>
+			);
 		}
+	}
 
-		/**
-		 * The new file list with the file that is being closed removed.
-		 */
-		const remainingFiles = this.state.files.filter(
-			(file, i) => i !== index
-		);
+	/**
+	 * Handles showing the filter window for the specified key.
+	 *
+	 * @param  key The key to filter on.
+	 */
+	handleShowFilter(key: string) {
+		this.setState({ filtersShowing: key });
+	}
 
-		this.setState({ files: remainingFiles, currentIndex: newIndex });
+	/**
+	 * Handles the change of a value within a table.
+	 *
+	 * @param  changedTable The new table data.
+	 */
+	handleTableChange(changedTable: ITable) {
+		this.setState({ activeData: changedTable });
 	}
 
 	render() {
-		const { currentIndex } = this.state;
-		/**
-		 * The current open file.
-		 */
-		const currentFile = this.state.files[currentIndex];
+		const { activeData, activeSorts } = this.state;
 		return (
-			<div>
-				<ul className="nav nav-tabs">
-					{this.state.files.map((file, index) => (
-						<EditorTab
-							key={index}
-							label={file.fileName ?? 'CSV Magic'}
-							onClick={() => this.handleTabClick(index)}
-							onClose={() => this.handleTabClose(index)}
-							active={index === currentIndex}
-							home={index === 0}
-						/>
-					))}
-				</ul>
-				<FilePane
-					file={currentFile.data}
-					onLoad={(file) => this.handleLoad(file)}
+			<Fragment>
+				<Chrome editorState={this.state} />
+				<Table
+					data={activeData}
+					onSort={(e: string) => this.handleSort(e)}
+					onShowFilter={(e: string) => this.handleShowFilter(e)}
+					onTableChange={(e: ITable) => this.handleTableChange(e)}
+					activeSorts={activeSorts}
 				/>
-			</div>
+				{this.getModals()}
+			</Fragment>
 		);
 	}
 }

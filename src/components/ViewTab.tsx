@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../styles/EditorTab.module.css';
+import styles from '../styles/ViewTab.module.css';
 
 interface IProps {
 	/**
@@ -31,7 +31,7 @@ interface IProps {
 /**
  * A tab in the app representing an open file.
  */
-class EditorTab extends Component<IProps> {
+class ViewTab extends Component<IProps> {
 	closeButton() {
 		const { active } = this.props;
 		const closeClass =
@@ -71,4 +71,4 @@ class EditorTab extends Component<IProps> {
 	}
 }
 
-export default EditorTab;
+export default ViewTab;
