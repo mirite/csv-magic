@@ -20,9 +20,32 @@ module.exports = {
 		'import/parsers': {
 			'@typescript-eslint/parser': ['.ts', '.tsx'],
 		},
+		'import/resolver': {
+			node: {
+				extensions: ['.js', '.jsx', '.d.ts', '.ts', '.tsx'],
+				moduleDirectory: ['node_modules', 'src'],
+			},
+		},
 	},
 
-	rules: {},
+	rules: {
+		'jsx-a11y/label-has-associated-control': [
+			'error',
+			{
+				required: {
+					some: ['nesting', 'id'],
+				},
+			},
+		],
+		'jsx-a11y/label-has-for': [
+			'error',
+			{
+				required: {
+					some: ['nesting', 'id'],
+				},
+			},
+		],
+	},
 	globals: {
 		JSX: true,
 	},

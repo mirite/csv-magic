@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import styles from 'styles/Popover.module.css';
 
-interface IProps {
+export interface PopoverProps {
 	/**
 	 * The title of the popover.
 	 */
@@ -14,13 +15,18 @@ interface IProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: () => void;
+	onApply: (arg0: any) => void;
 }
+
+interface PopoverState {}
 
 /**
  * A modal to show on top of the table with different options to select.
  */
-abstract class Popover extends Component<IProps> {
+abstract class Popover<
+	P extends PopoverProps,
+	S extends PopoverState
+> extends Component<P, S> {
 	/**
 	 * A function to get the inner content of the popover.
 	 */
@@ -28,7 +34,7 @@ abstract class Popover extends Component<IProps> {
 	render() {
 		return (
 			<div className="modal" style={{ display: 'block' }}>
-				<div className="modal-dialog">
+				<div className={styles.container}>
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title">{this.props.title}</h5>
@@ -47,7 +53,7 @@ abstract class Popover extends Component<IProps> {
 							</button>
 							<button
 								className="btn btn-primary"
-								onClick={this.props.onApply}
+								onClick={() => this.handleApply()}
 							>
 								Apply
 							</button>
@@ -57,6 +63,7 @@ abstract class Popover extends Component<IProps> {
 			</div>
 		);
 	}
+	abstract handleApply(): void;
 }
 
 export default Popover;

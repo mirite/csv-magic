@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from 'styles/ViewTab.module.css';
 
 interface IProps {
 	/**
@@ -15,24 +16,47 @@ interface IProps {
 	 * The event to call when the tab is clicked on.
 	 */
 	onClick: () => void;
+
+	/**
+	 * The event to call when the tabs close button is clicked.
+	 */
+	onClose: () => void;
+
+	/**
+	 * Whether or not this tab is the home tab.
+	 */
+	home: boolean;
 }
 
 /**
  * A tab in the app representing an open file.
  */
-class EditorTab extends Component<IProps> {
+class ViewTab extends Component<IProps> {
+	closeButton() {
+		const { active } = this.props;
+		const closeClass =
+			styles.closeButton + (active ? ' ' + styles.active : '');
+		return (
+			<button className={closeClass} onClick={() => this.props.onClose()}>
+				X
+			</button>
+		);
+	}
 	render() {
 		const { label: name, active } = this.props;
-		const classList = 'nav-link' + (active ? ' active' : '');
+		const titleClass =
+			styles.titleButton + (active ? ' ' + styles.active : '');
+
 		return (
-			<li className="nav-item">
+			<li className={styles.navItem}>
 				<button
-					className={classList}
+					className={titleClass}
 					aria-current="page"
 					onClick={(e) => this.handleClick(e)}
 				>
 					{name}
 				</button>
+				{this.props.home ? '' : this.closeButton()}
 			</li>
 		);
 	}
@@ -47,4 +71,4 @@ class EditorTab extends Component<IProps> {
 	}
 }
 
-export default EditorTab;
+export default ViewTab;

@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { IRow } from '../../../types';
+import { getColumnNames } from 'modules/access-helpers';
+import { ITable } from 'types';
 import TableHeading from './TableHeading';
 
 interface TableHeadingsProps {
-	exampleRow: IRow;
+	table: ITable;
 	onShowFilter: Function;
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
@@ -11,16 +12,15 @@ interface TableHeadingsProps {
 
 const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 	const cells = [];
-	const { activeSorts, exampleRow, onShowFilter, onSort } = props;
-	for (const cell of exampleRow.contents) {
-		const { key } = cell;
+	const { activeSorts, table, onShowFilter, onSort } = props;
+	for (const fieldName of getColumnNames(table)) {
 		cells.push(
 			<TableHeading
-				key={key}
-				exampleCell={cell}
+				key={fieldName}
+				fieldName={fieldName}
 				activeSorts={activeSorts}
-				onShowFilter={() => onShowFilter(key)}
-				onSort={() => onSort(key)}
+				onShowFilter={() => onShowFilter(fieldName)}
+				onSort={() => onSort(fieldName)}
 			/>
 		);
 	}

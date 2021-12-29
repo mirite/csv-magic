@@ -1,0 +1,4 @@
+.button {
+	composes: btn btn-secondary from 'bootstrap/dist/css/bootstrap.css';
+	margin-right: 1em;
+}
