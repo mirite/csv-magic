@@ -33,6 +33,6 @@ export default (data: ITable, fileName?: string) => {
 	const rawData = convertToRawTable(data);
 	const parser = new Parser();
 	const outputData = parser.parse(rawData);
-	const name = fileName ?? `csv_magic_${Date.now()}.csv`;
+	const name = fileName ? fileName + '.csv' : `csv_magic_${Date.now()}.csv`;
 	download(name, outputData);
 };

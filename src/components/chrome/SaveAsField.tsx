@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FormEvent, FunctionComponent, useState } from 'react';
 import { ITable } from '../../types';
 import CSVSaver from '../../modules/csv-saver';
 
@@ -7,13 +7,23 @@ interface SaveAsFieldProps {
 }
 
 const SaveAsField: FunctionComponent<SaveAsFieldProps> = (props) => {
-	const saveTable = () => {
-		CSVSaver(props.table);
+	const [fileName, setFileName] = useState('');
+
+	const saveTable = (e: FormEvent) => {
+		e.preventDefault();
+		CSVSaver(props.table, fileName);
 	};
+
 	return (
-		<button type="button" onClick={() => saveTable()}>
-			Save As
-		</button>
+		<form onSubmit={(e) => saveTable(e)}>
+			<input
+				type="text"
+				placeholder="File Name"
+				value={fileName}
+				onChange={(e) => setFileName(e.target.value)}
+			/>
+			<button type="submit">Save As</button>
+		</form>
 	);
 };
 
