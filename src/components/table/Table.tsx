@@ -2,9 +2,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
 import Row from './table-parts/Row';
-import { ICell, ITable } from '../../types';
+import { ICell, ITable } from 'types';
 import TableHeadings from './table-parts/TablesHeadings';
-import { updateCell } from '../../modules/editing';
+import { updateCell } from 'modules/editing';
 
 interface IProps {
 	/**

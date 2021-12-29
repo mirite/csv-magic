@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { IFilter, ITable } from '../types';
+import { IFilter, ITable } from 'types';
 import { getCellValueByKey } from './access-helpers';
 
 function applyFilters(data: ITable, activeFilters: Array<IFilter>) {

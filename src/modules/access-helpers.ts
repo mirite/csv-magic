@@ -1,4 +1,4 @@
-import { ICell, IRow, ITable } from '../types';
+import { ICell, IRow, ITable } from 'types';
 
 /**
  * Takes a row and returns the value at the specified key.

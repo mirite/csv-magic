@@ -1,15 +1,20 @@
 import React, { Component, FormEvent } from 'react';
-import CSVLoader from '../../modules/csv-loader';
-import { IFile } from '../../types';
+import CSVLoader from 'modules/csv-loader';
+import { IFile } from 'types';
 import FileInput from './FileInput';
 import SubmitButton from './SubmitButton';
-import styles from '../../styles/FileSelector.module.css';
+import styles from 'styles/file-selector/FileSelector.module.css';
 
 interface IState {
 	/**
 	 * True indicates that the CSVLoader is currently processing the file.
 	 */
 	processing: boolean;
+
+	/**
+	 * True indicates that a file has been selected.
+	 */
+	fileAttached: boolean;
 	/**
 	 * The inner textContent of the CSV file.
 	 */
@@ -33,7 +38,12 @@ interface IProps {
 class FileSelector extends Component<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
-		this.state = { processing: false, fileTextContent: '', fileName: '' };
+		this.state = {
+			processing: false,
+			fileTextContent: '',
+			fileName: '',
+			fileAttached: false,
+		};
 	}
 
 	/**
@@ -49,6 +59,7 @@ class FileSelector extends Component<IProps, IState> {
 		this.setState({
 			fileTextContent: fileText ?? '',
 			fileName: fileName ?? 'untitled',
+			fileAttached: true,
 		});
 	}
 
@@ -68,13 +79,16 @@ class FileSelector extends Component<IProps, IState> {
 	}
 
 	render() {
-		const { processing } = this.state;
+		const { processing, fileAttached } = this.state;
 		return (
 			<div>
 				<form onSubmit={(e) => this.process(e)}>
 					<FileInput onAttachFile={(e) => this.handleAttachFile(e)} />
 					<div className={styles.submitButtonContainer}>
-						<SubmitButton processing={processing} />
+						<SubmitButton
+							processing={processing}
+							fileAttached={fileAttached}
+						/>
 					</div>
 				</form>
 			</div>

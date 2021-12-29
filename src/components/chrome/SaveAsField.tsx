@@ -1,6 +1,7 @@
 import React, { FormEvent, FunctionComponent, useState } from 'react';
-import { ITable } from '../../types';
-import CSVSaver from '../../modules/csv-saver';
+import { ITable } from 'types';
+import CSVSaver from 'modules/csv-saver';
+import styles from 'styles/chrome/SaveAsField.module.css';
 
 interface SaveAsFieldProps {
 	table: ITable;
@@ -15,15 +16,23 @@ const SaveAsField: FunctionComponent<SaveAsFieldProps> = (props) => {
 	};
 
 	return (
-		<form onSubmit={(e) => saveTable(e)}>
-			<input
-				type="text"
-				placeholder="File Name"
-				value={fileName}
-				onChange={(e) => setFileName(e.target.value)}
-			/>
-			<button type="submit">Save As</button>
-		</form>
+		<div>
+			<form className={styles.container} onSubmit={(e) => saveTable(e)}>
+				<label className={styles.group}>
+					<input
+						type="text"
+						id="fileName"
+						className="form-control"
+						placeholder="File Name"
+						value={fileName}
+						onChange={(e) => setFileName(e.target.value)}
+					/>
+				</label>
+				<button type="submit" className={styles.button}>
+					Save As
+				</button>
+			</form>
+		</div>
 	);
 };
 

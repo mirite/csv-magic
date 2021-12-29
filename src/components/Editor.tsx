@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
-import Sorting from './../modules/sorting';
-import Filtering from './../modules/filtering';
+import Sorting from 'modules/sorting';
+import Filtering from 'modules/filtering';
 import FiltersModal from './FiltersModal';
 import { IFilter, ITable } from '../types';
 import Chrome from './chrome/Chrome';

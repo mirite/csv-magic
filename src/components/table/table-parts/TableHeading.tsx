@@ -8,7 +8,7 @@ import {
 	faFill,
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../../styles/TableHeading.module.css';
+import styles from 'styles/table/table-parts/TableHeading.module.css';
 
 interface HeadingsProps {
 	fieldName: string;

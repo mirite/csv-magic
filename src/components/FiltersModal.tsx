@@ -1,9 +1,9 @@
 import Popover, { PopoverProps } from './Popover';
 import React from 'react';
-import { IFilter, ITable } from '../types';
-import { getUniqueValuesInColumn } from '../modules/access-helpers';
+import { IFilter, ITable } from 'types';
+import { getUniqueValuesInColumn } from 'modules/access-helpers';
 import FilterValue from './table/filter-controls/FilterValue';
-import styles from './../styles/FiltersModal.module.css';
+import styles from 'styles/FiltersModal.module.css';
 
 interface IProps extends PopoverProps {
 	column: string;

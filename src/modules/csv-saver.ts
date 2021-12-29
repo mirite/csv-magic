@@ -1,4 +1,4 @@
-import { IRawRow, IRawTable, ITable } from '../types';
+import { IRawRow, IRawTable, ITable } from 'types';
 import { Parser } from 'json2csv';
 
 function convertToRawTable(data: ITable) {

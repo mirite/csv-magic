@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { getColumnNames } from '../../../modules/access-helpers';
-import { IRow, ITable } from '../../../types';
+import { getColumnNames } from 'modules/access-helpers';
+import { ITable } from 'types';
 import TableHeading from './TableHeading';
 
 interface TableHeadingsProps {

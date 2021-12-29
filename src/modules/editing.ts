@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { ICell, ITable } from '../types';
+import { ICell, ITable } from 'types';
 import { getCellByID } from './access-helpers';
 
 export function updateCell(data: ITable, cell: ICell): ITable {

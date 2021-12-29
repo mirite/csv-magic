@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IFile } from '../types';
+import { IFile } from 'types';
 import ViewTab from './ViewTab';
 import MainView from './MainView';
 

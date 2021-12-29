@@ -1,5 +1,5 @@
 import { getCellValueByKey } from './access-helpers';
-import { ITable } from '../types';
+import { ITable } from 'types';
 import _ from 'lodash';
 
 /**

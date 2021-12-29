@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../styles/Popover.module.css';
+import styles from 'styles/Popover.module.css';
 
 export interface PopoverProps {
 	/**
