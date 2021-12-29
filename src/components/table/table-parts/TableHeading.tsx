@@ -27,23 +27,21 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 	};
 
 	return (
-		<th scope="col" key={key}>
+		<th scope="col" className={styles.cell} key={key}>
 			<div className={styles.container}>
-				<span className="m-1">
-					<strong>{key}</strong>
-				</span>
+				<span className={styles.label}>{key}</span>
 				<div className={styles.actions}>
-					<button className="btn btn-primary m-1">
+					<button className={styles.button}>
 						<FontAwesomeIcon icon={faSearch} />
 					</button>
 					<button
-						className="btn btn-primary m-1"
+						className={styles.button}
 						onClick={() => props.onShowFilter(key)}
 					>
 						<FontAwesomeIcon icon={faFilter} />
 					</button>
 					<button
-						className="btn btn-primary m-1"
+						className={styles.button}
 						onClick={() => props.onSort(key)}
 					>
 						<FontAwesomeIcon icon={getSortStateIcon()} />

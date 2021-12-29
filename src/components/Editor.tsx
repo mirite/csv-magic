@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import Sorting from 'modules/sorting';
 import Filtering from 'modules/filtering';
 import FiltersModal from './FiltersModal';
-import { IFilter, ITable } from '../types';
+import { IEditorState, IFilter, ITable } from '../types';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
 
@@ -13,28 +13,6 @@ interface IProps {
 	 * The data from the file that was opened.
 	 */
 	data: ITable;
-}
-
-export interface IEditorState {
-	/**
-	 * An array of the active filters applied with their key and value to show.
-	 */
-	activeFilters: Array<IFilter>;
-
-	/**
-	 * An array of currently active sorting methods.
-	 */
-	activeSorts: Array<[string, boolean]>;
-
-	/**
-	 * The current data showing after filters, sorts have been applied.
-	 */
-	activeData: ITable;
-
-	/**
-	 * A column name indicates that a filter modal is being shown for that column.
-	 */
-	filtersShowing: string;
 }
 
 /**
@@ -50,6 +28,7 @@ class Editor extends Component<IProps, IEditorState> {
 			activeSorts: [],
 			activeData: data,
 			filtersShowing: '',
+			history: [],
 		};
 	}
 
@@ -70,7 +49,7 @@ class Editor extends Component<IProps, IEditorState> {
 		 * The updated data with sorting applied.
 		 */
 		const newData = Sorting.applySorting(activeData, newSorts);
-		this.setState({ activeSorts: newSorts, activeData: newData });
+		this.setCoreState(newData, newSorts);
 	}
 
 	/**
@@ -79,10 +58,11 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  newFilters
 	 */
 	handleApplyFilters(newFilters: IFilter): void {
-		const { activeData, activeFilters } = this.state;
+		const { activeData, activeFilters, activeSorts } = this.state;
 		const newFilterState = [...activeFilters, newFilters];
 		const newData = Filtering.applyFilters(activeData, newFilterState);
-		this.setState({ activeFilters: newFilterState, activeData: newData });
+		this.setState({ activeFilters: newFilterState });
+		this.setCoreState(newData, activeSorts);
 	}
 
 	/**
@@ -125,14 +105,33 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  changedTable The new table data.
 	 */
 	handleTableChange(changedTable: ITable) {
-		this.setState({ activeData: changedTable });
+		const { activeSorts } = this.state;
+		this.setCoreState(changedTable, activeSorts);
+	}
+
+	setCoreState(newData: ITable, newSorts: Array<[string, boolean]>) {
+		const { history, activeData, activeSorts } = this.state;
+		const newHistoryEntry = {
+			activeData,
+			activeSorts,
+			timestamp: Date.now(),
+		};
+		const newHistory = [...history, newHistoryEntry];
+		this.setState({
+			activeData: newData,
+			activeSorts: newSorts,
+			history: newHistory,
+		});
 	}
 
 	render() {
 		const { activeData, activeSorts } = this.state;
 		return (
 			<Fragment>
-				<Chrome editorState={this.state} />
+				<Chrome
+					editorState={this.state}
+					onTableChange={(e: ITable) => this.handleTableChange(e)}
+				/>
 				<Table
 					data={activeData}
 					onSort={(e: string) => this.handleSort(e)}
