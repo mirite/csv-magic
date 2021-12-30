@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import { getCellValueByKey } from './access-helpers';
 import { ITable } from 'types';
-import _ from 'lodash';
 
 /**
  * Either adds a sort on the provided key, or toggles direction, removes the sort if it was already toggled.

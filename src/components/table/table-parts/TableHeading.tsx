@@ -5,20 +5,20 @@ import {
 	faArrowUp,
 	faArrowDown,
 	faFilter,
-	faFill,
+	faEdit,
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from 'styles/table/table-parts/TableHeading.module.css';
 
 interface HeadingsProps {
 	fieldName: string;
-	onShowFilter: Function;
+	onSetActiveModal: (arg0: string, column: string) => any;
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
 }
 
 const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
-	const { fieldName: key } = props;
+	const { fieldName: key, onSetActiveModal } = props;
 	const getSortStateIcon = () => {
 		const sort = props.activeSorts.find((e) => e[0] === key);
 		if (!sort) return faArrowsAltV;
@@ -29,14 +29,24 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 	return (
 		<th scope="col" className={styles.cell} key={key}>
 			<div className={styles.container}>
-				<span className={styles.label}>{key}</span>
+				<div>
+					<span className={styles.label}>{key}</span>
+					<FontAwesomeIcon
+						className={styles.editIcon}
+						icon={faEdit}
+						onClick={() => onSetActiveModal('renameColumn', key)}
+					/>
+				</div>
 				<div className={styles.actions}>
-					<button className={styles.button}>
+					<button
+						className={styles.button}
+						onClick={() => onSetActiveModal('findAndReplace', key)}
+					>
 						<FontAwesomeIcon icon={faSearch} />
 					</button>
 					<button
 						className={styles.button}
-						onClick={() => props.onShowFilter(key)}
+						onClick={() => onSetActiveModal('filter', key)}
 					>
 						<FontAwesomeIcon icon={faFilter} />
 					</button>

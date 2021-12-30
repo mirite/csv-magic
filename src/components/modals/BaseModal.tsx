@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import styles from 'styles/Popover.module.css';
+import { ITable } from 'types';
+import styles from 'styles/modals/BaseModal.module.css';
 
-export interface PopoverProps {
+export interface BaseModalProps {
 	/**
 	 * The title of the popover.
 	 */
@@ -15,17 +16,21 @@ export interface PopoverProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (arg0: any) => void;
+	onApply: Function;
+
+	table: ITable;
+
+	column: string;
 }
 
-interface PopoverState {}
+export interface BaseModalState {}
 
 /**
  * A modal to show on top of the table with different options to select.
  */
-abstract class Popover<
-	P extends PopoverProps,
-	S extends PopoverState
+abstract class BaseModal<
+	P extends BaseModalProps,
+	S extends BaseModalState
 > extends Component<P, S> {
 	/**
 	 * A function to get the inner content of the popover.
@@ -66,4 +71,4 @@ abstract class Popover<
 	abstract handleApply(): void;
 }
 
-export default Popover;
+export default BaseModal;

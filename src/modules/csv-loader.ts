@@ -25,30 +25,32 @@ function convertToTable(raw: IRawTable): ITable {
 	 * The table being created from the raw data.
 	 */
 	const newTable: ITable = { contents: [] };
+	let rowIndex: number = 0;
 
 	raw.forEach((rawRow: IRawRow) => {
 		/**
 		 * A new row within the output table.
 		 */
-		const newRow: IRow = { contents: [] };
+		const newRow: IRow = { contents: [], originalIndex: rowIndex };
 
 		/**
 		 * Counter to make cell ids somewhat predictable.
 		 */
-		let i = 0;
+		let columnIndex = 0;
 		newRow.id = uuidv4();
 		for (const cell of Object.entries(rawRow)) {
 			/**
 			 * Give each cell a unique ID for finding it later on.
 			 */
-			const id = newRow.id + '?' + String(i);
+			const id = newRow.id + '?' + String(columnIndex);
 
 			//If the table doesn't have an active cell yet, indicate that this cell is the first in the table.
 			if (!newTable.firstCellId) newTable.firstCellId = id;
 			newRow.contents.push({ id, value: cell[1], key: cell[0] });
-			i++;
+			columnIndex++;
 		}
 		newTable.contents.push(newRow);
+		rowIndex++;
 	});
 
 	return newTable;

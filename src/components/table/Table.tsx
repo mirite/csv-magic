@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
-import Row from './table-parts/Row';
-import { ICell, ITable } from 'types';
 import TableHeadings from './table-parts/TablesHeadings';
+import Row from './table-parts/Row';
 import { updateCell } from 'modules/editing';
+import { ICell, ITable } from 'types';
 
 interface IProps {
 	/**
@@ -12,7 +12,7 @@ interface IProps {
 	 */
 	data: ITable;
 	onSort: Function;
-	onShowFilter: Function;
+	oneSetActiveModal: (arg0: string, column: string) => any;
 	onTableChange: Function;
 	activeSorts: Array<[string, boolean]>;
 }
@@ -48,7 +48,7 @@ class Table extends Component<IProps, IState> {
 				table={this.props.data}
 				activeSorts={this.props.activeSorts}
 				onSort={(key: string) => this.props.onSort(key)}
-				onShowFilter={(key: string) => this.props.onShowFilter(key)}
+				onSetActiveModal={this.props.oneSetActiveModal}
 			/>
 		);
 	}

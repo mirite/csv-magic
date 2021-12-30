@@ -1,25 +1,31 @@
 import React, { FunctionComponent } from 'react';
+import TableHeading from './TableHeading';
 import { getColumnNames } from 'modules/access-helpers';
 import { ITable } from 'types';
-import TableHeading from './TableHeading';
 
 interface TableHeadingsProps {
 	table: ITable;
-	onShowFilter: Function;
+	onSetActiveModal: (arg0: string, column: string) => any;
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
 }
 
 const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 	const cells = [];
-	const { activeSorts, table, onShowFilter, onSort } = props;
+	const {
+		activeSorts,
+		table,
+		onSort,
+		onSetActiveModal: availableModals,
+	} = props;
+
 	for (const fieldName of getColumnNames(table)) {
 		cells.push(
 			<TableHeading
 				key={fieldName}
 				fieldName={fieldName}
 				activeSorts={activeSorts}
-				onShowFilter={() => onShowFilter(fieldName)}
+				onSetActiveModal={availableModals}
 				onSort={() => onSort(fieldName)}
 			/>
 		);

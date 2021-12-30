@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { ICell, IRow } from '../../../types';
-import ActiveCell from './ActiveCell';
 import Cell from './Cell';
+import ActiveCell from './ActiveCell';
+import { ICell, IRow } from '../../../types';
 
 interface IProps {
 	/**
