@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ITable } from 'types';
-import styles from 'styles/Popover.module.css';
+import styles from 'styles/modals/BaseModal.module.css';
 
 export interface BaseModalProps {
 	/**

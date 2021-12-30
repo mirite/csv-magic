@@ -3,8 +3,8 @@
 import React, { Component, Fragment } from 'react';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
-import FiltersModal from './modals/FiltersModal';
-import FindAndReplaceModal from './modals/FindAndReplaceModal';
+import FiltersModal from './modals/Filters';
+import FindAndReplaceModal from './modals/FindAndReplace';
 import Sorting from 'modules/sorting';
 import Filtering from 'modules/filtering';
 import { findAndReplaceInColumn } from 'modules/editing';
