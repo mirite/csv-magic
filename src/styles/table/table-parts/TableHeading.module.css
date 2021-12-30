@@ -28,3 +28,7 @@
 	border-right: 1px solid #111;
 
 }
+
+.editIcon {
+	cursor: pointer;
+}

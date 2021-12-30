@@ -7,8 +7,9 @@ import FiltersModal from './modals/Filters';
 import FindAndReplaceModal from './modals/FindAndReplace';
 import Sorting from 'modules/sorting';
 import Filtering from 'modules/filtering';
-import { findAndReplaceInColumn } from 'modules/editing';
+import { findAndReplaceInColumn, renameColumn } from 'modules/editing';
 import { IEditorState, IFilter, IModalAction, ITable } from 'types';
+import RenameColumnModal from './modals/RenameColumn';
 
 interface IProps {
 	/**
@@ -43,6 +44,12 @@ class Editor extends Component<IProps, IEditorState> {
 				title: 'Find and Replace In Column',
 				onApply: (column: string, toFind: string, toReplace: string) =>
 					this.handleFindAndReplace(column, toFind, toReplace),
+			},
+			renameColumn: {
+				ComponentToUse: RenameColumnModal,
+				title: 'Rename Column',
+				onApply: (column: string, newName: string) =>
+					this.handleRenameColumn(column, newName),
 			},
 		};
 
@@ -100,6 +107,11 @@ class Editor extends Component<IProps, IEditorState> {
 			toFind,
 			toReplace
 		);
+		this.setCoreState(newTable, activeSorts);
+	}
+	handleRenameColumn(column: string, newName: string) {
+		const { activeData, activeSorts } = this.state;
+		const newTable = renameColumn(activeData, column, newName);
 		this.setCoreState(newTable, activeSorts);
 	}
 	/**

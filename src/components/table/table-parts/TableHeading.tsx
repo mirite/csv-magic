@@ -5,7 +5,7 @@ import {
 	faArrowUp,
 	faArrowDown,
 	faFilter,
-	faFill,
+	faEdit,
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from 'styles/table/table-parts/TableHeading.module.css';
@@ -29,7 +29,14 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 	return (
 		<th scope="col" className={styles.cell} key={key}>
 			<div className={styles.container}>
-				<span className={styles.label}>{key}</span>
+				<div>
+					<span className={styles.label}>{key}</span>
+					<FontAwesomeIcon
+						className={styles.editIcon}
+						icon={faEdit}
+						onClick={() => onSetActiveModal('renameColumn', key)}
+					/>
+				</div>
 				<div className={styles.actions}>
 					<button
 						className={styles.button}

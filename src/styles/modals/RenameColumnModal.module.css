@@ -1,0 +1,12 @@
+.container {
+	display: flex;
+	justify-content:center;
+}
+
+.group {
+	composes: form-group m-2 from 'bootstrap/dist/css/bootstrap.css';
+}
+
+.input {
+	composes: form-control from 'bootstrap/dist/css/bootstrap.css';
+}
