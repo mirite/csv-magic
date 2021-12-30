@@ -1,8 +1,8 @@
-import BaseModal, { BaseModalProps } from './BaseModal';
 import React from 'react';
-import { IFilter, ITable } from 'types';
-import { getUniqueValuesInColumn } from 'modules/access-helpers';
+import BaseModal, { BaseModalProps } from './BaseModal';
 import FilterValue from './filter-controls/FilterValue';
+import { getUniqueValuesInColumn } from 'modules/access-helpers';
+import { IFilter, ITable } from 'types';
 import styles from 'styles/FiltersModal.module.css';
 
 interface IProps extends BaseModalProps {

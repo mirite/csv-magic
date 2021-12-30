@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
-import Sorting from 'modules/sorting';
-import Filtering from 'modules/filtering';
-import FiltersModal from './modals/FiltersModal';
-import { IEditorState, IFilter, IModalAction, ITable } from '../types';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
+import FiltersModal from './modals/FiltersModal';
 import FindAndReplaceModal from './modals/FindAndReplaceModal';
+import Sorting from 'modules/sorting';
+import Filtering from 'modules/filtering';
 import { findAndReplaceInColumn } from 'modules/editing';
+import { IEditorState, IFilter, IModalAction, ITable } from 'types';
 
 interface IProps {
 	/**

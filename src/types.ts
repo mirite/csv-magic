@@ -1,6 +1,4 @@
 import BaseModal from 'components/modals/BaseModal';
-import { ReactElement } from 'react';
-
 export interface IFile {
 	fileName?: string;
 	data?: ITable;

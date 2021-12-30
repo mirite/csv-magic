@@ -1,5 +1,5 @@
-import BaseModal, { BaseModalProps } from './BaseModal';
 import React from 'react';
+import BaseModal, { BaseModalProps } from './BaseModal';
 import { ITable } from 'types';
 import styles from 'styles/FindAndReplaceModal.module.css';
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ITable, IFile } from 'types';
 import FileSelector from './file-selector/FileSelector';
-import styles from 'styles/MainView.module.css';
 import Editor from './Editor';
+import { ITable, IFile } from 'types';
+import styles from 'styles/MainView.module.css';
 
 interface IState {}
 

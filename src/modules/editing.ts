@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { ICell, IRow, ITable } from 'types';
 import { getCellByID, getColumnIndex } from './access-helpers';
+import { ICell, IRow, ITable } from 'types';
 
 /**
  * Updates a cell within a table.

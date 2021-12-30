@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
-import Row from './table-parts/Row';
-import { ICell, ITable } from 'types';
 import TableHeadings from './table-parts/TablesHeadings';
+import Row from './table-parts/Row';
 import { updateCell } from 'modules/editing';
+import { ICell, ITable } from 'types';
 
 interface IProps {
 	/**

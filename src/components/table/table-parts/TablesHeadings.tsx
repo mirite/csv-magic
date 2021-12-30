@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
+import TableHeading from './TableHeading';
 import { getColumnNames } from 'modules/access-helpers';
 import { ITable } from 'types';
-import TableHeading from './TableHeading';
 
 interface TableHeadingsProps {
 	table: ITable;

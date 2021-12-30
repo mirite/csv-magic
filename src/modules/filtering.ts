@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { IFilter, ITable } from 'types';
 import { getCellValueByKey } from './access-helpers';
+import { IFilter, ITable } from 'types';
 
 function applyFilters(data: ITable, activeFilters: Array<IFilter>) {
 	const newData = _.cloneDeep(data);
