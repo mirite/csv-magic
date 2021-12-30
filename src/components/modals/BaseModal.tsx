@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from 'styles/Popover.module.css';
 import { ITable } from 'types';
 
-export interface PopoverProps {
+export interface BaseModalProps {
 	/**
 	 * The title of the popover.
 	 */
@@ -23,14 +23,14 @@ export interface PopoverProps {
 	column: string;
 }
 
-export interface PopoverState {}
+export interface BaseModalState {}
 
 /**
  * A modal to show on top of the table with different options to select.
  */
-abstract class Popover<
-	P extends PopoverProps,
-	S extends PopoverState
+abstract class BaseModal<
+	P extends BaseModalProps,
+	S extends BaseModalState
 > extends Component<P, S> {
 	/**
 	 * A function to get the inner content of the popover.
@@ -71,4 +71,4 @@ abstract class Popover<
 	abstract handleApply(): void;
 }
 
-export default Popover;
+export default BaseModal;

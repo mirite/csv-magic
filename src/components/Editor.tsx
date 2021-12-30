@@ -3,11 +3,11 @@
 import React, { Component, Fragment } from 'react';
 import Sorting from 'modules/sorting';
 import Filtering from 'modules/filtering';
-import FiltersModal from './FiltersModal';
+import FiltersModal from './modals/FiltersModal';
 import { IEditorState, IFilter, IModalAction, ITable } from '../types';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
-import FindAndReplaceModal from './FindAndReplaceModal';
+import FindAndReplaceModal from './modals/FindAndReplaceModal';
 import { findAndReplaceInColumn } from 'modules/editing';
 
 interface IProps {

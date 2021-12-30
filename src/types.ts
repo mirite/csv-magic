@@ -1,4 +1,4 @@
-import Popover, { PopoverProps, PopoverState } from 'components/Popover';
+import BaseModal from 'components/modals/BaseModal';
 import { ReactElement } from 'react';
 
 export interface IFile {
@@ -13,6 +13,7 @@ export interface ITable {
 
 export interface IRow {
 	id?: string;
+	originalIndex: number;
 	contents: Array<ICell>;
 }
 
@@ -68,7 +69,7 @@ export interface IEditorState extends IEditorCoreState {
 
 export interface IModalAction {
 	title: string;
-	ComponentToUse: typeof Popover;
+	ComponentToUse: typeof BaseModal;
 	onApply: Function;
 }
 

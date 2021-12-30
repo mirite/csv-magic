@@ -1,11 +1,11 @@
-import Popover, { PopoverProps } from './Popover';
+import BaseModal, { BaseModalProps } from './BaseModal';
 import React from 'react';
 import { IFilter, ITable } from 'types';
 import { getUniqueValuesInColumn } from 'modules/access-helpers';
-import FilterValue from './table/filter-controls/FilterValue';
+import FilterValue from './filter-controls/FilterValue';
 import styles from 'styles/FiltersModal.module.css';
 
-interface IProps extends PopoverProps {
+interface IProps extends BaseModalProps {
 	column: string;
 	table: ITable;
 	/**
@@ -20,7 +20,7 @@ interface IState {
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class FiltersModal extends Popover<IProps, IState> {
+export default class FiltersModal extends BaseModal<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
 		const { column } = props;

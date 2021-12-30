@@ -1,9 +1,9 @@
-import Popover, { PopoverProps } from './Popover';
+import BaseModal, { BaseModalProps } from './BaseModal';
 import React from 'react';
 import { ITable } from 'types';
 import styles from 'styles/FindAndReplaceModal.module.css';
 
-interface IProps extends PopoverProps {
+interface IProps extends BaseModalProps {
 	column: string;
 	table: ITable;
 	/**
@@ -19,7 +19,7 @@ interface IState {
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class FindAndReplaceModal extends Popover<IProps, IState> {
+export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
 		this.state = { findValue: '', replaceValue: '' };
