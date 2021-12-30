@@ -91,3 +91,16 @@ export function getColumnIndex(data: ITable, column: string): number {
 	}
 	return -1;
 }
+
+export function countOccurrences(
+	data: ITable,
+	column: string,
+	needle: string
+): number {
+	const columnIndex = getColumnIndex(data, column);
+	let count = 0;
+	for (const row of data.contents) {
+		if (row.contents[columnIndex].value.includes(needle)) count++;
+	}
+	return count;
+}

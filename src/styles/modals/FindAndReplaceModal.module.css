@@ -1,14 +1,25 @@
 .container {
 	display: flex;
-	justify-content: flex-end;
+	justify-content:center;
 }
 
 .group {
-	composes: form-group from 'bootstrap/dist/css/bootstrap.css';
-	display: flex;
-	margin-right: 1em;
-	
+	composes: form-group m-2 from 'bootstrap/dist/css/bootstrap.css';
+}
+
+.input {
+	composes: form-control from 'bootstrap/dist/css/bootstrap.css';
+}
+
+.output {
+	composes: input;
+	composes: m-2 from 'bootstrap/dist/css/bootstrap.css';
+	max-width: 400px;
 }
 .button {
-	composes: btn btn-primary from 'bootstrap/dist/css/bootstrap.css';
+	composes: btn btn-info m-2 from 'bootstrap/dist/css/bootstrap.css';
+}
+
+.tester {
+	composes: container;
 }
