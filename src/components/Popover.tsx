@@ -15,7 +15,7 @@ export interface PopoverProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (arg0: any) => void;
+	onApply: Function;
 }
 
 interface PopoverState {}

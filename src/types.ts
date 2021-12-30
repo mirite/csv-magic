@@ -62,6 +62,7 @@ export interface IEditorState extends IEditorCoreState {
 	 * A column name indicates that a filter modal is being shown for that column.
 	 */
 	filtersShowing: string;
+	findAndReplaceShowing: string;
 
 	history: Array<IEditorHistory>;
 }

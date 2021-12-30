@@ -14,6 +14,7 @@ interface IProps {
 	onSort: Function;
 	onShowFilter: Function;
 	onTableChange: Function;
+	onShowFindAndReplace: Function;
 	activeSorts: Array<[string, boolean]>;
 }
 
@@ -49,6 +50,9 @@ class Table extends Component<IProps, IState> {
 				activeSorts={this.props.activeSorts}
 				onSort={(key: string) => this.props.onSort(key)}
 				onShowFilter={(key: string) => this.props.onShowFilter(key)}
+				onShowFindAndReplace={(key: string) =>
+					this.props.onShowFindAndReplace(key)
+				}
 			/>
 		);
 	}

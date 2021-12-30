@@ -13,6 +13,7 @@ import styles from 'styles/table/table-parts/TableHeading.module.css';
 interface HeadingsProps {
 	fieldName: string;
 	onShowFilter: Function;
+	onShowFindAndReplace: Function;
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
 }
@@ -31,7 +32,10 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 			<div className={styles.container}>
 				<span className={styles.label}>{key}</span>
 				<div className={styles.actions}>
-					<button className={styles.button}>
+					<button
+						className={styles.button}
+						onClick={() => props.onShowFindAndReplace(key)}
+					>
 						<FontAwesomeIcon icon={faSearch} />
 					</button>
 					<button

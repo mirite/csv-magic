@@ -7,6 +7,7 @@ import FiltersModal from './FiltersModal';
 import { IEditorState, IFilter, ITable } from '../types';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
+import FindAndReplaceModal from './FindAndReplaceModal';
 
 interface IProps {
 	/**
@@ -28,6 +29,7 @@ class Editor extends Component<IProps, IEditorState> {
 			activeSorts: [],
 			activeData: data,
 			filtersShowing: '',
+			findAndReplaceShowing: '',
 			history: [],
 		};
 	}
@@ -76,7 +78,7 @@ class Editor extends Component<IProps, IEditorState> {
 	 * Displays the filter modal if it is active.
 	 */
 	getModals() {
-		const { filtersShowing } = this.state;
+		const { filtersShowing, findAndReplaceShowing } = this.state;
 		if (filtersShowing) {
 			return (
 				<FiltersModal
@@ -88,6 +90,25 @@ class Editor extends Component<IProps, IEditorState> {
 				/>
 			);
 		}
+		if (findAndReplaceShowing) {
+			return (
+				<FindAndReplaceModal
+					title="Find and Replace"
+					onClose={() => this.handleFindAndReplaceClose()}
+					onApply={(find: string, replace: string) =>
+						this.handleFindAndReplace(find, replace)
+					}
+					table={this.state.activeData}
+					column={findAndReplaceShowing}
+				/>
+			);
+		}
+	}
+	handleFindAndReplace(toFind: string, toReplace: string): void {
+		throw new Error('Method not implemented.');
+	}
+	handleFindAndReplaceClose(): void {
+		this.setState({ findAndReplaceShowing: '' });
 	}
 
 	/**
@@ -136,12 +157,18 @@ class Editor extends Component<IProps, IEditorState> {
 					data={activeData}
 					onSort={(e: string) => this.handleSort(e)}
 					onShowFilter={(e: string) => this.handleShowFilter(e)}
+					onShowFindAndReplace={(e: string) =>
+						this.handleShowFindAndReplace(e)
+					}
 					onTableChange={(e: ITable) => this.handleTableChange(e)}
 					activeSorts={activeSorts}
 				/>
 				{this.getModals()}
 			</Fragment>
 		);
+	}
+	handleShowFindAndReplace(key: string) {
+		this.setState({ findAndReplaceShowing: key });
 	}
 }
 
