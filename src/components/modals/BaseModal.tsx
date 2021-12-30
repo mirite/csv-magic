@@ -20,7 +20,7 @@ export interface BaseModalProps {
 
 	table: ITable;
 
-	column: string;
+	column?: string;
 }
 
 export interface BaseModalState {}

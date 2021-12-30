@@ -147,7 +147,7 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  modalName The modal to display.
 	 * @param  column    The key to run the modal on.
 	 */
-	handleSetActiveModal(modalName: string, column: string) {
+	handleSetActiveModal(modalName: string, column?: string) {
 		const action = this.modals[modalName];
 		if (!action) throw new Error(`Invalid modal requested "${modalName}"`);
 		this.setState({ activeModal: { column, action } });
@@ -185,6 +185,9 @@ class Editor extends Component<IProps, IEditorState> {
 				<Chrome
 					editorState={this.state}
 					onTableChange={(e: ITable) => this.handleTableChange(e)}
+					onSetActiveModal={(modal) =>
+						this.handleSetActiveModal(modal)
+					}
 				/>
 				<Table
 					data={activeData}

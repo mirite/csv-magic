@@ -73,5 +73,5 @@ export interface IModalAction {
 
 export interface IActiveModal {
 	action: IModalAction;
-	column: string;
+	column?: string;
 }

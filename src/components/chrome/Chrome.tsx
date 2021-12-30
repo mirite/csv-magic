@@ -8,6 +8,7 @@ import { IEditorState } from 'types';
 interface ChromeProps {
 	editorState: IEditorState;
 	onTableChange: Function;
+	onSetActiveModal: (arg0: string) => any;
 }
 
 const Chrome: FunctionComponent<ChromeProps> = (props) => {
@@ -17,7 +18,7 @@ const Chrome: FunctionComponent<ChromeProps> = (props) => {
 				history={props.editorState.history}
 				onTableChange={props.onTableChange}
 			/>
-			<SuperTools />
+			<SuperTools onSetActiveModal={props.onSetActiveModal} />
 			<SaveAsField table={props.editorState.activeData} />
 		</div>
 	);
