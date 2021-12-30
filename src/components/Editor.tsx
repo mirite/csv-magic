@@ -8,6 +8,7 @@ import { IEditorState, IFilter, IModalAction, ITable } from '../types';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
 import FindAndReplaceModal from './FindAndReplaceModal';
+import { findAndReplaceInColumn } from 'modules/editing';
 
 interface IProps {
 	/**
@@ -40,8 +41,8 @@ class Editor extends Component<IProps, IEditorState> {
 			findAndReplace: {
 				ComponentToUse: FindAndReplaceModal,
 				title: 'Find and Replace In Column',
-				onApply: (toFind: string, toReplace: string) =>
-					this.handleFindAndReplace(toFind, toReplace),
+				onApply: (column: string, toFind: string, toReplace: string) =>
+					this.handleFindAndReplace(column, toFind, toReplace),
 			},
 		};
 
@@ -87,8 +88,19 @@ class Editor extends Component<IProps, IEditorState> {
 		this.setCoreState(newData, activeSorts);
 	}
 
-	handleFindAndReplace(toFind: string, toReplace: string): void {
-		throw new Error('Method not implemented.');
+	handleFindAndReplace(
+		column: string,
+		toFind: string,
+		toReplace: string
+	): void {
+		const { activeData, activeSorts } = this.state;
+		const newTable = findAndReplaceInColumn(
+			activeData,
+			column,
+			toFind,
+			toReplace
+		);
+		this.setCoreState(newTable, activeSorts);
 	}
 	/**
 	 * Handles the closing of the filter window.

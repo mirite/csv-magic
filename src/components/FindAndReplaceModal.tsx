@@ -9,7 +9,7 @@ interface IProps extends PopoverProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (oldValue: string, newValue: string) => void;
+	onApply: (column: string, oldValue: string, newValue: string) => void;
 }
 
 interface IState {
@@ -25,7 +25,7 @@ export default class FindAndReplaceModal extends Popover<IProps, IState> {
 		this.state = { findValue: '', replaceValue: '' };
 	}
 	getContent(): JSX.Element {
-		const { table, column } = this.props;
+		const { column } = this.props;
 		return (
 			<div>
 				<p>Searching in &quot;{column}&quot;</p>
@@ -54,15 +54,18 @@ export default class FindAndReplaceModal extends Popover<IProps, IState> {
 		);
 	}
 	handleReplaceChange(e: React.ChangeEvent<HTMLInputElement>): void {
-		throw new Error('Method not implemented.');
+		const { value } = e.target;
+		this.setState({ replaceValue: value });
 	}
 	handleFindChange(e: React.ChangeEvent<HTMLInputElement>): void {
-		throw new Error('Method not implemented.');
+		const { value } = e.target;
+		this.setState({ findValue: value });
 	}
 
 	handleApply(): void {
 		const { findValue, replaceValue } = this.state;
-		this.props.onApply(findValue, replaceValue);
+		const { column } = this.props;
+		this.props.onApply(column, findValue, replaceValue);
 		this.props.onClose();
 	}
 }
