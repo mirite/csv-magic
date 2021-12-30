@@ -1,15 +1,16 @@
 import _ from 'lodash';
-import { getCellValueByKey } from './access-helpers';
 import { IFilter, ITable } from 'types';
+import { getCellValueByKey } from './access-helpers';
 
-function applyFilters(data: ITable, activeFilters: Array<IFilter>) {
+function applyFilters(data: ITable, activeFilter: IFilter) {
+	console.log(data, activeFilter);
+
 	const newData = _.cloneDeep(data);
-	activeFilters.forEach((currentFilter) => {
-		newData.contents = newData.contents.filter((row) => {
-			return currentFilter.values.includes(
-				getCellValueByKey(row, currentFilter.column)
-			);
-		});
+
+	newData.contents = newData.contents.filter((row) => {
+		return activeFilter.values.includes(
+			getCellValueByKey(row, activeFilter.column)
+		);
 	});
 
 	return newData;

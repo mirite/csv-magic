@@ -55,13 +55,7 @@ export interface IEditorHistory extends IEditorCoreState {
 }
 
 export interface IEditorState extends IEditorCoreState {
-	/**
-	 * An array of the active filters applied with their key and value to show.
-	 */
-	activeFilters: Array<IFilter>;
-
 	activeModal: IActiveModal | undefined;
-
 	history: Array<IEditorHistory>;
 }
 

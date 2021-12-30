@@ -3,26 +3,9 @@
 import React, { Component, Fragment } from 'react';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
-import FiltersModal from './modals/Filters';
-import FindAndReplaceModal from './modals/FindAndReplace';
 import Sorting from 'modules/sorting';
-import Filtering from 'modules/filtering';
-import {
-	findAndReplaceInColumn,
-	removeColumns,
-	renameColumn,
-} from 'modules/editing';
-import {
-	EGeneratorTypes,
-	IEditorState,
-	IFilter,
-	IMappedColumn,
-	IModalAction,
-	ITable,
-} from 'types';
-import RenameColumnModal from './modals/RenameColumn';
-import AddColumnModal from './modals/AddColumn';
-import RemoveColumnsModal from './modals/RemoveColumns';
+import { IEditorState, ITable } from 'types';
+import ModalActions from 'modules/ModalActions';
 
 interface IProps {
 	/**
@@ -31,75 +14,24 @@ interface IProps {
 	data: ITable;
 }
 
-interface IModalList {
-	[key: string]: IModalAction;
-}
-
 /**
  * A file that has been opened and is being displayed as a table in the editor.
  */
 class Editor extends Component<IProps, IEditorState> {
-	modals: IModalList;
-
+	modalActions: ModalActions;
 	constructor(props: IProps) {
 		super(props);
 		const { data } = props;
-
-		this.modals = {
-			filter: {
-				ComponentToUse: FiltersModal,
-				title: 'Filter',
-				onApply: (newFilter: IFilter) =>
-					this.handleApplyFilters(newFilter),
-			},
-			findAndReplace: {
-				ComponentToUse: FindAndReplaceModal,
-				title: 'Find and Replace In Column',
-				onApply: (column: string, toFind: string, toReplace: string) =>
-					this.handleFindAndReplace(column, toFind, toReplace),
-			},
-			renameColumn: {
-				ComponentToUse: RenameColumnModal,
-				title: 'Rename Column',
-				onApply: (column: string, newName: string) =>
-					this.handleRenameColumn(column, newName),
-			},
-			removeColumns: {
-				ComponentToUse: RemoveColumnsModal,
-				title: 'Remove Columns',
-				onApply: (columns: string[]) =>
-					this.handleRemoveColumns(columns),
-			},
-			addColumn: {
-				ComponentToUse: AddColumnModal,
-				title: 'Add Column',
-				onApply: (
-					columnName: string,
-					method: EGeneratorTypes,
-					params?: string | string[] | IMappedColumn
-				) => this.handleAddColumn(columnName, method, params),
-			},
-		};
-
 		this.state = {
-			activeFilters: [],
 			activeSorts: [],
 			activeData: data,
 			activeModal: undefined,
 			history: [],
 		};
-	}
-	handleAddColumn(
-		columnName: string,
-		method: EGeneratorTypes,
-		params: string | string[] | IMappedColumn | undefined
-	) {
-		throw new Error('Method not implemented.');
-	}
-	handleRemoveColumns(columns: string[]) {
-		const { activeData, activeSorts } = this.state;
-		const newTable = removeColumns(activeData, columns);
-		this.setCoreState(newTable, activeSorts);
+		this.modalActions = new ModalActions(
+			(arg0, arg1) => this.setCoreState(arg0, arg1),
+			this.state
+		);
 	}
 
 	/**
@@ -122,38 +54,6 @@ class Editor extends Component<IProps, IEditorState> {
 		this.setCoreState(newData, newSorts);
 	}
 
-	/**
-	 * Handles the application of a filter.
-	 *
-	 * @param  newFilters
-	 */
-	handleApplyFilters(newFilters: IFilter): void {
-		const { activeData, activeFilters, activeSorts } = this.state;
-		const newFilterState = [...activeFilters, newFilters];
-		const newData = Filtering.applyFilters(activeData, newFilterState);
-		this.setState({ activeFilters: newFilterState });
-		this.setCoreState(newData, activeSorts);
-	}
-
-	handleFindAndReplace(
-		column: string,
-		toFind: string,
-		toReplace: string
-	): void {
-		const { activeData, activeSorts } = this.state;
-		const newTable = findAndReplaceInColumn(
-			activeData,
-			column,
-			toFind,
-			toReplace
-		);
-		this.setCoreState(newTable, activeSorts);
-	}
-	handleRenameColumn(column: string, newName: string) {
-		const { activeData, activeSorts } = this.state;
-		const newTable = renameColumn(activeData, column, newName);
-		this.setCoreState(newTable, activeSorts);
-	}
 	/**
 	 * Handles the closing of the filter window.
 	 */
@@ -188,7 +88,7 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  column    The key to run the modal on.
 	 */
 	handleSetActiveModal(modalName: string, column?: string) {
-		const action = this.modals[modalName];
+		const action = this.modalActions.modals[modalName];
 		if (!action) throw new Error(`Invalid modal requested "${modalName}"`);
 		this.setState({ activeModal: { column, action } });
 	}
@@ -216,6 +116,10 @@ class Editor extends Component<IProps, IEditorState> {
 			activeSorts: newSorts,
 			history: newHistory,
 		});
+	}
+
+	componentDidUpdate() {
+		this.modalActions.updateEditorState(this.state);
 	}
 
 	render() {
