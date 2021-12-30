@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
-import FilterValue from './filter-controls/FilterValue';
+import FilterValue from './sub-controls/FilterValue';
 import { getUniqueValuesInColumn } from 'modules/access-helpers';
 import { IFilter, ITable } from 'types';
 import styles from 'styles/modals/FiltersModal.module.css';

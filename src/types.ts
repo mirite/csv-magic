@@ -75,3 +75,16 @@ export interface IActiveModal {
 	action: IModalAction;
 	column?: string;
 }
+
+export enum EGeneratorTypes {
+	blank,
+	statically,
+	lookup,
+	pool,
+}
+
+export interface IMappedColumn {
+	secondaryTable: ITable;
+	sourceKey: string;
+	targetKey: string;
+}

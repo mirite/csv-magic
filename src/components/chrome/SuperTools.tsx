@@ -13,14 +13,14 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
 		<div>
 			<button
 				className={styles.button}
-				onClick={() => onSetActiveModal('findAndReplace')}
+				onClick={() => onSetActiveModal('removeColumns')}
 				title="Remove Columns"
 			>
 				<FontAwesomeIcon icon={faMinusSquare} />
 			</button>
 			<button
 				className={styles.button}
-				onClick={() => onSetActiveModal('findAndReplace')}
+				onClick={() => onSetActiveModal('addColumn')}
 				title="Add Column"
 			>
 				<FontAwesomeIcon icon={faPlusSquare} />

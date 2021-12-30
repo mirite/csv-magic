@@ -8,8 +8,17 @@ import FindAndReplaceModal from './modals/FindAndReplace';
 import Sorting from 'modules/sorting';
 import Filtering from 'modules/filtering';
 import { findAndReplaceInColumn, renameColumn } from 'modules/editing';
-import { IEditorState, IFilter, IModalAction, ITable } from 'types';
+import {
+	EGeneratorTypes,
+	IEditorState,
+	IFilter,
+	IMappedColumn,
+	IModalAction,
+	ITable,
+} from 'types';
 import RenameColumnModal from './modals/RenameColumn';
+import AddColumnModal from './modals/AddColumn';
+import RemoveColumnsModal from './modals/RemoveColumns';
 
 interface IProps {
 	/**
@@ -51,6 +60,21 @@ class Editor extends Component<IProps, IEditorState> {
 				onApply: (column: string, newName: string) =>
 					this.handleRenameColumn(column, newName),
 			},
+			removeColumns: {
+				ComponentToUse: RemoveColumnsModal,
+				title: 'Remove Columns',
+				onApply: (columns: string[]) =>
+					this.handleRemoveColumns(columns),
+			},
+			addColumn: {
+				ComponentToUse: AddColumnModal,
+				title: 'Add Column',
+				onApply: (
+					columnName: string,
+					method: EGeneratorTypes,
+					params?: string | string[] | IMappedColumn
+				) => this.handleAddColumn(columnName, method, params),
+			},
 		};
 
 		this.state = {
@@ -60,6 +84,16 @@ class Editor extends Component<IProps, IEditorState> {
 			activeModal: undefined,
 			history: [],
 		};
+	}
+	handleAddColumn(
+		columnName: string,
+		method: EGeneratorTypes,
+		params: string | string[] | IMappedColumn | undefined
+	) {
+		throw new Error('Method not implemented.');
+	}
+	handleRemoveColumns(columns: string[]) {
+		throw new Error('Method not implemented.');
 	}
 
 	/**

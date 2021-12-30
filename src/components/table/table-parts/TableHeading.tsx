@@ -35,24 +35,28 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 						className={styles.editIcon}
 						icon={faEdit}
 						onClick={() => onSetActiveModal('renameColumn', key)}
+						title="Rename Column"
 					/>
 				</div>
 				<div className={styles.actions}>
 					<button
 						className={styles.button}
 						onClick={() => onSetActiveModal('findAndReplace', key)}
+						title="Find and Replace in Column"
 					>
 						<FontAwesomeIcon icon={faSearch} />
 					</button>
 					<button
 						className={styles.button}
 						onClick={() => onSetActiveModal('filter', key)}
+						title="Filter Column"
 					>
 						<FontAwesomeIcon icon={faFilter} />
 					</button>
 					<button
 						className={styles.button}
 						onClick={() => props.onSort(key)}
+						title="Sort on Column"
 					>
 						<FontAwesomeIcon icon={getSortStateIcon()} />
 					</button>
