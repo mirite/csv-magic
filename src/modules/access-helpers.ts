@@ -35,12 +35,25 @@ export function getCellByID(table: ITable, id: string): ICell | undefined {
 	return cell;
 }
 
+/**
+ * Gets a list of the columns within a table.
+ *
+ * @param  table The table to find the columns of.
+ * @return An array of strings that represent the column names.
+ */
 export function getColumnNames(table: ITable): Array<string> {
 	const exampleRow = table.contents[0];
 	if (!exampleRow) throw new Error('No Rows Found In Table');
 	return exampleRow.contents.map((cell) => cell.key);
 }
 
+/**
+ * Returns an array of tuples with the unique values in a columns and the count of how many times they appeared.
+ *
+ * @param  table  The table to get the information of.
+ * @param  column The name of the column to find values in.
+ * @return An array of tuples with the unique value and the count of how many times it appears.
+ */
 export function getUniqueValuesInColumn(
 	table: ITable,
 	column: string
@@ -59,4 +72,22 @@ export function getUniqueValuesInColumn(
 		}
 	}
 	return values;
+}
+
+/**
+ * Returns the index within a row that corresponds to the column name provided.
+ *
+ * @param  data   The table to search in.
+ * @param  column The name of the column to find.
+ * @return The 0-based index within a row that corresponds to the column name, -1 if the column was not found.
+ */
+export function getColumnIndex(data: ITable, column: string): number {
+	const firstRow = data.contents[0];
+	let columnIndex = 0;
+	if (!firstRow) throw new Error('No row provided');
+	for (const cell of firstRow.contents) {
+		if (cell.key === column) return columnIndex;
+		columnIndex++;
+	}
+	return -1;
 }
