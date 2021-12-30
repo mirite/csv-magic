@@ -60,13 +60,17 @@ abstract class BaseModal<
 								className="btn btn-primary"
 								onClick={() => this.handleApply()}
 							>
-								Apply
+								{this.getApplyText()}
 							</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		);
+	}
+
+	getApplyText() {
+		return 'Apply';
 	}
 	abstract handleApply(): void;
 }

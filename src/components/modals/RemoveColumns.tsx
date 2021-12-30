@@ -62,4 +62,8 @@ export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
 		this.props.onApply(columnsToDelete);
 		this.props.onClose();
 	}
+
+	getApplyText() {
+		return 'Remove Selected Columns';
+	}
 }

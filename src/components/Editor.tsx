@@ -7,7 +7,11 @@ import FiltersModal from './modals/Filters';
 import FindAndReplaceModal from './modals/FindAndReplace';
 import Sorting from 'modules/sorting';
 import Filtering from 'modules/filtering';
-import { findAndReplaceInColumn, renameColumn } from 'modules/editing';
+import {
+	findAndReplaceInColumn,
+	removeColumns,
+	renameColumn,
+} from 'modules/editing';
 import {
 	EGeneratorTypes,
 	IEditorState,
@@ -93,7 +97,9 @@ class Editor extends Component<IProps, IEditorState> {
 		throw new Error('Method not implemented.');
 	}
 	handleRemoveColumns(columns: string[]) {
-		throw new Error('Method not implemented.');
+		const { activeData, activeSorts } = this.state;
+		const newTable = removeColumns(activeData, columns);
+		this.setCoreState(newTable, activeSorts);
 	}
 
 	/**
