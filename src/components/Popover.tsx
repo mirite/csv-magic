@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from 'styles/Popover.module.css';
+import { ITable } from 'types';
 
 export interface PopoverProps {
 	/**
@@ -16,9 +17,13 @@ export interface PopoverProps {
 	 * The event handler for when the popover has apply clicked.
 	 */
 	onApply: Function;
+
+	table: ITable;
+
+	column: string;
 }
 
-interface PopoverState {}
+export interface PopoverState {}
 
 /**
  * A modal to show on top of the table with different options to select.

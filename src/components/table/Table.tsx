@@ -12,9 +12,8 @@ interface IProps {
 	 */
 	data: ITable;
 	onSort: Function;
-	onShowFilter: Function;
+	oneSetActiveModal: (arg0: string, column: string) => any;
 	onTableChange: Function;
-	onShowFindAndReplace: Function;
 	activeSorts: Array<[string, boolean]>;
 }
 
@@ -49,10 +48,7 @@ class Table extends Component<IProps, IState> {
 				table={this.props.data}
 				activeSorts={this.props.activeSorts}
 				onSort={(key: string) => this.props.onSort(key)}
-				onShowFilter={(key: string) => this.props.onShowFilter(key)}
-				onShowFindAndReplace={(key: string) =>
-					this.props.onShowFindAndReplace(key)
-				}
+				onSetActiveModal={this.props.oneSetActiveModal}
 			/>
 		);
 	}

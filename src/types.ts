@@ -1,3 +1,6 @@
+import Popover, { PopoverProps, PopoverState } from 'components/Popover';
+import { ReactElement } from 'react';
+
 export interface IFile {
 	fileName?: string;
 	data?: ITable;
@@ -58,11 +61,18 @@ export interface IEditorState extends IEditorCoreState {
 	 */
 	activeFilters: Array<IFilter>;
 
-	/**
-	 * A column name indicates that a filter modal is being shown for that column.
-	 */
-	filtersShowing: string;
-	findAndReplaceShowing: string;
+	activeModal: IActiveModal | undefined;
 
 	history: Array<IEditorHistory>;
+}
+
+export interface IModalAction {
+	title: string;
+	ComponentToUse: typeof Popover;
+	onApply: Function;
+}
+
+export interface IActiveModal {
+	action: IModalAction;
+	column: string;
 }

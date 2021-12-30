@@ -12,14 +12,13 @@ import styles from 'styles/table/table-parts/TableHeading.module.css';
 
 interface HeadingsProps {
 	fieldName: string;
-	onShowFilter: Function;
-	onShowFindAndReplace: Function;
+	onSetActiveModal: (arg0: string, column: string) => any;
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
 }
 
 const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
-	const { fieldName: key } = props;
+	const { fieldName: key, onSetActiveModal } = props;
 	const getSortStateIcon = () => {
 		const sort = props.activeSorts.find((e) => e[0] === key);
 		if (!sort) return faArrowsAltV;
@@ -34,13 +33,13 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 				<div className={styles.actions}>
 					<button
 						className={styles.button}
-						onClick={() => props.onShowFindAndReplace(key)}
+						onClick={() => onSetActiveModal('findAndReplace', key)}
 					>
 						<FontAwesomeIcon icon={faSearch} />
 					</button>
 					<button
 						className={styles.button}
-						onClick={() => props.onShowFilter(key)}
+						onClick={() => onSetActiveModal('filter', key)}
 					>
 						<FontAwesomeIcon icon={faFilter} />
 					</button>

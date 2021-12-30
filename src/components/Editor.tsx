@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import Sorting from 'modules/sorting';
 import Filtering from 'modules/filtering';
 import FiltersModal from './FiltersModal';
-import { IEditorState, IFilter, ITable } from '../types';
+import { IEditorState, IFilter, IModalAction, ITable } from '../types';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
 import FindAndReplaceModal from './FindAndReplaceModal';
@@ -16,20 +16,40 @@ interface IProps {
 	data: ITable;
 }
 
+interface IModalList {
+	[key: string]: IModalAction;
+}
+
 /**
  * A file that has been opened and is being displayed as a table in the editor.
  */
 class Editor extends Component<IProps, IEditorState> {
+	modals: IModalList;
+
 	constructor(props: IProps) {
 		super(props);
 		const { data } = props;
+
+		this.modals = {
+			filter: {
+				ComponentToUse: FiltersModal,
+				title: 'Filter',
+				onApply: (newFilter: IFilter) =>
+					this.handleApplyFilters(newFilter),
+			},
+			findAndReplace: {
+				ComponentToUse: FindAndReplaceModal,
+				title: 'Find and Replace In Column',
+				onApply: (toFind: string, toReplace: string) =>
+					this.handleFindAndReplace(toFind, toReplace),
+			},
+		};
 
 		this.state = {
 			activeFilters: [],
 			activeSorts: [],
 			activeData: data,
-			filtersShowing: '',
-			findAndReplaceShowing: '',
+			activeModal: undefined,
 			history: [],
 		};
 	}
@@ -67,57 +87,46 @@ class Editor extends Component<IProps, IEditorState> {
 		this.setCoreState(newData, activeSorts);
 	}
 
+	handleFindAndReplace(toFind: string, toReplace: string): void {
+		throw new Error('Method not implemented.');
+	}
 	/**
 	 * Handles the closing of the filter window.
 	 */
-	handleFilterClose(): void {
-		this.setState({ filtersShowing: '' });
+	handleModalClose(): void {
+		this.setState({ activeModal: undefined });
 	}
 
 	/**
 	 * Displays the filter modal if it is active.
 	 */
 	getModals() {
-		const { filtersShowing, findAndReplaceShowing } = this.state;
-		if (filtersShowing) {
-			return (
-				<FiltersModal
-					title="Filter"
-					onClose={() => this.handleFilterClose()}
-					onApply={(newFilter) => this.handleApplyFilters(newFilter)}
-					table={this.state.activeData}
-					column={filtersShowing}
-				/>
-			);
-		}
-		if (findAndReplaceShowing) {
-			return (
-				<FindAndReplaceModal
-					title="Find and Replace"
-					onClose={() => this.handleFindAndReplaceClose()}
-					onApply={(find: string, replace: string) =>
-						this.handleFindAndReplace(find, replace)
-					}
-					table={this.state.activeData}
-					column={findAndReplaceShowing}
-				/>
-			);
-		}
-	}
-	handleFindAndReplace(toFind: string, toReplace: string): void {
-		throw new Error('Method not implemented.');
-	}
-	handleFindAndReplaceClose(): void {
-		this.setState({ findAndReplaceShowing: '' });
+		const { activeModal, activeData } = this.state;
+		if (!activeModal) return;
+		const { column, action } = activeModal;
+		const { ComponentToUse, title, onApply } = action;
+
+		return (
+			<ComponentToUse
+				title={title}
+				column={column}
+				table={activeData}
+				onClose={() => this.handleModalClose()}
+				onApply={(...args: any) => onApply(...args)}
+			/>
+		);
 	}
 
 	/**
 	 * Handles showing the filter window for the specified key.
 	 *
-	 * @param  key The key to filter on.
+	 * @param  modalName The modal to display.
+	 * @param  column    The key to run the modal on.
 	 */
-	handleShowFilter(key: string) {
-		this.setState({ filtersShowing: key });
+	handleSetActiveModal(modalName: string, column: string) {
+		const action = this.modals[modalName];
+		if (!action) throw new Error(`Invalid modal requested "${modalName}"`);
+		this.setState({ activeModal: { column, action } });
 	}
 
 	/**
@@ -156,9 +165,8 @@ class Editor extends Component<IProps, IEditorState> {
 				<Table
 					data={activeData}
 					onSort={(e: string) => this.handleSort(e)}
-					onShowFilter={(e: string) => this.handleShowFilter(e)}
-					onShowFindAndReplace={(e: string) =>
-						this.handleShowFindAndReplace(e)
+					oneSetActiveModal={(modal, column) =>
+						this.handleSetActiveModal(modal, column)
 					}
 					onTableChange={(e: ITable) => this.handleTableChange(e)}
 					activeSorts={activeSorts}
@@ -166,9 +174,6 @@ class Editor extends Component<IProps, IEditorState> {
 				{this.getModals()}
 			</Fragment>
 		);
-	}
-	handleShowFindAndReplace(key: string) {
-		this.setState({ findAndReplaceShowing: key });
 	}
 }
 

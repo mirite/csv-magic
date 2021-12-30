@@ -5,24 +5,27 @@ import TableHeading from './TableHeading';
 
 interface TableHeadingsProps {
 	table: ITable;
-	onShowFilter: Function;
-	onShowFindAndReplace: Function;
+	onSetActiveModal: (arg0: string, column: string) => any;
 	onSort: Function;
 	activeSorts: Array<[string, boolean]>;
 }
 
 const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 	const cells = [];
-	const { activeSorts, table, onShowFilter, onSort, onShowFindAndReplace } =
-		props;
+	const {
+		activeSorts,
+		table,
+		onSort,
+		onSetActiveModal: availableModals,
+	} = props;
+
 	for (const fieldName of getColumnNames(table)) {
 		cells.push(
 			<TableHeading
 				key={fieldName}
 				fieldName={fieldName}
 				activeSorts={activeSorts}
-				onShowFilter={() => onShowFilter(fieldName)}
-				onShowFindAndReplace={() => onShowFindAndReplace(fieldName)}
+				onSetActiveModal={availableModals}
 				onSort={() => onSort(fieldName)}
 			/>
 		);
