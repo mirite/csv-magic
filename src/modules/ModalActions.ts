@@ -5,12 +5,7 @@ import FindAndReplaceModal from 'components/modals/FindAndReplace';
 import RemoveColumnsModal from 'components/modals/RemoveColumns';
 import RenameColumnModal from 'components/modals/RenameColumn';
 import Filtering from 'modules/filtering';
-import {
-	addColumn,
-	findAndReplaceInColumn,
-	removeColumns,
-	renameColumn,
-} from './editing';
+import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
 import {
 	EGeneratorTypes,
 	IEditorState,
@@ -20,6 +15,7 @@ import {
 	IModalAction,
 	ITable,
 } from 'types';
+import { addColumn } from './column-generator';
 
 interface IModalList {
 	[key: string]: IModalAction;
