@@ -1,19 +1,28 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
-import { ITable } from 'types';
+import { EGeneratorTypes, IMappedColumn, ITable } from 'types';
 import styles from 'styles/modals/AddColumnModal.module.css';
+import ColumnTypeRadio from './sub-controls/ColumnType';
+import LookupOptions from './sub-controls/LookupOptions';
+import PoolOptions from './sub-controls/PoolOptions';
+import StaticOptions from './sub-controls/StaticOptions';
 
 interface IProps extends BaseModalProps {
-	column: string;
 	table: ITable;
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (column: string, newName: string) => void;
+	onApply: (
+		columnName: string,
+		method: EGeneratorTypes,
+		params?: string | string[] | IMappedColumn
+	) => void;
 }
 
 interface IState {
 	newName: string;
+	newType: EGeneratorTypes;
+	params: undefined | string | string[] | IMappedColumn;
 }
 /**
  * A popover for filtering the showing rows based on their values.
@@ -23,27 +32,90 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 		super(props);
 		this.state = {
 			newName: '',
+			newType: EGeneratorTypes.blank,
+			params: undefined,
 		};
 	}
 	getContent(): JSX.Element {
-		const { column } = this.props;
 		return (
 			<div>
-				<p>Renaming &quot;{column}&quot;</p>
 				<div className={styles.container}>
 					<div className={styles.group}>
-						<label htmlFor="find-input">New Name:</label>
+						<label htmlFor="name-input">
+							<h3>Column Name:</h3>
+						</label>
 						<input
-							id="find-input"
+							id="name-input"
 							className={styles.input}
 							type="text"
 							value={this.state.newName}
 							onChange={(e) => this.handleNewNameChange(e)}
 						/>
 					</div>
+					<div>
+						<h3>Column Type:</h3>
+						<ColumnTypeRadio
+							label="Blank"
+							description="An empty column, nothing magical here."
+							type={EGeneratorTypes.blank}
+							onChange={(e) => this.handleTypeChange(e)}
+						/>
+						<ColumnTypeRadio
+							label="Static"
+							description="A column filled with a set value, It could be blank if you are really opposed to using the blank option."
+							type={EGeneratorTypes.statically}
+							onChange={(e) => this.handleTypeChange(e)}
+						/>
+						<ColumnTypeRadio
+							label="Lookup"
+							description="A column filled with data from matches in another open table. Basically a portal."
+							type={EGeneratorTypes.lookup}
+							onChange={(e) => this.handleTypeChange(e)}
+						/>
+						<ColumnTypeRadio
+							label="Pool"
+							description="A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want)."
+							type={EGeneratorTypes.pool}
+							onChange={(e) => this.handleTypeChange(e)}
+						/>
+					</div>
+					{this.additionalOptions()}
 				</div>
 			</div>
 		);
+	}
+
+	additionalOptions(): React.ReactNode {
+		if (this.state.newType === EGeneratorTypes.blank) return;
+		if (this.state.newType === EGeneratorTypes.statically)
+			return (
+				<StaticOptions
+					onChange={(value: string) => this.handleParamsChange(value)}
+				/>
+			);
+		if (this.state.newType === EGeneratorTypes.lookup)
+			return (
+				<LookupOptions
+					onChange={(value: IMappedColumn) =>
+						this.handleParamsChange(value)
+					}
+				/>
+			);
+		if (this.state.newType === EGeneratorTypes.pool)
+			return (
+				<PoolOptions
+					onChange={(values: string[]) =>
+						this.handleParamsChange(values)
+					}
+				/>
+			);
+	}
+
+	handleParamsChange(value: string | string[] | IMappedColumn) {
+		throw new Error('Method not implemented.');
+	}
+	handleTypeChange(e: EGeneratorTypes): void {
+		this.setState({ newType: e });
 	}
 
 	handleNewNameChange(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -52,9 +124,12 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	}
 
 	handleApply(): void {
-		const { newName } = this.state;
-		const { column } = this.props;
-		this.props.onApply(column, newName);
+		const { newName, params, newType } = this.state;
+		if (newType === EGeneratorTypes.blank) {
+			this.props.onApply(newName, newType);
+		} else {
+			this.props.onApply(newName, newType, params);
+		}
 		this.props.onClose();
 	}
 }

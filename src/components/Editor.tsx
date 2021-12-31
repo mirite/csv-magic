@@ -119,6 +119,8 @@ class Editor extends Component<IProps, IEditorState> {
 	}
 
 	componentDidUpdate() {
+		//This is necessary so that the modals always have the most recent data to work with after
+		//a state change.
 		this.modalActions.updateEditorState(this.state);
 	}
 
