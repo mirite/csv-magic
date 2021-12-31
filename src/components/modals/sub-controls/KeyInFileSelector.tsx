@@ -5,6 +5,7 @@ import { ITable } from 'types';
 interface KeyInFileSelectorProps {
 	table: ITable;
 	label: string;
+	onChange: (event: string) => void;
 }
 
 const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
@@ -15,7 +16,10 @@ const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
 	return (
 		<div>
 			<label htmlFor="select-key-in-file">{props.label}</label>
-			<select id="select-key-in-file">
+			<select
+				id="select-key-in-file"
+				onChange={(event) => props.onChange(event.currentTarget.value)}
+			>
 				{keys.map((key) => (
 					<option key={key} value={key}>
 						{key}
