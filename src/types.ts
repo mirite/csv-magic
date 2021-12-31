@@ -43,20 +43,20 @@ interface IEditorCoreState {
 	 * An array of currently active sorting methods.
 	 */
 	activeSorts: Array<[string, boolean]>;
-
-	/**
-	 * The current data showing after filters, sorts have been applied.
-	 */
-	activeData: ITable;
 }
 
 export interface IEditorHistory extends IEditorCoreState {
 	timestamp: number;
+	table: ITable;
 }
 
 export interface IEditorState extends IEditorCoreState {
 	activeModal: IActiveModal | undefined;
 	history: Array<IEditorHistory>;
+}
+
+export interface IEditorStateAndTable extends IEditorState {
+	activeData: ITable;
 }
 
 export interface IModalAction {

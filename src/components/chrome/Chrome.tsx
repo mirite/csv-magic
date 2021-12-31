@@ -3,10 +3,10 @@ import SaveAsField from './SaveAsField';
 import UndoRedo from './UndoRedo';
 import styles from 'styles/chrome/Chrome.module.css';
 import SuperTools from './SuperTools';
-import { IEditorState } from 'types';
+import { IEditorState, IEditorStateAndTable } from 'types';
 
 interface ChromeProps {
-	editorState: IEditorState;
+	editorState: IEditorStateAndTable;
 	onTableChange: Function;
 	onSetActiveModal: (arg0: string) => any;
 }

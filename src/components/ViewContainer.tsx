@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ViewTab from './ViewTab';
 import MainView from './MainView';
-import { IFile } from 'types';
+import { IFile, ITable } from 'types';
+import _ from 'lodash';
 
 interface IFilesContext {
 	files: Array<IFile>;
@@ -106,10 +107,16 @@ class ViewContainer extends Component<IProps, IState> {
 					<MainView
 						table={currentFile.data}
 						onLoad={(file) => this.handleLoad(file)}
+						onTableChange={(e: ITable) => this.handleTableChange(e)}
 					/>
 				</div>
 			</OpenFilesContext.Provider>
 		);
+	}
+
+	handleTableChange(e: ITable): any {
+		const files = _.cloneDeep(this.state.files);
+		files[this.state.currentIndex].data = e;
 	}
 }
 

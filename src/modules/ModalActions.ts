@@ -9,7 +9,7 @@ import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
 import {
 	EGeneratorTypes,
 	IEditorState,
-	IFile,
+	IEditorStateAndTable,
 	IFilter,
 	IMappedColumn,
 	IModalAction,
@@ -30,7 +30,7 @@ export default class ModalActions {
 	/**
 	 * The state of the editor/parent, used for getting the table data, filters, sorts, etc.
 	 */
-	editorState: IEditorState;
+	editorState: IEditorStateAndTable;
 
 	/**
 	 * The function to call to update the main (data and sorts) status of the table.
@@ -50,7 +50,7 @@ export default class ModalActions {
 			newData: ITable,
 			newSorts: Array<[string, boolean]>
 		) => void,
-		editorState: IEditorState
+		editorState: IEditorStateAndTable
 	) {
 		//Assignments from constructor.
 		this.setCoreState = coreStateSetter;
@@ -94,7 +94,7 @@ export default class ModalActions {
 		};
 	}
 
-	updateEditorState(newState: IEditorState): void {
+	updateEditorState(newState: IEditorStateAndTable): void {
 		this.editorState = newState;
 	}
 

@@ -16,6 +16,7 @@ interface IProps {
 	 * The event handler to call when a new file is loaded.
 	 */
 	onLoad: (file?: IFile) => void;
+	onTableChange: (table: ITable) => any;
 }
 
 /**
@@ -29,9 +30,18 @@ class MainView extends Component<IProps, IState> {
 	 */
 	getView() {
 		if (this.props.table) {
-			return <Editor data={this.props.table} />;
+			return (
+				<Editor
+					table={this.props.table}
+					onChange={(e: ITable) => this.handleTableChange(e)}
+				/>
+			);
 		}
 		return <FileSelector onChange={(data) => this.props.onLoad(data)} />;
+	}
+
+	handleTableChange(e: ITable): any {
+		this.props.onTableChange(e);
 	}
 
 	render() {

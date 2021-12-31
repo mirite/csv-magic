@@ -20,7 +20,7 @@ const UndoRedo: FunctionComponent<UndoRedoProps> = (props) => {
 
 	const timeTravel = (movement: number) => {
 		setHistoryIndex(historyIndex + movement);
-		props.onTableChange(props.history[historyIndex].activeData);
+		props.onTableChange(props.history[historyIndex].table);
 	};
 
 	return (
