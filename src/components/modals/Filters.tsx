@@ -84,4 +84,12 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 		this.props.onApply(filterList);
 		this.props.onClose();
 	}
+
+	isApplyEnabled() {
+		return this.state.filterList.values.length > 0;
+	}
+
+	getApplyText() {
+		return 'Filter';
+	}
 }

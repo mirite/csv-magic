@@ -70,12 +70,12 @@ abstract class BaseModal<
 		);
 	}
 
-	getApplyText() {
+	getApplyText(): string {
 		return 'Apply';
 	}
 
-	isApplyEnabled() {
-		return true;
+	isApplyEnabled(): boolean {
+		return false;
 	}
 	abstract handleApply(): void;
 }

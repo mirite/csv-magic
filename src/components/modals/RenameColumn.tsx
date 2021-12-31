@@ -54,7 +54,16 @@ export default class RenameColumnModal extends BaseModal<IProps, IState> {
 	handleApply(): void {
 		const { newName } = this.state;
 		const { column } = this.props;
-		this.props.onApply(column, newName);
+		this.props.onApply(column, newName.trim());
 		this.props.onClose();
+	}
+
+	getApplyText() {
+		return 'Rename';
+	}
+
+	isApplyEnabled() {
+		const { newName } = this.state;
+		return newName.trim() !== '';
 	}
 }
