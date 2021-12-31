@@ -29,7 +29,7 @@ interface IState {
 class ViewContainer extends Component<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
-		this.state = { files: [], currentIndex: 0 };
+		this.state = { files: [], currentIndex: -1 };
 	}
 
 	/**
@@ -97,13 +97,20 @@ class ViewContainer extends Component<IProps, IState> {
 						{this.state.files.map((file, index) => (
 							<ViewTab
 								key={index}
-								label={file.fileName ?? 'CSV Magic'}
+								label={file.fileName}
 								onClick={() => this.handleTabClick(index)}
 								onClose={() => this.handleTabClose(index)}
 								active={index === currentIndex}
-								home={index === 0}
+								home={false}
 							/>
 						))}
+						<ViewTab
+							label="CSV Magic"
+							onClick={() => this.handleTabClick(-1)}
+							onClose={() => this.handleTabClose(-1)}
+							active={-1 === currentIndex}
+							home={true}
+						/>
 					</ul>
 					<MainView
 						file={currentFile}
