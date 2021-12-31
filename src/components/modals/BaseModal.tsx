@@ -59,6 +59,7 @@ abstract class BaseModal<
 							<button
 								className="btn btn-primary"
 								onClick={() => this.handleApply()}
+								disabled={!this.isApplyEnabled()}
 							>
 								{this.getApplyText()}
 							</button>
@@ -71,6 +72,10 @@ abstract class BaseModal<
 
 	getApplyText() {
 		return 'Apply';
+	}
+
+	isApplyEnabled() {
+		return true;
 	}
 	abstract handleApply(): void;
 }

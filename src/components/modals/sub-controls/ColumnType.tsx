@@ -6,6 +6,7 @@ interface ColumnTypeRadioProps {
 	description: string;
 	type: EGeneratorTypes;
 	onChange: (e: EGeneratorTypes) => void;
+	default?: boolean;
 }
 
 const ColumnTypeRadio: FunctionComponent<ColumnTypeRadioProps> = (props) => {
@@ -17,6 +18,7 @@ const ColumnTypeRadio: FunctionComponent<ColumnTypeRadioProps> = (props) => {
 				id={id}
 				name="column-type"
 				onChange={() => props.onChange(props.type)}
+				defaultChecked={props.default}
 			/>
 			<label htmlFor={id}>
 				<strong>{props.label}</strong>

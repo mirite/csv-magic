@@ -59,6 +59,7 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 							description="An empty column, nothing magical here."
 							type={EGeneratorTypes.blank}
 							onChange={(e) => this.handleTypeChange(e)}
+							default={true}
 						/>
 						<ColumnTypeRadio
 							label="Static"
@@ -120,7 +121,7 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	}
 
 	handleTypeChange(e: EGeneratorTypes): void {
-		this.setState({ newType: e });
+		this.setState({ newType: e, params: undefined });
 	}
 
 	/**
@@ -144,5 +145,12 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 			this.props.onApply(newName, newType, params);
 		}
 		this.props.onClose();
+	}
+
+	isApplyEnabled() {
+		const { newName, params, newType } = this.state;
+		return (params || newType === EGeneratorTypes.blank) && newName
+			? true
+			: false;
 	}
 }
