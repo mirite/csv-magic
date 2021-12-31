@@ -52,7 +52,7 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 							onChange={(e) => this.handleNewNameChange(e)}
 						/>
 					</div>
-					<div>
+					<div className={styles.group}>
 						<h3>Column Type:</h3>
 						<ColumnTypeRadio
 							label="Blank"
@@ -79,14 +79,18 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
 					</div>
-					{this.additionalOptions()}
+					<div className={styles.group}>
+						<h3>Options:</h3>
+						{this.additionalOptions()}
+					</div>
 				</div>
 			</div>
 		);
 	}
 
 	additionalOptions(): React.ReactNode {
-		if (this.state.newType === EGeneratorTypes.blank) return;
+		if (this.state.newType === EGeneratorTypes.blank)
+			return <span>There are no options for blank.</span>;
 		if (this.state.newType === EGeneratorTypes.statically)
 			return (
 				<StaticOptions
@@ -112,7 +116,7 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	}
 
 	handleParamsChange(value: string | string[] | IMappedColumn) {
-		throw new Error('Method not implemented.');
+		this.setState({ params: value });
 	}
 	handleTypeChange(e: EGeneratorTypes): void {
 		this.setState({ newType: e });
