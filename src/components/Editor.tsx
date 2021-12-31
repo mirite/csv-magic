@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
+import { OpenFilesContext } from 'components/ViewContainer';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
 import Sorting from 'modules/sorting';
-import { IEditorState, ITable } from 'types';
+import { IEditorState, IFile, ITable } from 'types';
 import ModalActions from 'modules/ModalActions';
 
 interface IProps {
@@ -28,6 +29,7 @@ class Editor extends Component<IProps, IEditorState> {
 			activeModal: undefined,
 			history: [],
 		};
+
 		this.modalActions = new ModalActions(
 			(arg0, arg1) => this.setCoreState(arg0, arg1),
 			this.state

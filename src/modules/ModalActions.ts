@@ -1,13 +1,20 @@
+import { OpenFilesContext } from 'components/ViewContainer';
 import AddColumnModal from 'components/modals/AddColumn';
 import FiltersModal from 'components/modals/Filters';
 import FindAndReplaceModal from 'components/modals/FindAndReplace';
 import RemoveColumnsModal from 'components/modals/RemoveColumns';
 import RenameColumnModal from 'components/modals/RenameColumn';
 import Filtering from 'modules/filtering';
-import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
+import {
+	addColumn,
+	findAndReplaceInColumn,
+	removeColumns,
+	renameColumn,
+} from './editing';
 import {
 	EGeneratorTypes,
 	IEditorState,
+	IFile,
 	IFilter,
 	IMappedColumn,
 	IModalAction,
@@ -100,7 +107,10 @@ export default class ModalActions {
 		method: EGeneratorTypes,
 		params: string | string[] | IMappedColumn | undefined
 	) {
-		throw new Error('Method not implemented.');
+		const { activeData, activeSorts } = this.editorState;
+
+		const newData = addColumn(activeData, columnName, method, params);
+		this.setCoreState(newData, activeSorts);
 	}
 	handleRemoveColumns(columns: string[]) {
 		const { activeData, activeSorts } = this.editorState;

@@ -1,6 +1,10 @@
 import _ from 'lodash';
-import { getCellByID, getColumnIndex } from './access-helpers';
-import { ICell, IRow, ITable } from 'types';
+import {
+	getCellByID,
+	getColumnIndex,
+	getRowWithMatchingValueInColumn,
+} from './access-helpers';
+import { EGeneratorTypes, ICell, IMappedColumn, IRow, ITable } from 'types';
 
 /**
  * Updates a cell within a table.
@@ -100,5 +104,71 @@ export function removeColumns(data: ITable, columnsToRemove: string[]): ITable {
 	newData.contents = newData.contents.map((row) =>
 		removeColumnsInRow(row, columnIndices)
 	);
+	return newData;
+}
+
+export function addColumn(
+	data: ITable,
+	columnName: string,
+	method: EGeneratorTypes,
+	generator: string | string[] | IMappedColumn | undefined
+): ITable {
+	const addCellToRow = (row: IRow): void => {
+		const cellValue = generateCellValue(row);
+		const newCell: ICell = {
+			id: row.id + '?' + String(row.contents.length),
+			key: columnName,
+			value: cellValue,
+		};
+		row.contents.push(newCell);
+	};
+
+	const poolValues = function* () {
+		if (!Array.isArray(generator))
+			throw new Error('Generator is not pool type');
+		let index = Math.random() * (generator.length - 1);
+		while (index < generator.length) {
+			yield generator[index];
+			index++;
+			if (index === generator.length) index = 0;
+		}
+		return '';
+	};
+
+	let foreignIndex = -1;
+	let primaryIndex = -1;
+
+	const getMappedValue = (row: IRow) => {
+		const mappedGenerator = generator as IMappedColumn;
+		const foreignTable = mappedGenerator.secondaryTable;
+		if (primaryIndex < 0)
+			primaryIndex = getColumnIndex(data, mappedGenerator.targetKey);
+		if (foreignIndex < 0)
+			foreignIndex = getColumnIndex(
+				foreignTable,
+				mappedGenerator.targetKey
+			);
+
+		const localValue = row.contents[primaryIndex].value;
+		const remoteRow = getRowWithMatchingValueInColumn(
+			foreignTable,
+			foreignIndex,
+			localValue
+		);
+
+		if (remoteRow) return remoteRow.contents[foreignIndex].value;
+		return '';
+	};
+
+	const generateCellValue = (row: IRow): string => {
+		if (method === EGeneratorTypes.blank) return '';
+		if (method === EGeneratorTypes.statically) return generator as string;
+		if (method === EGeneratorTypes.pool) return poolValues().next().value;
+		return getMappedValue(row);
+	};
+
+	const newData = _.cloneDeep(data);
+
+	newData.contents.forEach(addCellToRow);
 	return newData;
 }
