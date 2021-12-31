@@ -6,8 +6,8 @@ import React, {
 	useState,
 } from 'react';
 import { IFile, IMappedColumn } from 'types';
-import KeyInFileSelector from './KeyInFileSelector';
-import OpenFileSelector from './OpenFileSelector';
+import KeyInFileSelector from '../selects/KeyInFileSelector';
+import OpenFileSelector from '../selects/OpenFileSelector';
 
 interface LookupOptionsProps {
 	onChange: (e: IMappedColumn) => void;

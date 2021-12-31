@@ -3,9 +3,9 @@ import BaseModal, { BaseModalProps } from './BaseModal';
 import { EGeneratorTypes, IMappedColumn, ITable } from 'types';
 import styles from 'styles/modals/AddColumnModal.module.css';
 import ColumnTypeRadio from './sub-controls/ColumnType';
-import LookupOptions from './sub-controls/LookupOptions';
-import PoolOptions from './sub-controls/PoolOptions';
-import StaticOptions from './sub-controls/StaticOptions';
+import LookupOptions from './sub-controls/add-column-options/LookupOptions';
+import PoolOptions from './sub-controls/add-column-options/PoolOptions';
+import StaticOptions from './sub-controls/add-column-options/StaticOptions';
 
 interface IProps extends BaseModalProps {
 	table: ITable;
