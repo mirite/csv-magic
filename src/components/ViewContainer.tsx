@@ -3,6 +3,15 @@ import ViewTab from './ViewTab';
 import MainView from './MainView';
 import { IFile } from 'types';
 
+interface IFilesContext {
+	files: Array<IFile>;
+	currentFile: IFile | undefined;
+}
+export const OpenFilesContext = React.createContext<IFilesContext>({
+	files: [],
+	currentFile: undefined,
+});
+
 interface IProps {}
 
 interface IState {
@@ -74,30 +83,32 @@ class ViewContainer extends Component<IProps, IState> {
 	}
 
 	render() {
-		const { currentIndex } = this.state;
+		const { currentIndex, files } = this.state;
 		/**
 		 * The current open file.
 		 */
 		const currentFile = this.state.files[currentIndex];
 		return (
-			<div>
-				<ul className="nav nav-tabs">
-					{this.state.files.map((file, index) => (
-						<ViewTab
-							key={index}
-							label={file.fileName ?? 'CSV Magic'}
-							onClick={() => this.handleTabClick(index)}
-							onClose={() => this.handleTabClose(index)}
-							active={index === currentIndex}
-							home={index === 0}
-						/>
-					))}
-				</ul>
-				<MainView
-					file={currentFile.data}
-					onLoad={(file) => this.handleLoad(file)}
-				/>
-			</div>
+			<OpenFilesContext.Provider value={{ files, currentFile }}>
+				<div>
+					<ul className="nav nav-tabs">
+						{this.state.files.map((file, index) => (
+							<ViewTab
+								key={index}
+								label={file.fileName ?? 'CSV Magic'}
+								onClick={() => this.handleTabClick(index)}
+								onClose={() => this.handleTabClose(index)}
+								active={index === currentIndex}
+								home={index === 0}
+							/>
+						))}
+					</ul>
+					<MainView
+						table={currentFile.data}
+						onLoad={(file) => this.handleLoad(file)}
+					/>
+				</div>
+			</OpenFilesContext.Provider>
 		);
 	}
 }

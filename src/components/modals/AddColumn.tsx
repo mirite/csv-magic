@@ -118,15 +118,24 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	handleParamsChange(value: string | string[] | IMappedColumn) {
 		this.setState({ params: value });
 	}
+
 	handleTypeChange(e: EGeneratorTypes): void {
 		this.setState({ newType: e });
 	}
 
+	/**
+	 * Keep the column name input in-sync with the state.
+	 *
+	 * @param  e The column name input.
+	 */
 	handleNewNameChange(e: React.ChangeEvent<HTMLInputElement>): void {
 		const { value } = e.target;
 		this.setState({ newName: value });
 	}
 
+	/**
+	 * Handles the modals onApply event.
+	 */
 	handleApply(): void {
 		const { newName, params, newType } = this.state;
 		if (newType === EGeneratorTypes.blank) {

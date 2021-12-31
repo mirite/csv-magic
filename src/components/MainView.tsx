@@ -10,7 +10,7 @@ interface IProps {
 	/**
 	 * The current open file (if any).
 	 */
-	file?: ITable;
+	table?: ITable;
 
 	/**
 	 * The event handler to call when a new file is loaded.
@@ -28,8 +28,8 @@ class MainView extends Component<IProps, IState> {
 	 * @return The appropriate view based on whether or not the FilePane has a file open.
 	 */
 	getView() {
-		if (this.props.file) {
-			return <Editor data={this.props.file} />;
+		if (this.props.table) {
+			return <Editor data={this.props.table} />;
 		}
 		return <FileSelector onChange={(data) => this.props.onLoad(data)} />;
 	}
