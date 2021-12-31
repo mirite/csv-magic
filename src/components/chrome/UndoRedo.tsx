@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
-import { IEditorHistory } from 'types';
+import { IFileHistory } from 'types';
 import styles from 'styles/chrome/UndoRedo.module.css';
 
 interface UndoRedoProps {
-	history: Array<IEditorHistory>;
+	history: IFileHistory;
 	onTableChange: Function;
 }
 
@@ -20,7 +20,7 @@ const UndoRedo: FunctionComponent<UndoRedoProps> = (props) => {
 
 	const timeTravel = (movement: number) => {
 		setHistoryIndex(historyIndex + movement);
-		props.onTableChange(props.history[historyIndex].table);
+		props.onTableChange(props.history[historyIndex]);
 	};
 
 	return (

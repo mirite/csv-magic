@@ -1,37 +1,42 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
-import { OpenFilesContext } from 'components/ViewContainer';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
 import Sorting from 'modules/sorting';
-import { IEditorState, IEditorStateAndTable, IFile, ITable } from 'types';
+import { IActiveModal, IFile, IFileHistory, ITable } from 'types';
 import ModalActions from 'modules/ModalActions';
 
 interface IProps {
 	/**
 	 * The data from the file that was opened.
 	 */
-	table: ITable;
-	onChange: (table: ITable) => any;
+	file: IFile;
+	onChange: (
+		table: ITable,
+		sorts: Array<[string, boolean]>,
+		history: IFileHistory
+	) => any;
+}
+
+interface IState {
+	activeModal: undefined | IActiveModal;
 }
 
 /**
  * A file that has been opened and is being displayed as a table in the editor.
  */
-class Editor extends Component<IProps, IEditorState> {
+class Editor extends Component<IProps, IState> {
 	modalActions: ModalActions;
 	constructor(props: IProps) {
 		super(props);
 		this.state = {
-			activeSorts: [],
 			activeModal: undefined,
-			history: [],
 		};
 
 		this.modalActions = new ModalActions(
 			(arg0, arg1) => this.setCoreState(arg0, arg1),
-			this.createEditorStateAndTable()
+			this.props.file
 		);
 	}
 
@@ -41,8 +46,7 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  key The field to sort on.
 	 */
 	handleSort(key: string) {
-		const { table } = this.props;
-		const { activeSorts } = this.state;
+		const { table, activeSorts } = this.props.file;
 
 		/**
 		 * Adds the new sort to the list of sorts if it isn't present or toggles direction/removes sort if it is already present.
@@ -67,7 +71,7 @@ class Editor extends Component<IProps, IEditorState> {
 	 * Displays the filter modal if it is active.
 	 */
 	getModals() {
-		const { table } = this.props;
+		const { table } = this.props.file;
 		const { activeModal } = this.state;
 		if (!activeModal) return;
 		const { column, action } = activeModal;
@@ -102,43 +106,30 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  changedTable The new table data.
 	 */
 	handleTableChange(changedTable: ITable) {
-		const { activeSorts } = this.state;
+		const { activeSorts } = this.props.file;
 		this.setCoreState(changedTable, activeSorts);
 	}
 
 	setCoreState(newData: ITable, newSorts: Array<[string, boolean]>) {
-		const { table, onChange } = this.props;
-		const { history, activeSorts } = this.state;
-		const newHistoryEntry = {
-			table,
-			activeSorts,
-			timestamp: Date.now(),
-		};
-		const newHistory = [...history, newHistoryEntry];
-		onChange(newData);
-		this.setState({
-			activeSorts: newSorts,
-			history: newHistory,
-		});
-	}
+		const { onChange } = this.props;
+		const { table, history } = this.props.file;
 
-	createEditorStateAndTable(): IEditorStateAndTable {
-		return { ...this.state, activeData: this.props.table };
+		const newHistory = [...history, table];
+		onChange(newData, newSorts, newHistory);
 	}
 
 	componentDidUpdate() {
 		//This is necessary so that the modals always have the most recent data to work with after
 		//a state change.
-		this.modalActions.updateEditorState(this.createEditorStateAndTable());
+		this.modalActions.updateEditorState(this.props.file);
 	}
 
 	render() {
-		const { table } = this.props;
-		const { activeSorts } = this.state;
+		const { table, activeSorts } = this.props.file;
 		return (
 			<Fragment>
 				<Chrome
-					editorState={this.createEditorStateAndTable()}
+					editorState={this.props.file}
 					onTableChange={(e: ITable) => this.handleTableChange(e)}
 					onSetActiveModal={(modal) =>
 						this.handleSetActiveModal(modal)

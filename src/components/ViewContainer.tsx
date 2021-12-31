@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ViewTab from './ViewTab';
 import MainView from './MainView';
-import { IFile, ITable } from 'types';
+import { IFile, IFileHistory, ITable } from 'types';
 import _ from 'lodash';
 
 interface IFilesContext {
@@ -25,10 +25,11 @@ interface IState {
 	 */
 	currentIndex: number;
 }
+
 class ViewContainer extends Component<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
-		this.state = { files: [{}], currentIndex: 0 };
+		this.state = { files: [], currentIndex: 0 };
 	}
 
 	/**
@@ -105,18 +106,29 @@ class ViewContainer extends Component<IProps, IState> {
 						))}
 					</ul>
 					<MainView
-						table={currentFile.data}
+						file={currentFile}
 						onLoad={(file) => this.handleLoad(file)}
-						onTableChange={(e: ITable) => this.handleTableChange(e)}
+						onTableChange={(
+							table: ITable,
+							sorts: Array<[string, boolean]>,
+							history: IFileHistory
+						) => this.handleTableChange(table, sorts, history)}
 					/>
 				</div>
 			</OpenFilesContext.Provider>
 		);
 	}
 
-	handleTableChange(e: ITable): any {
+	handleTableChange(
+		table: ITable,
+		sorts: Array<[string, boolean]>,
+		history: IFileHistory
+	): any {
 		const files = _.cloneDeep(this.state.files);
-		files[this.state.currentIndex].data = e;
+		const file = files[this.state.currentIndex];
+		file.table = table;
+		file.activeSorts = sorts;
+		file.history = history;
 	}
 }
 

@@ -21,7 +21,7 @@ const LookupOptions: FunctionComponent<LookupOptionsProps> = (props) => {
 
 	const activeFile = useContext(OpenFilesContext);
 	useEffect(() => {
-		const foreignTable = otherFile?.data;
+		const foreignTable = otherFile?.table;
 		if (
 			!foreignTable ||
 			!sourceMatchKey ||
@@ -39,19 +39,19 @@ const LookupOptions: FunctionComponent<LookupOptionsProps> = (props) => {
 		props.onChange(mappedColumn);
 	}, [foreignMatchKey, sourceMatchKey, otherFile, foreignImportKey]);
 
-	if (!activeFile.currentFile?.data) return <p>No file active</p>;
+	if (!activeFile.currentFile?.table) return <p>No file active</p>;
 
 	const otherFileKeySelector = () => {
-		if (!otherFile?.data) return <p>Please select a file.</p>;
+		if (!otherFile?.table) return <p>Please select a file.</p>;
 		return (
 			<div>
 				<KeyInFileSelector
-					table={otherFile?.data}
+					table={otherFile?.table}
 					label="Key in the other table to match on:"
 					onChange={(key: string) => setForeignMatchKey(key)}
 				/>
 				<KeyInFileSelector
-					table={otherFile?.data}
+					table={otherFile?.table}
 					label="Key in the other table to import:"
 					onChange={(key: string) => setForeignImportKey(key)}
 				/>
@@ -65,7 +65,7 @@ const LookupOptions: FunctionComponent<LookupOptionsProps> = (props) => {
 				currentFile={activeFile.currentFile}
 			/>
 			<KeyInFileSelector
-				table={activeFile.currentFile.data}
+				table={activeFile.currentFile.table}
 				label="Key in this table to match on:"
 				onChange={(key: string) => setSourceMatchKey(key)}
 			/>

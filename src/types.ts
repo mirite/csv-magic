@@ -1,8 +1,15 @@
 import BaseModal from 'components/modals/BaseModal';
 export interface IFile {
-	fileName?: string;
-	data?: ITable;
+	fileName: string;
+	table: ITable;
+	/**
+	 * An array of currently active sorting methods.
+	 */
+	activeSorts: Array<[string, boolean]>;
+	history: IFileHistory;
 }
+
+export interface IFileHistory extends Array<ITable> {}
 
 export interface ITable {
 	firstCellId?: string;
@@ -36,27 +43,6 @@ export interface IRawTable extends Array<IRawRow> {}
 export interface IFilter {
 	column: string;
 	values: string[];
-}
-
-interface IEditorCoreState {
-	/**
-	 * An array of currently active sorting methods.
-	 */
-	activeSorts: Array<[string, boolean]>;
-}
-
-export interface IEditorHistory extends IEditorCoreState {
-	timestamp: number;
-	table: ITable;
-}
-
-export interface IEditorState extends IEditorCoreState {
-	activeModal: IActiveModal | undefined;
-	history: Array<IEditorHistory>;
-}
-
-export interface IEditorStateAndTable extends IEditorState {
-	activeData: ITable;
 }
 
 export interface IModalAction {

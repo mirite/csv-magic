@@ -8,8 +8,7 @@ import Filtering from 'modules/filtering';
 import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
 import {
 	EGeneratorTypes,
-	IEditorState,
-	IEditorStateAndTable,
+	IFile,
 	IFilter,
 	IMappedColumn,
 	IModalAction,
@@ -30,7 +29,7 @@ export default class ModalActions {
 	/**
 	 * The state of the editor/parent, used for getting the table data, filters, sorts, etc.
 	 */
-	editorState: IEditorStateAndTable;
+	editorState: IFile;
 
 	/**
 	 * The function to call to update the main (data and sorts) status of the table.
@@ -50,7 +49,7 @@ export default class ModalActions {
 			newData: ITable,
 			newSorts: Array<[string, boolean]>
 		) => void,
-		editorState: IEditorStateAndTable
+		editorState: IFile
 	) {
 		//Assignments from constructor.
 		this.setCoreState = coreStateSetter;
@@ -94,7 +93,7 @@ export default class ModalActions {
 		};
 	}
 
-	updateEditorState(newState: IEditorStateAndTable): void {
+	updateEditorState(newState: IFile): void {
 		this.editorState = newState;
 	}
 
@@ -103,14 +102,14 @@ export default class ModalActions {
 		method: EGeneratorTypes,
 		params: string | string[] | IMappedColumn | undefined
 	) {
-		const { activeData, activeSorts } = this.editorState;
+		const { table, activeSorts } = this.editorState;
 
-		const newData = addColumn(activeData, columnName, method, params);
+		const newData = addColumn(table, columnName, method, params);
 		this.setCoreState(newData, activeSorts);
 	}
 	handleRemoveColumns(columns: string[]) {
-		const { activeData, activeSorts } = this.editorState;
-		const newTable = removeColumns(activeData, columns);
+		const { table, activeSorts } = this.editorState;
+		const newTable = removeColumns(table, columns);
 		this.setCoreState(newTable, activeSorts);
 	}
 
@@ -120,8 +119,8 @@ export default class ModalActions {
 	 * @param  newFilter
 	 */
 	handleApplyFilters(newFilter: IFilter): void {
-		const { activeData, activeSorts } = this.editorState;
-		const newData = Filtering.applyFilters(activeData, newFilter);
+		const { table, activeSorts } = this.editorState;
+		const newData = Filtering.applyFilters(table, newFilter);
 		this.setCoreState(newData, activeSorts);
 	}
 
@@ -130,9 +129,9 @@ export default class ModalActions {
 		toFind: string,
 		toReplace: string
 	): void {
-		const { activeData, activeSorts } = this.editorState;
+		const { table, activeSorts } = this.editorState;
 		const newTable = findAndReplaceInColumn(
-			activeData,
+			table,
 			column,
 			toFind,
 			toReplace
@@ -140,8 +139,8 @@ export default class ModalActions {
 		this.setCoreState(newTable, activeSorts);
 	}
 	handleRenameColumn(column: string, newName: string) {
-		const { activeData, activeSorts } = this.editorState;
-		const newTable = renameColumn(activeData, column, newName);
+		const { table, activeSorts } = this.editorState;
+		const newTable = renameColumn(table, column, newName);
 		this.setCoreState(newTable, activeSorts);
 	}
 }

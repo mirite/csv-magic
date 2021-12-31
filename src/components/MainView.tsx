@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FileSelector from './file-selector/FileSelector';
 import Editor from './Editor';
-import { ITable, IFile } from 'types';
+import { ITable, IFile, IFileHistory } from 'types';
 import styles from 'styles/MainView.module.css';
 
 interface IState {}
@@ -10,13 +10,17 @@ interface IProps {
 	/**
 	 * The current open file (if any).
 	 */
-	table?: ITable;
+	file?: IFile;
 
 	/**
 	 * The event handler to call when a new file is loaded.
 	 */
 	onLoad: (file?: IFile) => void;
-	onTableChange: (table: ITable) => any;
+	onTableChange: (
+		table: ITable,
+		sorts: Array<[string, boolean]>,
+		history: IFileHistory
+	) => any;
 }
 
 /**
@@ -29,19 +33,27 @@ class MainView extends Component<IProps, IState> {
 	 * @return The appropriate view based on whether or not the FilePane has a file open.
 	 */
 	getView() {
-		if (this.props.table) {
+		if (this.props.file) {
 			return (
 				<Editor
-					table={this.props.table}
-					onChange={(e: ITable) => this.handleTableChange(e)}
+					file={this.props.file}
+					onChange={(
+						table: ITable,
+						sorts: Array<[string, boolean]>,
+						history: IFileHistory
+					) => this.handleTableChange(table, sorts, history)}
 				/>
 			);
 		}
 		return <FileSelector onChange={(data) => this.props.onLoad(data)} />;
 	}
 
-	handleTableChange(e: ITable): any {
-		this.props.onTableChange(e);
+	handleTableChange(
+		table: ITable,
+		sorts: Array<[string, boolean]>,
+		history: IFileHistory
+	): any {
+		this.props.onTableChange(table, sorts, history);
 	}
 
 	render() {

@@ -62,5 +62,5 @@ export default async function (
 ): Promise<IFile> {
 	const source = await loadFile(fileText);
 	const data = convertToTable(source);
-	return { fileName, data };
+	return { fileName, table: data, activeSorts: [], history: [] };
 }

@@ -3,10 +3,10 @@ import SaveAsField from './SaveAsField';
 import UndoRedo from './UndoRedo';
 import styles from 'styles/chrome/Chrome.module.css';
 import SuperTools from './SuperTools';
-import { IEditorState, IEditorStateAndTable } from 'types';
+import { IFile } from 'types';
 
 interface ChromeProps {
-	editorState: IEditorStateAndTable;
+	editorState: IFile;
 	onTableChange: Function;
 	onSetActiveModal: (arg0: string) => any;
 }
@@ -19,7 +19,7 @@ const Chrome: FunctionComponent<ChromeProps> = (props) => {
 				onTableChange={props.onTableChange}
 			/>
 			<SuperTools onSetActiveModal={props.onSetActiveModal} />
-			<SaveAsField table={props.editorState.activeData} />
+			<SaveAsField table={props.editorState.table} />
 		</div>
 	);
 };
