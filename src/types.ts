@@ -78,7 +78,8 @@ export enum EGeneratorTypes {
 }
 
 export interface IMappedColumn {
-	secondaryTable: ITable;
-	sourceKey: string;
-	targetKey: string;
+	foreignTable: ITable;
+	sourceMatchKey: string;
+	foreignMatchKey: string;
+	foreignImportKey: string;
 }

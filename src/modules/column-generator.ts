@@ -68,23 +68,31 @@ export function addColumn(
 
 	const getMappedValue = (row: IRow) => {
 		const mappedGenerator = methodParameters as IMappedColumn;
-		const foreignTable = mappedGenerator.secondaryTable;
+		const foreignTable = mappedGenerator.foreignTable;
 		if (primaryIndex < 0)
-			primaryIndex = getColumnIndex(data, mappedGenerator.targetKey);
-		if (foreignIndex < 0)
-			foreignIndex = getColumnIndex(
+			primaryIndex = getColumnIndex(
+				data,
+				mappedGenerator.foreignMatchKey
+			);
+		if (foreignMatchIndex < 0)
+			foreignMatchIndex = getColumnIndex(
 				foreignTable,
-				mappedGenerator.targetKey
+				mappedGenerator.foreignMatchKey
+			);
+		if (foreignImportIndex < 0)
+			foreignImportIndex = getColumnIndex(
+				foreignTable,
+				mappedGenerator.foreignImportKey
 			);
 
 		const localValue = row.contents[primaryIndex].value;
 		const remoteRow = getRowWithMatchingValueInColumn(
 			foreignTable,
-			foreignIndex,
+			foreignMatchIndex,
 			localValue
 		);
 
-		if (remoteRow) return remoteRow.contents[foreignIndex].value;
+		if (remoteRow) return remoteRow.contents[foreignImportIndex].value;
 		return '';
 	};
 
@@ -98,7 +106,8 @@ export function addColumn(
 
 	const newData = _.cloneDeep(data);
 	const poolValues = poolValuesGenerator();
-	let foreignIndex = -1;
+	let foreignMatchIndex = -1;
+	let foreignImportIndex = -1;
 	let primaryIndex = -1;
 
 	newData.contents.forEach(addCellToRow);

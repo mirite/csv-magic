@@ -15,33 +15,47 @@ interface LookupOptionsProps {
 
 const LookupOptions: FunctionComponent<LookupOptionsProps> = (props) => {
 	const [otherFile, setOtherFile] = useState<IFile>();
-	const [sourceKey, setSourceKey] = useState<string>();
-	const [targetKey, setTargetKey] = useState<string>();
+	const [sourceMatchKey, setSourceMatchKey] = useState<string>();
+	const [foreignMatchKey, setForeignMatchKey] = useState<string>();
+	const [foreignImportKey, setForeignImportKey] = useState<string>();
 
 	const activeFile = useContext(OpenFilesContext);
 	useEffect(() => {
-		const secondaryTable = otherFile?.data;
-		if (!secondaryTable || !sourceKey || !targetKey) {
+		const foreignTable = otherFile?.data;
+		if (
+			!foreignTable ||
+			!sourceMatchKey ||
+			!foreignMatchKey ||
+			!foreignImportKey
+		) {
 			return;
 		}
 		const mappedColumn: IMappedColumn = {
-			secondaryTable,
-			sourceKey,
-			targetKey,
+			foreignTable,
+			sourceMatchKey,
+			foreignMatchKey,
+			foreignImportKey,
 		};
 		props.onChange(mappedColumn);
-	}, [targetKey, sourceKey, otherFile]);
+	}, [foreignMatchKey, sourceMatchKey, otherFile, foreignImportKey]);
 
 	if (!activeFile.currentFile?.data) return <p>No file active</p>;
 
 	const otherFileKeySelector = () => {
 		if (!otherFile?.data) return <p>Please select a file.</p>;
 		return (
-			<KeyInFileSelector
-				table={otherFile?.data}
-				label="Key in the other table to match on:"
-				onChange={(key: string) => setTargetKey(key)}
-			/>
+			<div>
+				<KeyInFileSelector
+					table={otherFile?.data}
+					label="Key in the other table to match on:"
+					onChange={(key: string) => setForeignMatchKey(key)}
+				/>
+				<KeyInFileSelector
+					table={otherFile?.data}
+					label="Key in the other table to import:"
+					onChange={(key: string) => setForeignImportKey(key)}
+				/>
+			</div>
 		);
 	};
 	return (
@@ -53,7 +67,7 @@ const LookupOptions: FunctionComponent<LookupOptionsProps> = (props) => {
 			<KeyInFileSelector
 				table={activeFile.currentFile.data}
 				label="Key in this table to match on:"
-				onChange={(key: string) => setSourceKey(key)}
+				onChange={(key: string) => setSourceMatchKey(key)}
 			/>
 			{otherFileKeySelector()}
 		</div>
