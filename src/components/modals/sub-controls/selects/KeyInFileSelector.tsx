@@ -20,6 +20,7 @@ const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
 				id="select-key-in-file"
 				onChange={(event) => props.onChange(event.currentTarget.value)}
 			>
+				<option value="">Please select a key</option>
 				{keys.map((key) => (
 					<option key={key} value={key}>
 						{key}

@@ -25,17 +25,11 @@ const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
 		props.onChange(file);
 	};
 
-	//Change even won't fire if there is only one item in list, so
-	//this is to ensure that the parent has a selected file to work
-	//with.
-	if (cleanedFiles.length === 1) {
-		props.onChange(cleanedFiles[0]);
-	}
-
 	return (
 		<div>
 			<label htmlFor="select-file">Select File:</label>
 			<select id="select-file" onChange={(e) => handleChange(e)}>
+				<option value="">Please select a file</option>
 				{cleanedFiles.map((file) => (
 					<option key={file.fileName} value={file.fileName}>
 						{file.fileName}
