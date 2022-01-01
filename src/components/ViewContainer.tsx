@@ -136,6 +136,7 @@ class ViewContainer extends Component<IProps, IState> {
 		file.table = table;
 		file.activeSorts = sorts;
 		file.history = history;
+		this.setState({ files });
 	}
 }
 

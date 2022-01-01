@@ -49,7 +49,6 @@ export default class ModalActions {
 		//Assignments from constructor.
 		this.setCoreState = coreStateSetter;
 		this.editorState = editorState;
-		console.log(this.editorState);
 		//Set the modal list.
 		this.modals = {
 			filter: {

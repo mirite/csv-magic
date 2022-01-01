@@ -106,13 +106,11 @@ class Editor extends Component<IProps, IState> {
 		this.setCoreState(changedTable, activeSorts);
 	}
 
-	setCoreState(newData: ITable, newSorts: ISorts) {
+	setCoreState(newTable: ITable, newSorts: ISorts) {
 		const { onChange } = this.props;
 		const { table, history } = this.props.file;
-
 		const newHistory = [...history, table];
-		console.log('Changing');
-		onChange(newData, newSorts, newHistory);
+		onChange(newTable, newSorts, newHistory);
 	}
 
 	componentDidUpdate() {
