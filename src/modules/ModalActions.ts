@@ -12,6 +12,7 @@ import {
 	IFilter,
 	IMappedColumn,
 	IModalAction,
+	ISorts,
 	ITable,
 } from 'types';
 import { addColumn } from './column-generator';
@@ -34,10 +35,7 @@ export default class ModalActions {
 	/**
 	 * The function to call to update the main (data and sorts) status of the table.
 	 */
-	readonly setCoreState: (
-		newData: ITable,
-		newSorts: Array<[string, boolean]>
-	) => void;
+	readonly setCoreState: (newData: ITable, newSorts: ISorts) => void;
 
 	/**
 	 *
@@ -45,16 +43,13 @@ export default class ModalActions {
 	 * @param  editorState     The state of the editor/parent, used for getting the table data, filters, sorts, etc.
 	 */
 	constructor(
-		coreStateSetter: (
-			newData: ITable,
-			newSorts: Array<[string, boolean]>
-		) => void,
+		coreStateSetter: (newData: ITable, newSorts: ISorts) => void,
 		editorState: IFile
 	) {
 		//Assignments from constructor.
 		this.setCoreState = coreStateSetter;
 		this.editorState = editorState;
-
+		console.log(this.editorState);
 		//Set the modal list.
 		this.modals = {
 			filter: {

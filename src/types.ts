@@ -5,11 +5,13 @@ export interface IFile {
 	/**
 	 * An array of currently active sorting methods.
 	 */
-	activeSorts: Array<[string, boolean]>;
+	activeSorts: ISorts;
 	history: IFileHistory;
 }
 
 export interface IFileHistory extends Array<ITable> {}
+
+export interface ISorts extends Array<[string, boolean]> {}
 
 export interface ITable {
 	firstCellId?: string;

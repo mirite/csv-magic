@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ViewTab from './ViewTab';
 import MainView from './MainView';
-import { IFile, IFileHistory, ITable } from 'types';
+import { IFile, IFileHistory, ISorts, ITable } from 'types';
 import _ from 'lodash';
 
 interface IFilesContext {
@@ -117,7 +117,7 @@ class ViewContainer extends Component<IProps, IState> {
 						onLoad={(file) => this.handleLoad(file)}
 						onTableChange={(
 							table: ITable,
-							sorts: Array<[string, boolean]>,
+							sorts: ISorts,
 							history: IFileHistory
 						) => this.handleTableChange(table, sorts, history)}
 					/>
@@ -128,7 +128,7 @@ class ViewContainer extends Component<IProps, IState> {
 
 	handleTableChange(
 		table: ITable,
-		sorts: Array<[string, boolean]>,
+		sorts: ISorts,
 		history: IFileHistory
 	): any {
 		const files = _.cloneDeep(this.state.files);

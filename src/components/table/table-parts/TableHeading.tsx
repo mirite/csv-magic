@@ -9,12 +9,13 @@ import {
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from 'styles/table/table-parts/TableHeading.module.css';
+import { ISorts } from 'types';
 
 interface HeadingsProps {
 	fieldName: string;
 	onSetActiveModal: (arg0: string, column: string) => any;
 	onSort: Function;
-	activeSorts: Array<[string, boolean]>;
+	activeSorts: ISorts;
 }
 
 const TableHeading: FunctionComponent<HeadingsProps> = (props) => {

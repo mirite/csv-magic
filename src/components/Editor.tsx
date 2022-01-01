@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
 import Sorting from 'modules/sorting';
-import { IActiveModal, IFile, IFileHistory, ITable } from 'types';
+import { IActiveModal, IFile, IFileHistory, ISorts, ITable } from 'types';
 import ModalActions from 'modules/ModalActions';
 
 interface IProps {
@@ -12,11 +12,7 @@ interface IProps {
 	 * The data from the file that was opened.
 	 */
 	file: IFile;
-	onChange: (
-		table: ITable,
-		sorts: Array<[string, boolean]>,
-		history: IFileHistory
-	) => any;
+	onChange: (table: ITable, sorts: ISorts, history: IFileHistory) => any;
 }
 
 interface IState {
@@ -110,11 +106,12 @@ class Editor extends Component<IProps, IState> {
 		this.setCoreState(changedTable, activeSorts);
 	}
 
-	setCoreState(newData: ITable, newSorts: Array<[string, boolean]>) {
+	setCoreState(newData: ITable, newSorts: ISorts) {
 		const { onChange } = this.props;
 		const { table, history } = this.props.file;
 
 		const newHistory = [...history, table];
+		console.log('Changing');
 		onChange(newData, newSorts, newHistory);
 	}
 

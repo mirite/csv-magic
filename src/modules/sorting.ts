@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { getCellValueByKey } from './access-helpers';
-import { ITable } from 'types';
+import { ISorts, ITable } from 'types';
 
 /**
  * Either adds a sort on the provided key, or toggles direction, removes the sort if it was already toggled.
@@ -9,7 +9,7 @@ import { ITable } from 'types';
  * @param  key   The key to change the sort status on.
  * @return The new sorts array with the sort applied.
  */
-function setSort(sorts: Array<[string, boolean]>, key: string) {
+function setSort(sorts: ISorts, key: string) {
 	let newSorts = _.cloneDeep(sorts);
 	/**
 	 * The existing sort (if any) on the key.
@@ -34,7 +34,7 @@ function setSort(sorts: Array<[string, boolean]>, key: string) {
  * @param  sorts An array of the active sorts.
  * @return The table after all sorts have been applied.
  */
-function applySorting(data: ITable, sorts: Array<[string, boolean]>) {
+function applySorting(data: ITable, sorts: ISorts) {
 	const newData = _.cloneDeep(data);
 	sorts.forEach((sort) => {
 		const [key, ascending] = sort;

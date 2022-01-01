@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import TableHeading from './TableHeading';
 import { getColumnNames } from 'modules/access-helpers';
-import { ITable } from 'types';
+import { ISorts, ITable } from 'types';
 
 interface TableHeadingsProps {
 	table: ITable;
 	onSetActiveModal: (arg0: string, column: string) => any;
 	onSort: Function;
-	activeSorts: Array<[string, boolean]>;
+	activeSorts: ISorts;
 }
 
 const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
