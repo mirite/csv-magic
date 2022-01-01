@@ -17,3 +17,7 @@
 .main {
 	composes: container-xxl mb-1  from 'bootstrap/dist/css/bootstrap.css';
 }
+
+.footer {
+	composes: container-fluid mt-3 p-3 from 'bootstrap/dist/css/bootstrap.css';
+}

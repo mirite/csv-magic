@@ -1,4 +1,11 @@
 import React, { FunctionComponent, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faMinusSquare,
+	faPlusSquare,
+	faRedo,
+	faUndo,
+} from '@fortawesome/free-solid-svg-icons';
 import { IFileHistory } from 'types';
 import styles from 'styles/chrome/UndoRedo.module.css';
 
@@ -30,14 +37,14 @@ const UndoRedo: FunctionComponent<UndoRedoProps> = (props) => {
 				disabled={isUndoDisabled()}
 				onClick={() => timeTravel(1)}
 			>
-				Undo
+				<FontAwesomeIcon icon={faUndo} />
 			</button>
 			<button
 				className={styles.button}
 				disabled={isRedoDisabled()}
 				onClick={() => timeTravel(-1)}
 			>
-				Redo
+				<FontAwesomeIcon icon={faRedo} />
 			</button>
 		</div>
 	);

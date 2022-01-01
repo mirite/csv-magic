@@ -3,8 +3,8 @@
 	justify-content: flex-end;
 }
 
-.group {
-	composes: form-group from 'bootstrap/dist/css/bootstrap.css';
+.input {
+	composes: form-control from 'bootstrap/dist/css/bootstrap.css';
 	display: flex;
 	margin-right: 1em;
 	

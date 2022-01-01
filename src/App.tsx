@@ -33,8 +33,15 @@ function App() {
 				</p>
 				<ViewContainer />
 			</main>
-			<footer>
-				Copyright &copy; {new Date().getFullYear()} Jesse Conner
+			<footer className={styles.footer}>
+				Copyright &copy; {new Date().getFullYear()}{' '}
+				<a
+					href="https://jesseconner.ca"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Jesse Conner
+				</a>
 			</footer>
 		</div>
 	);

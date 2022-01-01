@@ -18,18 +18,16 @@ const SaveAsField: FunctionComponent<SaveAsFieldProps> = (props) => {
 	return (
 		<div>
 			<form className={styles.container} onSubmit={(e) => saveTable(e)}>
-				<label className={styles.group}>
-					<input
-						type="text"
-						id="fileName"
-						className="form-control"
-						placeholder="File Name"
-						value={fileName}
-						onChange={(e) => setFileName(e.target.value)}
-					/>
-				</label>
+				<input
+					type="text"
+					id="input-fileName"
+					className={styles.input}
+					placeholder="File Name"
+					value={fileName}
+					onChange={(e) => setFileName(e.target.value)}
+				/>
 				<button type="submit" className={styles.button}>
-					Save As
+					Save
 				</button>
 			</form>
 		</div>

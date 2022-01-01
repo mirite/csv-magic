@@ -5,7 +5,7 @@ interface IProps {
 	/**
 	 * The label or name to display on the tab.
 	 */
-	label: string;
+	label: string | JSX.Element;
 
 	/**
 	 * true represents that the current tab is active.
