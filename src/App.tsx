@@ -2,6 +2,7 @@ import React from 'react';
 import ViewContainer from './components/ViewContainer';
 import './App.css';
 import styles from './styles/App.module.css';
+import { now } from 'lodash';
 
 function App() {
 	return (
@@ -11,13 +12,15 @@ function App() {
 			</header>
 			<main className={styles.main}>
 				<p>
-					CSV Magic is a spreadsheet editor that allows for sorting,
-					filtering, and other large scale manipulations within one or
-					multiple CSV files.
+					CSV Magic is a replacement for traditional spreadsheet
+					software for tasks involving transforming data. This app
+					takes a comma separated value file (.csv) and allows for
+					sorting, filtering, and other large scale manipulations
+					within one or multiple CSV files.
 				</p>
 				<p>
-					The app runs entirely in browser with no backend supporting
-					it.
+					The app runs and processes data entirely in your web browser
+					with no spreadsheet data sent to the server.
 				</p>
 				<p>
 					<a
@@ -30,6 +33,9 @@ function App() {
 				</p>
 				<ViewContainer />
 			</main>
+			<footer>
+				Copyright &copy; {new Date().getFullYear()} Jesse Conner
+			</footer>
 		</div>
 	);
 }

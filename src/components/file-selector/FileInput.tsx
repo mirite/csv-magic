@@ -14,6 +14,7 @@ const FileInput: FunctionComponent<FileInputProps> = (props) => {
 			<input
 				id="source-file"
 				className="form-control"
+				accept=".csv"
 				onChange={(e) => onAttachFile(e)}
 				type="file"
 			/>
