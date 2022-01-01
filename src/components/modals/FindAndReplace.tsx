@@ -75,7 +75,7 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 			</div>
 		);
 	}
-	testQuery(): void {
+	testQuery(): number {
 		const result = countOccurrences(
 			this.props.table,
 			this.props.column,
@@ -90,6 +90,7 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 			message = `${result} rows affected`;
 		}
 		this.setState({ testResult: message });
+		return result;
 	}
 	handleReplaceChange(e: React.ChangeEvent<HTMLInputElement>): void {
 		const { value } = e.target;
@@ -105,5 +106,14 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 		const { column } = this.props;
 		this.props.onApply(column, findValue, replaceValue);
 		this.props.onClose();
+	}
+
+	isApplyEnabled(): boolean {
+		const { findValue } = this.state;
+		return findValue !== '';
+	}
+
+	getApplyText() {
+		return 'Replace';
 	}
 }

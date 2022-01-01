@@ -29,6 +29,8 @@ module.exports = {
 	},
 
 	rules: {
+		'no-shadow': 'off',
+		'@typescript-eslint/no-shadow': 'error',
 		'jsx-a11y/label-has-associated-control': [
 			'error',
 			{

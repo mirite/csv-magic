@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import ViewTab from './ViewTab';
 import MainView from './MainView';
-import { IFile } from 'types';
+import { IFile, IFileHistory, ISorts, ITable } from 'types';
+import _ from 'lodash';
+
+interface IFilesContext {
+	files: Array<IFile>;
+	currentFile: IFile | undefined;
+}
+export const OpenFilesContext = React.createContext<IFilesContext>({
+	files: [],
+	currentFile: undefined,
+});
 
 interface IProps {}
 
@@ -15,10 +25,11 @@ interface IState {
 	 */
 	currentIndex: number;
 }
+
 class ViewContainer extends Component<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
-		this.state = { files: [{}], currentIndex: 0 };
+		this.state = { files: [], currentIndex: -1 };
 	}
 
 	/**
@@ -74,31 +85,58 @@ class ViewContainer extends Component<IProps, IState> {
 	}
 
 	render() {
-		const { currentIndex } = this.state;
+		const { currentIndex, files } = this.state;
 		/**
 		 * The current open file.
 		 */
 		const currentFile = this.state.files[currentIndex];
 		return (
-			<div>
-				<ul className="nav nav-tabs">
-					{this.state.files.map((file, index) => (
+			<OpenFilesContext.Provider value={{ files, currentFile }}>
+				<div>
+					<ul className="nav nav-tabs">
+						{this.state.files.map((file, index) => (
+							<ViewTab
+								key={index}
+								label={file.fileName}
+								onClick={() => this.handleTabClick(index)}
+								onClose={() => this.handleTabClose(index)}
+								active={index === currentIndex}
+								home={false}
+							/>
+						))}
 						<ViewTab
-							key={index}
-							label={file.fileName ?? 'CSV Magic'}
-							onClick={() => this.handleTabClick(index)}
-							onClose={() => this.handleTabClose(index)}
-							active={index === currentIndex}
-							home={index === 0}
+							label="CSV Magic"
+							onClick={() => this.handleTabClick(-1)}
+							onClose={() => this.handleTabClose(-1)}
+							active={-1 === currentIndex}
+							home={true}
 						/>
-					))}
-				</ul>
-				<MainView
-					file={currentFile.data}
-					onLoad={(file) => this.handleLoad(file)}
-				/>
-			</div>
+					</ul>
+					<MainView
+						file={currentFile}
+						onLoad={(file) => this.handleLoad(file)}
+						onTableChange={(
+							table: ITable,
+							sorts: ISorts,
+							history: IFileHistory
+						) => this.handleTableChange(table, sorts, history)}
+					/>
+				</div>
+			</OpenFilesContext.Provider>
 		);
+	}
+
+	handleTableChange(
+		table: ITable,
+		sorts: ISorts,
+		history: IFileHistory
+	): any {
+		const files = _.cloneDeep(this.state.files);
+		const file = files[this.state.currentIndex];
+		file.table = table;
+		file.activeSorts = sorts;
+		file.history = history;
+		this.setState({ files });
 	}
 }
 

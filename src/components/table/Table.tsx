@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import TableHeadings from './table-parts/TablesHeadings';
 import Row from './table-parts/Row';
 import { updateCell } from 'modules/editing';
-import { ICell, ITable } from 'types';
+import { ICell, ISorts, ITable } from 'types';
 
 interface IProps {
 	/**
@@ -14,7 +14,7 @@ interface IProps {
 	onSort: Function;
 	oneSetActiveModal: (arg0: string, column: string) => any;
 	onTableChange: Function;
-	activeSorts: Array<[string, boolean]>;
+	activeSorts: ISorts;
 }
 
 interface IState {

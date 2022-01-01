@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
-import FilterValue from './filter-controls/FilterValue';
+import FilterValue from './sub-controls/FilterValue';
 import { getUniqueValuesInColumn } from 'modules/access-helpers';
 import { IFilter, ITable } from 'types';
 import styles from 'styles/modals/FiltersModal.module.css';
@@ -83,5 +83,13 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 		const { filterList } = this.state;
 		this.props.onApply(filterList);
 		this.props.onClose();
+	}
+
+	isApplyEnabled() {
+		return this.state.filterList.values.length > 0;
+	}
+
+	getApplyText() {
+		return 'Filter';
 	}
 }

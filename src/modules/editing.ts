@@ -1,6 +1,10 @@
 import _ from 'lodash';
-import { getCellByID, getColumnIndex } from './access-helpers';
-import { ICell, IRow, ITable } from 'types';
+import {
+	getCellByID,
+	getColumnIndex,
+	getRowWithMatchingValueInColumn,
+} from './access-helpers';
+import { EGeneratorTypes, ICell, IMappedColumn, IRow, ITable } from 'types';
 
 /**
  * Updates a cell within a table.
@@ -70,5 +74,35 @@ export function findAndReplaceInColumn(
 		const cell = row.contents[columnIndex];
 		cell.value = cell.value.replace(toFind, toReplaceWith);
 	}
+	return newData;
+}
+
+function removeColumnsInRow(row: IRow, indices: number[]): IRow {
+	for (const index of indices) {
+		delete row.contents[index];
+	}
+	const remainingCells = row.contents.filter((cell) => cell);
+	return {
+		id: row.id,
+		originalIndex: row.originalIndex,
+		contents: remainingCells,
+	};
+}
+/**
+ * Removes columns from the table.
+ *
+ * @param  data            The table to rename the column in.
+ * @param  columnsToRemove An array of the columns to remove by name.
+ * @return A new table with the columns removed.
+ */
+export function removeColumns(data: ITable, columnsToRemove: string[]): ITable {
+	const newData = _.cloneDeep(data);
+	const columnIndices = columnsToRemove.map((label) =>
+		getColumnIndex(newData, label)
+	);
+
+	newData.contents = newData.contents.map((row) =>
+		removeColumnsInRow(row, columnIndices)
+	);
 	return newData;
 }

@@ -1,0 +1,4 @@
+.button {
+	composes: btn btn-primary m-1 from 'bootstrap/dist/css/bootstrap.css';
+
+}

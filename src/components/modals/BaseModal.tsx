@@ -20,7 +20,7 @@ export interface BaseModalProps {
 
 	table: ITable;
 
-	column: string;
+	column?: string;
 }
 
 export interface BaseModalState {}
@@ -59,14 +59,23 @@ abstract class BaseModal<
 							<button
 								className="btn btn-primary"
 								onClick={() => this.handleApply()}
+								disabled={!this.isApplyEnabled()}
 							>
-								Apply
+								{this.getApplyText()}
 							</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		);
+	}
+
+	getApplyText(): string {
+		return 'Apply';
+	}
+
+	isApplyEnabled(): boolean {
+		return false;
 	}
 	abstract handleApply(): void;
 }

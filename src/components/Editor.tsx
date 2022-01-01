@@ -3,63 +3,37 @@
 import React, { Component, Fragment } from 'react';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
-import FiltersModal from './modals/Filters';
-import FindAndReplaceModal from './modals/FindAndReplace';
 import Sorting from 'modules/sorting';
-import Filtering from 'modules/filtering';
-import { findAndReplaceInColumn, renameColumn } from 'modules/editing';
-import { IEditorState, IFilter, IModalAction, ITable } from 'types';
-import RenameColumnModal from './modals/RenameColumn';
+import { IActiveModal, IFile, IFileHistory, ISorts, ITable } from 'types';
+import ModalActions from 'modules/ModalActions';
 
 interface IProps {
 	/**
 	 * The data from the file that was opened.
 	 */
-	data: ITable;
+	file: IFile;
+	onChange: (table: ITable, sorts: ISorts, history: IFileHistory) => any;
 }
 
-interface IModalList {
-	[key: string]: IModalAction;
+interface IState {
+	activeModal: undefined | IActiveModal;
 }
 
 /**
  * A file that has been opened and is being displayed as a table in the editor.
  */
-class Editor extends Component<IProps, IEditorState> {
-	modals: IModalList;
-
+class Editor extends Component<IProps, IState> {
+	modalActions: ModalActions;
 	constructor(props: IProps) {
 		super(props);
-		const { data } = props;
-
-		this.modals = {
-			filter: {
-				ComponentToUse: FiltersModal,
-				title: 'Filter',
-				onApply: (newFilter: IFilter) =>
-					this.handleApplyFilters(newFilter),
-			},
-			findAndReplace: {
-				ComponentToUse: FindAndReplaceModal,
-				title: 'Find and Replace In Column',
-				onApply: (column: string, toFind: string, toReplace: string) =>
-					this.handleFindAndReplace(column, toFind, toReplace),
-			},
-			renameColumn: {
-				ComponentToUse: RenameColumnModal,
-				title: 'Rename Column',
-				onApply: (column: string, newName: string) =>
-					this.handleRenameColumn(column, newName),
-			},
-		};
-
 		this.state = {
-			activeFilters: [],
-			activeSorts: [],
-			activeData: data,
 			activeModal: undefined,
-			history: [],
 		};
+
+		this.modalActions = new ModalActions(
+			(arg0, arg1) => this.setCoreState(arg0, arg1),
+			this.props.file
+		);
 	}
 
 	/**
@@ -68,7 +42,7 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  key The field to sort on.
 	 */
 	handleSort(key: string) {
-		const { activeSorts, activeData } = this.state;
+		const { table, activeSorts } = this.props.file;
 
 		/**
 		 * Adds the new sort to the list of sorts if it isn't present or toggles direction/removes sort if it is already present.
@@ -78,42 +52,10 @@ class Editor extends Component<IProps, IEditorState> {
 		/**
 		 * The updated data with sorting applied.
 		 */
-		const newData = Sorting.applySorting(activeData, newSorts);
+		const newData = Sorting.applySorting(table, newSorts);
 		this.setCoreState(newData, newSorts);
 	}
 
-	/**
-	 * Handles the application of a filter.
-	 *
-	 * @param  newFilters
-	 */
-	handleApplyFilters(newFilters: IFilter): void {
-		const { activeData, activeFilters, activeSorts } = this.state;
-		const newFilterState = [...activeFilters, newFilters];
-		const newData = Filtering.applyFilters(activeData, newFilterState);
-		this.setState({ activeFilters: newFilterState });
-		this.setCoreState(newData, activeSorts);
-	}
-
-	handleFindAndReplace(
-		column: string,
-		toFind: string,
-		toReplace: string
-	): void {
-		const { activeData, activeSorts } = this.state;
-		const newTable = findAndReplaceInColumn(
-			activeData,
-			column,
-			toFind,
-			toReplace
-		);
-		this.setCoreState(newTable, activeSorts);
-	}
-	handleRenameColumn(column: string, newName: string) {
-		const { activeData, activeSorts } = this.state;
-		const newTable = renameColumn(activeData, column, newName);
-		this.setCoreState(newTable, activeSorts);
-	}
 	/**
 	 * Handles the closing of the filter window.
 	 */
@@ -125,7 +67,8 @@ class Editor extends Component<IProps, IEditorState> {
 	 * Displays the filter modal if it is active.
 	 */
 	getModals() {
-		const { activeModal, activeData } = this.state;
+		const { table } = this.props.file;
+		const { activeModal } = this.state;
 		if (!activeModal) return;
 		const { column, action } = activeModal;
 		const { ComponentToUse, title, onApply } = action;
@@ -134,7 +77,7 @@ class Editor extends Component<IProps, IEditorState> {
 			<ComponentToUse
 				title={title}
 				column={column}
-				table={activeData}
+				table={table}
 				onClose={() => this.handleModalClose()}
 				onApply={(...args: any) => onApply(...args)}
 			/>
@@ -147,8 +90,8 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  modalName The modal to display.
 	 * @param  column    The key to run the modal on.
 	 */
-	handleSetActiveModal(modalName: string, column: string) {
-		const action = this.modals[modalName];
+	handleSetActiveModal(modalName: string, column?: string) {
+		const action = this.modalActions.modals[modalName];
 		if (!action) throw new Error(`Invalid modal requested "${modalName}"`);
 		this.setState({ activeModal: { column, action } });
 	}
@@ -159,35 +102,36 @@ class Editor extends Component<IProps, IEditorState> {
 	 * @param  changedTable The new table data.
 	 */
 	handleTableChange(changedTable: ITable) {
-		const { activeSorts } = this.state;
+		const { activeSorts } = this.props.file;
 		this.setCoreState(changedTable, activeSorts);
 	}
 
-	setCoreState(newData: ITable, newSorts: Array<[string, boolean]>) {
-		const { history, activeData, activeSorts } = this.state;
-		const newHistoryEntry = {
-			activeData,
-			activeSorts,
-			timestamp: Date.now(),
-		};
-		const newHistory = [...history, newHistoryEntry];
-		this.setState({
-			activeData: newData,
-			activeSorts: newSorts,
-			history: newHistory,
-		});
+	setCoreState(newTable: ITable, newSorts: ISorts) {
+		const { onChange } = this.props;
+		const { table, history } = this.props.file;
+		const newHistory = [...history, table];
+		onChange(newTable, newSorts, newHistory);
+	}
+
+	componentDidUpdate() {
+		//This is necessary so that the modals always have the most recent data to work with after
+		//a state change.
+		this.modalActions.updateEditorState(this.props.file);
 	}
 
 	render() {
-		const { activeData, activeSorts } = this.state;
+		const { table, activeSorts } = this.props.file;
 		return (
 			<Fragment>
 				<Chrome
-					editorState={this.state}
+					editorState={this.props.file}
 					onTableChange={(e: ITable) => this.handleTableChange(e)}
+					onSetActiveModal={(modal) =>
+						this.handleSetActiveModal(modal)
+					}
 				/>
 				<Table
-					data={activeData}
+					data={table}
 					onSort={(e: string) => this.handleSort(e)}
 					oneSetActiveModal={(modal, column) =>
 						this.handleSetActiveModal(modal, column)

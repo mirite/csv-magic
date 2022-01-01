@@ -104,3 +104,17 @@ export function countOccurrences(
 	}
 	return count;
 }
+
+export function getRowWithMatchingValueInColumn(
+	table: ITable,
+	columnIndex: number,
+	valueToFind: string
+): IRow | undefined {
+	const rows = table.contents;
+	for (const row of rows) {
+		if (row.contents[columnIndex].value === valueToFind) {
+			return row;
+		}
+	}
+	return undefined;
+}

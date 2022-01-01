@@ -1,8 +1,17 @@
 import BaseModal from 'components/modals/BaseModal';
 export interface IFile {
-	fileName?: string;
-	data?: ITable;
+	fileName: string;
+	table: ITable;
+	/**
+	 * An array of currently active sorting methods.
+	 */
+	activeSorts: ISorts;
+	history: IFileHistory;
 }
+
+export interface IFileHistory extends Array<ITable> {}
+
+export interface ISorts extends Array<[string, boolean]> {}
 
 export interface ITable {
 	firstCellId?: string;
@@ -38,33 +47,6 @@ export interface IFilter {
 	values: string[];
 }
 
-interface IEditorCoreState {
-	/**
-	 * An array of currently active sorting methods.
-	 */
-	activeSorts: Array<[string, boolean]>;
-
-	/**
-	 * The current data showing after filters, sorts have been applied.
-	 */
-	activeData: ITable;
-}
-
-export interface IEditorHistory extends IEditorCoreState {
-	timestamp: number;
-}
-
-export interface IEditorState extends IEditorCoreState {
-	/**
-	 * An array of the active filters applied with their key and value to show.
-	 */
-	activeFilters: Array<IFilter>;
-
-	activeModal: IActiveModal | undefined;
-
-	history: Array<IEditorHistory>;
-}
-
 export interface IModalAction {
 	title: string;
 	ComponentToUse: typeof BaseModal;
@@ -73,5 +55,19 @@ export interface IModalAction {
 
 export interface IActiveModal {
 	action: IModalAction;
-	column: string;
+	column?: string;
+}
+
+export enum EGeneratorTypes {
+	blank,
+	statically,
+	lookup,
+	pool,
+}
+
+export interface IMappedColumn {
+	foreignTable: ITable;
+	sourceMatchKey: string;
+	foreignMatchKey: string;
+	foreignImportKey: string;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FileSelector from './file-selector/FileSelector';
 import Editor from './Editor';
-import { ITable, IFile } from 'types';
+import { ITable, IFile, IFileHistory, ISorts } from 'types';
 import styles from 'styles/MainView.module.css';
 
 interface IState {}
@@ -10,12 +10,13 @@ interface IProps {
 	/**
 	 * The current open file (if any).
 	 */
-	file?: ITable;
+	file?: IFile;
 
 	/**
 	 * The event handler to call when a new file is loaded.
 	 */
 	onLoad: (file?: IFile) => void;
+	onTableChange: (table: ITable, sorts: ISorts, history: IFileHistory) => any;
 }
 
 /**
@@ -29,9 +30,26 @@ class MainView extends Component<IProps, IState> {
 	 */
 	getView() {
 		if (this.props.file) {
-			return <Editor data={this.props.file} />;
+			return (
+				<Editor
+					file={this.props.file}
+					onChange={(
+						table: ITable,
+						sorts: ISorts,
+						history: IFileHistory
+					) => this.handleTableChange(table, sorts, history)}
+				/>
+			);
 		}
 		return <FileSelector onChange={(data) => this.props.onLoad(data)} />;
+	}
+
+	handleTableChange(
+		table: ITable,
+		sorts: ISorts,
+		history: IFileHistory
+	): any {
+		this.props.onTableChange(table, sorts, history);
 	}
 
 	render() {

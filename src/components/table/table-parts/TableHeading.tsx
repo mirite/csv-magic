@@ -9,12 +9,13 @@ import {
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from 'styles/table/table-parts/TableHeading.module.css';
+import { ISorts } from 'types';
 
 interface HeadingsProps {
 	fieldName: string;
 	onSetActiveModal: (arg0: string, column: string) => any;
 	onSort: Function;
-	activeSorts: Array<[string, boolean]>;
+	activeSorts: ISorts;
 }
 
 const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
@@ -35,24 +36,28 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 						className={styles.editIcon}
 						icon={faEdit}
 						onClick={() => onSetActiveModal('renameColumn', key)}
+						title="Rename Column"
 					/>
 				</div>
 				<div className={styles.actions}>
 					<button
 						className={styles.button}
 						onClick={() => onSetActiveModal('findAndReplace', key)}
+						title="Find and Replace in Column"
 					>
 						<FontAwesomeIcon icon={faSearch} />
 					</button>
 					<button
 						className={styles.button}
 						onClick={() => onSetActiveModal('filter', key)}
+						title="Filter Column"
 					>
 						<FontAwesomeIcon icon={faFilter} />
 					</button>
 					<button
 						className={styles.button}
 						onClick={() => props.onSort(key)}
+						title="Sort on Column"
 					>
 						<FontAwesomeIcon icon={getSortStateIcon()} />
 					</button>
