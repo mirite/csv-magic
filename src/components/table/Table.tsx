@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment as div } from 'react';
 import TableHeadings from './table-parts/TablesHeadings';
 import Row from './table-parts/Row';
 import { updateCell } from 'modules/editing';
 import { ICell, ISorts, ITable } from 'types';
+import styles from 'styles/table/Table.module.css';
 
 interface IProps {
 	/**
@@ -95,7 +96,7 @@ class Table extends Component<IProps, IState> {
 		const { data } = this.props;
 		const { contents } = data;
 		return (
-			<Fragment>
+			<div className={styles.container}>
 				<table>
 					{this.getHead()}
 					<tbody onClick={(e) => this.handleActiveCellChange(e)}>
@@ -112,7 +113,7 @@ class Table extends Component<IProps, IState> {
 					</tbody>
 					{this.getFoot()}
 				</table>
-			</Fragment>
+			</div>
 		);
 	}
 }

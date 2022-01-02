@@ -17,8 +17,8 @@
 
 .active {
 	border-bottom: 0;
-	background-color: lightgreen;
 	font-weight: bold;
+	background-color: lightskyblue;
 }
 
 .active:hover {
@@ -38,4 +38,9 @@
 .closeButton {
 	composes: navLink close;
 	
+}
+
+.homeButton {
+	composes: navLink;
+	background-color: lightgreen;
 }

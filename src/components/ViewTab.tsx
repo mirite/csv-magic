@@ -5,7 +5,7 @@ interface IProps {
 	/**
 	 * The label or name to display on the tab.
 	 */
-	label: string;
+	label: string | JSX.Element;
 
 	/**
 	 * true represents that the current tab is active.
@@ -43,9 +43,10 @@ class ViewTab extends Component<IProps> {
 		);
 	}
 	render() {
-		const { label: name, active } = this.props;
+		const { label: name, active, home } = this.props;
 		const titleClass =
-			styles.titleButton + (active ? ' ' + styles.active : '');
+			(home ? styles.homeButton : styles.titleButton) +
+			(active ? ' ' + styles.active : '');
 
 		return (
 			<li className={styles.navItem}>
@@ -56,7 +57,7 @@ class ViewTab extends Component<IProps> {
 				>
 					{name}
 				</button>
-				{this.props.home ? '' : this.closeButton()}
+				{home ? '' : this.closeButton()}
 			</li>
 		);
 	}

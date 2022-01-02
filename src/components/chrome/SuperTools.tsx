@@ -12,18 +12,20 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
 	return (
 		<div>
 			<button
-				className={styles.button}
+				className={styles.remove}
 				onClick={() => onSetActiveModal('removeColumns')}
 				title="Remove Columns"
 			>
 				<FontAwesomeIcon icon={faMinusSquare} />
+				&nbsp;Remove Columns
 			</button>
 			<button
-				className={styles.button}
+				className={styles.add}
 				onClick={() => onSetActiveModal('addColumn')}
 				title="Add Column"
 			>
 				<FontAwesomeIcon icon={faPlusSquare} />
+				&nbsp;Generate Column
 			</button>
 		</div>
 	);

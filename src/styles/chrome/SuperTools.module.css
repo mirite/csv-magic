@@ -1,4 +1,13 @@
 .button {
-	composes: btn btn-primary m-1 from 'bootstrap/dist/css/bootstrap.css';
+	composes: btn m-1 from 'bootstrap/dist/css/bootstrap.css';
+}
 
+.add {
+	composes: button;
+	composes: btn-success from 'bootstrap/dist/css/bootstrap.css';
+}
+
+.remove {
+	composes: button;
+	composes: btn-danger from 'bootstrap/dist/css/bootstrap.css';
 }
