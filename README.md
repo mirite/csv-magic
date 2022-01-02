@@ -5,4 +5,4 @@ CSV Magic is a spreadsheet editor that allows for sorting, filtering, and other 
 * To start development server: npm run start
 * To build project: npm run build
 
-You can see this project in action on [https://csvmagic.cloud/](Netlify)
+You can see this project in action on [https://csvmagic.cloud](https://csvmagic.cloud)
