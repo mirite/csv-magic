@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import ViewTab from './ViewTab';
 import MainView from './MainView';
 import { IFile, IFileHistory, ISorts, ITable } from 'types';
 import _ from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import ViewTabs from './ViewTabs';
 
 interface IFilesContext {
 	files: Array<IFile>;
@@ -96,31 +94,12 @@ class ViewContainer extends Component<IProps, IState> {
 		return (
 			<OpenFilesContext.Provider value={{ files, currentFile }}>
 				<div>
-					<ul className="nav nav-tabs">
-						{files.map((file, index) => (
-							<ViewTab
-								key={index}
-								label={file.fileName}
-								onClick={() => this.handleTabClick(index)}
-								onClose={() => this.handleTabClose(index)}
-								active={index === currentIndex}
-								home={false}
-							/>
-						))}
-						<ViewTab
-							label={
-								files.length > 0 ? (
-									<FontAwesomeIcon icon={faPlusSquare} />
-								) : (
-									'CSV Magic'
-								)
-							}
-							onClick={() => this.handleTabClick(-1)}
-							onClose={() => this.handleTabClose(-1)}
-							active={-1 === currentIndex}
-							home={true}
-						/>
-					</ul>
+					<ViewTabs
+						files={files}
+						currentIndex={currentIndex}
+						onTabClick={(e) => this.handleTabClick(e)}
+						onTabClose={(e) => this.handleTabClose(e)}
+					/>
 					<MainView
 						file={currentFile}
 						onLoad={(file) => this.handleLoad(file)}
