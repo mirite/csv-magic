@@ -1,4 +1,4 @@
-import { ICell, IRow, ITable } from 'types';
+import { ICell, IColumnPosition, IRow, ITable } from 'types';
 
 /**
  * Takes a row and returns the value at the specified key.
@@ -36,15 +36,30 @@ export function getCellByID(table: ITable, id: string): ICell | undefined {
 }
 
 /**
- * Gets a list of the columns within a table.
+ * Gets a list of the columns within a table as strings.
  *
  * @param  table The table to find the columns of.
  * @return An array of strings that represent the column names.
  */
 export function getColumnNames(table: ITable): Array<string> {
+	return getColumns(table).map((columnPair) => columnPair.columnName);
+}
+
+/**
+ * Gets a list of the columns within a table.
+ *
+ * @param  table The table to find the columns of.
+ * @return An array of columns with their indexes.
+ */
+export function getColumns(table: ITable): Array<IColumnPosition> {
 	const exampleRow = table.contents[0];
 	if (!exampleRow) throw new Error('No Rows Found In Table');
-	return exampleRow.contents.map((cell) => cell.key);
+	return exampleRow.contents.map((cell, index) => {
+		return {
+			columnName: cell.key,
+			index,
+		};
+	});
 }
 
 /**

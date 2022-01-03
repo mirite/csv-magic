@@ -131,3 +131,8 @@ export interface IMappedColumn {
 	foreignMatchKey: string;
 	foreignImportKey: string;
 }
+
+export interface IColumnPosition {
+	columnName: string;
+	index: number;
+}

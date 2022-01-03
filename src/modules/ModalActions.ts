@@ -8,6 +8,7 @@ import Filtering from 'modules/filtering';
 import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
 import {
 	EGeneratorTypes,
+	IColumnPosition,
 	IFile,
 	IFilter,
 	IMappedColumn,
@@ -16,6 +17,7 @@ import {
 	ITable,
 } from 'types';
 import { addColumn } from './column-generator';
+import ReorderColumnsModal from 'components/modals/ReorderColumns';
 
 interface IModalList {
 	[key: string]: IModalAction;
@@ -75,6 +77,12 @@ export default class ModalActions {
 				onApply: (columns: string[]) =>
 					this.handleRemoveColumns(columns),
 			},
+			reorderColumns: {
+				ComponentToUse: ReorderColumnsModal,
+				title: 'Reorder Columns',
+				onApply: (columns: IColumnPosition[]) =>
+					this.handleReorderColumns(columns),
+			},
 			addColumn: {
 				ComponentToUse: AddColumnModal,
 				title: 'Add Column',
@@ -85,6 +93,9 @@ export default class ModalActions {
 				) => this.handleAddColumn(columnName, method, params),
 			},
 		};
+	}
+	handleReorderColumns(columns: IColumnPosition[]) {
+		throw new Error('Method not implemented.');
 	}
 
 	updateEditorState(newState: IFile): void {
