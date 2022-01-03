@@ -2,7 +2,7 @@ import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
 import { getColumns } from 'modules/access-helpers';
 import ColumnPosition from './sub-controls/ColumnPosition';
-import { IColumnPosition, ITable } from 'types';
+import { IColumn, IColumnPosition, ITable } from 'types';
 import styles from 'styles/modals/ReorderColumnsModal.module.css';
 
 interface IProps extends BaseModalProps {
@@ -10,11 +10,11 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (reorderedColumns: Array<IColumnPosition>) => any;
+	onApply: (reorderedColumns: Array<IColumn>) => any;
 }
 
 interface IState {
-	columns: Array<IColumnPosition>;
+	columns: Array<IColumn>;
 }
 
 /**
@@ -32,20 +32,20 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 	getContent(): JSX.Element {
 		const { columns } = this.state;
 		return (
-			<ol className={styles.list}>
+			<div className={styles.list}>
 				{columns.map((pair) => (
 					<ColumnPosition
-						key={pair.columnName}
+						key={pair.id}
 						value={pair}
 						onMove={(distance: number) =>
 							this.handleChange(pair, distance)
 						}
 					/>
 				))}
-			</ol>
+			</div>
 		);
 	}
-	handleChange(pair: IColumnPosition, distance: number) {
+	handleChange(pair: IColumn, distance: number) {
 		throw new Error('Method not implemented.');
 	}
 

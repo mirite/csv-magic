@@ -44,10 +44,18 @@ export interface ITable {
 	 */
 	firstCellId?: string;
 
+	columns: Array<IColumn>;
+
 	/**
 	 * An array of the rows within the table.
 	 */
 	contents: Array<IRow>;
+}
+
+export interface IColumn {
+	label: string;
+	position: number;
+	id: string;
 }
 
 /**

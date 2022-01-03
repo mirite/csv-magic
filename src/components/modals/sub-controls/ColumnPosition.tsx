@@ -6,11 +6,11 @@ import {
 	faArrowCircleDown,
 	faArrowCircleUp,
 } from '@fortawesome/free-solid-svg-icons';
-import { IColumnPosition } from 'types';
+import { IColumn } from 'types';
 import styles from 'styles/modals/ReorderColumnsModal.module.css';
 
 interface ColumnPositionProps {
-	value: IColumnPosition;
+	value: IColumn;
 	onMove: (distance: number) => void;
 }
 
@@ -20,18 +20,18 @@ const ColumnPosition: FunctionComponent<ColumnPositionProps> = (props) => {
 	};
 
 	const { value } = props;
-	const { columnName, index } = value;
+	const { label, position } = value;
 
 	return (
 		<React.Fragment>
-			<div className={styles.label}>{getLetterEquivalent(index)}</div>
+			<div className={styles.label}>{getLetterEquivalent(position)}</div>
 			<button className={styles.button}>
 				<FontAwesomeIcon icon={faArrowCircleDown} />
 			</button>
 			<button className={styles.button}>
 				<FontAwesomeIcon icon={faArrowDown} />
 			</button>
-			<div className={styles.label}>{columnName}</div>
+			<div className={styles.label}>{label}</div>
 			<button className={styles.button}>
 				<FontAwesomeIcon icon={faArrowUp} />
 			</button>

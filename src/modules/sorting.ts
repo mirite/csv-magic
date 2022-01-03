@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { getCellValueByKey } from './access-helpers';
+import { getCellValueByColumnID } from './access-helpers';
 import { ISorts, ITable } from 'types';
 
 /**
@@ -40,13 +40,13 @@ function applySorting(data: ITable, sorts: ISorts) {
 		const [key, ascending] = sort;
 		newData.contents = newData.contents.sort((row1, row2) => {
 			if (
-				getCellValueByKey(row1, key).toUpperCase() >
-				getCellValueByKey(row2, key).toUpperCase()
+				getCellValueByColumnID(row1, key).toUpperCase() >
+				getCellValueByColumnID(row2, key).toUpperCase()
 			)
 				return ascending ? 1 : -1;
 			if (
-				getCellValueByKey(row1, key).toUpperCase() <
-				getCellValueByKey(row2, key).toUpperCase()
+				getCellValueByColumnID(row1, key).toUpperCase() <
+				getCellValueByColumnID(row2, key).toUpperCase()
 			)
 				return ascending ? -1 : 1;
 			return 0;
