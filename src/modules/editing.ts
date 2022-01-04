@@ -1,10 +1,6 @@
 import _ from 'lodash';
-import {
-	getCellByID,
-	getColumnIndex,
-	getRowWithMatchingValueInColumn,
-} from './access-helpers';
-import { EGeneratorTypes, ICell, IMappedColumn, IRow, ITable } from 'types';
+import { getCellByID, getColumnIndex } from './access-helpers';
+import { ICell, IRow, ITable } from 'types';
 
 /**
  * Updates a cell within a table.
