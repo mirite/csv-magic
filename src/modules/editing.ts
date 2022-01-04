@@ -19,34 +19,21 @@ export function updateCell(data: ITable, cell: ICell): ITable {
 /**
  * Renames a column throughout a table.
  *
- * @param  data               The table to rename the column in.
- * @param  originalColumnName The name of the column to change.
- * @param  newColumnName      What to change the name to.
+ * @param  data          The table to rename the column in.
+ * @param  columnId      The name of the column to change.
+ * @param  newColumnName What to change the name to.
  * @return A new table with the column renamed.
  */
 export function renameColumn(
 	data: ITable,
-	originalColumnName: string,
+	columnId: string,
 	newColumnName: string
 ): ITable {
 	const newData = _.cloneDeep(data);
-	const columnIndex = getColumnIndex(newData, originalColumnName);
-	newData.contents.forEach((row) =>
-		renameColumnInRow(row, newColumnName, columnIndex)
-	);
+	const column = newData.columns.find((c) => c.id === columnId);
+	if (!column) throw new Error('Column ID not found');
+	column.label = newColumnName;
 	return newData;
-}
-
-function renameColumnInRow(
-	row: IRow,
-	newColumnName: string,
-	columnIndex: number
-): void {
-	renameColumnInCell(row.contents[columnIndex], newColumnName);
-}
-
-function renameColumnInCell(cell: ICell, newColumnName: string) {
-	cell.key = newColumnName;
 }
 
 /**
@@ -88,11 +75,16 @@ function removeColumnsInRow(row: IRow, indices: number[]): IRow {
  * Removes columns from the table.
  *
  * @param  data            The table to rename the column in.
- * @param  columnsToRemove An array of the columns to remove by name.
+ * @param  columnsToRemove An array of the columns to remove by id.
  * @return A new table with the columns removed.
  */
 export function removeColumns(data: ITable, columnsToRemove: string[]): ITable {
 	const newData = _.cloneDeep(data);
+
+	newData.columns = newData.columns.filter((c) =>
+		columnsToRemove.includes(c.id)
+	);
+
 	const columnIndices = columnsToRemove.map((label) =>
 		getColumnIndex(newData, label)
 	);
