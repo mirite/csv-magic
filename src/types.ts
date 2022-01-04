@@ -135,9 +135,9 @@ export enum EGeneratorTypes {
 
 export interface IMappedColumn {
 	foreignTable: ITable;
-	sourceMatchKey: string;
-	foreignMatchKey: string;
-	foreignImportKey: string;
+	sourceMatchID: string;
+	foreignMatchID: string;
+	foreignImportID: string;
 }
 
 export interface IColumnPosition {

@@ -37,21 +37,16 @@ function convertToTable(raw: IRawTable): ITable {
 		/**
 		 * Counter to make cell ids somewhat predictable.
 		 */
-		let columnIndex = 0;
+		let columnPosition = 0;
 		newRow.id = uuidv4();
 		for (const cell of Object.entries(rawRow)) {
 			let columnId;
 			if (rowIndex === 0) {
-				columnId = uuidv4();
-				newTable.columns.push({
-					label: cell[0],
-					position: columnIndex,
-					id: columnId,
-				});
+				columnId = registerColumnInTable(newTable, cell[0]);
 			}
 
 			if (!columnId) {
-				columnId = getColumnId(newTable, columnIndex);
+				columnId = getColumnId(newTable, columnPosition);
 			}
 			/**
 			 * Give each cell a unique ID for finding it later on.
@@ -61,13 +56,24 @@ function convertToTable(raw: IRawTable): ITable {
 			//If the table doesn't have an active cell yet, indicate that this cell is the first in the table.
 			if (!newTable.firstCellId) newTable.firstCellId = id;
 			newRow.contents.push({ id, value: cell[1], key: columnId });
-			columnIndex++;
+			columnPosition++;
 		}
 		newTable.contents.push(newRow);
 		rowIndex++;
 	});
 
 	return newTable;
+}
+
+export function registerColumnInTable(table: ITable, label: string) {
+	const id = uuidv4();
+	const position = table.columns.length;
+	table.columns.push({
+		label,
+		position,
+		id,
+	});
+	return id;
 }
 
 export default async function (

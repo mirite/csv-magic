@@ -1,4 +1,4 @@
-import { ITable } from '../src/types';
+import { ITable } from '../types';
 const table: ITable = {
 	contents: [
 		{
