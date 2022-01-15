@@ -32,9 +32,9 @@ const LookupOptions: FunctionComponent<LookupOptionsProps> = (props) => {
 		}
 		const mappedColumn: IMappedColumn = {
 			foreignTable,
-			sourceMatchKey,
-			foreignMatchKey,
-			foreignImportKey,
+			sourceMatchID: sourceMatchKey,
+			foreignMatchID: foreignMatchKey,
+			foreignImportID: foreignImportKey,
 		};
 		props.onChange(mappedColumn);
 	}, [foreignMatchKey, sourceMatchKey, otherFile, foreignImportKey]);
