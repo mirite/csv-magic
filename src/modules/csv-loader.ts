@@ -52,10 +52,11 @@ function convertToTable(raw: IRawTable): ITable {
 			 * Give each cell a unique ID for finding it later on.
 			 */
 			const id = newRow.id + '?' + columnId;
+			const value = String(cell[1]); //csv2json will pop out an object instead of a string some times, so this is to force the cell value to be a string.
 
 			//If the table doesn't have an active cell yet, indicate that this cell is the first in the table.
 			if (!newTable.firstCellId) newTable.firstCellId = id;
-			newRow.contents.push({ id, value: cell[1], key: columnId });
+			newRow.contents.push({ id, value, key: columnId });
 			columnPosition++;
 		}
 		newTable.contents.push(newRow);
