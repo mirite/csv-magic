@@ -26,7 +26,7 @@ const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 				column={column}
 				activeSorts={activeSorts}
 				onSetActiveModal={availableModals}
-				onSort={() => onSort(column)}
+				onSort={() => onSort(column.id)}
 			/>
 		);
 	}

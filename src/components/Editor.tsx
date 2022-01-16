@@ -46,15 +46,15 @@ class Editor extends Component<IProps, IState> {
 	/**
 	 * Handles the sorting on a key.
 	 *
-	 * @param  key The field to sort on.
+	 * @param  columnID The field to sort on.
 	 */
-	handleSort(key: string) {
+	handleSort(columnID: string) {
 		const { table, activeSorts } = this.props.file;
 
 		/**
 		 * Adds the new sort to the list of sorts if it isn't present or toggles direction/removes sort if it is already present.
 		 */
-		const newSorts = Sorting.setSort([...activeSorts], key);
+		const newSorts = Sorting.setSort(activeSorts, columnID);
 
 		/**
 		 * The updated data with sorting applied.

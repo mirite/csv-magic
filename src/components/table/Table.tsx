@@ -48,7 +48,7 @@ class Table extends Component<IProps, IState> {
 			<TableHeadings
 				table={this.props.data}
 				activeSorts={this.props.activeSorts}
-				onSort={(key: string) => this.props.onSort(key)}
+				onSort={(columnID: string) => this.props.onSort(columnID)}
 				onSetActiveModal={this.props.onSetActiveModal}
 			/>
 		);
