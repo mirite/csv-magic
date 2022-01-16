@@ -19,6 +19,7 @@ import {
 } from 'types';
 import { addColumn } from './column-generator';
 import ReorderColumnsModal from 'components/modals/ReorderColumns';
+import { reorderColumns } from './reordering';
 
 interface IModalList {
 	[key: string]: IModalAction;
@@ -81,8 +82,8 @@ export default class ModalActions {
 			reorderColumns: {
 				ComponentToUse: ReorderColumnsModal,
 				title: 'Reorder Columns',
-				onApply: (columns: IColumnPosition[]) =>
-					this.handleReorderColumns(columns),
+				onApply: (columnIDs: string[]) =>
+					this.handleReorderColumns(columnIDs),
 			},
 			addColumn: {
 				ComponentToUse: AddColumnModal,
@@ -95,8 +96,10 @@ export default class ModalActions {
 			},
 		};
 	}
-	handleReorderColumns(columns: IColumnPosition[]) {
-		throw new Error('Method not implemented.');
+	handleReorderColumns(columnIDs: string[]) {
+		const { table, activeSorts } = this.editorState;
+		const newData = reorderColumns(table, columnIDs);
+		this.setCoreState(newData, activeSorts);
 	}
 
 	updateEditorState(newState: IFile): void {

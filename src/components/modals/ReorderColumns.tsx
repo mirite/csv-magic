@@ -10,7 +10,7 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (reorderedColumns: Array<IColumn>) => any;
+	onApply: (reorderedColumnIDs: Array<string>) => any;
 }
 
 interface IState {
@@ -40,7 +40,7 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 						onMove={(distance: number) =>
 							this.handleChange(index, distance)
 						}
-						toStart={index}
+						toStart={-1 * index}
 						toEnd={columns.length - 1 - index}
 					/>
 				))}
@@ -59,7 +59,8 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 
 	handleApply(): void {
 		const { columns } = this.state;
-		this.props.onApply(columns);
+		const ids = columns.map((column) => column.id);
+		this.props.onApply(ids);
 		this.props.onClose();
 	}
 
