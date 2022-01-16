@@ -56,7 +56,7 @@ function convertToTable(raw: IRawTable): ITable {
 
 			//If the table doesn't have an active cell yet, indicate that this cell is the first in the table.
 			if (!newTable.firstCellId) newTable.firstCellId = id;
-			newRow.contents.push({ id, value, key: columnId });
+			newRow.contents.push({ id, value, columnID: columnId });
 			columnPosition++;
 		}
 		newTable.contents.push(newRow);

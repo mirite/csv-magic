@@ -8,7 +8,7 @@ import { ICell, IColumn, IRow, ITable } from 'types';
  * @return The value at the specified key. Blank if the key was not present.
  */
 export function getCellValueByColumnID(row: IRow, columnId: string): string {
-	const foundCell = row.contents.find((cell) => cell.key === columnId);
+	const foundCell = row.contents.find((cell) => cell.columnID === columnId);
 	if (foundCell) return foundCell.value;
 	return '';
 }
@@ -31,6 +31,12 @@ export function getCellByID(table: ITable, id: string): ICell | undefined {
 	const foundRow = table.contents.find((row) => row.id === rowId);
 	const cell = foundRow?.contents[cellIndex];
 	return cell;
+}
+
+export function getColumnNameByID(table: ITable, id: string): string {
+	const value = table.columns.find((c) => c.id === id)?.label;
+	if (!value) throw new Error('Column ID not found');
+	return value;
 }
 
 /**

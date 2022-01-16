@@ -1,12 +1,14 @@
 import { Parser } from 'json2csv';
 import { IRawRow, IRawTable, ITable } from 'types';
+import { getColumnNameByID } from './access-helpers';
 
 function convertToRawTable(data: ITable) {
 	const rawTable: IRawTable = [];
 	for (const row of data.contents) {
 		const rawRow: IRawRow = {};
 		for (const cell of row.contents) {
-			rawRow[cell.key] = cell.value;
+			const columnName = getColumnNameByID(data, cell.columnID);
+			rawRow[columnName] = cell.value;
 		}
 		rawTable.push(rawRow);
 	}

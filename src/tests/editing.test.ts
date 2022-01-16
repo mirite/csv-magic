@@ -30,7 +30,7 @@ test('Remove Columns', () => {
 	expect(newTable.columns.length).toBe(12);
 	expect(newTable.columns[1].id).toBe('1bd90560-5142-4d62-a245-36e0003702ff');
 	expect(newTable.contents[0].contents.length).toBe(12);
-	expect(newTable.contents[0].contents[1].key).toBe(
+	expect(newTable.contents[0].contents[1].columnID).toBe(
 		'1bd90560-5142-4d62-a245-36e0003702ff'
 	);
 });

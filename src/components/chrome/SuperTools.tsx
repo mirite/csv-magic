@@ -31,14 +31,14 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
 				<FontAwesomeIcon icon={faPlusSquare} />
 				&nbsp;Generate Column
 			</button>
-			{/* <button
+			<button
 				className={styles.add}
 				onClick={() => onSetActiveModal('reorderColumns')}
 				title="Reorder Columns"
 			>
 				<FontAwesomeIcon icon={faRandom} />
 				&nbsp;Reorder Columns
-			</button> */}
+			</button>
 		</div>
 	);
 };

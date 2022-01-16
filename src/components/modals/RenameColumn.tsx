@@ -29,7 +29,7 @@ export default class RenameColumnModal extends BaseModal<IProps, IState> {
 		const { column } = this.props;
 		return (
 			<div>
-				<p>Renaming &quot;{column}&quot;</p>
+				<p>Renaming &quot;{column.label}&quot;</p>
 				<div className={styles.container}>
 					<div className={styles.group}>
 						<label htmlFor="find-input">New Name:</label>

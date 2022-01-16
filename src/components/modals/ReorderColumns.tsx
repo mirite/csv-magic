@@ -10,7 +10,7 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (reorderedColumns: Array<IColumn>) => any;
+	onApply: (reorderedColumnIDs: Array<string>) => any;
 }
 
 interface IState {
@@ -33,25 +33,34 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 		const { columns } = this.state;
 		return (
 			<div className={styles.list}>
-				{columns.map((pair) => (
+				{columns.map((column, index) => (
 					<ColumnPosition
-						key={pair.id}
-						value={pair}
+						key={column.id}
+						value={column}
 						onMove={(distance: number) =>
-							this.handleChange(pair, distance)
+							this.handleChange(index, distance)
 						}
+						toStart={-1 * index}
+						toEnd={columns.length - 1 - index}
 					/>
 				))}
 			</div>
 		);
 	}
-	handleChange(pair: IColumn, distance: number) {
-		throw new Error('Method not implemented.');
+	handleChange(initialIndex: number, distance: number) {
+		const { columns } = this.state;
+		const newIndex = initialIndex + distance;
+		const newOrder = [...columns];
+		const columnToMove = newOrder[initialIndex];
+		newOrder.splice(initialIndex, 1);
+		newOrder.splice(newIndex, 0, columnToMove);
+		this.setState({ columns: newOrder });
 	}
 
 	handleApply(): void {
 		const { columns } = this.state;
-		this.props.onApply(columns);
+		const ids = columns.map((column) => column.id);
+		this.props.onApply(ids);
 		this.props.onClose();
 	}
 
