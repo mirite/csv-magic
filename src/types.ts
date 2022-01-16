@@ -90,7 +90,7 @@ export interface ICell {
 	/**
 	 * The key or column that the cell belongs to.
 	 */
-	key: string;
+	columnID: string;
 
 	/**
 	 * The text content of the cell.

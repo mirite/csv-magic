@@ -6,7 +6,7 @@ function convertToRawTable(data: ITable) {
 	for (const row of data.contents) {
 		const rawRow: IRawRow = {};
 		for (const cell of row.contents) {
-			rawRow[cell.key] = cell.value;
+			rawRow[cell.columnID] = cell.value;
 		}
 		rawTable.push(rawRow);
 	}

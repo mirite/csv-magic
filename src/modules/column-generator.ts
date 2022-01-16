@@ -37,7 +37,7 @@ export function addColumn(
 		 */
 		const newCell: ICell = {
 			id: row.id + '?' + String(row.contents.length),
-			key: newColumnId,
+			columnID: newColumnId,
 			value: cellValue,
 		};
 		row.contents.push(newCell);

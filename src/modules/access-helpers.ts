@@ -8,7 +8,7 @@ import { ICell, IColumn, IRow, ITable } from 'types';
  * @return The value at the specified key. Blank if the key was not present.
  */
 export function getCellValueByColumnID(row: IRow, columnId: string): string {
-	const foundCell = row.contents.find((cell) => cell.key === columnId);
+	const foundCell = row.contents.find((cell) => cell.columnID === columnId);
 	if (foundCell) return foundCell.value;
 	return '';
 }

@@ -62,7 +62,7 @@ export function findAndReplaceInColumn(
 
 function removeColumnsInRow(row: IRow, columnIdsToRemove: string[]): IRow {
 	const remainingCells = row.contents.filter(
-		(cell) => !columnIdsToRemove.includes(cell.key)
+		(cell) => !columnIdsToRemove.includes(cell.columnID)
 	);
 	return {
 		id: row.id,
