@@ -1,0 +1,65 @@
+import React from 'react';
+import BaseModal, { BaseModalProps } from './BaseModal';
+import { getColumns } from 'modules/access-helpers';
+import ColumnPosition from './sub-controls/ColumnPosition';
+import { IColumn, IColumnPosition, ITable } from 'types';
+import styles from 'styles/modals/ReorderColumnsModal.module.css';
+
+interface IProps extends BaseModalProps {
+	table: ITable;
+	/**
+	 * The event handler for when the popover has apply clicked.
+	 */
+	onApply: (reorderedColumns: Array<IColumn>) => any;
+}
+
+interface IState {
+	columns: Array<IColumn>;
+}
+
+/**
+ * A popover for filtering the showing rows based on their values.
+ */
+export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
+	constructor(props: IProps) {
+		super(props);
+		const { table } = props;
+		const columns = getColumns(table);
+		this.state = {
+			columns,
+		};
+	}
+	getContent(): JSX.Element {
+		const { columns } = this.state;
+		return (
+			<div className={styles.list}>
+				{columns.map((pair) => (
+					<ColumnPosition
+						key={pair.id}
+						value={pair}
+						onMove={(distance: number) =>
+							this.handleChange(pair, distance)
+						}
+					/>
+				))}
+			</div>
+		);
+	}
+	handleChange(pair: IColumn, distance: number) {
+		throw new Error('Method not implemented.');
+	}
+
+	handleApply(): void {
+		const { columns } = this.state;
+		this.props.onApply(columns);
+		this.props.onClose();
+	}
+
+	isApplyEnabled() {
+		return true;
+	}
+
+	getApplyText() {
+		return 'Reorder Columns';
+	}
+}

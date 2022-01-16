@@ -1,27 +1,27 @@
 import _ from 'lodash';
-import { getCellValueByKey } from './access-helpers';
+import { getCellValueByColumnID } from './access-helpers';
 import { ISorts, ITable } from 'types';
 
 /**
  * Either adds a sort on the provided key, or toggles direction, removes the sort if it was already toggled.
  *
- * @param  sorts The currently active sorts
- * @param  key   The key to change the sort status on.
+ * @param  sorts    The currently active sorts
+ * @param  columnID The key to change the sort status on.
  * @return The new sorts array with the sort applied.
  */
-function setSort(sorts: ISorts, key: string) {
+function setSort(sorts: ISorts, columnID: string) {
 	let newSorts = _.cloneDeep(sorts);
 	/**
 	 * The existing sort (if any) on the key.
 	 */
-	const match = newSorts.find((e) => e[0] === key);
+	const match = newSorts.find((e) => e[0] === columnID);
 	if (match) {
 		if (match[1]) match[1] = false;
 		else {
-			newSorts = newSorts.filter((e) => e[0] !== key);
+			newSorts = newSorts.filter((e) => e[0] !== columnID);
 		}
 	} else {
-		newSorts.push([key, true]);
+		newSorts.push([columnID, true]);
 	}
 
 	return newSorts;
@@ -40,13 +40,13 @@ function applySorting(data: ITable, sorts: ISorts) {
 		const [key, ascending] = sort;
 		newData.contents = newData.contents.sort((row1, row2) => {
 			if (
-				getCellValueByKey(row1, key).toUpperCase() >
-				getCellValueByKey(row2, key).toUpperCase()
+				getCellValueByColumnID(row1, key).toUpperCase() >
+				getCellValueByColumnID(row2, key).toUpperCase()
 			)
 				return ascending ? 1 : -1;
 			if (
-				getCellValueByKey(row1, key).toUpperCase() <
-				getCellValueByKey(row2, key).toUpperCase()
+				getCellValueByColumnID(row1, key).toUpperCase() <
+				getCellValueByColumnID(row2, key).toUpperCase()
 			)
 				return ascending ? -1 : 1;
 			return 0;

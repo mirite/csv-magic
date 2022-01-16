@@ -44,10 +44,18 @@ export interface ITable {
 	 */
 	firstCellId?: string;
 
+	columns: Array<IColumn>;
+
 	/**
 	 * An array of the rows within the table.
 	 */
 	contents: Array<IRow>;
+}
+
+export interface IColumn {
+	label: string;
+	position: number;
+	id: string;
 }
 
 /**
@@ -103,7 +111,7 @@ export interface IRawRow {
 export interface IRawTable extends Array<IRawRow> {}
 
 export interface IFilter {
-	column: string;
+	column: IColumn;
 	values: string[];
 }
 
@@ -115,7 +123,7 @@ export interface IModalAction {
 
 export interface IActiveModal {
 	action: IModalAction;
-	column?: string;
+	column?: IColumn;
 }
 
 export enum EGeneratorTypes {
@@ -127,7 +135,12 @@ export enum EGeneratorTypes {
 
 export interface IMappedColumn {
 	foreignTable: ITable;
-	sourceMatchKey: string;
-	foreignMatchKey: string;
-	foreignImportKey: string;
+	sourceMatchID: string;
+	foreignMatchID: string;
+	foreignImportID: string;
+}
+
+export interface IColumnPosition {
+	columnName: string;
+	index: number;
 }

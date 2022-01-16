@@ -1,6 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import {
+	faMinusSquare,
+	faPlusSquare,
+	faRandom,
+} from '@fortawesome/free-solid-svg-icons';
 import styles from 'styles/chrome/SuperTools.module.css';
 
 interface SuperToolsProps {
@@ -27,6 +31,14 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
 				<FontAwesomeIcon icon={faPlusSquare} />
 				&nbsp;Generate Column
 			</button>
+			{/* <button
+				className={styles.add}
+				onClick={() => onSetActiveModal('reorderColumns')}
+				title="Reorder Columns"
+			>
+				<FontAwesomeIcon icon={faRandom} />
+				&nbsp;Reorder Columns
+			</button> */}
 		</div>
 	);
 };

@@ -1,10 +1,6 @@
 import _ from 'lodash';
-import {
-	getCellByID,
-	getColumnIndex,
-	getRowWithMatchingValueInColumn,
-} from './access-helpers';
-import { EGeneratorTypes, ICell, IMappedColumn, IRow, ITable } from 'types';
+import { getCellByID, getColumnIndex } from './access-helpers';
+import { ICell, IColumn, IRow, ITable } from 'types';
 
 /**
  * Updates a cell within a table.
@@ -23,52 +19,39 @@ export function updateCell(data: ITable, cell: ICell): ITable {
 /**
  * Renames a column throughout a table.
  *
- * @param  data               The table to rename the column in.
- * @param  originalColumnName The name of the column to change.
- * @param  newColumnName      What to change the name to.
+ * @param  data          The table to rename the column in.
+ * @param  columnId      The name of the column to change.
+ * @param  newColumnName What to change the name to.
  * @return A new table with the column renamed.
  */
 export function renameColumn(
 	data: ITable,
-	originalColumnName: string,
+	columnId: string,
 	newColumnName: string
 ): ITable {
 	const newData = _.cloneDeep(data);
-	const columnIndex = getColumnIndex(newData, originalColumnName);
-	newData.contents.forEach((row) =>
-		renameColumnInRow(row, newColumnName, columnIndex)
-	);
+	const column = newData.columns.find((c) => c.id === columnId);
+	if (!column) throw new Error('Column ID not found');
+	column.label = newColumnName;
 	return newData;
-}
-
-function renameColumnInRow(
-	row: IRow,
-	newColumnName: string,
-	columnIndex: number
-): void {
-	renameColumnInCell(row.contents[columnIndex], newColumnName);
-}
-
-function renameColumnInCell(cell: ICell, newColumnName: string) {
-	cell.key = newColumnName;
 }
 
 /**
  * Finds a string within a column and replaces it with the new value.
  *
  * @param  data          The table to find and replace in.
- * @param  columnName    The name of the column to find and replace in.
+ * @param  column        The name of the column to find and replace in.
  * @param  toFind        The string value to search for.
  * @param  toReplaceWith The string value to replace with.
  */
 export function findAndReplaceInColumn(
 	data: ITable,
-	columnName: string,
+	column: IColumn,
 	toFind: string,
 	toReplaceWith: string
 ): ITable {
 	const newData = _.cloneDeep(data);
-	const columnIndex = getColumnIndex(newData, columnName);
+	const columnIndex = getColumnIndex(newData, column.id);
 
 	for (const row of newData.contents) {
 		const cell = row.contents[columnIndex];
@@ -77,11 +60,10 @@ export function findAndReplaceInColumn(
 	return newData;
 }
 
-function removeColumnsInRow(row: IRow, indices: number[]): IRow {
-	for (const index of indices) {
-		delete row.contents[index];
-	}
-	const remainingCells = row.contents.filter((cell) => cell);
+function removeColumnsInRow(row: IRow, columnIdsToRemove: string[]): IRow {
+	const remainingCells = row.contents.filter(
+		(cell) => !columnIdsToRemove.includes(cell.key)
+	);
 	return {
 		id: row.id,
 		originalIndex: row.originalIndex,
@@ -92,17 +74,22 @@ function removeColumnsInRow(row: IRow, indices: number[]): IRow {
  * Removes columns from the table.
  *
  * @param  data            The table to rename the column in.
- * @param  columnsToRemove An array of the columns to remove by name.
+ * @param  columnsToRemove An array of the columns to remove by id.
  * @return A new table with the columns removed.
  */
-export function removeColumns(data: ITable, columnsToRemove: string[]): ITable {
+export function removeColumns(
+	data: ITable,
+	columnsToRemove: IColumn[]
+): ITable {
 	const newData = _.cloneDeep(data);
-	const columnIndices = columnsToRemove.map((label) =>
-		getColumnIndex(newData, label)
+	const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
+
+	newData.columns = newData.columns.filter(
+		(c) => !idsOfColumnsToRemove.includes(c.id)
 	);
 
 	newData.contents = newData.contents.map((row) =>
-		removeColumnsInRow(row, columnIndices)
+		removeColumnsInRow(row, idsOfColumnsToRemove)
 	);
 	return newData;
 }

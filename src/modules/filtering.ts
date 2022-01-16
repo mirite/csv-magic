@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import { IFilter, ITable } from 'types';
-import { getCellValueByKey } from './access-helpers';
+import { getCellValueByColumnID } from './access-helpers';
 
 function applyFilters(data: ITable, activeFilter: IFilter) {
 	const newData = _.cloneDeep(data);
 
 	newData.contents = newData.contents.filter((row) => {
 		return activeFilter.values.includes(
-			getCellValueByKey(row, activeFilter.column)
+			getCellValueByColumnID(row, activeFilter.column.id)
 		);
 	});
 

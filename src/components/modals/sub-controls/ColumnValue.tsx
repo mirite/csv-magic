@@ -1,8 +1,9 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import { IColumn } from 'types';
 
 interface ColumnValueProps {
-	value: string;
-	onChange: (value: string, state: boolean) => void;
+	value: IColumn;
+	onChange: (value: IColumn, state: boolean) => void;
 }
 
 const ColumnValue: FunctionComponent<ColumnValueProps> = (props) => {
@@ -22,7 +23,7 @@ const ColumnValue: FunctionComponent<ColumnValueProps> = (props) => {
 					checked={status}
 					onChange={handleToggle}
 				/>
-				{value}
+				{value.label}
 			</label>
 		</li>
 	);

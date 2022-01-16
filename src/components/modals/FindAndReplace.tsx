@@ -1,16 +1,16 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
-import { ITable } from 'types';
+import { IColumn, ITable } from 'types';
 import styles from 'styles/modals/FindAndReplaceModal.module.css';
 import { countOccurrences } from 'modules/access-helpers';
 
 interface IProps extends BaseModalProps {
-	column: string;
+	column: IColumn;
 	table: ITable;
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (column: string, oldValue: string, newValue: string) => void;
+	onApply: (column: IColumn, oldValue: string, newValue: string) => void;
 }
 
 interface IState {
@@ -34,7 +34,7 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 		const { column } = this.props;
 		return (
 			<div>
-				<p>Searching in &quot;{column}&quot;</p>
+				<p>Searching in &quot;{column.label}&quot;</p>
 				<div className={styles.container}>
 					<div className={styles.group}>
 						<label htmlFor="find-input">Find:</label>
@@ -78,7 +78,7 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 	testQuery(): number {
 		const result = countOccurrences(
 			this.props.table,
-			this.props.column,
+			this.props.column.id,
 			this.state.findValue
 		);
 		let message = '';

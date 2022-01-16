@@ -1,9 +1,10 @@
 import _ from 'lodash';
-import { EGeneratorTypes, ICell, IMappedColumn, IRow, ITable } from 'types';
 import {
-	getColumnIndex,
+	getCellValueByColumnID,
 	getRowWithMatchingValueInColumn,
 } from './access-helpers';
+import { EGeneratorTypes, ICell, IMappedColumn, IRow, ITable } from 'types';
+import { registerColumnInTable } from './csv-loader';
 
 /**
  * Adds a new column to a table and fills it with values using the method and parameters provided.
@@ -36,7 +37,7 @@ export function addColumn(
 		 */
 		const newCell: ICell = {
 			id: row.id + '?' + String(row.contents.length),
-			key: newColumnName,
+			key: newColumnId,
 			value: cellValue,
 		};
 		row.contents.push(newCell);
@@ -68,31 +69,19 @@ export function addColumn(
 
 	const getMappedValue = (row: IRow) => {
 		const mappedGenerator = methodParameters as IMappedColumn;
-		const foreignTable = mappedGenerator.foreignTable;
-		if (primaryIndex < 0)
-			primaryIndex = getColumnIndex(
-				data,
-				mappedGenerator.foreignMatchKey
-			);
-		if (foreignMatchIndex < 0)
-			foreignMatchIndex = getColumnIndex(
-				foreignTable,
-				mappedGenerator.foreignMatchKey
-			);
-		if (foreignImportIndex < 0)
-			foreignImportIndex = getColumnIndex(
-				foreignTable,
-				mappedGenerator.foreignImportKey
-			);
+		const { foreignTable, sourceMatchID, foreignMatchID, foreignImportID } =
+			mappedGenerator;
 
-		const localValue = row.contents[primaryIndex].value;
+		const localValue = getCellValueByColumnID(row, sourceMatchID);
+
 		const remoteRow = getRowWithMatchingValueInColumn(
 			foreignTable,
-			foreignMatchIndex,
+			foreignMatchID,
 			localValue
 		);
 
-		if (remoteRow) return remoteRow.contents[foreignImportIndex].value;
+		if (remoteRow)
+			return getCellValueByColumnID(remoteRow, foreignImportID);
 		return '';
 	};
 
@@ -105,10 +94,8 @@ export function addColumn(
 	};
 
 	const newData = _.cloneDeep(data);
+	const newColumnId = registerColumnInTable(newData, newColumnName);
 	const poolValues = poolValuesGenerator();
-	let foreignMatchIndex = -1;
-	let foreignImportIndex = -1;
-	let primaryIndex = -1;
 
 	newData.contents.forEach(addCellToRow);
 	return newData;
