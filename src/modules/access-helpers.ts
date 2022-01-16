@@ -33,6 +33,12 @@ export function getCellByID(table: ITable, id: string): ICell | undefined {
 	return cell;
 }
 
+export function getColumnNameByID(table: ITable, id: string): string {
+	const value = table.columns.find((c) => c.id === id)?.label;
+	if (!value) throw new Error('Column ID not found');
+	return value;
+}
+
 /**
  * Gets a list of the columns within a table as strings.
  *
