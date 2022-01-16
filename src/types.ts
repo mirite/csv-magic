@@ -111,7 +111,7 @@ export interface IRawRow {
 export interface IRawTable extends Array<IRawRow> {}
 
 export interface IFilter {
-	column: string;
+	column: IColumn;
 	values: string[];
 }
 
@@ -123,7 +123,7 @@ export interface IModalAction {
 
 export interface IActiveModal {
 	action: IModalAction;
-	column?: string;
+	column?: IColumn;
 }
 
 export enum EGeneratorTypes {

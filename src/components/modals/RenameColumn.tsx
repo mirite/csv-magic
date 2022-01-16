@@ -1,15 +1,15 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
-import { ITable } from 'types';
+import { IColumn, ITable } from 'types';
 import styles from 'styles/modals/RenameColumnModal.module.css';
 
 interface IProps extends BaseModalProps {
-	column: string;
+	column: IColumn;
 	table: ITable;
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (column: string, newName: string) => void;
+	onApply: (column: IColumn, newName: string) => void;
 }
 
 interface IState {

@@ -5,23 +5,23 @@ import { ISorts, ITable } from 'types';
 /**
  * Either adds a sort on the provided key, or toggles direction, removes the sort if it was already toggled.
  *
- * @param  sorts The currently active sorts
- * @param  key   The key to change the sort status on.
+ * @param  sorts    The currently active sorts
+ * @param  columnID The key to change the sort status on.
  * @return The new sorts array with the sort applied.
  */
-function setSort(sorts: ISorts, key: string) {
+function setSort(sorts: ISorts, columnID: string) {
 	let newSorts = _.cloneDeep(sorts);
 	/**
 	 * The existing sort (if any) on the key.
 	 */
-	const match = newSorts.find((e) => e[0] === key);
+	const match = newSorts.find((e) => e[0] === columnID);
 	if (match) {
 		if (match[1]) match[1] = false;
 		else {
-			newSorts = newSorts.filter((e) => e[0] !== key);
+			newSorts = newSorts.filter((e) => e[0] !== columnID);
 		}
 	} else {
-		newSorts.push([key, true]);
+		newSorts.push([columnID, true]);
 	}
 
 	return newSorts;

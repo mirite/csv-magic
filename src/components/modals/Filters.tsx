@@ -2,11 +2,11 @@ import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
 import FilterValue from './sub-controls/FilterValue';
 import { getUniqueValuesInColumn } from 'modules/access-helpers';
-import { IFilter, ITable } from 'types';
+import { IColumn, IFilter, ITable } from 'types';
 import styles from 'styles/modals/FiltersModal.module.css';
 
 interface IProps extends BaseModalProps {
-	column: string;
+	column: IColumn;
 	table: ITable;
 	/**
 	 * The event handler for when the popover has apply clicked.
@@ -30,7 +30,7 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 		const { table, column } = this.props;
 		return (
 			<ul className={styles.list}>
-				{getUniqueValuesInColumn(table, column).map((pair) => (
+				{getUniqueValuesInColumn(table, column.id).map((pair) => (
 					<FilterValue
 						key={pair[0]}
 						value={pair[0]}

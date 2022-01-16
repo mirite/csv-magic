@@ -8,6 +8,7 @@ import Filtering from 'modules/filtering';
 import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
 import {
 	EGeneratorTypes,
+	IColumn,
 	IColumnPosition,
 	IFile,
 	IFilter,
@@ -62,19 +63,19 @@ export default class ModalActions {
 			findAndReplace: {
 				ComponentToUse: FindAndReplaceModal,
 				title: 'Find and Replace In Column',
-				onApply: (column: string, toFind: string, toReplace: string) =>
+				onApply: (column: IColumn, toFind: string, toReplace: string) =>
 					this.handleFindAndReplace(column, toFind, toReplace),
 			},
 			renameColumn: {
 				ComponentToUse: RenameColumnModal,
 				title: 'Rename Column',
-				onApply: (column: string, newName: string) =>
+				onApply: (column: IColumn, newName: string) =>
 					this.handleRenameColumn(column, newName),
 			},
 			removeColumns: {
 				ComponentToUse: RemoveColumnsModal,
 				title: 'Remove Columns',
-				onApply: (columns: string[]) =>
+				onApply: (columns: IColumn[]) =>
 					this.handleRemoveColumns(columns),
 			},
 			reorderColumns: {
@@ -103,16 +104,16 @@ export default class ModalActions {
 	}
 
 	handleAddColumn(
-		columnName: string,
+		newColumnName: string,
 		method: EGeneratorTypes,
 		params: string | string[] | IMappedColumn | undefined
 	) {
 		const { table, activeSorts } = this.editorState;
 
-		const newData = addColumn(table, columnName, method, params);
+		const newData = addColumn(table, newColumnName, method, params);
 		this.setCoreState(newData, activeSorts);
 	}
-	handleRemoveColumns(columns: string[]) {
+	handleRemoveColumns(columns: IColumn[]) {
 		const { table, activeSorts } = this.editorState;
 		const newTable = removeColumns(table, columns);
 		this.setCoreState(newTable, activeSorts);
@@ -130,7 +131,7 @@ export default class ModalActions {
 	}
 
 	handleFindAndReplace(
-		column: string,
+		column: IColumn,
 		toFind: string,
 		toReplace: string
 	): void {
@@ -143,9 +144,9 @@ export default class ModalActions {
 		);
 		this.setCoreState(newTable, activeSorts);
 	}
-	handleRenameColumn(column: string, newName: string) {
+	handleRenameColumn(column: IColumn, newName: string) {
 		const { table, activeSorts } = this.editorState;
-		const newTable = renameColumn(table, column, newName);
+		const newTable = renameColumn(table, column.id, newName);
 		this.setCoreState(newTable, activeSorts);
 	}
 }

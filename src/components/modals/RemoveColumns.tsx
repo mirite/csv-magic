@@ -1,8 +1,8 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
-import { ITable } from 'types';
+import { IColumn, ITable } from 'types';
 import styles from 'styles/modals/RemoveColumnsModal.module.css';
-import { getColumnNames } from 'modules/access-helpers';
+import { getColumnNames, getColumns } from 'modules/access-helpers';
 import ColumnValue from './sub-controls/ColumnValue';
 
 interface IProps extends BaseModalProps {
@@ -10,11 +10,11 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (columns: string[]) => void;
+	onApply: (columns: IColumn[]) => void;
 }
 
 interface IState {
-	columns: Array<[string, boolean]>;
+	columns: Array<[IColumn, boolean]>;
 }
 /**
  * A popover for filtering the showing rows based on their values.
@@ -23,7 +23,7 @@ export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
 	constructor(props: IProps) {
 		super(props);
 		const { table } = props;
-		const columns = getColumnNames(table);
+		const columns = getColumns(table);
 		this.state = {
 			columns: columns.map((label) => [label, false]),
 		};
@@ -34,9 +34,9 @@ export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
 			<ul className={styles.list}>
 				{columns.map((pair) => (
 					<ColumnValue
-						key={pair[0]}
+						key={pair[0].id}
 						value={pair[0]}
-						onChange={(value: string, status: boolean) =>
+						onChange={(value: IColumn, status: boolean) =>
 							this.handleChange(value, status)
 						}
 					/>
@@ -45,9 +45,9 @@ export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
 		);
 	}
 
-	handleChange(label: string, status: boolean): void {
+	handleChange(column: IColumn, status: boolean): void {
 		const newColumns = [...this.state.columns];
-		const oldRecord = newColumns.find((pair) => pair[0] === label);
+		const oldRecord = newColumns.find((pair) => pair[0].id === column.id);
 		if (oldRecord) {
 			oldRecord[1] = status;
 			this.setState({ columns: newColumns });

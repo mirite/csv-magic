@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ITable } from 'types';
+import { IColumn, ITable } from 'types';
 import styles from 'styles/modals/BaseModal.module.css';
 
 export interface BaseModalProps {
@@ -20,7 +20,7 @@ export interface BaseModalProps {
 
 	table: ITable;
 
-	column?: string;
+	column?: IColumn;
 }
 
 export interface BaseModalState {}

@@ -4,7 +4,14 @@ import React, { Component, Fragment } from 'react';
 import Chrome from './chrome/Chrome';
 import Table from './table/Table';
 import Sorting from 'modules/sorting';
-import { IActiveModal, IFile, IFileHistory, ISorts, ITable } from 'types';
+import {
+	IActiveModal,
+	IColumn,
+	IFile,
+	IFileHistory,
+	ISorts,
+	ITable,
+} from 'types';
 import ModalActions from 'modules/ModalActions';
 
 interface IProps {
@@ -90,7 +97,7 @@ class Editor extends Component<IProps, IState> {
 	 * @param  modalName The modal to display.
 	 * @param  column    The key to run the modal on.
 	 */
-	handleSetActiveModal(modalName: string, column?: string) {
+	handleSetActiveModal(modalName: string, column?: IColumn) {
 		const action = this.modalActions.modals[modalName];
 		if (!action) throw new Error(`Invalid modal requested "${modalName}"`);
 		this.setState({ activeModal: { column, action } });
@@ -133,7 +140,7 @@ class Editor extends Component<IProps, IState> {
 				<Table
 					data={table}
 					onSort={(e: string) => this.handleSort(e)}
-					oneSetActiveModal={(modal, column) =>
+					onSetActiveModal={(modal, column) =>
 						this.handleSetActiveModal(modal, column)
 					}
 					onTableChange={(e: ITable) => this.handleTableChange(e)}
