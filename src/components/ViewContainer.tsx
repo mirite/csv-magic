@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import MainView from './MainView';
 import { IFile, IFileHistory, ISorts, ITable } from 'types';
-import _ from 'lodash';
 import ViewTabs from './ViewTabs';
+import { cloneDeep } from 'modules/tools';
 
 interface IFilesContext {
 	files: Array<IFile>;
@@ -119,7 +119,7 @@ class ViewContainer extends Component<IProps, IState> {
 		sorts: ISorts,
 		history: IFileHistory
 	): any {
-		const files = _.cloneDeep(this.state.files);
+		const files = cloneDeep(this.state.files) as IFile[];
 		const file = files[this.state.currentIndex];
 		file.table = table;
 		file.activeSorts = sorts;
