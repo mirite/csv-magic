@@ -27,7 +27,6 @@ function convertToTable(raw: IRawTable): ITable {
 	 */
 	const newTable: ITable = { contents: [], columns: [] };
 	let rowIndex: number = 0;
-	raw = raw.slice(0, 20);
 	raw.forEach((rawRow: IRawRow) => {
 		/**
 		 * A new row within the output table.
