@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import { getCellByID, getColumnIndex } from './access-helpers';
 import { ICell, IColumn, IRow, ITable } from 'types';
+import { cloneDeep } from './tools';
 
 /**
  * Updates a cell within a table.
@@ -10,7 +10,7 @@ import { ICell, IColumn, IRow, ITable } from 'types';
  * @return A new table with the cell changed.
  */
 export function updateCell(data: ITable, cell: ICell): ITable {
-	const newData = _.cloneDeep(data);
+	const newData = cloneDeep(data) as ITable;
 	const cellToUpdate = getCellByID(newData, cell.id);
 	if (cellToUpdate) cellToUpdate.value = cell.value;
 	return newData;
@@ -29,7 +29,7 @@ export function renameColumn(
 	columnId: string,
 	newColumnName: string
 ): ITable {
-	const newData = _.cloneDeep(data);
+	const newData = cloneDeep(data) as ITable;
 	const column = newData.columns.find((c) => c.id === columnId);
 	if (!column) throw new Error('Column ID not found');
 	column.label = newColumnName;
@@ -50,7 +50,7 @@ export function findAndReplaceInColumn(
 	toFind: string,
 	toReplaceWith: string
 ): ITable {
-	const newData = _.cloneDeep(data);
+	const newData = cloneDeep(data) as ITable;
 	const columnIndex = getColumnIndex(newData, column.id);
 
 	for (const row of newData.contents) {
@@ -81,7 +81,7 @@ export function removeColumns(
 	data: ITable,
 	columnsToRemove: IColumn[]
 ): ITable {
-	const newData = _.cloneDeep(data);
+	const newData = cloneDeep(data) as ITable;
 	const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
 
 	newData.columns = newData.columns.filter(

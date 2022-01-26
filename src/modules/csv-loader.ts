@@ -1,7 +1,7 @@
 import csv from 'csvtojson';
-import { v4 as uuidv4 } from 'uuid';
 import { ITable, IRow, IFile, IRawRow, IRawTable } from 'types';
 import { getColumnId } from './access-helpers';
+import { createUUID } from './tools';
 
 /**
  * Takes the text content of a CSV file and returns the raw table from it (an array of objects (rows) with keys and values).
@@ -27,7 +27,6 @@ function convertToTable(raw: IRawTable): ITable {
 	 */
 	const newTable: ITable = { contents: [], columns: [] };
 	let rowIndex: number = 0;
-	raw = raw.slice(0, 20);
 	raw.forEach((rawRow: IRawRow) => {
 		/**
 		 * A new row within the output table.
@@ -38,7 +37,7 @@ function convertToTable(raw: IRawTable): ITable {
 		 * Counter to make cell ids somewhat predictable.
 		 */
 		let columnPosition = 0;
-		newRow.id = uuidv4();
+		newRow.id = createUUID('row');
 		for (const cell of Object.entries(rawRow)) {
 			let columnId;
 			if (rowIndex === 0) {
@@ -67,7 +66,7 @@ function convertToTable(raw: IRawTable): ITable {
 }
 
 export function registerColumnInTable(table: ITable, label: string) {
-	const id = uuidv4();
+	const id = createUUID('col');
 	const position = table.columns.length;
 	table.columns.push({
 		label,
@@ -83,5 +82,6 @@ export default async function (
 ): Promise<IFile> {
 	const source = await loadFile(fileText);
 	const data = convertToTable(source);
-	return { fileName, table: data, activeSorts: [], history: [] };
+	const id = createUUID('file');
+	return { fileName, table: data, activeSorts: [], history: [], id };
 }

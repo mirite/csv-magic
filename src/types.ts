@@ -5,6 +5,10 @@ import BaseModal from 'components/modals/BaseModal';
  */
 export interface IFile {
 	/**
+	 * A unique identifier for the file so that two files with the same name can be distinguished.
+	 */
+	id: string;
+	/**
 	 * The name of the file that was opened.
 	 */
 	fileName: string;

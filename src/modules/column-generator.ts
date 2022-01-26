@@ -1,10 +1,11 @@
-import _ from 'lodash';
 import {
 	getCellValueByColumnID,
 	getRowWithMatchingValueInColumn,
 } from './access-helpers';
 import { EGeneratorTypes, ICell, IMappedColumn, IRow, ITable } from 'types';
 import { registerColumnInTable } from './csv-loader';
+import { cloneDeep } from './tools';
+import _ from 'lodash';
 
 /**
  * Adds a new column to a table and fills it with values using the method and parameters provided.
@@ -93,7 +94,7 @@ export function addColumn(
 		return getMappedValue(row);
 	};
 
-	const newData = _.cloneDeep(data);
+	const newData = cloneDeep(data) as ITable;
 	const newColumnId = registerColumnInTable(newData, newColumnName);
 	const poolValues = poolValuesGenerator();
 
