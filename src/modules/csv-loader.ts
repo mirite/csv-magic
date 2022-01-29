@@ -83,5 +83,23 @@ export default async function (
 	const source = await loadFile(fileText);
 	const data = convertToTable(source);
 	const id = createUUID('file');
-	return { fileName, table: data, activeSorts: [], history: [], id };
+	const prettyID = id.substring(id.length - 4);
+	const prettyName =
+		fileName.length > 20 ? generatePrettyName(fileName) : fileName;
+	return {
+		fileName,
+		table: data,
+		activeSorts: [],
+		history: [],
+		id,
+		prettyID,
+		prettyName,
+	};
+}
+function generatePrettyName(fileName: string) {
+	return (
+		fileName.substring(0, 10) +
+		'~' +
+		fileName.substring(fileName.length - 8)
+	);
 }

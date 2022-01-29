@@ -12,15 +12,13 @@ const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
 	const { files } = fileContext;
 
 	const cleanedFiles = files.filter(
-		(file) =>
-			file.fileName?.trim() &&
-			file.fileName !== props.currentFile?.fileName
+		(file) => file.fileName?.trim() && file.id !== props.currentFile?.id
 	);
 
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const fileName = e.currentTarget.value;
+		const fileID = e.currentTarget.value;
 		const file = cleanedFiles.find(
-			(currentFileInLoop) => currentFileInLoop.fileName === fileName
+			(currentFileInLoop) => currentFileInLoop.id === fileID
 		);
 		props.onChange(file);
 	};
@@ -31,8 +29,8 @@ const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
 			<select id="select-file" onChange={(e) => handleChange(e)}>
 				<option value="">Please select a file</option>
 				{cleanedFiles.map((file) => (
-					<option key={file.fileName} value={file.fileName}>
-						{file.fileName}
+					<option key={file.fileName} value={file.id}>
+						{file.prettyName} - ({file.prettyID})
 					</option>
 				))}
 			</select>

@@ -24,6 +24,13 @@ export interface IFile {
 	 * A list of previous states of the file.
 	 */
 	history: IFileHistory;
+
+	/**
+	 * A shortened version of the id, for display purposes.
+	 */
+	prettyID: string;
+
+	prettyName: string;
 }
 
 /**
