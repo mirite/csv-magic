@@ -31,10 +31,35 @@ function download(filename: string, text: string): void {
 	document.body.removeChild(element);
 }
 
-export default (data: ITable, fileName?: string) => {
-	const rawData = convertToRawTable(data);
+export type supportedFileTypes = 'json' | 'sql' | 'csv';
+
+function prepareForCSV(rawData: IRawTable): string {
 	const parser = new Parser();
-	const outputData = parser.parse(rawData);
-	const name = fileName ? fileName + '.csv' : `csv_magic_${Date.now()}.csv`;
+	return parser.parse(rawData);
+}
+function prepareForJSON(rawData: IRawTable): string {
+	return JSON.stringify(rawData);
+}
+
+function prepareForSQL(rawData: IRawTable): string {
+	return '';
+}
+
+const processors = {
+	csv: prepareForCSV,
+	json: prepareForJSON,
+	sql: prepareForSQL,
+};
+
+export default (
+	data: ITable,
+	fileType: supportedFileTypes,
+	fileName?: string
+) => {
+	const name = fileName
+		? fileName + '.' + fileType
+		: `csv_magic_${Date.now()}.csv`;
+	const rawData = convertToRawTable(data);
+	const outputData = processors[fileType](rawData);
 	download(name, outputData);
 };

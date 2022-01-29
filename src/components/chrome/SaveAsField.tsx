@@ -1,6 +1,6 @@
 import React, { FormEvent, FunctionComponent, useState } from 'react';
 import { ITable } from 'types';
-import CSVSaver from 'modules/csv-saver';
+import CSVSaver, { supportedFileTypes } from 'modules/csv-saver';
 import styles from 'styles/chrome/SaveAsField.module.css';
 
 interface SaveAsFieldProps {
@@ -9,10 +9,11 @@ interface SaveAsFieldProps {
 
 const SaveAsField: FunctionComponent<SaveAsFieldProps> = (props) => {
 	const [fileName, setFileName] = useState('');
+	const [fileType, setFileType] = useState<supportedFileTypes>('csv');
 
 	const saveTable = (e: FormEvent) => {
 		e.preventDefault();
-		CSVSaver(props.table, fileName);
+		CSVSaver(props.table, fileType, fileName);
 	};
 
 	return (
@@ -26,6 +27,17 @@ const SaveAsField: FunctionComponent<SaveAsFieldProps> = (props) => {
 					value={fileName}
 					onChange={(e) => setFileName(e.target.value)}
 				/>
+				<select
+					onChange={(e) =>
+						setFileType(e.target.value as supportedFileTypes)
+					}
+					value={fileType}
+					className={styles.input}
+				>
+					<option value="csv">.csv</option>
+					<option value="json">.json</option>
+					<option value="sql">.sql</option>
+				</select>
 				<button type="submit" className={styles.button}>
 					Save
 				</button>
