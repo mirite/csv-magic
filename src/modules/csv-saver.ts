@@ -31,10 +31,48 @@ function download(filename: string, text: string): void {
 	document.body.removeChild(element);
 }
 
-export default (data: ITable, fileName?: string) => {
-	const rawData = convertToRawTable(data);
+export type supportedFileTypes = 'json' | 'sql' | 'csv';
+
+function prepareForCSV(rawData: IRawTable): string {
 	const parser = new Parser();
-	const outputData = parser.parse(rawData);
-	const name = fileName ? fileName + '.csv' : `csv_magic_${Date.now()}.csv`;
+	return parser.parse(rawData);
+}
+function prepareForJSON(rawData: IRawTable): string {
+	return JSON.stringify(rawData);
+}
+
+function prepareForSQL(rawData: IRawTable): string {
+	let output = '';
+	for (const row of rawData) {
+		let columnNames = '';
+		let columnValues = '';
+		for (const [key, value] of Object.entries(row)) {
+			columnNames += `"${key}", `;
+			columnValues += `"${value}", `;
+		}
+		columnNames = columnNames.substring(0, columnNames.length - 2);
+		columnValues = columnValues.substring(0, columnValues.length - 2);
+
+		output += `INSERT INTO {TABLE_NAME} (${columnNames}) VALUES (${columnValues});\n`;
+	}
+	return output;
+}
+
+const processors = {
+	csv: prepareForCSV,
+	json: prepareForJSON,
+	sql: prepareForSQL,
+};
+
+export default (
+	data: ITable,
+	fileType: supportedFileTypes,
+	fileName?: string
+) => {
+	const name = fileName
+		? fileName + '.' + fileType
+		: `csv_magic_${Date.now()}.csv`;
+	const rawData = convertToRawTable(data);
+	const outputData = processors[fileType](rawData);
 	download(name, outputData);
 };
