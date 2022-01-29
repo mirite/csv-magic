@@ -36,6 +36,25 @@ test('Add static column', () => {
 	);
 });
 
+test('Add duplicated column', () => {
+	const newTable = addColumn(
+		testTable,
+		'testDuplicate',
+		EGeneratorTypes.duplicate,
+		'95a026a0-69c3-445d-8ad8-93af7e24ec7d'
+	);
+
+	const columns = getColumns(newTable);
+	const lastColumn = columns[columns.length - 1];
+	expect(lastColumn!.label).toBe('testDuplicate');
+	expect(getCellValueByColumnID(newTable.contents[0], lastColumn!.id)).toBe(
+		'2021-11-30T22:47:16.830Z'
+	);
+	expect(getCellValueByColumnID(newTable.contents[1], lastColumn!.id)).toBe(
+		'2021-11-30T22:47:21.910Z'
+	);
+});
+
 test('Add pool column', () => {
 	const newTable = addColumn(testTable, 'testPool', EGeneratorTypes.pool, [
 		'a',

@@ -142,6 +142,7 @@ export enum EGeneratorTypes {
 	statically,
 	lookup,
 	pool,
+	duplicate,
 }
 
 export interface IMappedColumn {
