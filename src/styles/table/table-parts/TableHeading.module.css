@@ -2,7 +2,8 @@
 	background-color: rgb(189, 189, 189);
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end
+	justify-content: flex-end;
+	height: 100%;
 }
 
 .actions {
@@ -21,6 +22,10 @@
 
 }
 
+.buttonDanger {
+	composes: btn btn-danger m-1 from 'bootstrap/dist/css/bootstrap.css';
+}
+
 .cell {
 	padding: 0;
 	border-top: 1px solid #111;
@@ -31,4 +36,9 @@
 
 .editIcon {
 	cursor: pointer;
+}
+
+.rowHeading {
+	composes: container;
+	justify-content: flex-start;
 }

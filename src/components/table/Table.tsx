@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import TableHeadings from './table-parts/TablesHeadings';
 import Row from './table-parts/Row';
 import { updateCell } from 'modules/editing';
-import { ICell, IColumn, ISorts, ITable } from 'types';
+import { ICell, IColumn, IRow, ISorts, ITable } from 'types';
 import styles from 'styles/table/Table.module.css';
 
 interface IProps {
@@ -108,6 +108,9 @@ class Table extends Component<IProps, IState> {
 								onCellChange={(e: ICell) =>
 									this.handleCellChange(e)
 								}
+								onAction={(action: string) =>
+									this.handleRowAction(action, row)
+								}
 							/>
 						))}
 					</tbody>
@@ -115,6 +118,9 @@ class Table extends Component<IProps, IState> {
 				</table>
 			</div>
 		);
+	}
+	handleRowAction(action: string, row: IRow): void {
+		throw new Error('Method not implemented.');
 	}
 }
 

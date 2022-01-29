@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Cell from './Cell';
 import ActiveCell from './ActiveCell';
 import { ICell, IRow } from '../../../types';
+import RowHeading from './RowHeading';
 
 interface IProps {
 	/**
@@ -18,6 +19,8 @@ interface IProps {
 	 * The ID of the active cell within the table (if there is one)
 	 */
 	activeCell?: string;
+
+	onAction: (action: string) => void;
 }
 
 /**
@@ -54,6 +57,15 @@ class Row extends Component<IProps> {
 		return activeCell.includes(data.id);
 	}
 
+	getTH() {
+		return (
+			<RowHeading
+				row={this.props.data}
+				onAction={(action: string) => this.props.onAction(action)}
+			/>
+		);
+	}
+
 	render() {
 		let elems;
 		if (this.isActiveCellInRow()) {
@@ -61,7 +73,12 @@ class Row extends Component<IProps> {
 		} else {
 			elems = this.renderNormalRow();
 		}
-		return <tr>{elems}</tr>;
+		return (
+			<tr>
+				{this.getTH()}
+				{elems}
+			</tr>
+		);
 	}
 }
 
