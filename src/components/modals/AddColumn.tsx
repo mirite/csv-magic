@@ -6,6 +6,7 @@ import ColumnTypeRadio from './sub-controls/ColumnType';
 import LookupOptions from './sub-controls/add-column-options/LookupOptions';
 import PoolOptions from './sub-controls/add-column-options/PoolOptions';
 import StaticOptions from './sub-controls/add-column-options/StaticOptions';
+import DuplicateOptions from './sub-controls/add-column-options/DuplicateOptions';
 
 interface IProps extends BaseModalProps {
 	table: ITable;
@@ -79,6 +80,12 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 							type={EGeneratorTypes.pool}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
+						<ColumnTypeRadio
+							label="Duplicate"
+							description="A column that is an exact clone of a column in this table."
+							type={EGeneratorTypes.duplicate}
+							onChange={(e) => this.handleTypeChange(e)}
+						/>
 					</div>
 					<div className={styles.group}>
 						<h3>Options:</h3>
@@ -112,6 +119,12 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 					onChange={(values: string[]) =>
 						this.handleParamsChange(values)
 					}
+				/>
+			);
+		if (this.state.newType === EGeneratorTypes.duplicate)
+			return (
+				<DuplicateOptions
+					onChange={(value: string) => this.handleParamsChange(value)}
 				/>
 			);
 	}

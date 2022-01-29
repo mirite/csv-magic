@@ -86,11 +86,17 @@ export function addColumn(
 		return '';
 	};
 
+	const getLocalValue = (row: IRow) => {
+		const columnID = methodParameters as string;
+		return getCellValueByColumnID(row, columnID);
+	};
+
 	const generateCellValue = (row: IRow): string => {
 		if (method === EGeneratorTypes.blank) return '';
 		if (method === EGeneratorTypes.statically)
 			return methodParameters as string;
 		if (method === EGeneratorTypes.pool) return poolValues.next().value;
+		if (method === EGeneratorTypes.duplicate) return getLocalValue(row);
 		return getMappedValue(row);
 	};
 

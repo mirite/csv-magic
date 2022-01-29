@@ -37,7 +37,7 @@ const ViewTabs: FunctionComponent<ViewTabsProps> = (props) => {
 			{files.map((file, index) => (
 				<ViewTab
 					key={index}
-					label={file.fileName}
+					label={`${file.prettyName} - (${file.prettyID})`}
 					onClick={() => onTabClick(index)}
 					onClose={() => onTabClose(index)}
 					active={index === currentIndex}

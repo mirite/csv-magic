@@ -30,7 +30,12 @@ const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 			/>
 		);
 	}
-	return <tr>{cells}</tr>;
+	return (
+		<tr>
+			<th></th>
+			{cells}
+		</tr>
+	);
 };
 
 export default TableHeadings;

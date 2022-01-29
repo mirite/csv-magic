@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import TableHeadings from './table-parts/TablesHeadings';
 import Row from './table-parts/Row';
 import { updateCell } from 'modules/editing';
-import { ICell, IColumn, ISorts, ITable } from 'types';
+import { ICell, IColumn, IRow, ISorts, ITable } from 'types';
 import styles from 'styles/table/Table.module.css';
 
 interface IProps {
@@ -15,6 +15,7 @@ interface IProps {
 	onSort: Function;
 	onSetActiveModal: (arg0: string, column: IColumn) => any;
 	onTableChange: Function;
+	onRowAction: (action: string, row: IRow) => void;
 	activeSorts: ISorts;
 }
 
@@ -107,6 +108,9 @@ class Table extends Component<IProps, IState> {
 								activeCell={this.state.activeCell}
 								onCellChange={(e: ICell) =>
 									this.handleCellChange(e)
+								}
+								onAction={(action: string) =>
+									this.props.onRowAction(action, row)
 								}
 							/>
 						))}

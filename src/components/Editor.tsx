@@ -9,10 +9,12 @@ import {
 	IColumn,
 	IFile,
 	IFileHistory,
+	IRow,
 	ISorts,
 	ITable,
 } from 'types';
 import ModalActions from 'modules/ModalActions';
+import { deleteRow, duplicateRow } from 'modules/row-actions';
 
 interface IProps {
 	/**
@@ -113,6 +115,16 @@ class Editor extends Component<IProps, IState> {
 		this.setCoreState(changedTable, activeSorts);
 	}
 
+	handleRowAction(action: string, row: IRow): void {
+		const { table, activeSorts } = this.props.file;
+		if (action === 'delete') {
+			const newTable = deleteRow(table, row);
+			this.setCoreState(newTable, activeSorts);
+		} else if (action === 'duplicate') {
+			const newTable = duplicateRow(table, row);
+			this.setCoreState(newTable, activeSorts);
+		}
+	}
 	setCoreState(newTable: ITable, newSorts: ISorts) {
 		const { onChange } = this.props;
 		const { table, history } = this.props.file;
@@ -144,6 +156,9 @@ class Editor extends Component<IProps, IState> {
 						this.handleSetActiveModal(modal, column)
 					}
 					onTableChange={(e: ITable) => this.handleTableChange(e)}
+					onRowAction={(action, row) =>
+						this.handleRowAction(action, row)
+					}
 					activeSorts={activeSorts}
 				/>
 				{this.getModals()}
