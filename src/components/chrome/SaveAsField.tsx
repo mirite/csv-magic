@@ -36,7 +36,7 @@ const SaveAsField: FunctionComponent<SaveAsFieldProps> = (props) => {
 				>
 					<option value="csv">.csv</option>
 					<option value="json">.json</option>
-					<option value="sql">.sql</option>
+					<option value="sql">.sql (Experimental)</option>
 				</select>
 				<button type="submit" className={styles.button}>
 					Save
