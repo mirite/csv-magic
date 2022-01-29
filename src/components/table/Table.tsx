@@ -15,6 +15,7 @@ interface IProps {
 	onSort: Function;
 	onSetActiveModal: (arg0: string, column: IColumn) => any;
 	onTableChange: Function;
+	onRowAction: (action: string, row: IRow) => void;
 	activeSorts: ISorts;
 }
 
@@ -109,7 +110,7 @@ class Table extends Component<IProps, IState> {
 									this.handleCellChange(e)
 								}
 								onAction={(action: string) =>
-									this.handleRowAction(action, row)
+									this.props.onRowAction(action, row)
 								}
 							/>
 						))}
@@ -118,9 +119,6 @@ class Table extends Component<IProps, IState> {
 				</table>
 			</div>
 		);
-	}
-	handleRowAction(action: string, row: IRow): void {
-		throw new Error('Method not implemented.');
 	}
 }
 
