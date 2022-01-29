@@ -42,7 +42,20 @@ function prepareForJSON(rawData: IRawTable): string {
 }
 
 function prepareForSQL(rawData: IRawTable): string {
-	return '';
+	let output = '';
+	for (const row of rawData) {
+		let columnNames = '';
+		let columnValues = '';
+		for (const [key, value] of Object.entries(row)) {
+			columnNames += `"${key}", `;
+			columnValues += `"${value}", `;
+		}
+		columnNames = columnNames.substring(0, columnNames.length - 2);
+		columnValues = columnValues.substring(0, columnValues.length - 2);
+
+		output += `INSERT INTO {TABLE_NAME} (${columnNames}) VALUES (${columnValues});\n`;
+	}
+	return output;
 }
 
 const processors = {
