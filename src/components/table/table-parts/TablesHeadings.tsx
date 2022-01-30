@@ -32,7 +32,7 @@ const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 	}
 	return (
 		<tr>
-			<th></th>
+			<th />
 			{cells}
 		</tr>
 	);

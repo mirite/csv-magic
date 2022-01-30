@@ -1,5 +1,5 @@
 import Sorting from 'modules/sorting';
-import { IColumn, ISorts } from 'types';
+import { ISorts } from 'types';
 import testTable from './testTable';
 
 test('Set sorts', () => {

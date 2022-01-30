@@ -1,4 +1,4 @@
-import { getColumnNames, getColumns } from 'modules/access-helpers';
+import { getColumns } from 'modules/access-helpers';
 import React, { FunctionComponent } from 'react';
 import { ITable } from 'types';
 

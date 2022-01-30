@@ -10,7 +10,7 @@ import { createUUID } from './tools';
  * @return The raw table from the file.
  */
 async function loadFile(content: string): Promise<IRawTable> {
-	return await csv().fromString(content);
+	return csv().fromString(content);
 }
 
 /**

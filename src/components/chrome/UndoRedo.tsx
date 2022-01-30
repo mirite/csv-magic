@@ -1,11 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faMinusSquare,
-	faPlusSquare,
-	faRedo,
-	faUndo,
-} from '@fortawesome/free-solid-svg-icons';
+import { faRedo, faUndo } from '@fortawesome/free-solid-svg-icons';
 import { IFileHistory } from 'types';
 import styles from 'styles/chrome/UndoRedo.module.css';
 

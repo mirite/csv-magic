@@ -162,8 +162,6 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 
 	isApplyEnabled() {
 		const { newName, params, newType } = this.state;
-		return (params || newType === EGeneratorTypes.blank) && newName
-			? true
-			: false;
+		return !!((params || newType === EGeneratorTypes.blank) && newName);
 	}
 }

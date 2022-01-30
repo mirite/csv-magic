@@ -2,7 +2,7 @@ import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
 import { getColumns } from 'modules/access-helpers';
 import ColumnPosition from './sub-controls/ColumnPosition';
-import { IColumn, IColumnPosition, ITable } from 'types';
+import { IColumn, ITable } from 'types';
 import styles from 'styles/modals/ReorderColumnsModal.module.css';
 
 interface IProps extends BaseModalProps {
