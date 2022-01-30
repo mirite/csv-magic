@@ -56,10 +56,7 @@ export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
 
 	getColumnsToDelete() {
 		const { columns } = this.state;
-		const columnsToDelete = columns
-			.filter((pair) => pair[1])
-			.map((pair) => pair[0]);
-		return columnsToDelete;
+		return columns.filter((pair) => pair[1]).map((pair) => pair[0]);
 	}
 
 	handleApply(): void {
