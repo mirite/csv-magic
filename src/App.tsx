@@ -2,7 +2,6 @@ import React from 'react';
 import ViewContainer from './components/ViewContainer';
 import './App.css';
 import styles from './styles/App.module.css';
-import { now } from 'lodash';
 
 function App() {
 	return (

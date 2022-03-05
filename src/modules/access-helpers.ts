@@ -29,8 +29,7 @@ export function getCellByID(table: ITable, id: string): ICell | undefined {
 	}
 	const cellIndex = getColumnIndex(table, columnId);
 	const foundRow = table.contents.find((row) => row.id === rowId);
-	const cell = foundRow?.contents[cellIndex];
-	return cell;
+	return foundRow?.contents[cellIndex];
 }
 
 export function getColumnNameByID(table: ITable, id: string): string {

@@ -1,4 +1,3 @@
-import { OpenFilesContext } from 'components/ViewContainer';
 import AddColumnModal from 'components/modals/AddColumn';
 import FiltersModal from 'components/modals/Filters';
 import FindAndReplaceModal from 'components/modals/FindAndReplace';
@@ -9,7 +8,6 @@ import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
 import {
 	EGeneratorTypes,
 	IColumn,
-	IColumnPosition,
 	IFile,
 	IFilter,
 	IMappedColumn,

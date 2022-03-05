@@ -1,7 +1,7 @@
 
 
 .group {
-	composes: form-group m-2 from 'bootstrap/dist/css/bootstrap.css';
+	composes: m-2 from 'bootstrap/dist/css/bootstrap.css';
 }
 
 .input {

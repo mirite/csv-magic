@@ -61,7 +61,7 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 				<div className={styles.tester}>
 					<button
 						className={styles.button}
-						onClick={(e) => this.testQuery()}
+						onClick={() => this.testQuery()}
 					>
 						Test
 					</button>
@@ -81,7 +81,7 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 			this.props.column.id,
 			this.state.findValue
 		);
-		let message = '';
+		let message: string;
 		if (result === 0) {
 			message = `This query will not affect any rows`;
 		} else if (result === 1) {

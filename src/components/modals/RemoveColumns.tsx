@@ -2,7 +2,7 @@ import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
 import { IColumn, ITable } from 'types';
 import styles from 'styles/modals/RemoveColumnsModal.module.css';
-import { getColumnNames, getColumns } from 'modules/access-helpers';
+import { getColumns } from 'modules/access-helpers';
 import ColumnValue from './sub-controls/ColumnValue';
 
 interface IProps extends BaseModalProps {
@@ -56,10 +56,7 @@ export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
 
 	getColumnsToDelete() {
 		const { columns } = this.state;
-		const columnsToDelete = columns
-			.filter((pair) => pair[1])
-			.map((pair) => pair[0]);
-		return columnsToDelete;
+		return columns.filter((pair) => pair[1]).map((pair) => pair[0]);
 	}
 
 	handleApply(): void {

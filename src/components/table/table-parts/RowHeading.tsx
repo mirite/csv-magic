@@ -8,7 +8,7 @@ interface RowHeadingProps {
 }
 
 const RowHeading: FunctionComponent<RowHeadingProps> = (props) => {
-	const { row, onAction } = props;
+	const { onAction } = props;
 	return (
 		<th scope="row" className={styles.cell}>
 			<div className={styles.rowHeading}>
