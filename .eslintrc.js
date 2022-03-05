@@ -29,6 +29,8 @@ module.exports = {
 	},
 
 	rules: {
+		'no-useless-constructor': 'off',
+		'@typescript-eslint/no-useless-constructor': ['error'],
 		'no-shadow': 'off',
 		'@typescript-eslint/no-shadow': 'error',
 		'jsx-a11y/label-has-associated-control': [
