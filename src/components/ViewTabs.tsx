@@ -7,11 +7,11 @@ import { IFile } from 'types';
 interface ViewTabsProps {
 	files: Array<IFile>;
 	currentIndex: number;
-	onTabClick: (index: number) => any;
-	onTabClose: (index: number) => any;
+	onTabClick: ( index: number ) => any;
+	onTabClose: ( index: number ) => any;
 }
 
-const ViewTabs: FunctionComponent<ViewTabsProps> = (props) => {
+const ViewTabs: FunctionComponent<ViewTabsProps> = ( props ) => {
 	const { files, onTabClick, onTabClose, currentIndex } = props;
 
 	const homeTab = () => {
@@ -19,32 +19,32 @@ const ViewTabs: FunctionComponent<ViewTabsProps> = (props) => {
 			<ViewTab
 				label={
 					files.length > 0 ? (
-						<FontAwesomeIcon icon={faPlusSquare} />
+						<FontAwesomeIcon icon={ faPlusSquare } />
 					) : (
 						'CSV Magic'
 					)
 				}
-				onClick={() => onTabClick(-1)}
-				onClose={() => onTabClose(-1)}
-				active={-1 === currentIndex}
-				home={true}
+				onClick={ () => onTabClick( -1 ) }
+				onClose={ () => onTabClose( -1 ) }
+				active={ -1 === currentIndex }
+				home={ true }
 			/>
 		);
 	};
 
 	return (
 		<ul className="nav nav-tabs">
-			{files.map((file, index) => (
+			{ files.map( ( file, index ) => (
 				<ViewTab
-					key={index}
-					label={`${file.prettyName} - (${file.prettyID})`}
-					onClick={() => onTabClick(index)}
-					onClose={() => onTabClose(index)}
-					active={index === currentIndex}
-					home={false}
+					key={ index }
+					label={ `${ file.prettyName } - (${ file.prettyID })` }
+					onClick={ () => onTabClick( index ) }
+					onClose={ () => onTabClose( index ) }
+					active={ index === currentIndex }
+					home={ false }
 				/>
-			))}
-			{homeTab()}
+			) ) }
+			{ homeTab() }
 		</ul>
 	);
 };

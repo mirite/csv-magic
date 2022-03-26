@@ -11,7 +11,7 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: (newFilters: IFilter) => void;
+	onApply: ( newFilters: IFilter ) => void;
 }
 
 interface IState {
@@ -21,30 +21,30 @@ interface IState {
  * A popover for filtering the showing rows based on their values.
  */
 export default class FiltersModal extends BaseModal<IProps, IState> {
-	constructor(props: IProps) {
-		super(props);
+	constructor( props: IProps ) {
+		super( props );
 		const { column } = props;
 		this.state = { filterList: { column, values: [] } };
 	}
 	getContent(): JSX.Element {
 		const { table, column } = this.props;
 		return (
-			<ul className={styles.list}>
-				{getUniqueValuesInColumn(table, column.id).map((pair) => (
+			<ul className={ styles.list }>
+				{ getUniqueValuesInColumn( table, column.id ).map( ( pair ) => (
 					<FilterValue
-						key={pair[0]}
-						value={pair[0]}
-						count={pair[1]}
-						onChange={(value: string, status: boolean) =>
-							this.handleChange(value, status)
+						key={ pair[ 0 ] }
+						value={ pair[ 0 ] }
+						count={ pair[ 1 ] }
+						onChange={ ( value: string, status: boolean ) =>
+							this.handleChange( value, status )
 						}
 					/>
-				))}
+				) ) }
 			</ul>
 		);
 	}
 
-	handleChange(valueToToggle: string, newStatus: boolean) {
+	handleChange( valueToToggle: string, newStatus: boolean ) {
 		/**
 		 * The filter list previously existing in the state.
 		 */
@@ -58,30 +58,32 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 
 		//If the filter status was switched to off, we just need the filter list with that filter removed
 		//(Even if it was never there to begin with)
-		if (!newStatus) {
+		if ( ! newStatus ) {
 			newFilterList.values = oldFilterList.filter(
-				(existingValue) => existingValue !== valueToToggle
+				( existingValue ) => existingValue !== valueToToggle,
 			);
 		} else {
 			/**
 			 * Any existing filters on value.
 			 */
 			const existingFilter = oldFilterList.find(
-				(existingValue) => existingValue === valueToToggle
+				( existingValue ) => existingValue === valueToToggle,
 			);
 
 			//If we are already filtering on this value no need to update the state.
-			if (existingFilter) return;
+			if ( existingFilter ) {
+				return;
+			}
 
-			newFilterList.values = [...oldFilterList, valueToToggle];
+			newFilterList.values = [ ...oldFilterList, valueToToggle ];
 		}
 
-		this.setState({ filterList: newFilterList });
+		this.setState( { filterList: newFilterList } );
 	}
 
 	handleApply(): void {
 		const { filterList } = this.state;
-		this.props.onApply(filterList);
+		this.props.onApply( filterList );
 		this.props.onClose();
 	}
 

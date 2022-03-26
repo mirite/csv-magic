@@ -7,9 +7,11 @@ import { ICell, IColumn, IRow, ITable } from 'types';
  * @param  columnId The key of the value to find.
  * @return The value at the specified key. Blank if the key was not present.
  */
-export function getCellValueByColumnID(row: IRow, columnId: string): string {
-	const foundCell = row.contents.find((cell) => cell.columnID === columnId);
-	if (foundCell) return foundCell.value;
+export function getCellValueByColumnID( row: IRow, columnId: string ): string {
+	const foundCell = row.contents.find( ( cell ) => cell.columnID === columnId );
+	if ( foundCell ) {
+		return foundCell.value;
+	}
 	return '';
 }
 
@@ -20,21 +22,23 @@ export function getCellValueByColumnID(row: IRow, columnId: string): string {
  * @param  id    The ID of the cell to find.
  * @return The cell at the specified id.
  */
-export function getCellByID(table: ITable, id: string): ICell | undefined {
-	const ids = id.split('?');
-	const rowId = ids[0];
-	const columnId = ids[1];
-	if (!columnId || !rowId) {
-		throw new Error('Bad Cell Id Provided');
+export function getCellByID( table: ITable, id: string ): ICell | undefined {
+	const ids = id.split( '?' );
+	const rowId = ids[ 0 ];
+	const columnId = ids[ 1 ];
+	if ( ! columnId || ! rowId ) {
+		throw new Error( 'Bad Cell Id Provided' );
 	}
-	const cellIndex = getColumnIndex(table, columnId);
-	const foundRow = table.contents.find((row) => row.id === rowId);
-	return foundRow?.contents[cellIndex];
+	const cellIndex = getColumnIndex( table, columnId );
+	const foundRow = table.contents.find( ( row ) => row.id === rowId );
+	return foundRow?.contents[ cellIndex ];
 }
 
-export function getColumnNameByID(table: ITable, id: string): string {
-	const value = table.columns.find((c) => c.id === id)?.label;
-	if (!value) throw new Error('Column ID not found');
+export function getColumnNameByID( table: ITable, id: string ): string {
+	const value = table.columns.find( ( c ) => c.id === id )?.label;
+	if ( ! value ) {
+		throw new Error( 'Column ID not found' );
+	}
 	return value;
 }
 
@@ -44,8 +48,8 @@ export function getColumnNameByID(table: ITable, id: string): string {
  * @param  table The table to find the columns of.
  * @return An array of strings that represent the column names.
  */
-export function getColumnNames(table: ITable): Array<string> {
-	return getColumns(table).map((columnPair) => columnPair.label);
+export function getColumnNames( table: ITable ): Array<string> {
+	return getColumns( table ).map( ( columnPair ) => columnPair.label );
 }
 
 /**
@@ -54,7 +58,7 @@ export function getColumnNames(table: ITable): Array<string> {
  * @param  table The table to find the columns of.
  * @return An array of columns with their indexes.
  */
-export function getColumns(table: ITable): Array<IColumn> {
+export function getColumns( table: ITable ): Array<IColumn> {
 	return table.columns;
 }
 
@@ -67,19 +71,19 @@ export function getColumns(table: ITable): Array<IColumn> {
  */
 export function getUniqueValuesInColumn(
 	table: ITable,
-	columnId: string
+	columnId: string,
 ): Array<[string, number]> {
 	const values: Array<[string, number]> = [];
-	for (const row of table.contents) {
-		const cellValue = getCellValueByColumnID(row, columnId);
+	for ( const row of table.contents ) {
+		const cellValue = getCellValueByColumnID( row, columnId );
 		const existingRecord = values.find(
-			(valuePair) => valuePair[0] === cellValue
+			( valuePair ) => valuePair[ 0 ] === cellValue,
 		);
 
-		if (existingRecord) {
-			existingRecord[1]++;
+		if ( existingRecord ) {
+			existingRecord[ 1 ]++;
 		} else {
-			values.push([cellValue, 1]);
+			values.push( [ cellValue, 1 ] );
 		}
 	}
 	return values;
@@ -92,10 +96,12 @@ export function getUniqueValuesInColumn(
  * @param  columnId The id of the column to find.
  * @return The 0-based index within a row that corresponds to the column name, -1 if the column was not found.
  */
-export function getColumnIndex(data: ITable, columnId: string): number {
+export function getColumnIndex( data: ITable, columnId: string ): number {
 	const { columns } = data;
-	const column = columns.find((c) => c.id === columnId);
-	if (column) return column.position;
+	const column = columns.find( ( c ) => c.id === columnId );
+	if ( column ) {
+		return column.position;
+	}
 	return -1;
 }
 
@@ -106,22 +112,26 @@ export function getColumnIndex(data: ITable, columnId: string): number {
  * @param  index The name position index of the column to find.
  * @return The id of the column.
  */
-export function getColumnId(data: ITable, index: number): string {
+export function getColumnId( data: ITable, index: number ): string {
 	const { columns } = data;
-	const column = columns.find((c) => c.position === index);
-	if (!column) throw new Error('No column found at position ' + index);
+	const column = columns.find( ( c ) => c.position === index );
+	if ( ! column ) {
+		throw new Error( 'No column found at position ' + index );
+	}
 	return column.id;
 }
 
 export function countOccurrences(
 	data: ITable,
 	columnID: string,
-	needle: string
+	needle: string,
 ): number {
-	const columnIndex = getColumnIndex(data, columnID);
+	const columnIndex = getColumnIndex( data, columnID );
 	let count = 0;
-	for (const row of data.contents) {
-		if (row.contents[columnIndex].value.includes(needle)) count++;
+	for ( const row of data.contents ) {
+		if ( row.contents[ columnIndex ].value.includes( needle ) ) {
+			count++;
+		}
 	}
 	return count;
 }
@@ -129,12 +139,12 @@ export function countOccurrences(
 export function getRowWithMatchingValueInColumn(
 	table: ITable,
 	columnId: string,
-	valueToFind: string
+	valueToFind: string,
 ): IRow | undefined {
 	const rows = table.contents;
-	for (const row of rows) {
-		const cell = getCellValueByColumnID(row, columnId);
-		if (cell === valueToFind) {
+	for ( const row of rows ) {
+		const cell = getCellValueByColumnID( row, columnId );
+		if ( cell === valueToFind ) {
 			return row;
 		}
 	}

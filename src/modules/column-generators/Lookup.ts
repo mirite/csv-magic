@@ -6,21 +6,22 @@ import {
 } from '../access-helpers';
 
 export class Lookup extends GenerateColumnStrategy {
-	getValue(row: IRow | undefined): string {
+	getValue( row: IRow | undefined ): string {
 		const mappedGenerator = this.methodParameters as IMappedColumn;
 		const { foreignTable, sourceMatchID, foreignMatchID, foreignImportID } =
 			mappedGenerator;
 
-		const localValue = getCellValueByColumnID(row as IRow, sourceMatchID);
+		const localValue = getCellValueByColumnID( row as IRow, sourceMatchID );
 
 		const remoteRow = getRowWithMatchingValueInColumn(
 			foreignTable,
 			foreignMatchID,
-			localValue
+			localValue,
 		);
 
-		if (remoteRow)
-			return getCellValueByColumnID(remoteRow, foreignImportID);
+		if ( remoteRow ) {
+			return getCellValueByColumnID( remoteRow, foreignImportID );
+		}
 		return '';
 	}
 }

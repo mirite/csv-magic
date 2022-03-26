@@ -6,10 +6,10 @@ import styles from './styles/App.module.css';
 function App() {
 	return (
 		<div className="App">
-			<header className={styles.header}>
+			<header className={ styles.header }>
 				<h1>🪄CSV Magic🪄</h1>
 			</header>
-			<main className={styles.main}>
+			<main className={ styles.main }>
 				<p>
 					CSV Magic is a replacement for traditional spreadsheet
 					software for tasks involving transforming data. This app
@@ -32,8 +32,8 @@ function App() {
 				</p>
 				<ViewContainer />
 			</main>
-			<footer className={styles.footer}>
-				Copyright &copy; {new Date().getFullYear()}{' '}
+			<footer className={ styles.footer }>
+				Copyright &copy; { new Date().getFullYear() }{ ' ' }
 				<a
 					href="https://jesseconner.ca"
 					target="_blank"

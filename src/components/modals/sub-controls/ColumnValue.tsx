@@ -3,16 +3,16 @@ import { IColumn } from 'types';
 
 interface ColumnValueProps {
 	value: IColumn;
-	onChange: (value: IColumn, state: boolean) => void;
+	onChange: ( value: IColumn, state: boolean ) => void;
 }
 
-const ColumnValue: FunctionComponent<ColumnValueProps> = (props) => {
+const ColumnValue: FunctionComponent<ColumnValueProps> = ( props ) => {
 	const { value, onChange: onToggle } = props;
-	const [status, setStatus] = useState(false);
-	const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
+	const [ status, setStatus ] = useState( false );
+	const handleToggle = ( e: ChangeEvent<HTMLInputElement> ) => {
 		const { checked } = e.currentTarget;
-		setStatus(checked);
-		onToggle(value, checked);
+		setStatus( checked );
+		onToggle( value, checked );
 	};
 
 	return (
@@ -20,10 +20,10 @@ const ColumnValue: FunctionComponent<ColumnValueProps> = (props) => {
 			<label>
 				<input
 					type="checkbox"
-					checked={status}
-					onChange={handleToggle}
+					checked={ status }
+					onChange={ handleToggle }
 				/>
-				{value.label}
+				{ value.label }
 			</label>
 		</li>
 	);

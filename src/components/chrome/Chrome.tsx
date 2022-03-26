@@ -8,18 +8,18 @@ import { IFile } from 'types';
 interface ChromeProps {
 	editorState: IFile;
 	onTableChange: Function;
-	onSetActiveModal: (arg0: string) => any;
+	onSetActiveModal: ( arg0: string ) => any;
 }
 
-const Chrome: FunctionComponent<ChromeProps> = (props) => {
+const Chrome: FunctionComponent<ChromeProps> = ( props ) => {
 	return (
-		<div className={styles.container}>
+		<div className={ styles.container }>
 			<UndoRedo
-				history={props.editorState.history}
-				onTableChange={props.onTableChange}
+				history={ props.editorState.history }
+				onTableChange={ props.onTableChange }
 			/>
-			<SuperTools onSetActiveModal={props.onSetActiveModal} />
-			<SaveAsField table={props.editorState.table} />
+			<SuperTools onSetActiveModal={ props.onSetActiveModal } />
+			<SaveAsField table={ props.editorState.table } />
 		</div>
 	);
 };
