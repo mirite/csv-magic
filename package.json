@@ -19,7 +19,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build": "yarn run lint && react-scripts build",
 		"test": "jest",
 		"eject": "react-scripts eject",
 		"lint": "eslint ./src/**/*.ts --fix && eslint ./src/**/*.tsx --fix"
