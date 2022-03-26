@@ -12,19 +12,19 @@ import { EGeneratorTypes, ICell, IMappedColumn, ITable } from 'types';
 
 function getStrategy(
 	method: EGeneratorTypes,
-	methodParameters: StrategyParameters
+	methodParameters: StrategyParameters,
 ): GenerateColumnStrategy {
-	switch (method) {
+	switch ( method ) {
 		case EGeneratorTypes.pool:
-			return new Pool(methodParameters);
+			return new Pool( methodParameters );
 		case EGeneratorTypes.blank:
-			return new Blank(methodParameters);
+			return new Blank( methodParameters );
 		case EGeneratorTypes.lookup:
-			return new Lookup(methodParameters);
+			return new Lookup( methodParameters );
 		case EGeneratorTypes.duplicate:
-			return new Duplicate(methodParameters);
+			return new Duplicate( methodParameters );
 		case EGeneratorTypes.statically:
-			return new Statically(methodParameters);
+			return new Statically( methodParameters );
 	}
 }
 
@@ -41,20 +41,20 @@ export function addColumn(
 	data: ITable,
 	newColumnName: string,
 	method: EGeneratorTypes,
-	methodParameters: string | string[] | IMappedColumn | undefined
+	methodParameters: string | string[] | IMappedColumn | undefined,
 ): ITable {
-	const newData = cloneDeep(data) as ITable;
-	const strategy = getStrategy(method, methodParameters);
-	const newColumnId = registerColumnInTable(newData, newColumnName);
+	const newData = cloneDeep( data ) as ITable;
+	const strategy = getStrategy( method, methodParameters );
+	const newColumnId = registerColumnInTable( newData, newColumnName );
 
-	for (const row of newData.contents) {
-		const cellValue = strategy.getValue(row);
+	for ( const row of newData.contents ) {
+		const cellValue = strategy.getValue( row );
 		const newCell: ICell = {
-			id: row.id + '?' + String(row.contents.length),
+			id: row.id + '?' + String( row.contents.length ),
 			columnID: newColumnId,
 			value: cellValue,
 		};
-		row.contents.push(newCell);
+		row.contents.push( newCell );
 	}
 	return newData;
 }

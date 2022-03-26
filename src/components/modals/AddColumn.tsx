@@ -29,8 +29,8 @@ interface IState {
  * A popover for filtering the showing rows based on their values.
  */
 export default class AddColumnModal extends BaseModal<IProps, IState> {
-	constructor(props: IProps) {
-		super(props);
+	constructor( props: IProps ) {
+		super( props );
 		this.state = {
 			newName: '',
 			newType: EGeneratorTypes.blank,
@@ -40,56 +40,56 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	getContent(): JSX.Element {
 		return (
 			<div>
-				<div className={styles.container}>
-					<div className={styles.group}>
+				<div className={ styles.container }>
+					<div className={ styles.group }>
 						<label htmlFor="name-input">
 							<h3>Column Name:</h3>
 						</label>
 						<input
 							id="name-input"
-							className={styles.input}
+							className={ styles.input }
 							type="text"
-							value={this.state.newName}
-							onChange={(e) => this.handleNewNameChange(e)}
+							value={ this.state.newName }
+							onChange={ ( e ) => this.handleNewNameChange( e ) }
 						/>
 					</div>
-					<div className={styles.group}>
+					<div className={ styles.group }>
 						<h3>Column Type:</h3>
 						<ColumnTypeRadio
 							label="Blank"
 							description="An empty column, nothing magical here."
-							type={EGeneratorTypes.blank}
-							onChange={(e) => this.handleTypeChange(e)}
-							default={true}
+							type={ EGeneratorTypes.blank }
+							onChange={ ( e ) => this.handleTypeChange( e ) }
+							default={ true }
 						/>
 						<ColumnTypeRadio
 							label="Static"
 							description="A column filled with a set value, It could be blank if you are really opposed to using the blank option."
-							type={EGeneratorTypes.statically}
-							onChange={(e) => this.handleTypeChange(e)}
+							type={ EGeneratorTypes.statically }
+							onChange={ ( e ) => this.handleTypeChange( e ) }
 						/>
 						<ColumnTypeRadio
 							label="Lookup"
 							description="A column filled with data from matches in another open table. Basically a portal."
-							type={EGeneratorTypes.lookup}
-							onChange={(e) => this.handleTypeChange(e)}
+							type={ EGeneratorTypes.lookup }
+							onChange={ ( e ) => this.handleTypeChange( e ) }
 						/>
 						<ColumnTypeRadio
 							label="Pool"
 							description="A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want)."
-							type={EGeneratorTypes.pool}
-							onChange={(e) => this.handleTypeChange(e)}
+							type={ EGeneratorTypes.pool }
+							onChange={ ( e ) => this.handleTypeChange( e ) }
 						/>
 						<ColumnTypeRadio
 							label="Duplicate"
 							description="A column that is an exact clone of a column in this table."
-							type={EGeneratorTypes.duplicate}
-							onChange={(e) => this.handleTypeChange(e)}
+							type={ EGeneratorTypes.duplicate }
+							onChange={ ( e ) => this.handleTypeChange( e ) }
 						/>
 					</div>
-					<div className={styles.group}>
+					<div className={ styles.group }>
 						<h3>Options:</h3>
-						{this.additionalOptions()}
+						{ this.additionalOptions() }
 					</div>
 				</div>
 			</div>
@@ -97,44 +97,49 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	}
 
 	additionalOptions(): React.ReactNode {
-		if (this.state.newType === EGeneratorTypes.blank)
+		if ( this.state.newType === EGeneratorTypes.blank ) {
 			return <span>There are no options for blank.</span>;
-		if (this.state.newType === EGeneratorTypes.statically)
+		}
+		if ( this.state.newType === EGeneratorTypes.statically ) {
 			return (
 				<StaticOptions
-					onChange={(value: string) => this.handleParamsChange(value)}
+					onChange={ ( value: string ) => this.handleParamsChange( value ) }
 				/>
 			);
-		if (this.state.newType === EGeneratorTypes.lookup)
+		}
+		if ( this.state.newType === EGeneratorTypes.lookup ) {
 			return (
 				<LookupOptions
-					onChange={(value: IMappedColumn) =>
-						this.handleParamsChange(value)
+					onChange={ ( value: IMappedColumn ) =>
+						this.handleParamsChange( value )
 					}
 				/>
 			);
-		if (this.state.newType === EGeneratorTypes.pool)
+		}
+		if ( this.state.newType === EGeneratorTypes.pool ) {
 			return (
 				<PoolOptions
-					onChange={(values: string[]) =>
-						this.handleParamsChange(values)
+					onChange={ ( values: string[] ) =>
+						this.handleParamsChange( values )
 					}
 				/>
 			);
-		if (this.state.newType === EGeneratorTypes.duplicate)
+		}
+		if ( this.state.newType === EGeneratorTypes.duplicate ) {
 			return (
 				<DuplicateOptions
-					onChange={(value: string) => this.handleParamsChange(value)}
+					onChange={ ( value: string ) => this.handleParamsChange( value ) }
 				/>
 			);
+		}
 	}
 
-	handleParamsChange(value: string | string[] | IMappedColumn) {
-		this.setState({ params: value });
+	handleParamsChange( value: string | string[] | IMappedColumn ) {
+		this.setState( { params: value } );
 	}
 
-	handleTypeChange(e: EGeneratorTypes): void {
-		this.setState({ newType: e, params: undefined });
+	handleTypeChange( e: EGeneratorTypes ): void {
+		this.setState( { newType: e, params: undefined } );
 	}
 
 	/**
@@ -142,9 +147,9 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	 *
 	 * @param  e The column name input.
 	 */
-	handleNewNameChange(e: React.ChangeEvent<HTMLInputElement>): void {
+	handleNewNameChange( e: React.ChangeEvent<HTMLInputElement> ): void {
 		const { value } = e.target;
-		this.setState({ newName: value });
+		this.setState( { newName: value } );
 	}
 
 	/**
@@ -152,16 +157,16 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	 */
 	handleApply(): void {
 		const { newName, params, newType } = this.state;
-		if (newType === EGeneratorTypes.blank) {
-			this.props.onApply(newName, newType);
+		if ( newType === EGeneratorTypes.blank ) {
+			this.props.onApply( newName, newType );
 		} else {
-			this.props.onApply(newName, newType, params);
+			this.props.onApply( newName, newType, params );
 		}
 		this.props.onClose();
 	}
 
 	isApplyEnabled() {
 		const { newName, params, newType } = this.state;
-		return !!((params || newType === EGeneratorTypes.blank) && newName);
+		return !! ( ( params || newType === EGeneratorTypes.blank ) && newName );
 	}
 }

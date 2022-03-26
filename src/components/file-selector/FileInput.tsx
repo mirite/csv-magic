@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 
 interface FileInputProps {
-	onAttachFile: (e: React.ChangeEvent) => unknown;
+	onAttachFile: ( e: React.ChangeEvent ) => unknown;
 }
 
-const FileInput: FunctionComponent<FileInputProps> = (props) => {
+const FileInput: FunctionComponent<FileInputProps> = ( props ) => {
 	const { onAttachFile } = props;
 	return (
 		<div className="mb-3">
@@ -15,7 +15,7 @@ const FileInput: FunctionComponent<FileInputProps> = (props) => {
 				id="source-file"
 				className="form-control"
 				accept=".csv"
-				onChange={(e) => onAttachFile(e)}
+				onChange={ ( e ) => onAttachFile( e ) }
 				type="file"
 			/>
 		</div>

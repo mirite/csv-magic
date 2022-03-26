@@ -40,30 +40,30 @@ abstract class BaseModal<
 	abstract getContent(): JSX.Element;
 	render() {
 		return (
-			<div className="modal" style={{ display: 'block' }}>
-				<div className={styles.container}>
+			<div className="modal" style={ { display: 'block' } }>
+				<div className={ styles.container }>
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title">{this.props.title}</h5>
+							<h5 className="modal-title">{ this.props.title }</h5>
 							<button
 								className="btn-close"
-								onClick={this.props.onClose}
+								onClick={ this.props.onClose }
 							></button>
 						</div>
-						<div className="modal-body">{this.getContent()}</div>
+						<div className="modal-body">{ this.getContent() }</div>
 						<div className="modal-footer">
 							<button
 								className="btn btn-secondary"
-								onClick={this.props.onClose}
+								onClick={ this.props.onClose }
 							>
 								Close
 							</button>
 							<button
 								className="btn btn-primary"
-								onClick={() => this.handleApply()}
-								disabled={!this.isApplyEnabled()}
+								onClick={ () => this.handleApply() }
+								disabled={ ! this.isApplyEnabled() }
 							>
-								{this.getApplyText()}
+								{ this.getApplyText() }
 							</button>
 						</div>
 					</div>

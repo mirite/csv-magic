@@ -6,25 +6,29 @@ interface SubmitButtonProps {
 	fileAttached: boolean;
 }
 
-const SubmitButton: FunctionComponent<SubmitButtonProps> = (props) => {
+const SubmitButton: FunctionComponent<SubmitButtonProps> = ( props ) => {
 	const { processing, fileAttached } = props;
 
 	const getText = () => {
-		if (processing) return 'Processing...';
-		if (fileAttached) return 'Open';
+		if ( processing ) {
+			return 'Processing...';
+		}
+		if ( fileAttached ) {
+			return 'Open';
+		}
 		return 'Select a File';
 	};
 
-	const isDisabled = processing || !fileAttached;
+	const isDisabled = processing || ! fileAttached;
 
 	return (
 		<button
-			className={styles.button}
+			className={ styles.button }
 			type="submit"
-			aria-disabled={isDisabled}
-			disabled={isDisabled}
+			aria-disabled={ isDisabled }
+			disabled={ isDisabled }
 		>
-			{getText()}
+			{ getText() }
 		</button>
 	);
 };

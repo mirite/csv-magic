@@ -11,7 +11,7 @@ export interface IProps {
 	/**
 	 * The event handler to call if the value of the cell changes.
 	 */
-	onCellChange?: (event: ICell) => any;
+	onCellChange?: ( event: ICell ) => any;
 }
 
 export interface IState {
@@ -28,9 +28,9 @@ class Cell extends Component<IProps, IState> {
 	render() {
 		const { value, id } = this.props.data;
 		return (
-			<td className={styles.container} data-id={id}>
-				<span className={styles.label} data-id={id}>
-					{value}
+			<td className={ styles.container } data-id={ id }>
+				<span className={ styles.label } data-id={ id }>
+					{ value }
 				</span>
 			</td>
 		);

@@ -15,8 +15,8 @@ interface IProps {
 	/**
 	 * The event handler to call when a new file is loaded.
 	 */
-	onLoad: (file?: IFile) => void;
-	onTableChange: (table: ITable, sorts: ISorts, history: IFileHistory) => any;
+	onLoad: ( file?: IFile ) => void;
+	onTableChange: ( table: ITable, sorts: ISorts, history: IFileHistory ) => any;
 }
 
 /**
@@ -29,31 +29,31 @@ class MainView extends Component<IProps, IState> {
 	 * @return The appropriate view based on whether or not the FilePane has a file open.
 	 */
 	getView() {
-		if (this.props.file) {
+		if ( this.props.file ) {
 			return (
 				<Editor
-					file={this.props.file}
-					onChange={(
+					file={ this.props.file }
+					onChange={ (
 						table: ITable,
 						sorts: ISorts,
-						history: IFileHistory
-					) => this.handleTableChange(table, sorts, history)}
+						history: IFileHistory,
+					) => this.handleTableChange( table, sorts, history ) }
 				/>
 			);
 		}
-		return <FileSelector onChange={(data) => this.props.onLoad(data)} />;
+		return <FileSelector onChange={ ( data ) => this.props.onLoad( data ) } />;
 	}
 
 	handleTableChange(
 		table: ITable,
 		sorts: ISorts,
-		history: IFileHistory
+		history: IFileHistory,
 	): any {
-		this.props.onTableChange(table, sorts, history);
+		this.props.onTableChange( table, sorts, history );
 	}
 
 	render() {
-		return <div className={styles.container}>{this.getView()}</div>;
+		return <div className={ styles.container }>{ this.getView() }</div>;
 	}
 }
 
