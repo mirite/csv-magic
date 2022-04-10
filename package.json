@@ -1,6 +1,6 @@
 {
 	"name": "csv-magic",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"private": true,
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -41,11 +41,11 @@
 		"@types/json2csv": "^5.0.3",
 		"@types/lodash": "^4.14.178",
 		"@types/node": "^17.0.5",
-		"@types/react": "^17.0.38",
-		"@types/react-dom": "^17.0.11",
+		"@types/react": "^18.0.1",
+		"@types/react-dom": "^18.0.0",
 		"@types/uuid": "^8.3.4",
 		"@typescript-eslint/parser": "^5.4.0",
-		"@wordpress/eslint-plugin": "^11.1.0",
+		"@wordpress/eslint-plugin": "^12.0.0",
 		"eslint": "^8.10.0",
 		"eslint-plugin-import": "^2.25.3",
 		"eslint-plugin-jsx-a11y": "^6.5.1",
