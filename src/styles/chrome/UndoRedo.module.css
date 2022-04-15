@@ -2,3 +2,4 @@
 	composes: btn btn-secondary from 'bootstrap/dist/css/bootstrap.css';
 	margin-right: 0.5em;
 }
+.container{}

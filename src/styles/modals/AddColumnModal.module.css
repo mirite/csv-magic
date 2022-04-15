@@ -1,4 +1,4 @@
-
+.container{}
 
 .group {
 	composes: m-2 from 'bootstrap/dist/css/bootstrap.css';

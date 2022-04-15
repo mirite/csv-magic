@@ -24,9 +24,9 @@ interface IProps {
  */
 class MainView extends Component<IProps, IState> {
 	/**
-	 * Returns The appropriate view based on whether or not the FilePane has a file open.
+	 * Returns The appropriate view based on whether the FilePane has a file open.
 	 *
-	 * @return The appropriate view based on whether or not the FilePane has a file open.
+	 * @return The appropriate view based on whether the FilePane has a file open.
 	 */
 	getView() {
 		if ( this.props.file ) {
