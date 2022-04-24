@@ -12,3 +12,7 @@
 .list input {
 	margin-right: 1em;
 }
+
+.button {
+	composes: btn btn-info m-2 from 'bootstrap/dist/css/bootstrap.css';
+}

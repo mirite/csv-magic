@@ -7,32 +7,32 @@ interface OpenFileSelectorProps {
 	currentFile?: IFile;
 }
 
-const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = ( props ) => {
-	const fileContext = useContext( OpenFilesContext );
+const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
+	const fileContext = useContext(OpenFilesContext);
 	const { files } = fileContext;
 
 	const cleanedFiles = files.filter(
-		( file ) => file.fileName?.trim() && file.id !== props.currentFile?.id,
+		(file) => file.fileName?.trim() && file.id !== props.currentFile?.id
 	);
 
-	const handleChange = ( e: React.ChangeEvent<HTMLSelectElement> ) => {
+	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const fileID = e.currentTarget.value;
 		const file = cleanedFiles.find(
-			( currentFileInLoop ) => currentFileInLoop.id === fileID,
+			(currentFileInLoop) => currentFileInLoop.id === fileID
 		);
-		props.onChange( file );
+		props.onChange(file);
 	};
 
 	return (
 		<div>
 			<label htmlFor="select-file">Select File:</label>
-			<select id="select-file" onChange={ ( e ) => handleChange( e ) }>
+			<select id="select-file" onChange={(e) => handleChange(e)}>
 				<option value="">Please select a file</option>
-				{ cleanedFiles.map( ( file ) => (
-					<option key={ file.fileName } value={ file.id }>
-						{ file.prettyName } - ({ file.prettyID })
+				{cleanedFiles.map((file) => (
+					<option key={file.fileName} value={file.id}>
+						{file.prettyName} - ({file.prettyID})
 					</option>
-				) ) }
+				))}
 			</select>
 		</div>
 	);

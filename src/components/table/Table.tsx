@@ -13,9 +13,9 @@ interface IProps {
 	 */
 	data: ITable;
 	onSort: Function;
-	onSetActiveModal: ( arg0: string, column: IColumn ) => any;
+	onSetActiveModal: (arg0: string, column: IColumn) => any;
 	onTableChange: Function;
-	onRowAction: ( action: string, row: IRow ) => void;
+	onRowAction: (action: string, row: IRow) => void;
 	activeSorts: ISorts;
 }
 
@@ -30,8 +30,8 @@ interface IState {
  * A file that has been opened and is being displayed as a table in the editor.
  */
 class Table extends Component<IProps, IState> {
-	constructor( props: IProps ) {
-		super( props );
+	constructor(props: IProps) {
+		super(props);
 		const { data } = props;
 
 		this.state = {
@@ -47,10 +47,10 @@ class Table extends Component<IProps, IState> {
 	getHeaders() {
 		return (
 			<TableHeadings
-				table={ this.props.data }
-				activeSorts={ this.props.activeSorts }
-				onSort={ ( columnID: string ) => this.props.onSort( columnID ) }
-				onSetActiveModal={ this.props.onSetActiveModal }
+				table={this.props.data}
+				activeSorts={this.props.activeSorts}
+				onSort={(columnID: string) => this.props.onSort(columnID)}
+				onSetActiveModal={this.props.onSetActiveModal}
 			/>
 		);
 	}
@@ -62,7 +62,7 @@ class Table extends Component<IProps, IState> {
 	 */
 	getHead() {
 		const headings = this.getHeaders();
-		return <thead>{ headings }</thead>;
+		return <thead>{headings}</thead>;
 	}
 
 	/**
@@ -72,7 +72,7 @@ class Table extends Component<IProps, IState> {
 	 */
 	getFoot() {
 		const headings = this.getHeaders();
-		return <tfoot>{ headings }</tfoot>;
+		return <tfoot>{headings}</tfoot>;
 	}
 
 	/**
@@ -80,16 +80,16 @@ class Table extends Component<IProps, IState> {
 	 *
 	 * @param  changedCell The new cell data.
 	 */
-	handleCellChange( changedCell: ICell ) {
-		const newData = updateCell( this.props.data, changedCell );
-		this.props.onTableChange( newData );
+	handleCellChange(changedCell: ICell) {
+		const newData = updateCell(this.props.data, changedCell);
+		this.props.onTableChange(newData);
 	}
 
-	handleActiveCellChange( e: React.MouseEvent ) {
+	handleActiveCellChange(e: React.MouseEvent) {
 		const { target } = e;
 		const { dataset } = target as HTMLElement;
-		if ( dataset && dataset.id ) {
-			this.setState( { activeCell: dataset.id } );
+		if (dataset && dataset.id) {
+			this.setState({ activeCell: dataset.id });
 		}
 	}
 
@@ -97,25 +97,25 @@ class Table extends Component<IProps, IState> {
 		const { data } = this.props;
 		const { contents } = data;
 		return (
-			<div className={ styles.container }>
+			<div className={styles.container}>
 				<table>
-					{ this.getHead() }
-					<tbody onClick={ ( e ) => this.handleActiveCellChange( e ) }>
-						{ contents.map( ( row ) => (
+					{this.getHead()}
+					<tbody onClick={(e) => this.handleActiveCellChange(e)}>
+						{contents.map((row) => (
 							<Row
-								key={ row.id }
-								data={ row }
-								activeCell={ this.state.activeCell }
-								onCellChange={ ( e: ICell ) =>
-									this.handleCellChange( e )
+								key={row.id}
+								data={row}
+								activeCell={this.state.activeCell}
+								onCellChange={(e: ICell) =>
+									this.handleCellChange(e)
 								}
-								onAction={ ( action: string ) =>
-									this.props.onRowAction( action, row )
+								onAction={(action: string) =>
+									this.props.onRowAction(action, row)
 								}
 							/>
-						) ) }
+						))}
 					</tbody>
-					{ this.getFoot() }
+					{this.getFoot()}
 				</table>
 			</div>
 		);

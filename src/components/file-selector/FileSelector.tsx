@@ -29,15 +29,15 @@ interface IProps {
 	/**
 	 * The event to fire when the CSV file is selected and processed.
 	 */
-	onChange: ( data: IFile ) => void;
+	onChange: (data: IFile) => void;
 }
 
 /**
  * Allows a user to select a file and passes that file back to the parent component.
  */
 class FileSelector extends Component<IProps, IState> {
-	constructor( props: IProps ) {
-		super( props );
+	constructor(props: IProps) {
+		super(props);
 		this.state = {
 			processing: false,
 			fileTextContent: '',
@@ -51,16 +51,16 @@ class FileSelector extends Component<IProps, IState> {
 	 *
 	 * @param  e The form on change even.t
 	 */
-	async handleAttachFile( e: FormEvent ): Promise<void> {
+	async handleAttachFile(e: FormEvent): Promise<void> {
 		const { files } = e.target as HTMLInputElement;
-		const file = files?.item( 0 );
+		const file = files?.item(0);
 		const fileText = await file?.text();
 		const fileName = file?.name;
-		this.setState( {
+		this.setState({
 			fileTextContent: fileText ?? '',
 			fileName: fileName ?? 'untitled',
 			fileAttached: true,
-		} );
+		});
 	}
 
 	/**
@@ -68,26 +68,26 @@ class FileSelector extends Component<IProps, IState> {
 	 *
 	 * @param  e The form submit event.
 	 */
-	async process( e: FormEvent ): Promise<void> {
+	async process(e: FormEvent): Promise<void> {
 		e.preventDefault();
-		this.setState( { processing: true } );
+		this.setState({ processing: true });
 		const data = await CSVLoader(
 			this.state.fileName,
-			this.state.fileTextContent,
+			this.state.fileTextContent
 		);
-		this.props.onChange( data );
+		this.props.onChange(data);
 	}
 
 	render() {
 		const { processing, fileAttached } = this.state;
 		return (
 			<div>
-				<form onSubmit={ ( e ) => this.process( e ) }>
-					<FileInput onAttachFile={ ( e ) => this.handleAttachFile( e ) } />
-					<div className={ styles.submitButtonContainer }>
+				<form onSubmit={(e) => this.process(e)}>
+					<FileInput onAttachFile={(e) => this.handleAttachFile(e)} />
+					<div className={styles.submitButtonContainer}>
 						<SubmitButton
-							processing={ processing }
-							fileAttached={ fileAttached }
+							processing={processing}
+							fileAttached={fileAttached}
 						/>
 					</div>
 				</form>

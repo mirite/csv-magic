@@ -9,8 +9,8 @@ import { createUUID } from './tools';
  * @param  content The text content of the CSV file.
  * @return The raw table from the file.
  */
-async function loadFile( content: string ): Promise<IRawTable> {
-	return csv().fromString( content );
+async function loadFile(content: string): Promise<IRawTable> {
+	return csv().fromString(content);
 }
 
 /**
@@ -21,13 +21,13 @@ async function loadFile( content: string ): Promise<IRawTable> {
  * @param  raw The raw table loaded from the file.
  * @return The table with our format applied.
  */
-function convertToTable( raw: IRawTable ): ITable {
+function convertToTable(raw: IRawTable): ITable {
 	/**
 	 * The table being created from the raw data.
 	 */
 	const newTable: ITable = { contents: [], columns: [] };
 	let rowIndex: number = 0;
-	raw.forEach( ( rawRow: IRawRow ) => {
+	raw.forEach((rawRow: IRawRow) => {
 		/**
 		 * A new row within the output table.
 		 */
@@ -37,57 +37,57 @@ function convertToTable( raw: IRawTable ): ITable {
 		 * Counter to make cell ids somewhat predictable.
 		 */
 		let columnPosition = 0;
-		newRow.id = createUUID( 'row' );
-		for ( const cell of Object.entries( rawRow ) ) {
+		newRow.id = createUUID('row');
+		for (const cell of Object.entries(rawRow)) {
 			let columnId;
-			if ( rowIndex === 0 ) {
-				columnId = registerColumnInTable( newTable, cell[ 0 ] );
+			if (rowIndex === 0) {
+				columnId = registerColumnInTable(newTable, cell[0]);
 			}
 
-			if ( ! columnId ) {
-				columnId = getColumnId( newTable, columnPosition );
+			if (!columnId) {
+				columnId = getColumnId(newTable, columnPosition);
 			}
 			/**
 			 * Give each cell a unique ID for finding it later on.
 			 */
 			const id = newRow.id + '?' + columnId;
-			const value = String( cell[ 1 ] ); //csv2json will pop out an object instead of a string some times, so this is to force the cell value to be a string.
+			const value = String(cell[1]); //csv2json will pop out an object instead of a string some times, so this is to force the cell value to be a string.
 
 			//If the table doesn't have an active cell yet, indicate that this cell is the first in the table.
-			if ( ! newTable.firstCellId ) {
+			if (!newTable.firstCellId) {
 				newTable.firstCellId = id;
 			}
-			newRow.contents.push( { id, value, columnID: columnId } );
+			newRow.contents.push({ id, value, columnID: columnId });
 			columnPosition++;
 		}
-		newTable.contents.push( newRow );
+		newTable.contents.push(newRow);
 		rowIndex++;
-	} );
+	});
 
 	return newTable;
 }
 
-export function registerColumnInTable( table: ITable, label: string ) {
-	const id = createUUID( 'col' );
+export function registerColumnInTable(table: ITable, label: string) {
+	const id = createUUID('col');
 	const position = table.columns.length;
-	table.columns.push( {
+	table.columns.push({
 		label,
 		position,
 		id,
-	} );
+	});
 	return id;
 }
 
-export default async function(
+export default async function (
 	fileName: string,
-	fileText: string,
+	fileText: string
 ): Promise<IFile> {
-	const source = await loadFile( fileText );
-	const data = convertToTable( source );
-	const id = createUUID( 'file' );
-	const prettyID = id.substring( id.length - 4 );
+	const source = await loadFile(fileText);
+	const data = convertToTable(source);
+	const id = createUUID('file');
+	const prettyID = id.substring(id.length - 4);
 	const prettyName =
-		fileName.length > 20 ? generatePrettyName( fileName ) : fileName;
+		fileName.length > 20 ? generatePrettyName(fileName) : fileName;
 	return {
 		fileName,
 		table: data,
@@ -98,10 +98,10 @@ export default async function(
 		prettyName,
 	};
 }
-function generatePrettyName( fileName: string ) {
+function generatePrettyName(fileName: string) {
 	return (
-		fileName.substring( 0, 10 ) +
+		fileName.substring(0, 10) +
 		'~' +
-		fileName.substring( fileName.length - 8 )
+		fileName.substring(fileName.length - 8)
 	);
 }

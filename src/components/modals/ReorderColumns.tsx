@@ -10,7 +10,7 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: ( reorderedColumnIDs: Array<string> ) => any;
+	onApply: (reorderedColumnIDs: Array<string>) => any;
 }
 
 interface IState {
@@ -21,10 +21,10 @@ interface IState {
  * A popover for filtering the showing rows based on their values.
  */
 export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
-	constructor( props: IProps ) {
-		super( props );
+	constructor(props: IProps) {
+		super(props);
 		const { table } = props;
-		const columns = getColumns( table );
+		const columns = getColumns(table);
 		this.state = {
 			columns,
 		};
@@ -32,35 +32,35 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 	getContent(): JSX.Element {
 		const { columns } = this.state;
 		return (
-			<div className={ styles.list }>
-				{ columns.map( ( column, index ) => (
+			<div className={styles.list}>
+				{columns.map((column, index) => (
 					<ColumnPosition
-						key={ column.id }
-						value={ column }
-						onMove={ ( distance: number ) =>
-							this.handleChange( index, distance )
+						key={column.id}
+						value={column}
+						onMove={(distance: number) =>
+							this.handleChange(index, distance)
 						}
-						toStart={ -1 * index }
-						toEnd={ columns.length - 1 - index }
+						toStart={-1 * index}
+						toEnd={columns.length - 1 - index}
 					/>
-				) ) }
+				))}
 			</div>
 		);
 	}
-	handleChange( initialIndex: number, distance: number ) {
+	handleChange(initialIndex: number, distance: number) {
 		const { columns } = this.state;
 		const newIndex = initialIndex + distance;
-		const newOrder = [ ...columns ];
-		const columnToMove = newOrder[ initialIndex ];
-		newOrder.splice( initialIndex, 1 );
-		newOrder.splice( newIndex, 0, columnToMove );
-		this.setState( { columns: newOrder } );
+		const newOrder = [...columns];
+		const columnToMove = newOrder[initialIndex];
+		newOrder.splice(initialIndex, 1);
+		newOrder.splice(newIndex, 0, columnToMove);
+		this.setState({ columns: newOrder });
 	}
 
 	handleApply(): void {
 		const { columns } = this.state;
-		const ids = columns.map( ( column ) => column.id );
-		this.props.onApply( ids );
+		const ids = columns.map((column) => column.id);
+		this.props.onApply(ids);
 		this.props.onClose();
 	}
 

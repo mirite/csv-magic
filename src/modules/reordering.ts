@@ -8,7 +8,7 @@ import { ICell, IColumn, IRow, ITable } from 'types';
  */
 export function reorderColumns(
 	table: ITable,
-	newColumnOrder: Array<string>,
+	newColumnOrder: Array<string>
 ): ITable {
 	const reorderedTable: ITable = {
 		columns: [],
@@ -17,53 +17,53 @@ export function reorderColumns(
 
 	reorderedTable.columns = createNewColumnField(
 		table.columns,
-		newColumnOrder,
+		newColumnOrder
 	);
 
-	reorderedTable.contents = createNewRows( table.contents, newColumnOrder );
+	reorderedTable.contents = createNewRows(table.contents, newColumnOrder);
 	return reorderedTable;
 }
 
 function createNewColumnField(
 	columns: IColumn[],
-	newColumnOrder: string[],
+	newColumnOrder: string[]
 ): IColumn[] {
 	const newColumns: IColumn[] = [];
 	let position = 0;
-	for ( const id of newColumnOrder ) {
+	for (const id of newColumnOrder) {
 		const existingColumn: IColumn | undefined = columns.find(
-			( c ) => c.id === id,
+			(c) => c.id === id
 		);
-		if ( ! existingColumn ) {
-			throw new Error( 'Column ID not found in table' );
+		if (!existingColumn) {
+			throw new Error('Column ID not found in table');
 		}
 		const { label } = existingColumn;
-		newColumns.push( { position, id, label } );
+		newColumns.push({ position, id, label });
 		position++;
 	}
 	return newColumns;
 }
 
-function createNewRows( rows: IRow[], newColumnOrder: string[] ): IRow[] {
-	return rows.map( ( row ) => createNewRow( row, newColumnOrder ) );
+function createNewRows(rows: IRow[], newColumnOrder: string[]): IRow[] {
+	return rows.map((row) => createNewRow(row, newColumnOrder));
 }
 
-function createNewRow( row: IRow, newColumnOrder: string[] ): IRow {
+function createNewRow(row: IRow, newColumnOrder: string[]): IRow {
 	const newRow: IRow = {
 		id: row.id,
 		originalIndex: row.originalIndex,
 		contents: [],
 	};
 
-	for ( const columnID of newColumnOrder ) {
+	for (const columnID of newColumnOrder) {
 		const existingCell: ICell | undefined = row.contents.find(
-			( c ) => c.columnID === columnID,
+			(c) => c.columnID === columnID
 		);
-		if ( ! existingCell ) {
-			throw new Error( 'Column ID not found in row' );
+		if (!existingCell) {
+			throw new Error('Column ID not found in row');
 		}
 		const { id, value } = existingCell;
-		newRow.contents.push( { columnID, id, value } );
+		newRow.contents.push({ columnID, id, value });
 	}
 	return newRow;
 }

@@ -10,7 +10,7 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: ( column: IColumn, oldValue: string, newValue: string ) => void;
+	onApply: (column: IColumn, oldValue: string, newValue: string) => void;
 }
 
 interface IState {
@@ -22,8 +22,8 @@ interface IState {
  * A popover for filtering the showing rows based on their values.
  */
 export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
-	constructor( props: IProps ) {
-		super( props );
+	constructor(props: IProps) {
+		super(props);
 		this.state = {
 			findValue: '',
 			replaceValue: '',
@@ -34,42 +34,42 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 		const { column } = this.props;
 		return (
 			<div>
-				<p>Searching in &quot;{ column.label }&quot;</p>
-				<div className={ styles.container }>
-					<div className={ styles.group }>
+				<p>Searching in &quot;{column.label}&quot;</p>
+				<div className={styles.container}>
+					<div className={styles.group}>
 						<label htmlFor="find-input">Find:</label>
 						<input
 							id="find-input"
-							className={ styles.input }
+							className={styles.input}
 							type="text"
-							value={ this.state.findValue }
-							onChange={ ( e ) => this.handleFindChange( e ) }
+							value={this.state.findValue}
+							onChange={(e) => this.handleFindChange(e)}
 						/>
 					</div>
 
-					<div className={ styles.group }>
+					<div className={styles.group}>
 						<label htmlFor="replace-input">Replace:</label>
 						<input
 							id="replace-input"
-							className={ styles.input }
+							className={styles.input}
 							type="text"
-							value={ this.state.replaceValue }
-							onChange={ ( e ) => this.handleReplaceChange( e ) }
+							value={this.state.replaceValue}
+							onChange={(e) => this.handleReplaceChange(e)}
 						/>
 					</div>
 				</div>
-				<div className={ styles.tester }>
+				<div className={styles.tester}>
 					<button
-						className={ styles.button }
-						onClick={ () => this.testQuery() }
+						className={styles.button}
+						onClick={() => this.testQuery()}
 					>
 						Test
 					</button>
 					<input
 						type="text"
 						readOnly
-						className={ styles.output }
-						value={ this.state.testResult }
+						className={styles.output}
+						value={this.state.testResult}
 					/>
 				</div>
 			</div>
@@ -79,32 +79,32 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 		const result = countOccurrences(
 			this.props.table,
 			this.props.column.id,
-			this.state.findValue,
+			this.state.findValue
 		);
 		let message: string;
-		if ( result === 0 ) {
+		if (result === 0) {
 			message = `This query will not affect any rows`;
-		} else if ( result === 1 ) {
-			message = `${ result } row affected`;
+		} else if (result === 1) {
+			message = `${result} row affected`;
 		} else {
-			message = `${ result } rows affected`;
+			message = `${result} rows affected`;
 		}
-		this.setState( { testResult: message } );
+		this.setState({ testResult: message });
 		return result;
 	}
-	handleReplaceChange( e: React.ChangeEvent<HTMLInputElement> ): void {
+	handleReplaceChange(e: React.ChangeEvent<HTMLInputElement>): void {
 		const { value } = e.target;
-		this.setState( { replaceValue: value } );
+		this.setState({ replaceValue: value });
 	}
-	handleFindChange( e: React.ChangeEvent<HTMLInputElement> ): void {
+	handleFindChange(e: React.ChangeEvent<HTMLInputElement>): void {
 		const { value } = e.target;
-		this.setState( { findValue: value } );
+		this.setState({ findValue: value });
 	}
 
 	handleApply(): void {
 		const { findValue, replaceValue } = this.state;
 		const { column } = this.props;
-		this.props.onApply( column, findValue, replaceValue );
+		this.props.onApply(column, findValue, replaceValue);
 		this.props.onClose();
 	}
 

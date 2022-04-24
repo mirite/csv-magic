@@ -5,12 +5,12 @@ import { IColumn, ISorts, ITable } from 'types';
 
 interface TableHeadingsProps {
 	table: ITable;
-	onSetActiveModal: ( arg0: string, column: IColumn ) => any;
+	onSetActiveModal: (arg0: string, column: IColumn) => any;
 	onSort: Function;
 	activeSorts: ISorts;
 }
 
-const TableHeadings: FunctionComponent<TableHeadingsProps> = ( props ) => {
+const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 	const cells = [];
 	const {
 		activeSorts,
@@ -19,21 +19,21 @@ const TableHeadings: FunctionComponent<TableHeadingsProps> = ( props ) => {
 		onSetActiveModal: availableModals,
 	} = props;
 
-	for ( const column of getColumns( table ) ) {
+	for (const column of getColumns(table)) {
 		cells.push(
 			<TableHeading
-				key={ column.id }
-				column={ column }
-				activeSorts={ activeSorts }
-				onSetActiveModal={ availableModals }
-				onSort={ () => onSort( column.id ) }
-			/>,
+				key={column.id}
+				column={column}
+				activeSorts={activeSorts}
+				onSetActiveModal={availableModals}
+				onSort={() => onSort(column.id)}
+			/>
 		);
 	}
 	return (
 		<tr>
 			<th />
-			{ cells }
+			{cells}
 		</tr>
 	);
 };

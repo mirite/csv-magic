@@ -3,16 +3,16 @@ import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 interface FilterValueProps {
 	value: string;
 	count: number;
-	onChange: ( value: string, state: boolean ) => void;
+	onChange: (value: string, state: boolean) => void;
+	checked: boolean;
 }
 
-const FilterValue: FunctionComponent<FilterValueProps> = ( props ) => {
-	const { value, count, onChange: onToggle } = props;
-	const [ status, setStatus ] = useState( false );
-	const handleToggle = ( e: ChangeEvent<HTMLInputElement> ) => {
-		const { checked } = e.currentTarget;
-		setStatus( checked );
-		onToggle( value, checked );
+const FilterValue: FunctionComponent<FilterValueProps> = (props) => {
+	const { value, count, onChange: onToggle, checked } = props;
+
+	const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
+		const { checked: newValue } = e.currentTarget;
+		onToggle(value, newValue);
 	};
 
 	return (
@@ -20,10 +20,10 @@ const FilterValue: FunctionComponent<FilterValueProps> = ( props ) => {
 			<label>
 				<input
 					type="checkbox"
-					checked={ status }
-					onChange={ handleToggle }
+					checked={checked}
+					onChange={handleToggle}
 				/>
-				{ value } ({ count })
+				{value} ({count})
 			</label>
 		</li>
 	);

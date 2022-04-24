@@ -37,7 +37,7 @@ export default class ModalActions {
 	/**
 	 * The function to call to update the main (data and sorts) status of the table.
 	 */
-	readonly setCoreState: ( newData: ITable, newSorts: ISorts ) => void;
+	readonly setCoreState: (newData: ITable, newSorts: ISorts) => void;
 
 	/**
 	 *
@@ -45,8 +45,8 @@ export default class ModalActions {
 	 * @param  editorState     The state of the editor/parent, used for getting the table data, filters, sorts, etc.
 	 */
 	constructor(
-		coreStateSetter: ( newData: ITable, newSorts: ISorts ) => void,
-		editorState: IFile,
+		coreStateSetter: (newData: ITable, newSorts: ISorts) => void,
+		editorState: IFile
 	) {
 		//Assignments from constructor.
 		this.setCoreState = coreStateSetter;
@@ -56,32 +56,32 @@ export default class ModalActions {
 			filter: {
 				ComponentToUse: FiltersModal,
 				title: 'Filter',
-				onApply: ( newFilter: IFilter ) =>
-					this.handleApplyFilters( newFilter ),
+				onApply: (newFilter: IFilter) =>
+					this.handleApplyFilters(newFilter),
 			},
 			findAndReplace: {
 				ComponentToUse: FindAndReplaceModal,
 				title: 'Find and Replace In Column',
-				onApply: ( column: IColumn, toFind: string, toReplace: string ) =>
-					this.handleFindAndReplace( column, toFind, toReplace ),
+				onApply: (column: IColumn, toFind: string, toReplace: string) =>
+					this.handleFindAndReplace(column, toFind, toReplace),
 			},
 			renameColumn: {
 				ComponentToUse: RenameColumnModal,
 				title: 'Rename Column',
-				onApply: ( column: IColumn, newName: string ) =>
-					this.handleRenameColumn( column, newName ),
+				onApply: (column: IColumn, newName: string) =>
+					this.handleRenameColumn(column, newName),
 			},
 			removeColumns: {
 				ComponentToUse: RemoveColumnsModal,
 				title: 'Remove Columns',
-				onApply: ( columns: IColumn[] ) =>
-					this.handleRemoveColumns( columns ),
+				onApply: (columns: IColumn[]) =>
+					this.handleRemoveColumns(columns),
 			},
 			reorderColumns: {
 				ComponentToUse: ReorderColumnsModal,
 				title: 'Reorder Columns',
-				onApply: ( columnIDs: string[] ) =>
-					this.handleReorderColumns( columnIDs ),
+				onApply: (columnIDs: string[]) =>
+					this.handleReorderColumns(columnIDs),
 			},
 			addColumn: {
 				ComponentToUse: AddColumnModal,
@@ -89,35 +89,35 @@ export default class ModalActions {
 				onApply: (
 					columnName: string,
 					method: EGeneratorTypes,
-					params?: string | string[] | IMappedColumn,
-				) => this.handleAddColumn( columnName, method, params ),
+					params?: string | string[] | IMappedColumn
+				) => this.handleAddColumn(columnName, method, params),
 			},
 		};
 	}
-	handleReorderColumns( columnIDs: string[] ) {
+	handleReorderColumns(columnIDs: string[]) {
 		const { table, activeSorts } = this.editorState;
-		const newData = reorderColumns( table, columnIDs );
-		this.setCoreState( newData, activeSorts );
+		const newData = reorderColumns(table, columnIDs);
+		this.setCoreState(newData, activeSorts);
 	}
 
-	updateEditorState( newState: IFile ): void {
+	updateEditorState(newState: IFile): void {
 		this.editorState = newState;
 	}
 
 	handleAddColumn(
 		newColumnName: string,
 		method: EGeneratorTypes,
-		params: string | string[] | IMappedColumn | undefined,
+		params: string | string[] | IMappedColumn | undefined
 	) {
 		const { table, activeSorts } = this.editorState;
 
-		const newData = addColumn( table, newColumnName, method, params );
-		this.setCoreState( newData, activeSorts );
+		const newData = addColumn(table, newColumnName, method, params);
+		this.setCoreState(newData, activeSorts);
 	}
-	handleRemoveColumns( columns: IColumn[] ) {
+	handleRemoveColumns(columns: IColumn[]) {
 		const { table, activeSorts } = this.editorState;
-		const newTable = removeColumns( table, columns );
-		this.setCoreState( newTable, activeSorts );
+		const newTable = removeColumns(table, columns);
+		this.setCoreState(newTable, activeSorts);
 	}
 
 	/**
@@ -125,29 +125,29 @@ export default class ModalActions {
 	 *
 	 * @param  newFilter
 	 */
-	handleApplyFilters( newFilter: IFilter ): void {
+	handleApplyFilters(newFilter: IFilter): void {
 		const { table, activeSorts } = this.editorState;
-		const newData = Filtering.applyFilters( table, newFilter );
-		this.setCoreState( newData, activeSorts );
+		const newData = Filtering.applyFilters(table, newFilter);
+		this.setCoreState(newData, activeSorts);
 	}
 
 	handleFindAndReplace(
 		column: IColumn,
 		toFind: string,
-		toReplace: string,
+		toReplace: string
 	): void {
 		const { table, activeSorts } = this.editorState;
 		const newTable = findAndReplaceInColumn(
 			table,
 			column,
 			toFind,
-			toReplace,
+			toReplace
 		);
-		this.setCoreState( newTable, activeSorts );
+		this.setCoreState(newTable, activeSorts);
 	}
-	handleRenameColumn( column: IColumn, newName: string ) {
+	handleRenameColumn(column: IColumn, newName: string) {
 		const { table, activeSorts } = this.editorState;
-		const newTable = renameColumn( table, column.id, newName );
-		this.setCoreState( newTable, activeSorts );
+		const newTable = renameColumn(table, column.id, newName);
+		this.setCoreState(newTable, activeSorts);
 	}
 }

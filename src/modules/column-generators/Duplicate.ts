@@ -3,8 +3,8 @@ import { IRow } from '../../types';
 import { getCellValueByColumnID } from '../access-helpers';
 
 export class Duplicate extends GenerateColumnStrategy {
-	getValue( row: IRow | undefined ): string {
+	getValue(row: IRow | undefined): string {
 		const columnID = this.methodParameters as string;
-		return getCellValueByColumnID( row as IRow, columnID );
+		return getCellValueByColumnID(row as IRow, columnID);
 	}
 }

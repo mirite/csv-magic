@@ -13,14 +13,14 @@ interface IProps {
 	/**
 	 * Handler for when the data in a cell is changed.
 	 */
-	onCellChange: ( arg0: ICell ) => any;
+	onCellChange: (arg0: ICell) => any;
 
 	/**
 	 * The ID of the active cell within the table (if there is one)
 	 */
 	activeCell?: string;
 
-	onAction: ( action: string ) => void;
+	onAction: (action: string) => void;
 }
 
 /**
@@ -29,56 +29,56 @@ interface IProps {
 class Row extends Component<IProps> {
 	renderNormalRow() {
 		const { contents } = this.props.data;
-		return contents.map( ( cell ) => {
-			return <Cell key={ cell.id } data={ cell } />;
-		} );
+		return contents.map((cell) => {
+			return <Cell key={cell.id} data={cell} />;
+		});
 	}
 
 	renderRowWithActiveCell() {
 		const { contents } = this.props.data;
 		const { activeCell, onCellChange } = this.props;
-		return contents.map( ( cell ) => {
-			if ( cell.id === activeCell ) {
+		return contents.map((cell) => {
+			if (cell.id === activeCell) {
 				return (
 					<ActiveCell
-						key={ cell.id }
-						data={ cell }
-						onCellChange={ ( e: ICell ) => onCellChange( e ) }
+						key={cell.id}
+						data={cell}
+						onCellChange={(e: ICell) => onCellChange(e)}
 					/>
 				);
 			}
-			return <Cell key={ cell.id } data={ cell } />;
-		} );
+			return <Cell key={cell.id} data={cell} />;
+		});
 	}
 
 	isActiveCellInRow() {
 		const { activeCell, data } = this.props;
-		if ( ! activeCell || ! data.id ) {
+		if (!activeCell || !data.id) {
 			return false;
 		}
-		return activeCell.includes( data.id );
+		return activeCell.includes(data.id);
 	}
 
 	getTH() {
 		return (
 			<RowHeading
-				row={ this.props.data }
-				onAction={ ( action: string ) => this.props.onAction( action ) }
+				row={this.props.data}
+				onAction={(action: string) => this.props.onAction(action)}
 			/>
 		);
 	}
 
 	render() {
 		let elems;
-		if ( this.isActiveCellInRow() ) {
+		if (this.isActiveCellInRow()) {
 			elems = this.renderRowWithActiveCell();
 		} else {
 			elems = this.renderNormalRow();
 		}
 		return (
 			<tr>
-				{ this.getTH() }
-				{ elems }
+				{this.getTH()}
+				{elems}
 			</tr>
 		);
 	}
