@@ -10,7 +10,7 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: ( columns: IColumn[] ) => void;
+	onApply: (columns: IColumn[]) => void;
 }
 
 interface IState {
@@ -20,48 +20,48 @@ interface IState {
  * A popover for filtering the showing rows based on their values.
  */
 export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
-	constructor( props: IProps ) {
-		super( props );
+	constructor(props: IProps) {
+		super(props);
 		const { table } = props;
-		const columns = getColumns( table );
+		const columns = getColumns(table);
 		this.state = {
-			columns: columns.map( ( label ) => [ label, false ] ),
+			columns: columns.map((label) => [label, false]),
 		};
 	}
 	getContent(): JSX.Element {
 		const { columns } = this.state;
 		return (
-			<ul className={ styles.list }>
-				{ columns.map( ( pair ) => (
+			<ul className={styles.list}>
+				{columns.map((pair) => (
 					<ColumnValue
-						key={ pair[ 0 ].id }
-						value={ pair[ 0 ] }
-						onChange={ ( value: IColumn, status: boolean ) =>
-							this.handleChange( value, status )
+						key={pair[0].id}
+						value={pair[0]}
+						onChange={(value: IColumn, status: boolean) =>
+							this.handleChange(value, status)
 						}
 					/>
-				) ) }
+				))}
 			</ul>
 		);
 	}
 
-	handleChange( column: IColumn, status: boolean ): void {
-		const newColumns = [ ...this.state.columns ];
-		const oldRecord = newColumns.find( ( pair ) => pair[ 0 ].id === column.id );
-		if ( oldRecord ) {
-			oldRecord[ 1 ] = status;
-			this.setState( { columns: newColumns } );
+	handleChange(column: IColumn, status: boolean): void {
+		const newColumns = [...this.state.columns];
+		const oldRecord = newColumns.find((pair) => pair[0].id === column.id);
+		if (oldRecord) {
+			oldRecord[1] = status;
+			this.setState({ columns: newColumns });
 		}
 	}
 
 	getColumnsToDelete() {
 		const { columns } = this.state;
-		return columns.filter( ( pair ) => pair[ 1 ] ).map( ( pair ) => pair[ 0 ] );
+		return columns.filter((pair) => pair[1]).map((pair) => pair[0]);
 	}
 
 	handleApply(): void {
 		const columnsToDelete = this.getColumnsToDelete();
-		this.props.onApply( columnsToDelete );
+		this.props.onApply(columnsToDelete);
 		this.props.onClose();
 	}
 

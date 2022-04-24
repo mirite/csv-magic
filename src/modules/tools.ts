@@ -7,10 +7,10 @@ import _ from 'lodash';
  * @param  prefix The label to put before the id (if any)
  * @return A unique identifier (Prefixed if provided)
  */
-export function createUUID( prefix?: string ): string {
-	return ( prefix ?? '' ) + uuidv4();
+export function createUUID(prefix?: string): string {
+	return (prefix ?? '') + uuidv4();
 }
 
-export function cloneDeep( data: object ) {
-	return _.cloneDeep( data );
+export function cloneDeep(data: object) {
+	return _.cloneDeep(data);
 }

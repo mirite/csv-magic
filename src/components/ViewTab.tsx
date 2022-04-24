@@ -35,9 +35,9 @@ class ViewTab extends Component<IProps> {
 	closeButton() {
 		const { active } = this.props;
 		const closeClass =
-			styles.closeButton + ( active ? ' ' + styles.active : '' );
+			styles.closeButton + (active ? ' ' + styles.active : '');
 		return (
-			<button className={ closeClass } onClick={ () => this.props.onClose() }>
+			<button className={closeClass} onClick={() => this.props.onClose()}>
 				X
 			</button>
 		);
@@ -45,19 +45,19 @@ class ViewTab extends Component<IProps> {
 	render() {
 		const { label: name, active, home } = this.props;
 		const titleClass =
-			( home ? styles.homeButton : styles.titleButton ) +
-			( active ? ' ' + styles.active : '' );
+			(home ? styles.homeButton : styles.titleButton) +
+			(active ? ' ' + styles.active : '');
 
 		return (
-			<li className={ styles.navItem }>
+			<li className={styles.navItem}>
 				<button
-					className={ titleClass }
+					className={titleClass}
 					aria-current="page"
-					onClick={ ( e ) => this.handleClick( e ) }
+					onClick={(e) => this.handleClick(e)}
 				>
-					{ name }
+					{name}
 				</button>
-				{ home ? '' : this.closeButton() }
+				{home ? '' : this.closeButton()}
 			</li>
 		);
 	}
@@ -66,7 +66,7 @@ class ViewTab extends Component<IProps> {
 	 *
 	 * @param  e The click event object.
 	 */
-	handleClick( e: React.MouseEvent ): void {
+	handleClick(e: React.MouseEvent): void {
 		e.preventDefault();
 		this.props.onClick();
 	}

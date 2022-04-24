@@ -9,7 +9,7 @@ interface IProps extends BaseModalProps {
 	/**
 	 * The event handler for when the popover has apply clicked.
 	 */
-	onApply: ( column: IColumn, newName: string ) => void;
+	onApply: (column: IColumn, newName: string) => void;
 }
 
 interface IState {
@@ -19,8 +19,8 @@ interface IState {
  * A popover for filtering the showing rows based on their values.
  */
 export default class RenameColumnModal extends BaseModal<IProps, IState> {
-	constructor( props: IProps ) {
-		super( props );
+	constructor(props: IProps) {
+		super(props);
 		this.state = {
 			newName: '',
 		};
@@ -29,16 +29,16 @@ export default class RenameColumnModal extends BaseModal<IProps, IState> {
 		const { column } = this.props;
 		return (
 			<div>
-				<p>Renaming &quot;{ column.label }&quot;</p>
-				<div className={ styles.container }>
-					<div className={ styles.group }>
+				<p>Renaming &quot;{column.label}&quot;</p>
+				<div className={styles.container}>
+					<div className={styles.group}>
 						<label htmlFor="find-input">New Name:</label>
 						<input
 							id="find-input"
-							className={ styles.input }
+							className={styles.input}
 							type="text"
-							value={ this.state.newName }
-							onChange={ ( e ) => this.handleNewNameChange( e ) }
+							value={this.state.newName}
+							onChange={(e) => this.handleNewNameChange(e)}
 						/>
 					</div>
 				</div>
@@ -46,15 +46,15 @@ export default class RenameColumnModal extends BaseModal<IProps, IState> {
 		);
 	}
 
-	handleNewNameChange( e: React.ChangeEvent<HTMLInputElement> ): void {
+	handleNewNameChange(e: React.ChangeEvent<HTMLInputElement>): void {
 		const { value } = e.target;
-		this.setState( { newName: value } );
+		this.setState({ newName: value });
 	}
 
 	handleApply(): void {
 		const { newName } = this.state;
 		const { column } = this.props;
-		this.props.onApply( column, newName.trim() );
+		this.props.onApply(column, newName.trim());
 		this.props.onClose();
 	}
 

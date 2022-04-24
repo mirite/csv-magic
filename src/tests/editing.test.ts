@@ -3,17 +3,17 @@ import { removeColumns, renameColumn } from 'modules/editing';
 import { IColumn } from 'types';
 import testTable from './testTable';
 
-test( 'Rename columns', () => {
+test('Rename columns', () => {
 	const newTable = renameColumn(
 		testTable,
 		'911fd1c0-516d-44b0-b8fd-abeaf5344648',
-		'blah',
+		'blah'
 	);
-	const columnNames = getColumnNames( newTable );
-	expect( columnNames[ 1 ] ).toBe( 'blah' );
-} );
+	const columnNames = getColumnNames(newTable);
+	expect(columnNames[1]).toBe('blah');
+});
 
-test( 'Remove Columns', () => {
+test('Remove Columns', () => {
 	const columnsToRemove: Array<IColumn> = [
 		{
 			label: 'retry',
@@ -26,11 +26,11 @@ test( 'Remove Columns', () => {
 			id: '95a026a0-69c3-445d-8ad8-93af7e24ec7d',
 		},
 	];
-	const newTable = removeColumns( testTable, columnsToRemove );
-	expect( newTable.columns.length ).toBe( 12 );
-	expect( newTable.columns[ 1 ].id ).toBe( '1bd90560-5142-4d62-a245-36e0003702ff' );
-	expect( newTable.contents[ 0 ].contents.length ).toBe( 12 );
-	expect( newTable.contents[ 0 ].contents[ 1 ].columnID ).toBe(
-		'1bd90560-5142-4d62-a245-36e0003702ff',
+	const newTable = removeColumns(testTable, columnsToRemove);
+	expect(newTable.columns.length).toBe(12);
+	expect(newTable.columns[1].id).toBe('1bd90560-5142-4d62-a245-36e0003702ff');
+	expect(newTable.contents[0].contents.length).toBe(12);
+	expect(newTable.contents[0].contents[1].columnID).toBe(
+		'1bd90560-5142-4d62-a245-36e0003702ff'
 	);
-} );
+});

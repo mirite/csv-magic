@@ -9,8 +9,8 @@ interface UndoRedoProps {
 	onTableChange: Function;
 }
 
-const UndoRedo: FunctionComponent<UndoRedoProps> = ( props ) => {
-	const [ historyIndex, setHistoryIndex ] = useState( 0 );
+const UndoRedo: FunctionComponent<UndoRedoProps> = (props) => {
+	const [historyIndex, setHistoryIndex] = useState(0);
 
 	const isUndoDisabled = () => {
 		return historyIndex === props.history.length;
@@ -20,26 +20,26 @@ const UndoRedo: FunctionComponent<UndoRedoProps> = ( props ) => {
 		return historyIndex === 0;
 	};
 
-	const timeTravel = ( movement: number ) => {
-		setHistoryIndex( historyIndex + movement );
-		props.onTableChange( props.history[ historyIndex ] );
+	const timeTravel = (movement: number) => {
+		setHistoryIndex(historyIndex + movement);
+		props.onTableChange(props.history[historyIndex]);
 	};
 
 	return (
-		<div className={ styles.container }>
+		<div className={styles.container}>
 			<button
-				className={ styles.button }
-				disabled={ isUndoDisabled() }
-				onClick={ () => timeTravel( 1 ) }
+				className={styles.button}
+				disabled={isUndoDisabled()}
+				onClick={() => timeTravel(1)}
 			>
-				<FontAwesomeIcon icon={ faUndo } />
+				<FontAwesomeIcon icon={faUndo} />
 			</button>
 			<button
-				className={ styles.button }
-				disabled={ isRedoDisabled() }
-				onClick={ () => timeTravel( -1 ) }
+				className={styles.button}
+				disabled={isRedoDisabled()}
+				onClick={() => timeTravel(-1)}
 			>
-				<FontAwesomeIcon icon={ faRedo } />
+				<FontAwesomeIcon icon={faRedo} />
 			</button>
 		</div>
 	);
