@@ -1,6 +1,6 @@
 {
 	"name": "csv-magic",
-	"version": "1.4.2",
+	"version": "1.5.0",
 	"private": true,
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^6.1.1",
