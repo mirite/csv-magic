@@ -4,15 +4,15 @@ interface FilterValueProps {
 	value: string;
 	count: number;
 	onChange: ( value: string, state: boolean ) => void;
+	checked: boolean;
 }
 
 const FilterValue: FunctionComponent<FilterValueProps> = ( props ) => {
-	const { value, count, onChange: onToggle } = props;
-	const [ status, setStatus ] = useState( false );
+	const { value, count, onChange: onToggle, checked } = props;
+
 	const handleToggle = ( e: ChangeEvent<HTMLInputElement> ) => {
-		const { checked } = e.currentTarget;
-		setStatus( checked );
-		onToggle( value, checked );
+		const { checked: newValue } = e.currentTarget;
+		onToggle( value, newValue );
 	};
 
 	return (
@@ -20,7 +20,7 @@ const FilterValue: FunctionComponent<FilterValueProps> = ( props ) => {
 			<label>
 				<input
 					type="checkbox"
-					checked={ status }
+					checked={ checked }
 					onChange={ handleToggle }
 				/>
 				{ value } ({ count })

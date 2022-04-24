@@ -29,18 +29,22 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 	getContent(): JSX.Element {
 		const { table, column } = this.props;
 		return (
-			<ul className={ styles.list }>
-				{ getUniqueValuesInColumn( table, column.id ).map( ( pair ) => (
-					<FilterValue
-						key={ pair[ 0 ] }
-						value={ pair[ 0 ] }
-						count={ pair[ 1 ] }
-						onChange={ ( value: string, status: boolean ) =>
-							this.handleChange( value, status )
-						}
-					/>
-				) ) }
-			</ul>
+			<>
+				<ul className={ styles.list }>
+					{ getUniqueValuesInColumn( table, column.id ).map( ( pair ) => (
+						<FilterValue
+							key={ pair[ 0 ] }
+							value={ pair[ 0 ] }
+							count={ pair[ 1 ] }
+							checked={ this.state.filterList.values.includes( pair[ 0 ] ) }
+							onChange={ ( value: string, status: boolean ) =>
+								this.handleChange( value, status )
+							}
+						/>
+					) ) }
+				</ul>
+				<button onClick={ () => this.invertSelection() } className={ styles.button }>Invert Selection</button>
+			</>
 		);
 	}
 
@@ -93,5 +97,14 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 
 	getApplyText() {
 		return 'Filter';
+	}
+
+	private invertSelection() {
+		const { table, column } = this.props;
+		const allValues = getUniqueValuesInColumn( table, column.id );
+		const { values: oldActiveValues } = this.state.filterList;
+		const values = allValues.map( ( item ) => item[ 0 ] ).filter( ( item ) => ! oldActiveValues.includes( item ) );
+		const filterList:IFilter = { column, values };
+		this.setState( { filterList } );
 	}
 }
