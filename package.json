@@ -1,6 +1,6 @@
 {
 	"name": "csv-magic",
-	"version": "1.5.0",
+	"version": "1.5.2",
 	"private": true,
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -19,7 +19,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "yarn run lint && react-scripts build",
+		"build": "react-scripts build",
 		"test": "jest",
 		"eject": "react-scripts eject",
 		"lint": "eslint ./src/**/*.ts --fix && eslint ./src/**/*.tsx --fix"
@@ -52,9 +52,9 @@
 		"eslint-plugin-jsx-a11y": "^6.5.1",
 		"eslint-plugin-react": "^7.28.0",
 		"eslint-plugin-react-hooks": "^4.3.0",
-		"jest": "^27.4.5",
+		"jest": "^28.1.0",
 		"prettier": "^2.6.2",
-		"ts-jest": "^27.1.2"
+		"ts-jest": "^28.0.3"
 	},
 	"license": "GPL-3.0-or-later"
 }
