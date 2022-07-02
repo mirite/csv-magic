@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { nodeModules } = require('ts-loader/dist/constants');
 require('dotenv').config();
 
 module.exports = {
