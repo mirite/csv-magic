@@ -26,7 +26,7 @@ const UndoRedo: FunctionComponent<UndoRedoProps> = (props) => {
 	};
 
 	return (
-		<div className={styles.container}>
+		<div>
 			<button
 				className={styles.button}
 				disabled={isUndoDisabled()}

@@ -40,7 +40,7 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	getContent(): JSX.Element {
 		return (
 			<div>
-				<div className={styles.container}>
+				<div>
 					<div className={styles.group}>
 						<label htmlFor="name-input">
 							<h3>Column Name:</h3>
