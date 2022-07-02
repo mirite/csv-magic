@@ -29,7 +29,7 @@ class Cell extends Component<IProps, IState> {
 		const { value, id } = this.props.data;
 		return (
 			<td className={styles.container} data-id={id}>
-				<span className={styles.label} data-id={id}>
+				<span data-id={id}>
 					{value}
 				</span>
 			</td>

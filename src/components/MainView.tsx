@@ -53,7 +53,7 @@ class MainView extends Component<IProps, IState> {
 	}
 
 	render() {
-		return <div className={styles.container}>{this.getView()}</div>;
+		return <div>{this.getView()}</div>;
 	}
 }
 
