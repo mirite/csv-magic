@@ -3,7 +3,6 @@
 interface CssExports {
   'container': string;
   'input': string;
-  'label': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
