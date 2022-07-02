@@ -33,8 +33,7 @@
     "webpack": "^5.64.4"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "webpack",
+    "build": "webpack --mode=production",
     "test": "jest",
     "lint": "eslint ./src/**/*.ts --fix && eslint ./src/**/*.tsx --fix"
   },
