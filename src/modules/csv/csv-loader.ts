@@ -1,7 +1,7 @@
 import csv from 'csvtojson';
 import { ITable, IRow, IFile, IRawRow, IRawTable } from 'types';
-import { getColumnId } from './access-helpers';
-import { createUUID } from './tools';
+import { getColumnId } from '../access-helpers';
+import { createUUID } from '../tools';
 
 /**
  * Takes the text content of a CSV file and returns the raw Table from it (an array of objects (rows) with keys and values).

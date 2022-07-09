@@ -6,8 +6,8 @@ import { Blank } from './column-generators/Blank';
 import { Duplicate } from './column-generators/Duplicate';
 import { Statically } from './column-generators/Statically';
 import { Lookup } from './column-generators/Lookup';
-import { registerColumnInTable } from './csv-loader';
-import { cloneDeep } from './tools';
+import { registerColumnInTable } from '../csv/csv-loader';
+import { cloneDeep } from '../tools';
 import { EGeneratorTypes, ICell, IMappedColumn, ITable } from 'types';
 
 function getStrategy(

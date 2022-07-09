@@ -5,17 +5,8 @@ import RemoveColumnsModal from 'components/modals/RemoveColumns/RemoveColumns';
 import RenameColumnModal from 'components/modals/RenameColumn/RenameColumn';
 import Filtering from 'modules/filtering';
 import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
-import {
-	EGeneratorTypes,
-	IColumn,
-	IFile,
-	IFilter,
-	IMappedColumn,
-	IModalAction,
-	ISorts,
-	ITable,
-} from 'types';
-import { addColumn } from './column-generator';
+import { EGeneratorTypes, IColumn, IFile, IFilter, IMappedColumn, IModalAction, ISorts, ITable } from 'types';
+import { addColumn } from './column-generation/column-generator';
 import ReorderColumnsModal from 'components/modals/ReorderColumns/ReorderColumns';
 import { reorderColumns } from './reordering';
 
@@ -30,27 +21,15 @@ export default class ModalActions {
 	readonly modals: IModalList;
 
 	/**
-	 * The state of the editor/parent, used for getting the Table data, filters, sorts, etc.
-	 */
-	editorState: IFile;
-
-	/**
-	 * The function to call to update the main (data and sorts) status of the Table.
-	 */
-	readonly setCoreState: (newData: ITable, newSorts: ISorts) => void;
-
-	/**
 	 *
-	 * @param  coreStateSetter The function to call to update the main (data and sorts) status of the Table.
-	 * @param  editorState     The state of the editor/parent, used for getting the Table data, filters, sorts, etc.
+	 * @param  setCoreState The function to call to update the main (data and sorts) status of the Table.
+	 * @param  editorState  The state of the editor/parent, used for getting the Table data, filters, sorts, etc.
 	 */
 	constructor(
-		coreStateSetter: (newData: ITable, newSorts: ISorts) => void,
-		editorState: IFile
+		private setCoreState: (newData: ITable, newSorts: ISorts) => void,
+		private editorState: IFile
 	) {
-		//Assignments from constructor.
-		this.setCoreState = coreStateSetter;
-		this.editorState = editorState;
+
 		//Set the modal list.
 		this.modals = {
 			filter: {
@@ -89,11 +68,12 @@ export default class ModalActions {
 				onApply: (
 					columnName: string,
 					method: EGeneratorTypes,
-					params?: string | string[] | IMappedColumn
+					params?: string | string[] | IMappedColumn,
 				) => this.handleAddColumn(columnName, method, params),
 			},
 		};
 	}
+
 	handleReorderColumns(columnIDs: string[]) {
 		const { table, activeSorts } = this.editorState;
 		const newData = reorderColumns(table, columnIDs);
@@ -107,13 +87,14 @@ export default class ModalActions {
 	handleAddColumn(
 		newColumnName: string,
 		method: EGeneratorTypes,
-		params: string | string[] | IMappedColumn | undefined
+		params: string | string[] | IMappedColumn | undefined,
 	) {
 		const { table, activeSorts } = this.editorState;
 
 		const newData = addColumn(table, newColumnName, method, params);
 		this.setCoreState(newData, activeSorts);
 	}
+
 	handleRemoveColumns(columns: IColumn[]) {
 		const { table, activeSorts } = this.editorState;
 		const newTable = removeColumns(table, columns);
@@ -145,6 +126,7 @@ export default class ModalActions {
 		);
 		this.setCoreState(newTable, activeSorts);
 	}
+
 	handleRenameColumn(column: IColumn, newName: string) {
 		const { table, activeSorts } = this.editorState;
 		const newTable = renameColumn(table, column.id, newName);
