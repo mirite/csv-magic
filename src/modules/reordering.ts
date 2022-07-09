@@ -1,9 +1,9 @@
 import { ICell, IColumn, IRow, ITable } from 'types';
 
 /**
- * Rearranges the columns in a table.
+ * Rearranges the columns in a Table.
  *
- * @param  table          The table to reorder the columns in.
+ * @param  table          The Table to reorder the columns in.
  * @param  newColumnOrder An array of the ids of the columns in their new order.
  */
 export function reorderColumns(
@@ -35,7 +35,7 @@ function createNewColumnField(
 			(c) => c.id === id
 		);
 		if (!existingColumn) {
-			throw new Error('Column ID not found in table');
+			throw new Error('Column ID not found in Table');
 		}
 		const { label } = existingColumn;
 		newColumns.push({ position, id, label });

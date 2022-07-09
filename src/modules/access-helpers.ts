@@ -16,9 +16,9 @@ export function getCellValueByColumnID(row: IRow, columnId: string): string {
 }
 
 /**
- * Finds a specified cell by id within a table.
+ * Finds a specified cell by id within a Table.
  *
- * @param  table The table tto to search in.
+ * @param  table The Table tto to search in.
  * @param  id    The ID of the cell to find.
  * @return The cell at the specified id.
  */
@@ -43,9 +43,9 @@ export function getColumnNameByID(table: ITable, id: string): string {
 }
 
 /**
- * Gets a list of the columns within a table as strings.
+ * Gets a list of the columns within a Table as strings.
  *
- * @param  table The table to find the columns of.
+ * @param  table The Table to find the columns of.
  * @return An array of strings that represent the column names.
  */
 export function getColumnNames(table: ITable): Array<string> {
@@ -53,9 +53,9 @@ export function getColumnNames(table: ITable): Array<string> {
 }
 
 /**
- * Gets a list of the columns within a table.
+ * Gets a list of the columns within a Table.
  *
- * @param  table The table to find the columns of.
+ * @param  table The Table to find the columns of.
  * @return An array of columns with their indexes.
  */
 export function getColumns(table: ITable): Array<IColumn> {
@@ -65,7 +65,7 @@ export function getColumns(table: ITable): Array<IColumn> {
 /**
  * Returns an array of tuples with the unique values in a columns and the count of how many times they appeared.
  *
- * @param  table    The table to get the information of.
+ * @param  table    The Table to get the information of.
  * @param  columnId The id of the column to find values in.
  * @return An array of tuples with the unique value and the count of how many times it appears.
  */
@@ -92,7 +92,7 @@ export function getUniqueValuesInColumn(
 /**
  * Returns the index within a row that corresponds to the column name provided.
  *
- * @param  data     The table to search in.
+ * @param  data     The Table to search in.
  * @param  columnId The id of the column to find.
  * @return The 0-based index within a row that corresponds to the column name, -1 if the column was not found.
  */
@@ -108,7 +108,7 @@ export function getColumnIndex(data: ITable, columnId: string): number {
 /**
  * Returns the index within a row that corresponds to the column name provided.
  *
- * @param  data  The table to search in.
+ * @param  data  The Table to search in.
  * @param  index The name position index of the column to find.
  * @return The id of the column.
  */

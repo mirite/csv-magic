@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import App from './App';
+import App from './App/App';
 import React from 'react';
 
 import('react-dom').then((ReactDOM) =>

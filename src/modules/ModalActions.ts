@@ -1,8 +1,8 @@
-import AddColumnModal from 'components/modals/AddColumn';
-import FiltersModal from 'components/modals/Filters';
-import FindAndReplaceModal from 'components/modals/FindAndReplace';
-import RemoveColumnsModal from 'components/modals/RemoveColumns';
-import RenameColumnModal from 'components/modals/RenameColumn';
+import AddColumnModal from 'components/modals/AddColumn/AddColumn';
+import FiltersModal from 'components/modals/Filters/Filters';
+import FindAndReplaceModal from 'components/modals/FindAndReplace/FindAndReplace';
+import RemoveColumnsModal from 'components/modals/RemoveColumns/RemoveColumns';
+import RenameColumnModal from 'components/modals/RenameColumn/RenameColumn';
 import Filtering from 'modules/filtering';
 import { findAndReplaceInColumn, removeColumns, renameColumn } from './editing';
 import {
@@ -16,7 +16,7 @@ import {
 	ITable,
 } from 'types';
 import { addColumn } from './column-generator';
-import ReorderColumnsModal from 'components/modals/ReorderColumns';
+import ReorderColumnsModal from 'components/modals/ReorderColumns/ReorderColumns';
 import { reorderColumns } from './reordering';
 
 interface IModalList {
@@ -30,19 +30,19 @@ export default class ModalActions {
 	readonly modals: IModalList;
 
 	/**
-	 * The state of the editor/parent, used for getting the table data, filters, sorts, etc.
+	 * The state of the editor/parent, used for getting the Table data, filters, sorts, etc.
 	 */
 	editorState: IFile;
 
 	/**
-	 * The function to call to update the main (data and sorts) status of the table.
+	 * The function to call to update the main (data and sorts) status of the Table.
 	 */
 	readonly setCoreState: (newData: ITable, newSorts: ISorts) => void;
 
 	/**
 	 *
-	 * @param  coreStateSetter The function to call to update the main (data and sorts) status of the table.
-	 * @param  editorState     The state of the editor/parent, used for getting the table data, filters, sorts, etc.
+	 * @param  coreStateSetter The function to call to update the main (data and sorts) status of the Table.
+	 * @param  editorState     The state of the editor/parent, used for getting the Table data, filters, sorts, etc.
 	 */
 	constructor(
 		coreStateSetter: (newData: ITable, newSorts: ISorts) => void,

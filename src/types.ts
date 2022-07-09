@@ -1,4 +1,4 @@
-import BaseModal from 'components/modals/BaseModal';
+import BaseModal from 'components/modals/BaseModal/BaseModal';
 
 /**
  * A single editor window/file.
@@ -13,7 +13,7 @@ export interface IFile {
 	 */
 	fileName: string;
 	/**
-	 * The current state of the table in the file
+	 * The current state of the Table in the file
 	 */
 	table: ITable;
 	/**
@@ -34,12 +34,12 @@ export interface IFile {
 }
 
 /**
- * A list of previous versions of the table in a file.
+ * A list of previous versions of the Table in a file.
  */
 export interface IFileHistory extends Array<ITable> {}
 
 /**
- * A list of sorts being applied to the table, with the key as the first half of
+ * A list of sorts being applied to the Table, with the key as the first half of
  * a tuple and ascending? as the second.
  */
 export interface ISorts extends Array<[string, boolean]> {}
@@ -47,18 +47,18 @@ export interface ISorts extends Array<[string, boolean]> {}
 //Table Elements
 
 /**
- * A table with rows and columns.
+ * A Table with rows and columns.
  */
 export interface ITable {
 	/**
-	 * The ID of the fist cell in a table, used as the default cell being edited.
+	 * The ID of the fist cell in a Table, used as the default cell being edited.
 	 */
 	firstCellId?: string;
 
 	columns: Array<IColumn>;
 
 	/**
-	 * An array of the rows within the table.
+	 * An array of the rows within the Table.
 	 */
 	contents: Array<IRow>;
 }
@@ -70,7 +70,7 @@ export interface IColumn {
 }
 
 /**
- * A single row within the table.
+ * A single row within the Table.
  */
 export interface IRow {
 	/**
@@ -90,7 +90,7 @@ export interface IRow {
 }
 
 /**
- * A single cell within the table.
+ * A single cell within the Table.
  */
 export interface ICell {
 	/**
@@ -110,14 +110,14 @@ export interface ICell {
 }
 
 /**
- * A table row as loaded from the file without any additional processing.
+ * A Table row as loaded from the file without any additional processing.
  */
 export interface IRawRow {
 	[key: string]: string;
 }
 
 /**
- * A table as loaded from the file without any additional processing.
+ * A Table as loaded from the file without any additional processing.
  */
 export interface IRawTable extends Array<IRawRow> {}
 

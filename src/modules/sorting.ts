@@ -29,11 +29,11 @@ function setSort(sorts: ISorts, columnID: string) {
 }
 
 /**
- * Applies an array of sorts to a table.
+ * Applies an array of sorts to a Table.
  *
- * @param  data  The table to sort.
+ * @param  data  The Table to sort.
  * @param  sorts An array of the active sorts.
- * @return The table after all sorts have been applied.
+ * @return The Table after all sorts have been applied.
  */
 function applySorting(data: ITable, sorts: ISorts) {
 	const newData = cloneDeep(data) as ITable;

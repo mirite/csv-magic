@@ -29,13 +29,13 @@ function getStrategy(
 }
 
 /**
- * Adds a new column to a table and fills it with values using the method and parameters provided.
+ * Adds a new column to a Table and fills it with values using the method and parameters provided.
  *
- * @param  data             The table to add the column to.
+ * @param  data             The Table to add the column to.
  * @param  newColumnName    The name of the new column
  * @param  method           The method used to create the new values.
  * @param  methodParameters The options used by the method selected.
- * @return A new table with the column added.
+ * @return A new Table with the column added.
  */
 export function addColumn(
 	data: ITable,
