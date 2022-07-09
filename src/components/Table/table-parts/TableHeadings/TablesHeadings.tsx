@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import TableHeading from './TableHeading/TableHeading';
 import { getColumns } from 'modules/access-helpers';
-import { IColumn, ISorts, ITable } from 'types';
+import { availableModal, IColumn, ISorts, ITable } from 'types';
 
 interface TableHeadingsProps {
 	table: ITable;
-	onSetActiveModal: (arg0: string, column: IColumn) => any;
+	onSetActiveModal: (arg0: availableModal, column: IColumn) => void;
 	onSort: Function;
 	activeSorts: ISorts;
 }
@@ -16,7 +16,7 @@ const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 		activeSorts,
 		table,
 		onSort,
-		onSetActiveModal: availableModals,
+		onSetActiveModal,
 	} = props;
 
 	for (const column of getColumns(table)) {
@@ -25,7 +25,9 @@ const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 				key={column.id}
 				column={column}
 				activeSorts={activeSorts}
-				onSetActiveModal={availableModals}
+				onSetActiveModal={(t: availableModal) =>
+					onSetActiveModal(t, column)
+				}
 				onSort={() => onSort(column.id)}
 			/>
 		);

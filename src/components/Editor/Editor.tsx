@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import Chrome from '../Chrome/Chrome';
 import Table from '../Table/Table';
 import Sorting from 'modules/sorting';
-import { IActiveModal, IColumn, IFile, IFileHistory, IRow, ISorts, ITable } from 'types';
+import { availableModal, IActiveModal, IColumn, IFile, IFileHistory, IRow, ISorts, ITable } from 'types';
 
 import { deleteRow, duplicateRow } from 'modules/row-actions';
 import modals from '../modals';
@@ -88,7 +88,7 @@ class Editor extends Component<IProps, IState> {
 	 * @param  modalName The modal to display.
 	 * @param  column    The key to run the modal on.
 	 */
-	handleSetActiveModal(modalName: string, column?: IColumn) {
+	handleSetActiveModal(modalName: availableModal, column?: IColumn) {
 		const action = modals[modalName];
 		if (!action) {
 			throw new Error(`Invalid modal requested "${modalName}"`);
@@ -131,7 +131,7 @@ class Editor extends Component<IProps, IState> {
 				<Chrome
 					editorState={this.props.file}
 					onTableChange={(e: ITable) => this.handleTableChange(e)}
-					onSetActiveModal={(modal) =>
+					onSetActiveModal={(modal: availableModal) =>
 						this.handleSetActiveModal(modal)
 					}
 				/>

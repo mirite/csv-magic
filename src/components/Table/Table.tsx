@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import TableHeadings from './table-parts/TableHeadings/TablesHeadings';
 import Row from './table-parts/Row/Row';
 import { updateCell } from 'modules/editing';
-import { ICell, IColumn, IRow, ISorts, ITable } from 'types';
+import { availableModal, ICell, IColumn, IRow, ISorts, ITable } from 'types';
 import styles from 'components/Table/Table.module.css';
 
 interface IProps {
@@ -13,7 +13,7 @@ interface IProps {
 	 */
 	data: ITable;
 	onSort: Function;
-	onSetActiveModal: (arg0: string, column: IColumn) => any;
+	onSetActiveModal: (arg0: availableModal, column: IColumn) => void;
 	onTableChange: Function;
 	onRowAction: (action: string, row: IRow) => void;
 	activeSorts: ISorts;

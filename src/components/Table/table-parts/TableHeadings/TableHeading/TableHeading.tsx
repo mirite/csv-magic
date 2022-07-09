@@ -9,11 +9,11 @@ import {
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from './TableHeading.module.css';
-import { IColumn, ISorts } from 'types';
+import { availableModal, IColumn, ISorts } from 'types';
 
 interface HeadingsProps {
 	column: IColumn;
-	onSetActiveModal: (arg0: string, column: IColumn) => any;
+	onSetActiveModal: (arg0: availableModal, column: IColumn) => any;
 	onSort: Function;
 	activeSorts: ISorts;
 }
@@ -39,7 +39,7 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 					<FontAwesomeIcon
 						className={styles.editIcon}
 						icon={faEdit}
-						onClick={() => onSetActiveModal('renameColumn', column)}
+						onClick={() => onSetActiveModal('RenameColumn', column)}
 						title="Rename Column"
 					/>
 				</div>
@@ -47,7 +47,7 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 					<button
 						className={styles.button}
 						onClick={() =>
-							onSetActiveModal('findAndReplace', column)
+							onSetActiveModal('FindAndReplace', column)
 						}
 						title="Find and Replace in Column"
 					>
@@ -55,7 +55,7 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
 					</button>
 					<button
 						className={styles.button}
-						onClick={() => onSetActiveModal('filter', column)}
+						onClick={() => onSetActiveModal('Filters', column)}
 						title="Filter Column"
 					>
 						<FontAwesomeIcon icon={faFilter} />
