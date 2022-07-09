@@ -1,6 +1,6 @@
 {
   "name": "csv-magic",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
@@ -33,6 +33,7 @@
   },
   "scripts": {
     "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch",
     "test": "jest",
     "lint": "eslint ./src/**/*.ts --fix && eslint ./src/**/*.tsx --fix"
   },

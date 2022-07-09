@@ -1,5 +1,5 @@
 import React, { Component, FormEvent } from 'react';
-import CSVLoader from 'modules/csv-loader';
+import CSVLoader from 'modules/csv/csv-loader';
 import { IFile } from 'types';
 import FileInput from './FileInput/FileInput';
 import SubmitButton from './SubmitButton/SubmitButton';

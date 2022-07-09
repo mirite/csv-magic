@@ -3,7 +3,7 @@ import { IMappedColumn, IRow } from 'types';
 import {
 	getCellValueByColumnID,
 	getRowWithMatchingValueInColumn,
-} from '../access-helpers';
+} from '../../access-helpers';
 
 export class Lookup extends GenerateColumnStrategy {
 	getValue(row: IRow | undefined): string {

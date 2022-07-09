@@ -1,4 +1,5 @@
 import BaseModal from 'components/modals/BaseModal/BaseModal';
+import modals from './components/modals';
 
 /**
  * A single editor window/file.
@@ -126,14 +127,8 @@ export interface IFilter {
 	values: string[];
 }
 
-export interface IModalAction {
-	title: string;
-	ComponentToUse: typeof BaseModal;
-	onApply: Function;
-}
-
 export interface IActiveModal {
-	action: IModalAction;
+	Action: typeof BaseModal;
 	column?: IColumn;
 }
 
@@ -151,3 +146,5 @@ export interface IMappedColumn {
 	foreignMatchID: string;
 	foreignImportID: string;
 }
+
+export type availableModal = keyof typeof modals;

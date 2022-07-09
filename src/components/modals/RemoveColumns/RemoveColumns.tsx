@@ -4,23 +4,28 @@ import { IColumn, ITable } from 'types';
 import styles from './RemoveColumnsModal.module.css';
 import { getColumns } from 'modules/access-helpers';
 import ColumnValue from './ColumnValue/ColumnValue';
-
-interface IProps extends BaseModalProps {
-	table: ITable;
-	/**
-	 * The event handler for when the popover has apply clicked.
-	 */
-	onApply: (columns: IColumn[]) => void;
-}
+import { removeColumns } from '../../../modules/editing';
 
 interface IState {
 	columns: Array<[IColumn, boolean]>;
 }
+
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
-	constructor(props: IProps) {
+export default class RemoveColumnsModal extends BaseModal<
+	BaseModalProps,
+	IState
+> {
+	getTitle(): string {
+		return 'Remove Columns';
+	}
+
+	toCall(): (t: ITable, ...params: any[]) => ITable {
+		return removeColumns;
+	}
+
+	constructor(props: BaseModalProps) {
 		super(props);
 		const { table } = props;
 		const columns = getColumns(table);
@@ -28,6 +33,7 @@ export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
 			columns: columns.map((label) => [label, false]),
 		};
 	}
+
 	getContent(): JSX.Element {
 		const { columns } = this.state;
 		return (
@@ -61,7 +67,7 @@ export default class RemoveColumnsModal extends BaseModal<IProps, IState> {
 
 	handleApply(): void {
 		const columnsToDelete = this.getColumnsToDelete();
-		this.props.onApply(columnsToDelete);
+		super.handleApply(columnsToDelete);
 		this.props.onClose();
 	}
 

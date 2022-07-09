@@ -2,14 +2,10 @@ import React from 'react';
 import BaseModal, { BaseModalProps } from '../BaseModal/BaseModal';
 import { IColumn, ITable } from 'types';
 import styles from './RenameColumn.module.css';
+import { renameColumn } from '../../../modules/editing';
 
 interface IProps extends BaseModalProps {
 	column: IColumn;
-	table: ITable;
-	/**
-	 * The event handler for when the popover has apply clicked.
-	 */
-	onApply: (column: IColumn, newName: string) => void;
 }
 
 interface IState {
@@ -54,7 +50,7 @@ export default class RenameColumnModal extends BaseModal<IProps, IState> {
 	handleApply(): void {
 		const { newName } = this.state;
 		const { column } = this.props;
-		this.props.onApply(column, newName.trim());
+		super.handleApply(column, newName.trim());
 		this.props.onClose();
 	}
 
@@ -65,5 +61,13 @@ export default class RenameColumnModal extends BaseModal<IProps, IState> {
 	isApplyEnabled() {
 		const { newName } = this.state;
 		return newName.trim() !== '';
+	}
+
+	getTitle(): string {
+		return 'Rename Column';
+	}
+
+	toCall(): (t: ITable, ...params: any[]) => ITable {
+		return renameColumn;
 	}
 }

@@ -1,6 +1,6 @@
 import { Parser } from 'json2csv';
 import { IRawRow, IRawTable, ITable } from 'types';
-import { getColumnNameByID } from './access-helpers';
+import { getColumnNameByID } from '../access-helpers';
 
 function convertToRawTable(data: ITable) {
 	const rawTable: IRawTable = [];

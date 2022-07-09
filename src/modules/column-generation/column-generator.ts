@@ -6,8 +6,8 @@ import { Blank } from './column-generators/Blank';
 import { Duplicate } from './column-generators/Duplicate';
 import { Statically } from './column-generators/Statically';
 import { Lookup } from './column-generators/Lookup';
-import { registerColumnInTable } from './csv-loader';
-import { cloneDeep } from './tools';
+import { registerColumnInTable } from '../csv/csv-loader';
+import { cloneDeep, createCellID } from '../tools';
 import { EGeneratorTypes, ICell, IMappedColumn, ITable } from 'types';
 
 function getStrategy(
@@ -50,7 +50,7 @@ export function addColumn(
 	for (const row of newData.contents) {
 		const cellValue = strategy.getValue(row);
 		const newCell: ICell = {
-			id: row.id + '?' + String(row.contents.length),
+			id: createCellID(row.id!, newColumnId),
 			columnID: newColumnId,
 			value: cellValue,
 		};

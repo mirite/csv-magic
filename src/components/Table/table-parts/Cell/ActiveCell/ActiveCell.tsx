@@ -29,6 +29,7 @@ class ActiveCell extends Cell {
 		if (value === initValue || !this.props.onCellChange) {
 			return;
 		}
+
 		this.props.onCellChange({ id, columnID: key, value });
 	}
 

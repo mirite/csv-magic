@@ -1,7 +1,7 @@
 import csv from 'csvtojson';
 import { ITable, IRow, IFile, IRawRow, IRawTable } from 'types';
-import { getColumnId } from './access-helpers';
-import { createUUID } from './tools';
+import { getColumnId } from '../access-helpers';
+import { createCellID, createUUID } from '../tools';
 
 /**
  * Takes the text content of a CSV file and returns the raw Table from it (an array of objects (rows) with keys and values).
@@ -50,7 +50,7 @@ function convertToTable(raw: IRawTable): ITable {
 			/**
 			 * Give each cell a unique ID for finding it later on.
 			 */
-			const id = newRow.id + '?' + columnId;
+			const id = createCellID(newRow.id, columnId);
 			const value = String(cell[1]); //csv2json will pop out an object instead of a string some times, so this is to force the cell value to be a string.
 
 			//If the Table doesn't have an active cell yet, indicate that this cell is the first in the Table.

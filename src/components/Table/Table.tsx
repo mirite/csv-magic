@@ -4,17 +4,18 @@ import React, { Component } from 'react';
 import TableHeadings from './table-parts/TableHeadings/TablesHeadings';
 import Row from './table-parts/Row/Row';
 import { updateCell } from 'modules/editing';
-import { ICell, IColumn, IRow, ISorts, ITable } from 'types';
+import { availableModal, ICell, IColumn, IRow, ISorts, ITable } from 'types';
 import styles from 'components/Table/Table.module.css';
+import { getCellByID } from '../../modules/access-helpers';
 
 interface IProps {
 	/**
 	 * The data from the file that was opened.
 	 */
 	data: ITable;
-	onSort: Function;
-	onSetActiveModal: (arg0: string, column: IColumn) => any;
-	onTableChange: Function;
+	onSort: (columnID: string) => void;
+	onSetActiveModal: (activeModal: availableModal, column: IColumn) => void;
+	onTableChange: (t: ITable) => void;
 	onRowAction: (action: string, row: IRow) => void;
 	activeSorts: ISorts;
 }

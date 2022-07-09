@@ -7,29 +7,19 @@ import LookupOptions from './AddColumnOptions/options/LookupOptions';
 import PoolOptions from './AddColumnOptions/options/PoolOptions';
 import StaticOptions from './AddColumnOptions/options/StaticOptions';
 import DuplicateOptions from './AddColumnOptions/options/DuplicateOptions';
-
-interface IProps extends BaseModalProps {
-	table: ITable;
-	/**
-	 * The event handler for when the popover has apply clicked.
-	 */
-	onApply: (
-		columnName: string,
-		method: EGeneratorTypes,
-		params?: string | string[] | IMappedColumn
-	) => void;
-}
+import { addColumn } from '../../../modules/column-generation/column-generator';
 
 interface IState {
 	newName: string;
 	newType: EGeneratorTypes;
 	params: undefined | string | string[] | IMappedColumn;
 }
+
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class AddColumnModal extends BaseModal<IProps, IState> {
-	constructor(props: IProps) {
+export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
+	constructor(props: BaseModalProps) {
 		super(props);
 		this.state = {
 			newName: '',
@@ -37,6 +27,7 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 			params: undefined,
 		};
 	}
+
 	getContent(): JSX.Element {
 		return (
 			<div>
@@ -158,9 +149,9 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	handleApply(): void {
 		const { newName, params, newType } = this.state;
 		if (newType === EGeneratorTypes.blank) {
-			this.props.onApply(newName, newType);
+			super.handleApply(newName, newType);
 		} else {
-			this.props.onApply(newName, newType, params);
+			super.handleApply(newName, newType, params);
 		}
 		this.props.onClose();
 	}
@@ -168,5 +159,13 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	isApplyEnabled() {
 		const { newName, params, newType } = this.state;
 		return !!((params || newType === EGeneratorTypes.blank) && newName);
+	}
+
+	getTitle(): string {
+		return 'Add Column';
+	}
+
+	toCall(): (t: ITable, ...params: any[]) => ITable {
+		return addColumn;
 	}
 }

@@ -2,27 +2,30 @@
 
 import React, { Component } from 'react';
 import { IColumn, ITable } from 'types';
-import styles from 'components/modals/BaseModal/BaseModal.module.css';
+import styles from './BaseModal.module.css';
 
 export interface BaseModalProps {
-	/**
-	 * The title of the popover.
-	 */
-	title: string;
-
 	/**
 	 * The event handler for when the popover is closed.
 	 */
 	onClose: () => void;
 
 	/**
-	 * The event handler for when the popover has apply clicked.
+	 * The table that the modal is operating on.
 	 */
-	onApply: Function;
-
 	table: ITable;
 
+	/**
+	 * The column (if applicable) that the modal is operating on.
+	 */
 	column?: IColumn;
+
+	/**
+	 * The function to call to alert the parent with the newly modified table.
+	 *
+	 * @param  t
+	 */
+	onApply: (t: ITable) => void;
 }
 
 export interface BaseModalState {}
@@ -34,17 +37,13 @@ abstract class BaseModal<
 	P extends BaseModalProps,
 	S extends BaseModalState
 > extends Component<P, S> {
-	/**
-	 * A function to get the inner content of the popover.
-	 */
-	abstract getContent(): JSX.Element;
 	render() {
 		return (
 			<div className="modal" style={{ display: 'block' }}>
 				<div className={styles.container}>
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title">{this.props.title}</h5>
+							<h5 className="modal-title">{this.getTitle()}</h5>
 							<button
 								className="btn-close"
 								onClick={this.props.onClose}
@@ -72,14 +71,43 @@ abstract class BaseModal<
 		);
 	}
 
-	getApplyText(): string {
+	/**
+	 * The text label of the apply button;
+	 */
+	protected getApplyText(): string {
 		return 'Apply';
 	}
 
-	isApplyEnabled(): boolean {
+	/**
+	 * Whether the apply button is currently enabled.
+	 */
+	protected isApplyEnabled(): boolean {
 		return false;
 	}
-	abstract handleApply(): void;
+
+	/**
+	 * A function to get the inner content of the popover.
+	 */
+	protected abstract getContent(): JSX.Element;
+
+	/**
+	 * A function that returns the title to display at the top of the popover.
+	 */
+	protected abstract getTitle(): string;
+
+	/**
+	 * Returns the function that is needed to be called that will process the table data before it is sent back to the parent.
+	 */
+	protected abstract toCall(): (t: ITable, ...params: unknown[]) => ITable;
+
+	/**
+	 * Applies the processing to the table with the parameters provided and sends that to the parent.
+	 *
+	 * @param  params The parameters required for processing.
+	 */
+	protected handleApply(...params: unknown[]): void {
+		this.props.onApply(this.toCall()(this.props.table, ...params));
+	}
 }
 
 export default BaseModal;

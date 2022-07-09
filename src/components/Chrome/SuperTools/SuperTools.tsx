@@ -6,9 +6,10 @@ import {
 	faRandom,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from './SuperTools.module.css';
+import { availableModal } from 'types';
 
 interface SuperToolsProps {
-	onSetActiveModal: (arg0: string) => any;
+	onSetActiveModal: (modalToDisplay: availableModal) => void;
 }
 
 const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
@@ -17,7 +18,7 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
 		<div>
 			<button
 				className={styles.remove}
-				onClick={() => onSetActiveModal('removeColumns')}
+				onClick={() => onSetActiveModal('RemoveColumns')}
 				title="Remove Columns"
 			>
 				<FontAwesomeIcon icon={faMinusSquare} />
@@ -25,7 +26,7 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
 			</button>
 			<button
 				className={styles.add}
-				onClick={() => onSetActiveModal('addColumn')}
+				onClick={() => onSetActiveModal('AddColumn')}
 				title="Add Column"
 			>
 				<FontAwesomeIcon icon={faPlusSquare} />
@@ -33,7 +34,7 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
 			</button>
 			<button
 				className={styles.add}
-				onClick={() => onSetActiveModal('reorderColumns')}
+				onClick={() => onSetActiveModal('ReorderColumns')}
 				title="Reorder Columns"
 			>
 				<FontAwesomeIcon icon={faRandom} />

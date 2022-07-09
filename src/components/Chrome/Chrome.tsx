@@ -3,12 +3,12 @@ import SaveAsField from './SaveAsField/SaveAsField';
 import UndoRedo from './UndoRedo/UndoRedo';
 import styles from './Chrome.module.css';
 import SuperTools from './SuperTools/SuperTools';
-import { IFile } from 'types';
+import { availableModal, IFile } from 'types';
 
 interface ChromeProps {
 	editorState: IFile;
 	onTableChange: Function;
-	onSetActiveModal: (arg0: string) => any;
+	onSetActiveModal: (arg0: availableModal) => void;
 }
 
 const Chrome: FunctionComponent<ChromeProps> = (props) => {
