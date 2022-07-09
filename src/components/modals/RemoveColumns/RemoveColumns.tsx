@@ -1,9 +1,9 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from '../BaseModal/BaseModal';
 import { IColumn, ITable } from 'types';
-import styles from 'components/modals/RemoveColumns/RemoveColumnsModal.module.css';
+import styles from './RemoveColumnsModal.module.css';
 import { getColumns } from 'modules/access-helpers';
-import ColumnValue from '../Filters/ColumnValue';
+import ColumnValue from './ColumnValue/ColumnValue';
 
 interface IProps extends BaseModalProps {
 	table: ITable;

@@ -1,9 +1,9 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from '../BaseModal/BaseModal';
 import { getColumns } from 'modules/access-helpers';
-import ColumnPosition from './ColumnPosition';
+import ColumnPosition from './ColumnPosition/ColumnPosition';
 import { IColumn, ITable } from 'types';
-import styles from 'components/modals/ReorderColumns/ReorderColumnsModal.module.css';
+import styles from './ReorderColumnsModal.module.css';
 
 interface IProps extends BaseModalProps {
 	table: ITable;

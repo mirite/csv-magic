@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Cell from '../Cell/Cell';
 import ActiveCell from '../Cell/ActiveCell/ActiveCell';
-import { ICell, IRow } from '../../../../types';
-import RowHeading from './RowHeading/RowHeading';
+import { ICell, IRow } from 'types';
+import RowHeading from '../TableHeadings/TableHeading/RowHeading/RowHeading';
 
 interface IProps {
 	/**

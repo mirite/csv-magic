@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from '../BaseModal/BaseModal';
 import { IColumn, ITable } from 'types';
-import styles from 'components/modals/RenameColumn/RenameColumnModal.module.css';
+import styles from './RenameColumn.module.css';
 
 interface IProps extends BaseModalProps {
 	column: IColumn;

@@ -1,5 +1,5 @@
 import GenerateColumnStrategy from './GenerateColumnStrategy';
-import { IMappedColumn, IRow } from '../../types';
+import { IMappedColumn, IRow } from 'types';
 import {
 	getCellValueByColumnID,
 	getRowWithMatchingValueInColumn,

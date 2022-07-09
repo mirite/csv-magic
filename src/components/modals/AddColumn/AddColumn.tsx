@@ -1,12 +1,12 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from '../BaseModal/BaseModal';
 import { EGeneratorTypes, IMappedColumn, ITable } from 'types';
-import styles from 'components/modals/AddColumn/AddColumn.module.css';
-import ColumnTypeRadio from './ColumnType';
-import LookupOptions from './add-column-options/LookupOptions';
-import PoolOptions from './add-column-options/PoolOptions';
-import StaticOptions from './add-column-options/StaticOptions';
-import DuplicateOptions from './add-column-options/DuplicateOptions';
+import styles from './AddColumn.module.css';
+import ColumnTypeRadio from './AddColumnOptions/ColumnType';
+import LookupOptions from './AddColumnOptions/options/LookupOptions';
+import PoolOptions from './AddColumnOptions/options/PoolOptions';
+import StaticOptions from './AddColumnOptions/options/StaticOptions';
+import DuplicateOptions from './AddColumnOptions/options/DuplicateOptions';
 
 interface IProps extends BaseModalProps {
 	table: ITable;

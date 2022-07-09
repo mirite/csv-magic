@@ -1,4 +1,4 @@
-import { IMappedColumn, IRow } from '../../types';
+import { IMappedColumn, IRow } from 'types';
 
 export type StrategyParameters = string | string[] | IMappedColumn | undefined;
 

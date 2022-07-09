@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import SaveAsField from './SaveAsField/SaveAsField';
 import UndoRedo from './UndoRedo/UndoRedo';
-import styles from 'components/Chrome/Chrome.module.css';
+import styles from './Chrome.module.css';
 import SuperTools from './SuperTools/SuperTools';
 import { IFile } from 'types';
 

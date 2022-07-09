@@ -1,5 +1,5 @@
 import GenerateColumnStrategy from './GenerateColumnStrategy';
-import { IRow } from '../../types';
+import { IRow } from 'types';
 import { getCellValueByColumnID } from '../access-helpers';
 
 export class Duplicate extends GenerateColumnStrategy {

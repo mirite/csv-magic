@@ -1,9 +1,9 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from '../BaseModal/BaseModal';
-import FilterValue from './FilterValue';
+import FilterValue from './FilterValue/FilterValue';
 import { getUniqueValuesInColumn } from 'modules/access-helpers';
 import { IColumn, IFilter, ITable } from 'types';
-import styles from 'components/modals/Filters/FiltersModal.module.css';
+import styles from './Filters.module.css';
 
 interface IProps extends BaseModalProps {
 	column: IColumn;

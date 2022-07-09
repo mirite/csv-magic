@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import styles from 'components/FileSelector/SubmitButton/SubmitButton.module.css';
+import styles from './SubmitButton.module.css';
 
 interface SubmitButtonProps {
 	processing: boolean;

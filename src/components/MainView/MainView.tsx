@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FileSelector from '../FileSelector/FileSelector';
 import Editor from '../Editor/Editor';
 import { ITable, IFile, IFileHistory, ISorts } from 'types';
-import styles from 'components/MainView/MainView.module.css';
 
 interface IState {}
 

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import GenerateColumnStrategy, {
 	StrategyParameters,
 } from './GenerateColumnStrategy';
-import { IRow } from '../../types';
+import { IRow } from 'types';
 
 export class Pool extends GenerateColumnStrategy {
 	private generator: Generator<string, string, unknown>;

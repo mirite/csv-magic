@@ -3,7 +3,7 @@ import CSVLoader from 'modules/csv-loader';
 import { IFile } from 'types';
 import FileInput from './FileInput/FileInput';
 import SubmitButton from './SubmitButton/SubmitButton';
-import styles from 'components/FileSelector/FileSelector.module.css';
+import styles from './FileSelector.module.css';
 
 interface IState {
 	/**

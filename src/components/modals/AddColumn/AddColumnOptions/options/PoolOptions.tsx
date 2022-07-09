@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import styles from 'components/modals/AddColumn/AddColumnOptions.module.css';
+import styles from '../AddColumnOptions.module.css';
 
 interface PoolOptionsProps {
 	onChange: (e: string[]) => void;

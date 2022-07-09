@@ -5,7 +5,7 @@ import {
 	faPlusSquare,
 	faRandom,
 } from '@fortawesome/free-solid-svg-icons';
-import styles from 'components/Chrome/SuperTools/SuperTools.module.css';
+import styles from './SuperTools.module.css';
 
 interface SuperToolsProps {
 	onSetActiveModal: (arg0: string) => any;

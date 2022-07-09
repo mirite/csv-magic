@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import styles from 'components/modals/AddColumn/AddColumnOptions.module.css';
+import styles from '../AddColumnOptions.module.css';
 
 interface StaticOptionsProps {
 	onChange: (e: string) => void;

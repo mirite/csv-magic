@@ -1,4 +1,4 @@
-import { ITable } from '../types';
+import { ITable } from 'types';
 const table: ITable = {
 	contents: [
 		{
