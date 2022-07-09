@@ -1,4 +1,0 @@
-.container {
-	composes: modal-dialog from 'bootstrap/dist/css/bootstrap.css';
-	max-width: 1000px;
-}

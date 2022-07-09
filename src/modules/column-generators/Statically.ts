@@ -1,5 +1,5 @@
 import GenerateColumnStrategy from './GenerateColumnStrategy';
-import { IRow } from '../../types';
+import { IRow } from 'types';
 
 export class Statically extends GenerateColumnStrategy {
 	getValue(row: IRow | undefined): string {

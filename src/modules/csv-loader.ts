@@ -4,32 +4,32 @@ import { getColumnId } from './access-helpers';
 import { createUUID } from './tools';
 
 /**
- * Takes the text content of a CSV file and returns the raw table from it (an array of objects (rows) with keys and values).
+ * Takes the text content of a CSV file and returns the raw Table from it (an array of objects (rows) with keys and values).
  *
  * @param  content The text content of the CSV file.
- * @return The raw table from the file.
+ * @return The raw Table from the file.
  */
 async function loadFile(content: string): Promise<IRawTable> {
 	return csv().fromString(content);
 }
 
 /**
- * Takes the raw table and applies some processing to make it easier for our app to work with.
+ * Takes the raw Table and applies some processing to make it easier for our app to work with.
  * Transforms the rows from objects with keys to an array of our ICell interface, adding ids and making it easier to loop
  * through them.
  *
- * @param  raw The raw table loaded from the file.
- * @return The table with our format applied.
+ * @param  raw The raw Table loaded from the file.
+ * @return The Table with our format applied.
  */
 function convertToTable(raw: IRawTable): ITable {
 	/**
-	 * The table being created from the raw data.
+	 * The Table being created from the raw data.
 	 */
 	const newTable: ITable = { contents: [], columns: [] };
 	let rowIndex: number = 0;
 	raw.forEach((rawRow: IRawRow) => {
 		/**
-		 * A new row within the output table.
+		 * A new row within the output Table.
 		 */
 		const newRow: IRow = { contents: [], originalIndex: rowIndex };
 
@@ -53,7 +53,7 @@ function convertToTable(raw: IRawTable): ITable {
 			const id = newRow.id + '?' + columnId;
 			const value = String(cell[1]); //csv2json will pop out an object instead of a string some times, so this is to force the cell value to be a string.
 
-			//If the table doesn't have an active cell yet, indicate that this cell is the first in the table.
+			//If the Table doesn't have an active cell yet, indicate that this cell is the first in the Table.
 			if (!newTable.firstCellId) {
 				newTable.firstCellId = id;
 			}

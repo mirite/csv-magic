@@ -3,11 +3,11 @@ import { ICell, IColumn, IRow, ITable } from 'types';
 import { cloneDeep } from './tools';
 
 /**
- * Updates a cell within a table.
+ * Updates a cell within a Table.
  *
- * @param  data The table to update the cell in.
- * @param  cell The new version of the cell to add to the table.
- * @return A new table with the cell changed.
+ * @param  data The Table to update the cell in.
+ * @param  cell The new version of the cell to add to the Table.
+ * @return A new Table with the cell changed.
  */
 export function updateCell(data: ITable, cell: ICell): ITable {
 	const newData = cloneDeep(data) as ITable;
@@ -19,12 +19,12 @@ export function updateCell(data: ITable, cell: ICell): ITable {
 }
 
 /**
- * Renames a column throughout a table.
+ * Renames a column throughout a Table.
  *
- * @param  data          The table to rename the column in.
+ * @param  data          The Table to rename the column in.
  * @param  columnId      The name of the column to change.
  * @param  newColumnName What to change the name to.
- * @return A new table with the column renamed.
+ * @return A new Table with the column renamed.
  */
 export function renameColumn(
 	data: ITable,
@@ -43,7 +43,7 @@ export function renameColumn(
 /**
  * Finds a string within a column and replaces it with the new value.
  *
- * @param  data          The table to find and replace in.
+ * @param  data          The Table to find and replace in.
  * @param  column        The name of the column to find and replace in.
  * @param  toFind        The string value to search for.
  * @param  toReplaceWith The string value to replace with.
@@ -75,11 +75,11 @@ function removeColumnsInRow(row: IRow, columnIdsToRemove: string[]): IRow {
 	};
 }
 /**
- * Removes columns from the table.
+ * Removes columns from the Table.
  *
- * @param  data            The table to rename the column in.
+ * @param  data            The Table to rename the column in.
  * @param  columnsToRemove An array of the columns to remove by id.
- * @return A new table with the columns removed.
+ * @return A new Table with the columns removed.
  */
 export function removeColumns(
 	data: ITable,

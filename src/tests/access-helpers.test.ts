@@ -7,7 +7,7 @@ import {
 } from '../modules/access-helpers';
 import testTable from './testTable';
 
-test('Expect cell value in table to be', () => {
+test('Expect cell value in Table to be', () => {
 	const cell = accessHelpers.getCellByID(
 		testTable,
 		'48d35c3c-b03e-43f6-8c8c-dd45db2a7d12?95a026a0-69c3-445d-8ad8-93af7e24ec7d'

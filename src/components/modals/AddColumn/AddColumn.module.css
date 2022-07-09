@@ -1,0 +1,9 @@
+
+
+.group {
+	composes: m-2 from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
+}
+
+.input {
+	composes: form-control from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
+}
