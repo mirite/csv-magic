@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ICell } from 'types';
-import styles from 'styles/table/table-parts/Cell.module.css';
+import styles from 'components/table/table-parts/Cell.module.css';
 
 export interface IProps {
 	/**

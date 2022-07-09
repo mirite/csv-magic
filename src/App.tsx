@@ -1,7 +1,7 @@
 import React from 'react';
 import ViewContainer from './components/ViewContainer';
 import styles1 from './App.css';
-import styles from './styles/App.module.css';
+import styles from './App.module.css';
 
 function App() {
 	return (

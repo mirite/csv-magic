@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
 import { EGeneratorTypes, IMappedColumn, ITable } from 'types';
-import styles from 'styles/modals/AddColumnModal.module.css';
+import styles from 'components/modals/AddColumnModal.module.css';
 import ColumnTypeRadio from './sub-controls/ColumnType';
 import LookupOptions from './sub-controls/add-column-options/LookupOptions';
 import PoolOptions from './sub-controls/add-column-options/PoolOptions';

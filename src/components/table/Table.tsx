@@ -5,7 +5,7 @@ import TableHeadings from './table-parts/TablesHeadings';
 import Row from './table-parts/Row';
 import { updateCell } from 'modules/editing';
 import { ICell, IColumn, IRow, ISorts, ITable } from 'types';
-import styles from 'styles/table/Table.module.css';
+import styles from 'components/table/Table.module.css';
 
 interface IProps {
 	/**

@@ -1,3 +1,0 @@
-.submitButtonContainer {
-	composes: mb-3 text-end from 'bootstrap/dist/css/bootstrap.css';
-}

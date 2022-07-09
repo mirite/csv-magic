@@ -3,7 +3,7 @@ import BaseModal, { BaseModalProps } from './BaseModal';
 import FilterValue from './sub-controls/FilterValue';
 import { getUniqueValuesInColumn } from 'modules/access-helpers';
 import { IColumn, IFilter, ITable } from 'types';
-import styles from 'styles/modals/FiltersModal.module.css';
+import styles from 'components/modals/FiltersModal.module.css';
 
 interface IProps extends BaseModalProps {
 	column: IColumn;

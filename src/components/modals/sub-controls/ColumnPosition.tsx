@@ -7,7 +7,7 @@ import {
 	faArrowCircleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { IColumn } from 'types';
-import styles from 'styles/modals/ReorderColumnsModal.module.css';
+import styles from 'components/modals/ReorderColumnsModal.module.css';
 
 interface ColumnPositionProps {
 	value: IColumn;

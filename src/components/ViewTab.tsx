@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from 'styles/ViewTab.module.css';
+import styles from 'components/ViewTab.module.css';
 
 interface IProps {
 	/**

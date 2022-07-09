@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import Cell, { IProps } from './Cell';
-import styles from 'styles/table/table-parts/Cell.module.css';
+import styles from 'components/table/table-parts/Cell.module.css';
 
 /**
  * A table cell that is currently selected. This changes the text label into an input for editing.

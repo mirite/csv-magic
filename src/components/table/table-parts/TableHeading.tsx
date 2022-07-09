@@ -8,7 +8,7 @@ import {
 	faEdit,
 	faSearch,
 } from '@fortawesome/free-solid-svg-icons';
-import styles from 'styles/table/table-parts/TableHeading.module.css';
+import styles from 'components/table/table-parts/TableHeading.module.css';
 import { IColumn, ISorts } from 'types';
 
 interface HeadingsProps {

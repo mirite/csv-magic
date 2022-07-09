@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { IRow } from 'types';
-import styles from 'styles/table/table-parts/TableHeading.module.css';
+import styles from 'components/table/table-parts/TableHeading.module.css';
 
 interface RowHeadingProps {
 	row: IRow;

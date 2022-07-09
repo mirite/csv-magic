@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { IColumn, ITable } from 'types';
-import styles from 'styles/modals/BaseModal.module.css';
+import styles from 'components/modals/BaseModal.module.css';
 
 export interface BaseModalProps {
 	/**

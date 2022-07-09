@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
 import { IColumn, ITable } from 'types';
-import styles from 'styles/modals/FindAndReplaceModal.module.css';
+import styles from 'components/modals/FindAndReplaceModal.module.css';
 import { countOccurrences } from 'modules/access-helpers';
 
 interface IProps extends BaseModalProps {

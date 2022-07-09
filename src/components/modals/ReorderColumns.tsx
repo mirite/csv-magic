@@ -3,7 +3,7 @@ import BaseModal, { BaseModalProps } from './BaseModal';
 import { getColumns } from 'modules/access-helpers';
 import ColumnPosition from './sub-controls/ColumnPosition';
 import { IColumn, ITable } from 'types';
-import styles from 'styles/modals/ReorderColumnsModal.module.css';
+import styles from 'components/modals/ReorderColumnsModal.module.css';
 
 interface IProps extends BaseModalProps {
 	table: ITable;

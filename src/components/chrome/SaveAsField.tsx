@@ -1,7 +1,7 @@
 import React, { FormEvent, FunctionComponent, useState } from 'react';
 import { ITable } from 'types';
 import CSVSaver, { supportedFileTypes } from 'modules/csv-saver';
-import styles from 'styles/chrome/SaveAsField.module.css';
+import styles from 'components/chrome/SaveAsField.module.css';
 
 interface SaveAsFieldProps {
 	table: ITable;

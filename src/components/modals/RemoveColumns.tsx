@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseModal, { BaseModalProps } from './BaseModal';
 import { IColumn, ITable } from 'types';
-import styles from 'styles/modals/RemoveColumnsModal.module.css';
+import styles from 'components/modals/RemoveColumnsModal.module.css';
 import { getColumns } from 'modules/access-helpers';
 import ColumnValue from './sub-controls/ColumnValue';
 

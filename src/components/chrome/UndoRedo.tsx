@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedo, faUndo } from '@fortawesome/free-solid-svg-icons';
 import { IFileHistory } from 'types';
-import styles from 'styles/chrome/UndoRedo.module.css';
+import styles from 'components/chrome/UndoRedo.module.css';
 
 interface UndoRedoProps {
 	history: IFileHistory;
