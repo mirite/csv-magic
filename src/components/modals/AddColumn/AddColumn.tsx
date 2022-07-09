@@ -9,7 +9,6 @@ import StaticOptions from './AddColumnOptions/options/StaticOptions';
 import DuplicateOptions from './AddColumnOptions/options/DuplicateOptions';
 import { addColumn } from '../../../modules/column-generation/column-generator';
 
-
 interface IState {
 	newName: string;
 	newType: EGeneratorTypes;
@@ -34,13 +33,13 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
 			<div>
 				<div>
 					<div className={styles.group}>
-						<label htmlFor='name-input'>
+						<label htmlFor="name-input">
 							<h3>Column Name:</h3>
 						</label>
 						<input
-							id='name-input'
+							id="name-input"
 							className={styles.input}
-							type='text'
+							type="text"
 							value={this.state.newName}
 							onChange={(e) => this.handleNewNameChange(e)}
 						/>
@@ -48,33 +47,33 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
 					<div className={styles.group}>
 						<h3>Column Type:</h3>
 						<ColumnTypeRadio
-							label='Blank'
-							description='An empty column, nothing magical here.'
+							label="Blank"
+							description="An empty column, nothing magical here."
 							type={EGeneratorTypes.blank}
 							onChange={(e) => this.handleTypeChange(e)}
 							default={true}
 						/>
 						<ColumnTypeRadio
-							label='Static'
-							description='A column filled with a set value, It could be blank if you are really opposed to using the blank option.'
+							label="Static"
+							description="A column filled with a set value, It could be blank if you are really opposed to using the blank option."
 							type={EGeneratorTypes.statically}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
 						<ColumnTypeRadio
-							label='Lookup'
-							description='A column filled with data from matches in another open table. Basically a portal.'
+							label="Lookup"
+							description="A column filled with data from matches in another open table. Basically a portal."
 							type={EGeneratorTypes.lookup}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
 						<ColumnTypeRadio
-							label='Pool'
+							label="Pool"
 							description="A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want)."
 							type={EGeneratorTypes.pool}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
 						<ColumnTypeRadio
-							label='Duplicate'
-							description='A column that is an exact clone of a column in this table.'
+							label="Duplicate"
+							description="A column that is an exact clone of a column in this table."
 							type={EGeneratorTypes.duplicate}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>

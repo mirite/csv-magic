@@ -12,12 +12,7 @@ interface TableHeadingsProps {
 
 const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
 	const cells = [];
-	const {
-		activeSorts,
-		table,
-		onSort,
-		onSetActiveModal,
-	} = props;
+	const { activeSorts, table, onSort, onSetActiveModal } = props;
 
 	for (const column of getColumns(table)) {
 		cells.push(

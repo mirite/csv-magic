@@ -4,7 +4,16 @@ import React, { Component, Fragment } from 'react';
 import Chrome from '../Chrome/Chrome';
 import Table from '../Table/Table';
 import Sorting from 'modules/sorting';
-import { availableModal, IActiveModal, IColumn, IFile, IFileHistory, IRow, ISorts, ITable } from 'types';
+import {
+	availableModal,
+	IActiveModal,
+	IColumn,
+	IFile,
+	IFileHistory,
+	IRow,
+	ISorts,
+	ITable,
+} from 'types';
 
 import { deleteRow, duplicateRow } from 'modules/row-actions';
 import modals from '../modals';
@@ -25,7 +34,6 @@ interface IState {
  * A file that has been opened and is being displayed as a Table in the editor.
  */
 class Editor extends Component<IProps, IState> {
-
 	constructor(props: IProps) {
 		super(props);
 

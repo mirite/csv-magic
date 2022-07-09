@@ -6,5 +6,10 @@ import RenameColumn from './RenameColumn/RenameColumn';
 import ReorderColumns from './ReorderColumns/ReorderColumns';
 
 export default {
-	AddColumn, Filters, FindAndReplace, RemoveColumns, RenameColumn, ReorderColumns,
+	AddColumn,
+	Filters,
+	FindAndReplace,
+	RemoveColumns,
+	RenameColumn,
+	ReorderColumns,
 } as const;
