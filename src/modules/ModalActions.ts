@@ -27,7 +27,7 @@ export default class ModalActions {
 	 */
 	constructor(
 		private setCoreState: (newData: ITable, newSorts: ISorts) => void,
-		private editorState: IFile
+		private editorState: IFile,
 	) {
 
 		//Set the modal list.
@@ -74,6 +74,15 @@ export default class ModalActions {
 		};
 	}
 
+	handleApply(
+		toCall: (t: ITable, ...params: unknown[]) => ITable,
+		...params: unknown[]
+	) {
+		const { table, activeSorts } = this.editorState;
+		const newData = toCall(table, ...params);
+		this.setCoreState(newData, activeSorts);
+	}
+
 	handleReorderColumns(columnIDs: string[]) {
 		const { table, activeSorts } = this.editorState;
 		const newData = reorderColumns(table, columnIDs);
@@ -115,14 +124,14 @@ export default class ModalActions {
 	handleFindAndReplace(
 		column: IColumn,
 		toFind: string,
-		toReplace: string
+		toReplace: string,
 	): void {
 		const { table, activeSorts } = this.editorState;
 		const newTable = findAndReplaceInColumn(
 			table,
 			column,
 			toFind,
-			toReplace
+			toReplace,
 		);
 		this.setCoreState(newTable, activeSorts);
 	}

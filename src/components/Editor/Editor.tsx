@@ -4,17 +4,10 @@ import React, { Component, Fragment } from 'react';
 import Chrome from '../Chrome/Chrome';
 import Table from '../Table/Table';
 import Sorting from 'modules/sorting';
-import {
-	IActiveModal,
-	IColumn,
-	IFile,
-	IFileHistory,
-	IRow,
-	ISorts,
-	ITable,
-} from 'types';
-import ModalActions from 'modules/ModalActions';
+import { IActiveModal, IColumn, IFile, IFileHistory, IRow, ISorts, ITable } from 'types';
+
 import { deleteRow, duplicateRow } from 'modules/row-actions';
+import modals from '../modals';
 
 interface IProps {
 	/**
@@ -32,17 +25,13 @@ interface IState {
  * A file that has been opened and is being displayed as a Table in the editor.
  */
 class Editor extends Component<IProps, IState> {
-	modalActions: ModalActions;
+
 	constructor(props: IProps) {
 		super(props);
+
 		this.state = {
 			activeModal: undefined,
 		};
-
-		this.modalActions = new ModalActions(
-			(arg0, arg1) => this.setCoreState(arg0, arg1),
-			this.props.file
-		);
 	}
 
 	/**
@@ -81,16 +70,14 @@ class Editor extends Component<IProps, IState> {
 		if (!activeModal) {
 			return;
 		}
-		const { column, action } = activeModal;
-		const { ComponentToUse, title, onApply } = action;
+		const { column, Action } = activeModal;
 
 		return (
-			<ComponentToUse
-				title={title}
+			<Action
 				column={column}
 				table={table}
+				onApply={(t: ITable) => this.handleTableChange(t)}
 				onClose={() => this.handleModalClose()}
-				onApply={(...args: any) => onApply(...args)}
 			/>
 		);
 	}
@@ -102,11 +89,11 @@ class Editor extends Component<IProps, IState> {
 	 * @param  column    The key to run the modal on.
 	 */
 	handleSetActiveModal(modalName: string, column?: IColumn) {
-		const action = this.modalActions.modals[modalName];
+		const action = modals[modalName];
 		if (!action) {
 			throw new Error(`Invalid modal requested "${modalName}"`);
 		}
-		this.setState({ activeModal: { column, action } });
+		this.setState({ activeModal: { column, Action: action } });
 	}
 
 	/**
@@ -129,17 +116,12 @@ class Editor extends Component<IProps, IState> {
 			this.setCoreState(newTable, activeSorts);
 		}
 	}
+
 	setCoreState(newTable: ITable, newSorts: ISorts) {
 		const { onChange } = this.props;
 		const { table, history } = this.props.file;
 		const newHistory = [...history, table];
 		onChange(newTable, newSorts, newHistory);
-	}
-
-	componentDidUpdate() {
-		//This is necessary so that the modals always have the most recent data to work with after
-		//a state change.
-		this.modalActions.updateEditorState(this.props.file);
 	}
 
 	render() {

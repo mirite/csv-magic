@@ -133,7 +133,7 @@ export interface IModalAction {
 }
 
 export interface IActiveModal {
-	action: IModalAction;
+	Action: typeof BaseModal;
 	column?: IColumn;
 }
 

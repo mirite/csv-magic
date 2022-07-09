@@ -4,14 +4,10 @@ import FilterValue from './FilterValue/FilterValue';
 import { getUniqueValuesInColumn } from 'modules/access-helpers';
 import { IColumn, IFilter, ITable } from 'types';
 import styles from './Filters.module.css';
+import Filtering from '../../../modules/filtering';
 
 interface IProps extends BaseModalProps {
 	column: IColumn;
-	table: ITable;
-	/**
-	 * The event handler for when the popover has apply clicked.
-	 */
-	onApply: (newFilters: IFilter) => void;
 }
 
 interface IState {
@@ -94,7 +90,7 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 
 	handleApply(): void {
 		const { filterList } = this.state;
-		this.props.onApply(filterList);
+		super.handleApply(filterList);
 		this.props.onClose();
 	}
 
@@ -115,5 +111,13 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 			.filter((item) => !oldActiveValues.includes(item));
 		const filterList: IFilter = { column, values };
 		this.setState({ filterList });
+	}
+
+	getTitle(): string {
+		return 'Filter';
+	}
+
+	toCall(): (t: ITable, ...params: any[]) => ITable {
+		return Filtering.applyFilters;
 	}
 }

@@ -3,14 +3,10 @@ import BaseModal, { BaseModalProps } from '../BaseModal/BaseModal';
 import { IColumn, ITable } from 'types';
 import styles from './FindAndReplaceModal.module.css';
 import { countOccurrences } from 'modules/access-helpers';
+import { findAndReplaceInColumn } from '../../../modules/editing';
 
 interface IProps extends BaseModalProps {
 	column: IColumn;
-	table: ITable;
-	/**
-	 * The event handler for when the popover has apply clicked.
-	 */
-	onApply: (column: IColumn, oldValue: string, newValue: string) => void;
 }
 
 interface IState {
@@ -104,7 +100,7 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 	handleApply(): void {
 		const { findValue, replaceValue } = this.state;
 		const { column } = this.props;
-		this.props.onApply(column, findValue, replaceValue);
+		super.handleApply(column, findValue, replaceValue);
 		this.props.onClose();
 	}
 
@@ -115,5 +111,13 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
 
 	getApplyText() {
 		return 'Replace';
+	}
+
+	getTitle(): string {
+		return 'Find and Replace In Column';
+	}
+
+	toCall(): (t: ITable, ...params: any[]) => ITable {
+		return findAndReplaceInColumn;
 	}
 }

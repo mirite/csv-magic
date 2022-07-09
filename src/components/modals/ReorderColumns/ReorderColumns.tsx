@@ -4,14 +4,7 @@ import { getColumns } from 'modules/access-helpers';
 import ColumnPosition from './ColumnPosition/ColumnPosition';
 import { IColumn, ITable } from 'types';
 import styles from './ReorderColumnsModal.module.css';
-
-interface IProps extends BaseModalProps {
-	table: ITable;
-	/**
-	 * The event handler for when the popover has apply clicked.
-	 */
-	onApply: (reorderedColumnIDs: Array<string>) => any;
-}
+import { reorderColumns } from '../../../modules/reordering';
 
 interface IState {
 	columns: Array<IColumn>;
@@ -20,8 +13,11 @@ interface IState {
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
-	constructor(props: IProps) {
+export default class ReorderColumnsModal extends BaseModal<
+	BaseModalProps,
+	IState
+> {
+	constructor(props: BaseModalProps) {
 		super(props);
 		const { table } = props;
 		const columns = getColumns(table);
@@ -29,6 +25,7 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 			columns,
 		};
 	}
+
 	getContent(): JSX.Element {
 		const { columns } = this.state;
 		return (
@@ -47,6 +44,7 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 			</div>
 		);
 	}
+
 	handleChange(initialIndex: number, distance: number) {
 		const { columns } = this.state;
 		const newIndex = initialIndex + distance;
@@ -60,7 +58,7 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 	handleApply(): void {
 		const { columns } = this.state;
 		const ids = columns.map((column) => column.id);
-		this.props.onApply(ids);
+		super.handleApply(ids);
 		this.props.onClose();
 	}
 
@@ -70,5 +68,13 @@ export default class ReorderColumnsModal extends BaseModal<IProps, IState> {
 
 	getApplyText() {
 		return 'Reorder Columns';
+	}
+
+	getTitle(): string {
+		return 'Reorder Columns';
+	}
+
+	toCall(): (t: ITable, ...params: any[]) => ITable {
+		return reorderColumns;
 	}
 }

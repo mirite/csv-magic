@@ -7,29 +7,20 @@ import LookupOptions from './AddColumnOptions/options/LookupOptions';
 import PoolOptions from './AddColumnOptions/options/PoolOptions';
 import StaticOptions from './AddColumnOptions/options/StaticOptions';
 import DuplicateOptions from './AddColumnOptions/options/DuplicateOptions';
+import { addColumn } from '../../../modules/column-generation/column-generator';
 
-interface IProps extends BaseModalProps {
-	table: ITable;
-	/**
-	 * The event handler for when the popover has apply clicked.
-	 */
-	onApply: (
-		columnName: string,
-		method: EGeneratorTypes,
-		params?: string | string[] | IMappedColumn
-	) => void;
-}
 
 interface IState {
 	newName: string;
 	newType: EGeneratorTypes;
 	params: undefined | string | string[] | IMappedColumn;
 }
+
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class AddColumnModal extends BaseModal<IProps, IState> {
-	constructor(props: IProps) {
+export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
+	constructor(props: BaseModalProps) {
 		super(props);
 		this.state = {
 			newName: '',
@@ -37,18 +28,19 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 			params: undefined,
 		};
 	}
+
 	getContent(): JSX.Element {
 		return (
 			<div>
 				<div>
 					<div className={styles.group}>
-						<label htmlFor="name-input">
+						<label htmlFor='name-input'>
 							<h3>Column Name:</h3>
 						</label>
 						<input
-							id="name-input"
+							id='name-input'
 							className={styles.input}
-							type="text"
+							type='text'
 							value={this.state.newName}
 							onChange={(e) => this.handleNewNameChange(e)}
 						/>
@@ -56,33 +48,33 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 					<div className={styles.group}>
 						<h3>Column Type:</h3>
 						<ColumnTypeRadio
-							label="Blank"
-							description="An empty column, nothing magical here."
+							label='Blank'
+							description='An empty column, nothing magical here.'
 							type={EGeneratorTypes.blank}
 							onChange={(e) => this.handleTypeChange(e)}
 							default={true}
 						/>
 						<ColumnTypeRadio
-							label="Static"
-							description="A column filled with a set value, It could be blank if you are really opposed to using the blank option."
+							label='Static'
+							description='A column filled with a set value, It could be blank if you are really opposed to using the blank option.'
 							type={EGeneratorTypes.statically}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
 						<ColumnTypeRadio
-							label="Lookup"
-							description="A column filled with data from matches in another open table. Basically a portal."
+							label='Lookup'
+							description='A column filled with data from matches in another open table. Basically a portal.'
 							type={EGeneratorTypes.lookup}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
 						<ColumnTypeRadio
-							label="Pool"
+							label='Pool'
 							description="A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want)."
 							type={EGeneratorTypes.pool}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
 						<ColumnTypeRadio
-							label="Duplicate"
-							description="A column that is an exact clone of a column in this table."
+							label='Duplicate'
+							description='A column that is an exact clone of a column in this table.'
 							type={EGeneratorTypes.duplicate}
 							onChange={(e) => this.handleTypeChange(e)}
 						/>
@@ -158,9 +150,9 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	handleApply(): void {
 		const { newName, params, newType } = this.state;
 		if (newType === EGeneratorTypes.blank) {
-			this.props.onApply(newName, newType);
+			super.handleApply(newName, newType);
 		} else {
-			this.props.onApply(newName, newType, params);
+			super.handleApply(newName, newType, params);
 		}
 		this.props.onClose();
 	}
@@ -168,5 +160,13 @@ export default class AddColumnModal extends BaseModal<IProps, IState> {
 	isApplyEnabled() {
 		const { newName, params, newType } = this.state;
 		return !!((params || newType === EGeneratorTypes.blank) && newName);
+	}
+
+	getTitle(): string {
+		return 'Add Column';
+	}
+
+	toCall(): (t: ITable, ...params: any[]) => ITable {
+		return addColumn;
 	}
 }
