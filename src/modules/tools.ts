@@ -14,3 +14,7 @@ export function createUUID(prefix?: string): string {
 export function cloneDeep(data: object) {
 	return _.cloneDeep(data);
 }
+
+export function createCellID(rowID: string, columnID: string): string {
+	return rowID + '?' + columnID;
+}
