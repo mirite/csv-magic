@@ -26,8 +26,8 @@ function convertToTable(raw: IRawTable): ITable {
 	 * The Table being created from the raw data.
 	 */
 	const newTable: ITable = { contents: [], columns: [] };
-	let rowIndex: number = 0;
-	raw.forEach((rawRow: IRawRow) => {
+
+	raw.forEach((rawRow: IRawRow, rowIndex) => {
 		/**
 		 * A new row within the output Table.
 		 */
@@ -38,10 +38,10 @@ function convertToTable(raw: IRawTable): ITable {
 		 */
 		let columnPosition = 0;
 		newRow.id = createUUID('row');
-		for (const cell of Object.entries(rawRow)) {
+		for (const [label, rawValue] of Object.entries(rawRow)) {
 			let columnId;
 			if (rowIndex === 0) {
-				columnId = registerColumnInTable(newTable, cell[0]);
+				columnId = registerColumnInTable(newTable, label);
 			}
 
 			if (!columnId) {
@@ -51,7 +51,7 @@ function convertToTable(raw: IRawTable): ITable {
 			 * Give each cell a unique ID for finding it later on.
 			 */
 			const id = createCellID(newRow.id, columnId);
-			const value = String(cell[1]); //csv2json will pop out an object instead of a string some times, so this is to force the cell value to be a string.
+			const value = String(rawValue); //csv2json will pop out an object instead of a string some times, so this is to force the cell value to be a string.
 
 			//If the Table doesn't have an active cell yet, indicate that this cell is the first in the Table.
 			if (!newTable.firstCellId) {
@@ -61,7 +61,6 @@ function convertToTable(raw: IRawTable): ITable {
 			columnPosition++;
 		}
 		newTable.contents.push(newRow);
-		rowIndex++;
 	});
 
 	return newTable;
