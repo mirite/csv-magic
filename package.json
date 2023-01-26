@@ -3,7 +3,7 @@
   "version": "1.8.2",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.20.7",
+    "@babel/core": "^7.20.12",
     "@babel/plugin-syntax-flow": "^7.17.12",
     "@babel/plugin-transform-react-jsx": "^7.20.7",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
