@@ -1,8 +1,8 @@
 .container {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .container div {
-	margin: 1em;
+  margin: 1em;
 }

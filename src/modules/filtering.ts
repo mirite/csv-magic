@@ -1,19 +1,19 @@
-import { IFilter, ITable } from 'types';
-import { getCellValueByColumnID } from './access-helpers';
-import { cloneDeep } from './tools';
+import { IFilter, ITable } from "types";
+import { getCellValueByColumnID } from "./access-helpers";
+import { cloneDeep } from "./tools";
 
 function applyFilters(data: ITable, activeFilter: IFilter) {
-	const newData = cloneDeep(data) as ITable;
+  const newData = cloneDeep(data) as ITable;
 
-	newData.contents = newData.contents.filter((row) => {
-		return activeFilter.values.includes(
-			getCellValueByColumnID(row, activeFilter.column.id)
-		);
-	});
+  newData.contents = newData.contents.filter((row) => {
+    return activeFilter.values.includes(
+      getCellValueByColumnID(row, activeFilter.column.id)
+    );
+  });
 
-	return newData;
+  return newData;
 }
 
 export default {
-	applyFilters,
+  applyFilters,
 };

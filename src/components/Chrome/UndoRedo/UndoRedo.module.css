@@ -1,4 +1,4 @@
 .button {
-	composes: btn btn-secondary from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
-	margin-right: 0.5em;
+  composes: btn btn-secondary from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
+  margin-right: 0.5em;
 }
