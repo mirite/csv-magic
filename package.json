@@ -36,7 +36,7 @@
     "build": "webpack --mode=production",
     "dev": "webpack --mode=development --watch",
     "test": "jest",
-    "lint": "eslint ./src/**/*.ts --fix && eslint ./src/**/*.tsx --fix"
+    "lint": "prettier . --write --ignore-path .gitignore ; eslint . --fix --ignore-path .gitignore ;"
   },
   "browserslist": {
     "production": [
@@ -58,13 +58,11 @@
     "@types/react": "^18.2.12",
     "@types/react-dom": "^18.2.5",
     "@types/uuid": "^9.0.2",
-    "@typescript-eslint/parser": "^5.59.11",
-    "@wordpress/eslint-plugin": "^14.8.0",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
     "eslint": "^8.42.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react": "latest",
     "jest": "^29.5.0",
     "prettier": "^2.8.8",
     "ts-jest": "^29.1.0",

@@ -1,46 +1,45 @@
 .navItem {
-	composes: nav-item from '../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
-	display: flex;
-	margin-right: 5px;
+  composes: nav-item from "../../../../../node_modules/bootstrap/dist/css/bootstrap.css";
+  display: flex;
+  margin-right: 5px;
 }
 
 .navLink {
-	composes: nav-link from '../../../../../node_modules/bootstrap/dist/css/bootstrap.css';
-	border-bottom: 1px solid grey;
+  composes: nav-link from "../../../../../node_modules/bootstrap/dist/css/bootstrap.css";
+  border-bottom: 1px solid grey;
 
-	color: #111;
+  color: #111;
 }
 
 .title {
-	border-right: 0;
+  border-right: 0;
 }
 
 .active {
-	border-bottom: 0;
-	font-weight: bold;
-	background-color: lightskyblue;
+  border-bottom: 0;
+  font-weight: bold;
+  background-color: lightskyblue;
 }
 
 .active:hover {
-	color: #111;
+  color: #111;
 }
 
 .close {
-	border-left: 0;
+  border-left: 0;
 }
 
 .close:hover {
-	color: red;
+  color: red;
 }
 .titleButton {
-	composes: navLink title;
+  composes: navLink title;
 }
 .closeButton {
-	composes: navLink close;
-
+  composes: navLink close;
 }
 
 .homeButton {
-	composes: navLink;
-	background-color: lightgreen;
+  composes: navLink;
+  background-color: lightgreen;
 }

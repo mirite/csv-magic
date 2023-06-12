@@ -1,14 +1,13 @@
 .container {
-	display: flex;
-	justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .input {
-	composes: form-control from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
-	display: flex;
-	margin-right: 1em;
-
+  composes: form-control from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
+  display: flex;
+  margin-right: 1em;
 }
 .button {
-	composes: btn btn-primary from '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
+  composes: btn btn-primary from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
 }
