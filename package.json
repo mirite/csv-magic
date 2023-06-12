@@ -1,6 +1,6 @@
 {
   "name": "csv-magic",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.21.8",
@@ -71,5 +71,5 @@
     "webpack-cli": "^5.1.0"
   },
   "license": "GPL-3.0-or-later",
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.6.0"
 }
