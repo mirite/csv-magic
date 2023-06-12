@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from "react";
 import Chrome from "../Chrome/Chrome";
 import Table from "../Table/Table";
@@ -82,7 +80,7 @@ class Editor extends Component<IProps, IState> {
 
     return (
       <Action
-        column={column}
+        column={column!}
         table={table}
         onApply={(t: ITable) => this.handleTableChange(t)}
         onClose={() => this.handleModalClose()}

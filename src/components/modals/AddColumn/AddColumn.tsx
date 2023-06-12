@@ -1,6 +1,6 @@
 import React from "react";
 import BaseModal, { BaseModalProps } from "../BaseModal/BaseModal";
-import { EGeneratorTypes, IMappedColumn, ITable } from "types";
+import { EGeneratorTypes, IMappedColumn, ITable } from 'types';
 import styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./AddColumnOptions/ColumnType";
 import LookupOptions from "./AddColumnOptions/options/LookupOptions";

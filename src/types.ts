@@ -1,5 +1,6 @@
-import BaseModal from "components/modals/BaseModal/BaseModal";
+import BaseModal, { BaseModalProps, BaseModalState } from 'components/modals/BaseModal/BaseModal';
 import modals from "./components/modals";
+import Element = React.JSX.Element;
 
 /**
  * A single editor window/file.
@@ -128,7 +129,7 @@ export interface IFilter {
 }
 
 export interface IActiveModal {
-  Action: typeof BaseModal;
+  Action: ConcreteModal;
   column?: IColumn;
 }
 
@@ -147,4 +148,5 @@ export interface IMappedColumn {
   foreignImportID: string;
 }
 
+type ConcreteModal = typeof modals[keyof typeof modals];
 export type availableModal = keyof typeof modals;
