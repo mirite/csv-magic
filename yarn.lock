@@ -2242,6 +2242,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@json2csv/formatters@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "@json2csv/formatters@npm:7.0.1"
+  checksum: a9f2b2cfe8b3e3c68a0fc0484b75ec2d3d8b4d2040bef93ed242c286beb9109d5f1f6d3e314f3420477023601296bc6739185c1b8e8e3c77e2624a4391b361a2
+  languageName: node
+  linkType: hard
+
+"@json2csv/plainjs@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "@json2csv/plainjs@npm:7.0.1"
+  dependencies:
+    "@json2csv/formatters": ^7.0.1
+    "@streamparser/json": ^0.0.15
+    lodash.get: ^4.4.2
+  checksum: 73532b97fd70be4206460f16e552646d96c8ef3b145111be569c2041b99d2616d8a29e5ecc9b8d0ca5ecd1eedf65da5a0508b3093593169b9ebbc31136c5e28a
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -2328,10 +2346,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@streamparser/json@npm:^0.0.6":
-  version: 0.0.6
-  resolution: "@streamparser/json@npm:0.0.6"
-  checksum: 48eff9d7395859fa395f5c8ea3f510db085c3f55206310d7855249eab39a7dbdb4432d1a9fde073f8a2ca726967c0171fa14032a3968e403b2fd6f25f89924ed
+"@streamparser/json@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "@streamparser/json@npm:0.0.15"
+  checksum: db98e67ba7fd500b25c56d2a22a942310307c41a95281b68f6627802173b24a76025b98563968ed84490e5401cb2ccb53d331de9245e8410777b45bb917c5c1d
   languageName: node
   linkType: hard
 
@@ -3958,13 +3976,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^6.2.0":
-  version: 6.2.1
-  resolution: "commander@npm:6.2.1"
-  checksum: d7090410c0de6bc5c67d3ca41c41760d6d268f3c799e530aafb73b7437d1826bbf0d2a3edac33f8b57cc9887b4a986dce307fa5557e109be40eadb7c43b21742
-  languageName: node
-  linkType: hard
-
 "commander@npm:^8.3.0":
   version: 8.3.0
   resolution: "commander@npm:8.3.0"
@@ -4191,6 +4202,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": ^6.4.0
     "@fortawesome/free-solid-svg-icons": ^6.4.0
     "@fortawesome/react-fontawesome": ^0.2.0
+    "@json2csv/plainjs": ^7.0.1
     "@popperjs/core": ^2.11.8
     "@types/jest": ^29.5.2
     "@types/json2csv": ^5.0.3
@@ -4213,7 +4225,6 @@ __metadata:
     eslint-webpack-plugin: ^4.0.1
     html-webpack-plugin: ^5.5.3
     jest: ^29.5.0
-    json2csv: ^6.0.0-alpha.2
     lodash: ^4.17.21
     node-polyfill-webpack-plugin: ^2.0.1
     prettier: ^2.8.8
@@ -6564,19 +6575,6 @@ __metadata:
   version: 1.0.1
   resolution: "json-stable-stringify-without-jsonify@npm:1.0.1"
   checksum: cff44156ddce9c67c44386ad5cddf91925fe06b1d217f2da9c4910d01f358c6e3989c4d5a02683c7a5667f9727ff05831f7aa8ae66c8ff691c556f0884d49215
-  languageName: node
-  linkType: hard
-
-"json2csv@npm:^6.0.0-alpha.2":
-  version: 6.0.0-alpha.2
-  resolution: "json2csv@npm:6.0.0-alpha.2"
-  dependencies:
-    "@streamparser/json": ^0.0.6
-    commander: ^6.2.0
-    lodash.get: ^4.4.2
-  bin:
-    json2csv: bin/json2csv.js
-  checksum: 6f9ff361efe3cfd534c59eddca0c32a2d61b9ccf8f6865a8478801c4101dda287c5caa0f4065ffc49f250cbe8baf80afb250ebce8b9f384484a046b45a93f824
   languageName: node
   linkType: hard
 
