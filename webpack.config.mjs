@@ -1,5 +1,6 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import autoprefixer from 'autoprefixer';
 const __dirname = path.resolve();
 export default {
   entry: {
@@ -11,13 +12,50 @@ export default {
       { test: /\.tsx?$/, loader: "ts-loader" },
       {
         test: /\.s?css$/,
+        exclude: /node_modules/,
         use: [
           { loader: "style-loader" },
-          { loader: "css-modules-typescript-loader" }, //, to generate a .d.ts module next to the .scss file (also requires a declaration.d.ts with "declare modules '*.scss';" in it to tell TypeScript that "import styles from './styles.scss';" means to load the module "./styles.scss.d.td")
           {
-            loader: "css-loader",
-            options: { modules: true, importLoaders: 1 },
-          }, // to convert the resulting CSS to Javascript to be bundled (modules:true to rename CSS classes in output to cryptic identifiers, except if wrapped in a :global(...) pseudo class)
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: function () {
+                  return [
+                    autoprefixer
+                  ];
+                }
+              }
+            }
+          },
+          { loader: "sass-loader" },
+        ],
+      },
+      {
+        test: /\.s?css$/,
+        include: /node_modules/,
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: function () {
+                  return [
+                    autoprefixer
+                  ];
+                }
+              }
+            }
+          },
           { loader: "sass-loader" },
         ],
       },
