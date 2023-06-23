@@ -21,7 +21,7 @@ interface IProps {
    * The data from the file that was opened.
    */
   file: IFile;
-  onChange: (table: ITable, sorts: ISorts, history: IFileHistory) => any;
+  onChange: (table: ITable, sorts: ISorts, history: IFileHistory) => void;
 }
 
 interface IState {

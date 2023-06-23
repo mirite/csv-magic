@@ -1,6 +1,6 @@
 // noinspection CheckTagEmptyBody
 
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { IColumn, ITable } from "types";
 import styles from "./BaseModal.module.css";
 
@@ -28,14 +28,12 @@ export interface BaseModalProps {
   onApply: (t: ITable) => void;
 }
 
-export interface BaseModalState {}
-
 /**
  * A modal to show on top of the Table with different options to select.
  */
 abstract class BaseModal<
   P extends BaseModalProps,
-  S extends BaseModalState
+  S
 > extends Component<P, S> {
   render() {
     return (

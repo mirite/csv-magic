@@ -1,18 +1,19 @@
-import React, { FunctionComponent } from "react";
+import React, { useId } from 'react';
 
 interface FileInputProps {
   onAttachFile: (e: React.ChangeEvent) => unknown;
 }
 
-const FileInput: FunctionComponent<FileInputProps> = (props) => {
+const FileInput = (props: FileInputProps) => {
   const { onAttachFile } = props;
+  const id = useId();
   return (
     <div className="mb-3">
-      <label htmlFor="source-file" className="form-label">
+      <label htmlFor={id} className="form-label">
         File:
       </label>
       <input
-        id="source-file"
+        id={id}
         className="form-control"
         accept=".csv"
         onChange={(e) => onAttachFile(e)}

@@ -161,7 +161,8 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
     return "Add Column";
   }
 
-  toCall(): (t: ITable, ...params: any[]) => ITable {
+  toCall(): (t: ITable, ...params: unknown[]) => ITable {
+    // @ts-ignore
     return addColumn;
   }
 }

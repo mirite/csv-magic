@@ -1,6 +1,5 @@
 import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
 import React, {
-  FunctionComponent,
   useContext,
   useEffect,
   useState,
@@ -11,7 +10,7 @@ interface LookupOptionsProps {
   onChange: (e: string) => void;
 }
 
-const DuplicateOptions: FunctionComponent<LookupOptionsProps> = (props) => {
+const DuplicateOptions = (props: LookupOptionsProps) => {
   const [columnIDToDuplicate, setColumnIDToDuplicate] = useState<string>();
 
   const activeFile = useContext(OpenFilesContext);

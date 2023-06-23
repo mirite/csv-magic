@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useId } from 'react';
 import { EGeneratorTypes } from "types";
 
 interface ColumnTypeRadioProps {
@@ -10,7 +10,7 @@ interface ColumnTypeRadioProps {
 }
 
 const ColumnTypeRadio: FunctionComponent<ColumnTypeRadioProps> = (props) => {
-  const id = props.label + "-radio";
+  const id = useId();
   return (
     <div>
       <input

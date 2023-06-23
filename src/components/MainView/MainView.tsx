@@ -3,7 +3,6 @@ import FileSelector from "../FileSelector/FileSelector";
 import Editor from "../Editor/Editor";
 import { ITable, IFile, IFileHistory, ISorts } from "types";
 
-interface IState {}
 
 interface IProps {
   /**
@@ -21,11 +20,11 @@ interface IProps {
 /**
  * A pane for a file. Shows the open file dialog if there isn't a file yet, or the file if there is.
  */
-class MainView extends Component<IProps, IState> {
+class MainView extends Component<IProps> {
   /**
-   * Returns The appropriate view based on whether or not the FilePane has a file open.
+   * Returns The appropriate view based on whether the FilePane has a file open.
    *
-   * @return The appropriate view based on whether or not the FilePane has a file open.
+   * @return The appropriate view based on whether the FilePane has a file open.
    */
   getView() {
     if (this.props.file) {
@@ -41,7 +40,7 @@ class MainView extends Component<IProps, IState> {
     return <FileSelector onChange={(data) => this.props.onLoad(data)} />;
   }
 
-  handleTableChange(table: ITable, sorts: ISorts, history: IFileHistory): any {
+  handleTableChange(table: ITable, sorts: ISorts, history: IFileHistory) {
     this.props.onTableChange(table, sorts, history);
   }
 

@@ -1,11 +1,12 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { useId, useState } from 'react';
 import styles from "../AddColumnOptions.module.css";
 
 interface PoolOptionsProps {
   onChange: (e: string[]) => void;
 }
 
-const PoolOptions: FunctionComponent<PoolOptionsProps> = (props) => {
+const PoolOptions = (props: PoolOptionsProps) => {
+  const id = useId();
   const [valueList, setValueList] = useState<string[]>([]);
   const splitValues = (values: string) => {
     const newList = values.split(",").map((value: string) => value.trim());
@@ -16,13 +17,13 @@ const PoolOptions: FunctionComponent<PoolOptionsProps> = (props) => {
   return (
     <div>
       <div>
-        <label htmlFor="pool-values" className={styles.label}>
+        <label htmlFor={id} className={styles.label}>
           Pool Values (separated by commas):
         </label>
         <input
           type="text"
           className={styles.input}
-          id="static-option"
+          id={id}
           onChange={(e) => splitValues(e.target.value)}
         />
       </div>

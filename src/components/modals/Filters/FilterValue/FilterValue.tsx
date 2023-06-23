@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useState } from "react";
+import React, { ChangeEvent, FunctionComponent } from "react";
 
 interface FilterValueProps {
   value: string;

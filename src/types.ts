@@ -146,5 +146,5 @@ export interface IMappedColumn {
   foreignImportID: string;
 }
 
-type ConcreteModal = (typeof modals)[keyof typeof modals];
+export type ConcreteModal = (typeof modals)[keyof typeof modals];
 export type availableModal = keyof typeof modals;

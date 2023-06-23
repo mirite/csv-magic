@@ -1,6 +1,5 @@
 import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
 import React, {
-  FunctionComponent,
   useContext,
   useEffect,
   useState,
@@ -13,7 +12,7 @@ interface LookupOptionsProps {
   onChange: (e: IMappedColumn) => void;
 }
 
-const LookupOptions: FunctionComponent<LookupOptionsProps> = (props) => {
+const LookupOptions = (props: LookupOptionsProps) => {
   const [otherFile, setOtherFile] = useState<IFile>();
   const [sourceMatchKey, setSourceMatchKey] = useState<string>();
   const [foreignMatchKey, setForeignMatchKey] = useState<string>();
