@@ -1,9 +1,4 @@
-import BaseModal, {
-  BaseModalProps,
-  BaseModalState,
-} from "components/modals/BaseModal/BaseModal";
 import modals from "./components/modals";
-import Element = React.JSX.Element;
 
 /**
  * A single editor window/file.

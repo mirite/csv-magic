@@ -12,7 +12,7 @@ test("Expect cell value in Table to be", () => {
     testTable,
     "48d35c3c-b03e-43f6-8c8c-dd45db2a7d12?95a026a0-69c3-445d-8ad8-93af7e24ec7d"
   );
-  expect(cell!.value).toBe("2021-11-30T22:47:16.830Z");
+  expect(cell?.value).toBe("2021-11-30T22:47:16.830Z");
 });
 
 test("Expect cell value in row to be", () => {
@@ -69,7 +69,7 @@ test("Get row with matching value in column to be (1)", () => {
     "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
     "2021-11-30T22:47:33.536Z"
   );
-  expect(row!.id).toBe("912a10cb-51a4-4942-8a42-fece194e62b1");
+  expect(row?.id).toBe("912a10cb-51a4-4942-8a42-fece194e62b1");
 });
 
 test("Get row with matching value in column to be (2)", () => {

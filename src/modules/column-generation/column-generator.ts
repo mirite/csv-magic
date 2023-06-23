@@ -49,8 +49,13 @@ export function addColumn(
 
   for (const row of newData.contents) {
     const cellValue = strategy.getValue(row);
+    if (!row.id) {
+      throw new Error(
+        "The row in which a column is being added does not have an id"
+      );
+    }
     const newCell: ICell = {
-      id: createCellID(row.id!, newColumnId),
+      id: createCellID(row.id, newColumnId),
       columnID: newColumnId,
       value: cellValue,
     };
