@@ -1,5 +1,6 @@
 .header {
   composes: container-fluid mb-3 p-3 from "../../node_modules/bootstrap/dist/css/bootstrap.css";
+    text-align: center;
   color: #111;
   background: radial-gradient(
       circle at 100% 50%,
@@ -29,9 +30,9 @@
 }
 
 .main {
-  composes: container-fluid mb-1 from "../../node_modules/bootstrap/dist/css/bootstrap.css";
+  padding: 1rem;
 }
 
 .footer {
-  composes: container-fluid mt-3 p-3 from "../../node_modules/bootstrap/dist/css/bootstrap.css";
+    text-align: center;
 }
