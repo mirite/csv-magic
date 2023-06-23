@@ -1,4 +1,7 @@
-import BaseModal, { BaseModalProps, BaseModalState } from 'components/modals/BaseModal/BaseModal';
+import BaseModal, {
+  BaseModalProps,
+  BaseModalState,
+} from "components/modals/BaseModal/BaseModal";
 import modals from "./components/modals";
 import Element = React.JSX.Element;
 
@@ -38,13 +41,13 @@ export interface IFile {
 /**
  * A list of previous versions of the Table in a file.
  */
-export type IFileHistory = Array<ITable>
+export type IFileHistory = Array<ITable>;
 
 /**
  * A list of sorts being applied to the Table, with the key as the first half of
  * a tuple and ascending? as the second.
  */
-export type ISorts = Array<[string, boolean]>
+export type ISorts = Array<[string, boolean]>;
 
 //Table Elements
 
@@ -121,7 +124,7 @@ export interface IRawRow {
 /**
  * A Table as loaded from the file without any additional processing.
  */
-export type IRawTable = Array<IRawRow>
+export type IRawTable = Array<IRawRow>;
 
 export interface IFilter {
   column: IColumn;
@@ -148,5 +151,5 @@ export interface IMappedColumn {
   foreignImportID: string;
 }
 
-type ConcreteModal = typeof modals[keyof typeof modals];
+type ConcreteModal = (typeof modals)[keyof typeof modals];
 export type availableModal = keyof typeof modals;

@@ -1,11 +1,12 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.css";
 import ViewContainer from "../components/ViewContainer/ViewContainer";
-import styles1 from "./App.css";
+import "../index.scss";
 import styles from "./App.module.css";
 
 function App() {
   return (
-    <div className={styles1.App}>
+    <div className={styles.App}>
       <header className={styles.header}>
         <h1>🪄CSV Magic🪄</h1>
       </header>

@@ -35,7 +35,7 @@ export interface BaseModalState {}
  */
 abstract class BaseModal<
   P extends BaseModalProps,
-  S extends BaseModalState,
+  S extends BaseModalState
 > extends Component<P, S> {
   render() {
     return (

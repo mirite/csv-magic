@@ -1,8 +1,11 @@
-import "bootstrap/dist/css/bootstrap.css";
-import "./index.css";
 import App from "./App/App";
 import React from "react";
+import { createRoot } from "react-dom/client";
 
-import("react-dom").then((ReactDOM) =>
-  ReactDOM.default.render(<App />, document.getElementById("root"))
-);
+const container = document.getElementById("root");
+if (!container) {
+  throw new Error("Could not find container");
+}
+
+const root = createRoot(container);
+root.render(<App />);

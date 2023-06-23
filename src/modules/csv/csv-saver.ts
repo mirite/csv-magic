@@ -1,4 +1,4 @@
-import { Parser } from "json2csv";
+import { Parser } from "@json2csv/plainjs";
 import { IRawRow, IRawTable, ITable } from "types";
 import { getColumnNameByID } from "../access-helpers";
 
