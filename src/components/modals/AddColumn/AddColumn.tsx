@@ -1,6 +1,6 @@
-import React from "react";
-import BaseModal, { BaseModalProps } from "../BaseModal/BaseModal";
-import { EGeneratorTypes, IMappedColumn, ITable } from "types";
+import React, { Component, ComponentProps } from 'react';
+import Modal, { BaseModalProps } from '../BaseModal/Modal';
+import { EGeneratorTypes, IMappedColumn } from "types";
 import styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./AddColumnOptions/ColumnType";
 import LookupOptions from "./AddColumnOptions/options/LookupOptions";
@@ -18,7 +18,7 @@ interface IState {
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
+export default class AddColumnModal extends Component<BaseModalProps, IState> {
   constructor(props: BaseModalProps) {
     super(props);
     this.state = {
@@ -28,7 +28,7 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
     };
   }
 
-  getContent(): JSX.Element {
+  getContent() {
     return (
       <div>
         <div>
@@ -87,7 +87,7 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
     );
   }
 
-  additionalOptions(): React.ReactNode {
+  additionalOptions() {
     if (this.state.newType === EGeneratorTypes.blank) {
       return <span>There are no options for blank.</span>;
     }
@@ -125,7 +125,7 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
     this.setState({ params: value });
   }
 
-  handleTypeChange(e: EGeneratorTypes): void {
+  handleTypeChange(e: EGeneratorTypes) {
     this.setState({ newType: e, params: undefined });
   }
 
@@ -134,7 +134,7 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
    *
    * @param  e The column name input.
    */
-  handleNewNameChange(e: React.ChangeEvent<HTMLInputElement>): void {
+  handleNewNameChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { value } = e.target;
     this.setState({ newName: value });
   }
@@ -144,12 +144,8 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
    */
   handleApply(): void {
     const { newName, params, newType } = this.state;
-    if (newType === EGeneratorTypes.blank) {
-      super.handleApply(newName, newType);
-    } else {
-      super.handleApply(newName, newType, params);
-    }
-    this.props.onClose();
+    const newTable = addColumn(this.props.table, newName, newType, params);
+    this.props.onClose(newTable);
   }
 
   isApplyEnabled() {
@@ -157,12 +153,13 @@ export default class AddColumnModal extends BaseModal<BaseModalProps, IState> {
     return !!((params || newType === EGeneratorTypes.blank) && newName);
   }
 
-  getTitle(): string {
-    return "Add Column";
-  }
-
-  toCall(): (t: ITable, ...params: unknown[]) => ITable {
-    // @ts-ignore
-    return addColumn;
+  render() {
+    const options: ComponentProps<typeof Modal> = {
+      title: 'Add Column',
+      applyText: 'Add Column',
+      onApply: this.handleApply.bind(this),
+      ...this.props
+    };
+    return <Modal {...options} >{this.getContent()}</Modal>;
   }
 }

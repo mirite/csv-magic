@@ -1,8 +1,8 @@
-import React from "react";
-import BaseModal, { BaseModalProps } from "../BaseModal/BaseModal";
+import React, { Component, ComponentProps } from 'react';
+import Modal, { BaseModalProps } from '../BaseModal/Modal';
 import FilterValue from "./FilterValue/FilterValue";
 import { getUniqueValuesInColumn } from "modules/access-helpers";
-import { IColumn, IFilter, ITable } from "types";
+import { IColumn, IFilter } from "types";
 import styles from "./Filters.module.css";
 import Filtering from "../../../modules/filtering";
 
@@ -16,13 +16,13 @@ interface IState {
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class FiltersModal extends BaseModal<IProps, IState> {
+export default class FiltersModal extends Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     const { column } = props;
     this.state = { filterList: { column, values: [] } };
   }
-  getContent(): JSX.Element {
+  getContent() {
     const { table, column } = this.props;
     return (
       <>
@@ -88,16 +88,12 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
 
   handleApply(): void {
     const { filterList } = this.state;
-    super.handleApply(filterList);
-    this.props.onClose();
+    const newTable = Filtering.applyFilters(this.props.table, filterList);
+    this.props.onClose(newTable);
   }
 
   isApplyEnabled() {
     return this.state.filterList.values.length > 0;
-  }
-
-  getApplyText() {
-    return "Filter";
   }
 
   private invertSelection() {
@@ -111,11 +107,13 @@ export default class FiltersModal extends BaseModal<IProps, IState> {
     this.setState({ filterList });
   }
 
-  getTitle(): string {
-    return "Filter";
-  }
-
-  toCall(): (t: ITable, ...params: any[]) => ITable {
-    return Filtering.applyFilters;
+  render() {
+    const options: ComponentProps<typeof Modal> = {
+      title: 'Filter',
+      applyText: 'Filter',
+      onApply: this.handleApply.bind(this),
+      ...this.props
+    };
+    return <Modal {...options} >{this.getContent()}</Modal>;
   }
 }

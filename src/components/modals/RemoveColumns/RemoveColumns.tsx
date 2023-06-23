@@ -1,6 +1,6 @@
-import React from "react";
-import BaseModal, { BaseModalProps } from "../BaseModal/BaseModal";
-import { IColumn, ITable } from "types";
+import React, { Component, ComponentProps } from 'react';
+import Modal, { BaseModalProps } from '../BaseModal/Modal';
+import { IColumn } from "types";
 import styles from "./RemoveColumnsModal.module.css";
 import { getColumns } from "modules/access-helpers";
 import ColumnValue from "./ColumnValue/ColumnValue";
@@ -13,17 +13,11 @@ interface IState {
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class RemoveColumnsModal extends BaseModal<
+export default class RemoveColumnsModal extends Component<
   BaseModalProps,
   IState
 > {
-  getTitle(): string {
-    return "Remove Columns";
-  }
 
-  toCall(): (t: ITable, ...params: any[]) => ITable {
-    return removeColumns;
-  }
 
   constructor(props: BaseModalProps) {
     super(props);
@@ -34,7 +28,7 @@ export default class RemoveColumnsModal extends BaseModal<
     };
   }
 
-  getContent(): JSX.Element {
+  getContent() {
     const { columns } = this.state;
     return (
       <ul className={styles.list}>
@@ -67,15 +61,21 @@ export default class RemoveColumnsModal extends BaseModal<
 
   handleApply(): void {
     const columnsToDelete = this.getColumnsToDelete();
-    super.handleApply(columnsToDelete);
-    this.props.onClose();
+    const table = removeColumns(this.props.table, columnsToDelete);
+    this.props.onClose(table);
   }
 
   isApplyEnabled() {
     return this.getColumnsToDelete().length > 0;
   }
 
-  getApplyText() {
-    return "Remove Selected Columns";
+  render() {
+    const options: ComponentProps<typeof Modal> = {
+      title: "Remove Columns",
+      applyText: "Remove Selected Columns",
+      onApply: this.handleApply.bind(this),
+      ...this.props
+    };
+    return <Modal {...options} >{this.getContent()}</Modal>;
   }
 }

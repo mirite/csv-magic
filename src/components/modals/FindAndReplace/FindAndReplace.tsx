@@ -1,6 +1,6 @@
-import React from "react";
-import BaseModal, { BaseModalProps } from "../BaseModal/BaseModal";
-import { IColumn, ITable } from "types";
+import React, { Component, ComponentProps } from 'react';
+import Modal, { BaseModalProps } from '../BaseModal/Modal';
+import { IColumn } from "types";
 import styles from "./FindAndReplaceModal.module.css";
 import { countOccurrences } from "modules/access-helpers";
 import { findAndReplaceInColumn } from "../../../modules/editing";
@@ -17,7 +17,7 @@ interface IState {
 /**
  * A popover for filtering the showing rows based on their values.
  */
-export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
+export default class FindAndReplaceModal extends Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -26,7 +26,7 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
       testResult: "Test to see how many rows this will impact.",
     };
   }
-  getContent(): JSX.Element {
+  getContent() {
     const { column } = this.props;
     return (
       <div>
@@ -97,8 +97,8 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
   handleApply(): void {
     const { findValue, replaceValue } = this.state;
     const { column } = this.props;
-    super.handleApply(column, findValue, replaceValue);
-    this.props.onClose();
+    const table = findAndReplaceInColumn(this.props.table, column, findValue, replaceValue);
+    this.props.onClose(table);
   }
 
   isApplyEnabled(): boolean {
@@ -106,15 +106,13 @@ export default class FindAndReplaceModal extends BaseModal<IProps, IState> {
     return findValue !== "";
   }
 
-  getApplyText() {
-    return "Replace";
-  }
-
-  getTitle(): string {
-    return "Find and Replace In Column";
-  }
-
-  toCall(): (t: ITable, ...params: any[]) => ITable {
-    return findAndReplaceInColumn;
+  render() {
+    const options: ComponentProps<typeof Modal> = {
+      title: 'Find and Replace In Column',
+      applyText: 'Replace',
+      onApply: this.handleApply.bind(this),
+      ...this.props
+    };
+    return <Modal {...options} >{this.getContent()}</Modal>;
   }
 }

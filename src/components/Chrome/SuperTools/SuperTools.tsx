@@ -12,7 +12,7 @@ interface SuperToolsProps {
   onSetActiveModal: (modalToDisplay: availableModal) => void;
 }
 
-const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
+const SuperTools = (props: SuperToolsProps) => {
   const { onSetActiveModal } = props;
   return (
     <div>
