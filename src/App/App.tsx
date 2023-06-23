@@ -1,5 +1,5 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 import ViewContainer from "../components/ViewContainer/ViewContainer";
 import "../index.scss";
 import styles from "./App.module.css";

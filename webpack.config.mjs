@@ -1,6 +1,6 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import autoprefixer from 'autoprefixer';
+import autoprefixer from "autoprefixer";
 const __dirname = path.resolve();
 export default {
   entry: {
@@ -16,22 +16,20 @@ export default {
         use: [
           { loader: "style-loader" },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: true,
             },
           },
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
             options: {
               postcssOptions: {
                 plugins: function () {
-                  return [
-                    autoprefixer
-                  ];
-                }
-              }
-            }
+                  return [autoprefixer];
+                },
+              },
+            },
           },
           { loader: "sass-loader" },
         ],
@@ -42,19 +40,17 @@ export default {
         use: [
           { loader: "style-loader" },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
           },
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
             options: {
               postcssOptions: {
                 plugins: function () {
-                  return [
-                    autoprefixer
-                  ];
-                }
-              }
-            }
+                  return [autoprefixer];
+                },
+              },
+            },
           },
           { loader: "sass-loader" },
         ],

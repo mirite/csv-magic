@@ -1,6 +1,5 @@
 .header {
-  composes: container-fluid mb-3 p-3 from "../../node_modules/bootstrap/dist/css/bootstrap.css";
-    text-align: center;
+  text-align: center;
   color: #111;
   background: radial-gradient(
       circle at 100% 50%,
@@ -34,5 +33,5 @@
 }
 
 .footer {
-    text-align: center;
+  text-align: center;
 }
