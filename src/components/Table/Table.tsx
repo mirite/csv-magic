@@ -105,7 +105,7 @@ class Table extends Component<IProps, IState> {
             {contents.map((row) => (
               <Row
                 key={row.id}
-                data={row}
+                {...row}
                 activeCell={this.state.activeCell}
                 onCellChange={(e , newValue) => this.handleCellChange(e, newValue)}
                 onAction={(action: string) =>

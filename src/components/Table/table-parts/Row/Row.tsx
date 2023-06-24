@@ -1,15 +1,10 @@
-import React, { Component } from "react";
-import Cell from "../Cell/Cell";
+import React from "react";
 import ActiveCell from "../Cell/ActiveCell/ActiveCell";
 import { ICell, IRow } from "types";
 import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading";
 import InactiveCell from '../Cell/InactiveCell';
 
-interface IProps {
-  /**
-   * The data to use for the row.
-   */
-  data: IRow;
+interface IProps extends IRow {
 
   /**
    * Handler for when the data in a cell is changed.
@@ -27,56 +22,18 @@ interface IProps {
 /**
  * Displays a row of cells within a Table.
  */
-class Row extends Component<IProps> {
-  renderNormalRow() {
-    const { contents } = this.props.data;
-    return contents.map((cell) => {
-      return <InactiveCell key={cell.id} {...cell} />;
-    });
-  }
+function Row  (props: IProps)  {
 
-  renderRowWithActiveCell() {
-    const { contents } = this.props.data;
-    const { activeCell, onCellChange } = this.props;
-    return contents.map((cell) => {
-      if (cell.id === activeCell) {
-        return (
-          <ActiveCell
-            key={cell.id}
-            {...cell}
-            onChange={(newValue) => onCellChange(cell, newValue)}
-          />
-        );
-      }
-      return <InactiveCell key={cell.id} {...cell} />;
-    });
-  }
-
-  isActiveCellInRow() {
-    const { activeCell, data } = this.props;
-    if (!activeCell || !data.id) {
-      return false;
-    }
-    return activeCell.includes(data.id);
-  }
-
-  render() {
-    let elems;
-    if (this.isActiveCellInRow()) {
-      elems = this.renderRowWithActiveCell();
-    } else {
-      elems = this.renderNormalRow();
-    }
+    const {contents: cells, activeCell, onCellChange, onAction} = props;
     return (
       <tr>
         <RowHeading
-            row={this.props.data}
-            onAction={(action: string) => this.props.onAction(action)}
+            onAction={(action: string) => onAction(action)}
         />
-        {elems}
+        {cells.map(cell => activeCell === cell.id? <ActiveCell key={cell.id} onChange={(newValue) => onCellChange(cell, newValue)} {...cell} /> : <InactiveCell key={cell.id} {...cell} />)}
       </tr>
     );
   }
-}
+
 
 export default Row;
