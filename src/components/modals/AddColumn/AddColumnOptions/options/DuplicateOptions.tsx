@@ -1,9 +1,5 @@
 import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
-import React, {
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import KeyInFileSelector from "../KeyInFileSelector";
 
 interface LookupOptionsProps {

@@ -1,17 +1,17 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent } from "react";
 import Cell from "../Cell";
 import styles from "components/Table/table-parts/Cell/Cell.module.css";
-import { ICell } from 'types';
+import { ICell } from "types";
 
 interface Props extends ICell {
-  onChange: (newValue: string)=>void;
+  onChange: (newValue: string) => void;
 }
 /**
  * A Table cell that is currently selected. This changes the text label into an input for editing.
  */
-const ActiveCell = (props:Props) => {
+const ActiveCell = (props: Props) => {
   const { value, onChange } = props;
-  const rowCount = value.split('\n').length;
+  const rowCount = value.split("\n").length;
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.currentTarget.value;
@@ -19,14 +19,14 @@ const ActiveCell = (props:Props) => {
   };
 
   return (
-      <Cell {...props}>
+    <Cell {...props}>
       <textarea
-          className={styles.input}
-          onChange={handleChange}
-          rows={rowCount}
-          value={value}
+        className={styles.input}
+        onChange={handleChange}
+        rows={rowCount}
+        value={value}
       />
-      </Cell>
+    </Cell>
   );
 };
 

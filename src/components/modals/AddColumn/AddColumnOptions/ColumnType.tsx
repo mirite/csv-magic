@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useId } from 'react';
+import React, { FunctionComponent, useId } from "react";
 import { EGeneratorTypes } from "types";
 
 interface ColumnTypeRadioProps {

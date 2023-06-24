@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from 'react';
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import Row from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
@@ -17,108 +17,58 @@ interface IProps {
   activeSorts: ISorts;
 }
 
-interface IState {
-  /**
-   * The uuid of the cell that is currently being edited.
-   */
-  activeCell?: string;
-}
+const Table: React.FC<IProps> = (props) => {
+  const { data, activeSorts, onSort, onSetActiveModal, onRowAction } = props;
+  const [activeCell, setActiveCell] = useState(data.firstCellId);
 
-/**
- * A file that has been opened and is being displayed as a Table in the editor.
- */
-class Table extends Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    const { data } = props;
-
-    this.state = {
-      activeCell: data.firstCellId,
-    };
-  }
-
-  /**
-   * Generates the heading component created from a sample row in the Table.
-   *
-   * @return A heading component created from a sample row in the Table.
-   */
-  getHeaders() {
-    return (
-      <TableHeadings
-        table={this.props.data}
-        activeSorts={this.props.activeSorts}
-        onSort={(columnID: string) => this.props.onSort(columnID)}
-        onSetActiveModal={this.props.onSetActiveModal}
-      />
-    );
-  }
-
-  /**
-   * Generates the thead for the Table.
-   *
-   * @return The Table's thead
-   */
-  getHead() {
-    const headings = this.getHeaders();
-    return <thead>{headings}</thead>;
-  }
-
-  /**
-   * Generates the tfoot for the Table.
-   *
-   * @return The Table's tfoot
-   */
-  getFoot() {
-    const headings = this.getHeaders();
-    return <tfoot>{headings}</tfoot>;
-  }
-
-  /**
-   * Handles the change of a value within a cell.
-   *
-   * @param  changedCell The new cell data.
-   * @param newValue
-   */
-  handleCellChange(changedCell: ICell, newValue: string) {
-    const newCell = {...changedCell};
+  const handleCellChange = (changedCell: ICell, newValue: string) => {
+    const newCell = { ...changedCell };
     newCell.value = newValue;
-    const newData = updateCell(this.props.data, newCell);
-    this.props.onTableChange(newData);
-  }
+    const newData = updateCell(data, newCell);
+    props.onTableChange(newData);
+  };
 
-  handleActiveCellChange(e: React.MouseEvent) {
+  const handleActiveCellChange = (e: React.MouseEvent) => {
     const { target } = e;
     const { dataset } = target as HTMLElement;
     if (dataset && dataset.id) {
-      this.setState({ activeCell: dataset.id });
+      setActiveCell(dataset.id);
     }
-  }
+  };
 
-  render() {
-    const { data } = this.props;
-    const { contents } = data;
-    return (
+  return (
       <div className={styles.container}>
         <table>
-          {this.getHead()}
-          <tbody onClick={(e) => this.handleActiveCellChange(e)}>
-            {contents.map((row) => (
+          <thead>
+          <TableHeadings
+              table={data}
+              activeSorts={activeSorts}
+              onSort={(columnID: string) => onSort(columnID)}
+              onSetActiveModal={onSetActiveModal}
+          />
+          </thead>
+          <tbody onClick={(e) => handleActiveCellChange(e)}>
+          {data.contents.map((row) => (
               <Row
-                key={row.id}
-                {...row}
-                activeCell={this.state.activeCell}
-                onCellChange={(e , newValue) => this.handleCellChange(e, newValue)}
-                onAction={(action: string) =>
-                  this.props.onRowAction(action, row)
-                }
+                  key={row.id}
+                  {...row}
+                  activeCell={activeCell}
+                  onCellChange={(e, newValue) => handleCellChange(e, newValue)}
+                  onAction={(action: string) => onRowAction(action, row)}
               />
-            ))}
+          ))}
           </tbody>
-          {this.getFoot()}
+          <tfoot>
+          <TableHeadings
+              table={data}
+              activeSorts={activeSorts}
+              onSort={(columnID: string) => onSort(columnID)}
+              onSetActiveModal={onSetActiveModal}
+          />
+          </tfoot>
         </table>
       </div>
-    );
-  }
-}
+  );
+};
 
 export default Table;

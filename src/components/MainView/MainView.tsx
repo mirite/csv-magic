@@ -3,7 +3,6 @@ import FileSelector from "../FileSelector/FileSelector";
 import Editor from "../Editor/Editor";
 import { ITable, IFile, IFileHistory, ISorts } from "types";
 
-
 interface IProps {
   /**
    * The current open file (if any).

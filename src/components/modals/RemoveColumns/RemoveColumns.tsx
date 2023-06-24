@@ -1,5 +1,5 @@
-import React, { Component, ComponentProps } from 'react';
-import Modal, { BaseModalProps } from '../BaseModal/Modal';
+import React, { Component, ComponentProps } from "react";
+import Modal, { BaseModalProps } from "../BaseModal/Modal";
 import { IColumn } from "types";
 import styles from "./RemoveColumnsModal.module.css";
 import { getColumns } from "modules/access-helpers";
@@ -17,8 +17,6 @@ export default class RemoveColumnsModal extends Component<
   BaseModalProps,
   IState
 > {
-
-
   constructor(props: BaseModalProps) {
     super(props);
     const { table } = props;
@@ -74,8 +72,8 @@ export default class RemoveColumnsModal extends Component<
       title: "Remove Columns",
       applyText: "Remove Selected Columns",
       onApply: this.handleApply.bind(this),
-      ...this.props
+      ...this.props,
     };
-    return <Modal {...options} >{this.getContent()}</Modal>;
+    return <Modal {...options}>{this.getContent()}</Modal>;
   }
 }

@@ -64,8 +64,8 @@ class Editor extends Component<IProps, IState> {
    * Handles the closing of the filter window.
    */
   handleModalClose(changedTable?: ITable): void {
-    if(changedTable) {
-    this.handleTableChange(changedTable)
+    if (changedTable) {
+      this.handleTableChange(changedTable);
     }
     this.setState({ activeModal: undefined });
   }

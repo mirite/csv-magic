@@ -1,19 +1,19 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from "react";
 import styles from "./Cell.module.css";
-import { ICell } from 'types';
+import { ICell } from "types";
 
 type IProps = PropsWithChildren & ICell;
 
 /**
  * A single cell within a Table.
  */
-const Cell = (props:IProps) => {
+const Cell = (props: IProps) => {
   const { children, id } = props;
 
   return (
-      <td className={styles.container} data-id={id}>
-        {children}
-      </td>
+    <td className={styles.container} data-id={id}>
+      {children}
+    </td>
   );
 };
 

@@ -1,5 +1,5 @@
-import React, { Component, ComponentProps } from 'react';
-import Modal, { BaseModalProps } from '../BaseModal/Modal';
+import React, { Component, ComponentProps } from "react";
+import Modal, { BaseModalProps } from "../BaseModal/Modal";
 import { IColumn } from "types";
 import styles from "./FindAndReplaceModal.module.css";
 import { countOccurrences } from "modules/access-helpers";
@@ -97,7 +97,12 @@ export default class FindAndReplaceModal extends Component<IProps, IState> {
   handleApply(): void {
     const { findValue, replaceValue } = this.state;
     const { column } = this.props;
-    const table = findAndReplaceInColumn(this.props.table, column, findValue, replaceValue);
+    const table = findAndReplaceInColumn(
+      this.props.table,
+      column,
+      findValue,
+      replaceValue
+    );
     this.props.onClose(table);
   }
 
@@ -108,11 +113,11 @@ export default class FindAndReplaceModal extends Component<IProps, IState> {
 
   render() {
     const options: ComponentProps<typeof Modal> = {
-      title: 'Find and Replace In Column',
-      applyText: 'Replace',
+      title: "Find and Replace In Column",
+      applyText: "Replace",
       onApply: this.handleApply.bind(this),
-      ...this.props
+      ...this.props,
     };
-    return <Modal {...options} >{this.getContent()}</Modal>;
+    return <Modal {...options}>{this.getContent()}</Modal>;
   }
 }

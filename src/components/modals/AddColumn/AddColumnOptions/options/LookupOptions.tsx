@@ -1,9 +1,5 @@
 import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
-import React, {
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IFile, IMappedColumn } from "types";
 import KeyInFileSelector from "../KeyInFileSelector";
 import OpenFileSelector from "../OpenFileSelector";

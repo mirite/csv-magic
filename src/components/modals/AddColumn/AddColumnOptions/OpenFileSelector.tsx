@@ -3,7 +3,7 @@ import React, { FunctionComponent, useContext } from "react";
 import { IFile } from "types";
 
 interface OpenFileSelectorProps {
-  onChange: (file: IFile)=>void;
+  onChange: (file: IFile) => void;
   currentFile?: IFile;
 }
 
@@ -20,7 +20,7 @@ const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
     const file = cleanedFiles.find(
       (currentFileInLoop) => currentFileInLoop.id === fileID
     );
-    if(!file) return;
+    if (!file) return;
     props.onChange(file);
   };
 

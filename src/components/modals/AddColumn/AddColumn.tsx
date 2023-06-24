@@ -1,5 +1,5 @@
-import React, { Component, ComponentProps } from 'react';
-import Modal, { BaseModalProps } from '../BaseModal/Modal';
+import React, { Component, ComponentProps } from "react";
+import Modal, { BaseModalProps } from "../BaseModal/Modal";
 import { EGeneratorTypes, IMappedColumn } from "types";
 import styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./AddColumnOptions/ColumnType";
@@ -155,11 +155,11 @@ export default class AddColumnModal extends Component<BaseModalProps, IState> {
 
   render() {
     const options: ComponentProps<typeof Modal> = {
-      title: 'Add Column',
-      applyText: 'Add Column',
+      title: "Add Column",
+      applyText: "Add Column",
       onApply: this.handleApply.bind(this),
-      ...this.props
+      ...this.props,
     };
-    return <Modal {...options} >{this.getContent()}</Modal>;
+    return <Modal {...options}>{this.getContent()}</Modal>;
   }
 }

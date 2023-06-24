@@ -1,5 +1,5 @@
-import React, { Component, ComponentProps } from 'react';
-import Modal, { BaseModalProps } from '../BaseModal/Modal';
+import React, { Component, ComponentProps } from "react";
+import Modal, { BaseModalProps } from "../BaseModal/Modal";
 import FilterValue from "./FilterValue/FilterValue";
 import { getUniqueValuesInColumn } from "modules/access-helpers";
 import { IColumn, IFilter } from "types";
@@ -109,11 +109,11 @@ export default class FiltersModal extends Component<IProps, IState> {
 
   render() {
     const options: ComponentProps<typeof Modal> = {
-      title: 'Filter',
-      applyText: 'Filter',
+      title: "Filter",
+      applyText: "Filter",
       onApply: this.handleApply.bind(this),
-      ...this.props
+      ...this.props,
     };
-    return <Modal {...options} >{this.getContent()}</Modal>;
+    return <Modal {...options}>{this.getContent()}</Modal>;
   }
 }

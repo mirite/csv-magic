@@ -2,10 +2,9 @@ import React from "react";
 import ActiveCell from "../Cell/ActiveCell/ActiveCell";
 import { ICell, IRow } from "types";
 import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading";
-import InactiveCell from '../Cell/InactiveCell';
+import InactiveCell from "../Cell/InactiveCell";
 
 interface IProps extends IRow {
-
   /**
    * Handler for when the data in a cell is changed.
    */
@@ -22,18 +21,24 @@ interface IProps extends IRow {
 /**
  * Displays a row of cells within a Table.
  */
-function Row  (props: IProps)  {
-
-    const {contents: cells, activeCell, onCellChange, onAction} = props;
-    return (
-      <tr>
-        <RowHeading
-            onAction={(action: string) => onAction(action)}
-        />
-        {cells.map(cell => activeCell === cell.id? <ActiveCell key={cell.id} onChange={(newValue) => onCellChange(cell, newValue)} {...cell} /> : <InactiveCell key={cell.id} {...cell} />)}
-      </tr>
-    );
-  }
-
+function Row(props: IProps) {
+  const { contents: cells, activeCell, onCellChange, onAction } = props;
+  return (
+    <tr>
+      <RowHeading onAction={(action: string) => onAction(action)} />
+      {cells.map((cell) =>
+        activeCell === cell.id ? (
+          <ActiveCell
+            key={cell.id}
+            onChange={(newValue) => onCellChange(cell, newValue)}
+            {...cell}
+          />
+        ) : (
+          <InactiveCell key={cell.id} {...cell} />
+        )
+      )}
+    </tr>
+  );
+}
 
 export default Row;
