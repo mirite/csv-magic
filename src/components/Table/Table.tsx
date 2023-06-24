@@ -1,12 +1,9 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import Row from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
 import { availableModal, ICell, IColumn, IRow, ISorts, ITable } from "types";
 import styles from "components/Table/Table.module.css";
-import { getCellByID } from "../../modules/access-helpers";
 
 interface IProps {
   /**
@@ -80,9 +77,12 @@ class Table extends Component<IProps, IState> {
    * Handles the change of a value within a cell.
    *
    * @param  changedCell The new cell data.
+   * @param newValue
    */
-  handleCellChange(changedCell: ICell) {
-    const newData = updateCell(this.props.data, changedCell);
+  handleCellChange(changedCell: ICell, newValue: string) {
+    const newCell = {...changedCell};
+    newCell.value = newValue;
+    const newData = updateCell(this.props.data, newCell);
     this.props.onTableChange(newData);
   }
 
@@ -107,7 +107,7 @@ class Table extends Component<IProps, IState> {
                 key={row.id}
                 data={row}
                 activeCell={this.state.activeCell}
-                onCellChange={(e: ICell) => this.handleCellChange(e)}
+                onCellChange={(e , newValue) => this.handleCellChange(e, newValue)}
                 onAction={(action: string) =>
                   this.props.onRowAction(action, row)
                 }

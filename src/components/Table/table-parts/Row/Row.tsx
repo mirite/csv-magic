@@ -14,7 +14,7 @@ interface IProps {
   /**
    * Handler for when the data in a cell is changed.
    */
-  onCellChange: (arg0: ICell) => void;
+  onCellChange: (arg0: ICell, newValue: string) => void;
 
   /**
    * The ID of the active cell within the Table (if there is one)
@@ -44,7 +44,7 @@ class Row extends Component<IProps> {
           <ActiveCell
             key={cell.id}
             {...cell}
-            onChange={() => onCellChange(cell)}
+            onChange={(newValue) => onCellChange(cell, newValue)}
           />
         );
       }
@@ -60,15 +60,6 @@ class Row extends Component<IProps> {
     return activeCell.includes(data.id);
   }
 
-  getTH() {
-    return (
-      <RowHeading
-        row={this.props.data}
-        onAction={(action: string) => this.props.onAction(action)}
-      />
-    );
-  }
-
   render() {
     let elems;
     if (this.isActiveCellInRow()) {
@@ -78,7 +69,10 @@ class Row extends Component<IProps> {
     }
     return (
       <tr>
-        {this.getTH()}
+        <RowHeading
+            row={this.props.data}
+            onAction={(action: string) => this.props.onAction(action)}
+        />
         {elems}
       </tr>
     );
