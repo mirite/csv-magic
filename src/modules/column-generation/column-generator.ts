@@ -8,7 +8,15 @@ import { Statically } from "./column-generators/Statically";
 import { Lookup } from "./column-generators/Lookup";
 import { registerColumnInTable } from "../csv/csv-loader";
 import { cloneDeep, createCellID } from "../tools";
-import { EGeneratorTypes, ICell, IMappedColumn, ITable } from "types";
+import { ICell, IMappedColumn, ITable } from "types";
+
+export enum EGeneratorTypes {
+  blank,
+  statically,
+  lookup,
+  pool,
+  duplicate,
+}
 
 function getStrategy(
   method: EGeneratorTypes,

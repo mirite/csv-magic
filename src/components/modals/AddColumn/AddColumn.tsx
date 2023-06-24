@@ -1,13 +1,13 @@
 import React, { Component, ComponentProps } from "react";
 import Modal, { BaseModalProps } from "../BaseModal/Modal";
-import { EGeneratorTypes, IMappedColumn } from "types";
+import { IMappedColumn } from "types";
 import styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./AddColumnOptions/ColumnType";
 import LookupOptions from "./AddColumnOptions/options/LookupOptions";
 import PoolOptions from "./AddColumnOptions/options/PoolOptions";
 import StaticOptions from "./AddColumnOptions/options/StaticOptions";
 import DuplicateOptions from "./AddColumnOptions/options/DuplicateOptions";
-import { addColumn } from "../../../modules/column-generation/column-generator";
+import { addColumn, EGeneratorTypes } from "../../../modules/column-generation/column-generator";
 
 interface IState {
   newName: string;

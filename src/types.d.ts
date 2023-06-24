@@ -1,5 +1,4 @@
-import { ComponentType, ReactElement, ReactNode } from "react";
-import { BaseModalProps } from "./components/modals/BaseModal/Modal";
+import { ReactNode } from "react";
 
 /**
  * A single editor window/file.
@@ -128,14 +127,6 @@ export interface IFilter {
 }
 
 export type IActiveModal = ReactNode;
-
-export enum EGeneratorTypes {
-  blank,
-  statically,
-  lookup,
-  pool,
-  duplicate,
-}
 
 export interface IMappedColumn {
   foreignTable: ITable;
