@@ -1,7 +1,7 @@
 import React from "react";
 import TableHeading from "./TableHeading/TableHeading";
 import { getColumns } from "modules/access-helpers";
-import { ISorts, ITable } from 'types';
+import { ISorts, ITable } from "types";
 import IntrinsicElements = React.JSX.IntrinsicElements;
 
 interface TableHeadingsProps {

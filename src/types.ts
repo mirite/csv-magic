@@ -1,5 +1,5 @@
-import { ComponentType, ReactElement, ReactNode } from 'react';
-import { BaseModalProps } from './components/modals/BaseModal/Modal';
+import { ComponentType, ReactElement, ReactNode } from "react";
+import { BaseModalProps } from "./components/modals/BaseModal/Modal";
 
 /**
  * A single editor window/file.
@@ -143,4 +143,3 @@ export interface IMappedColumn {
   foreignMatchID: string;
   foreignImportID: string;
 }
-

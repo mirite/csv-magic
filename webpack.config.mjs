@@ -80,6 +80,6 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       template: "public/index.html",
-    })
+    }),
   ],
 };

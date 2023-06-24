@@ -1,15 +1,8 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState } from "react";
 import Chrome from "../Chrome/Chrome";
 import Table from "../Table/Table";
 import Sorting from "modules/sorting";
-import {
-  IActiveModal,
-  IFile,
-  IFileHistory,
-  IRow,
-  ISorts,
-  ITable,
-} from 'types';
+import { IActiveModal, IFile, IFileHistory, IRow, ISorts, ITable } from "types";
 
 import { deleteRow, duplicateRow } from "modules/row-actions";
 
@@ -19,16 +12,18 @@ interface IProps {
 }
 
 export type ModalContextType = {
-  setActiveModal: (modal: IActiveModal) => void,
-  table: ITable,
-  onClose: (changedTable?: ITable) => void,
-}
+  setActiveModal: (modal: IActiveModal) => void;
+  table: ITable;
+  onClose: (changedTable?: ITable) => void;
+};
 
 export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
-function Editor  (props: IProps) {
+function Editor(props: IProps) {
   const { file, onChange } = props;
-  const [activeModal, setActiveModal] = useState<undefined | IActiveModal>(undefined);
+  const [activeModal, setActiveModal] = useState<undefined | IActiveModal>(
+    undefined
+  );
 
   const handleSort = (columnID: string) => {
     const { table, activeSorts } = file;
@@ -70,24 +65,23 @@ function Editor  (props: IProps) {
 
   const { table, activeSorts } = file;
 
-  const modalContext = (
-      {setActiveModal, onClose: handleModalClose, table});
+  const modalContext = { setActiveModal, onClose: handleModalClose, table };
   ModalContext = createContext<ModalContextType>(modalContext);
   return (
-      <ModalContext.Provider value={modalContext}>
-        <Chrome
-            editorState={file}
-            onTableChange={(e: ITable) => handleTableChange(e)}
-        />
-        <Table
-            data={table}
-            onSort={(e: string) => handleSort(e)}
-            onTableChange={(e: ITable) => handleTableChange(e)}
-            onRowAction={(action, row) => handleRowAction(action, row)}
-            activeSorts={activeSorts}
-        />
-        {activeModal}
-      </ModalContext.Provider>
+    <ModalContext.Provider value={modalContext}>
+      <Chrome
+        editorState={file}
+        onTableChange={(e: ITable) => handleTableChange(e)}
+      />
+      <Table
+        data={table}
+        onSort={(e: string) => handleSort(e)}
+        onTableChange={(e: ITable) => handleTableChange(e)}
+        onRowAction={(action, row) => handleRowAction(action, row)}
+        activeSorts={activeSorts}
+      />
+      {activeModal}
+    </ModalContext.Provider>
   );
 }
 

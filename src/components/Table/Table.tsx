@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import Row from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
-import { ICell, IRow, ISorts, ITable } from 'types';
+import { ICell, IRow, ISorts, ITable } from "types";
 import styles from "components/Table/Table.module.css";
 
 interface IProps {
