@@ -1,13 +1,13 @@
 import React, { Component, ComponentProps } from "react";
 import Modal, { BaseModalProps } from "../BaseModal/Modal";
-import { IColumn } from "types";
+import { Column } from "types";
 import styles from "./RemoveColumnsModal.module.css";
 import { getColumns } from "modules/access-helpers";
 import ColumnValue from "./ColumnValue/ColumnValue";
 import { removeColumns } from "../../../modules/editing";
 
 interface IState {
-  columns: Array<[IColumn, boolean]>;
+  columns: Array<[Column, boolean]>;
 }
 
 /**
@@ -34,7 +34,7 @@ export default class RemoveColumnsModal extends Component<
           <ColumnValue
             key={pair[0].id}
             value={pair[0]}
-            onChange={(value: IColumn, status: boolean) =>
+            onChange={(value: Column, status: boolean) =>
               this.handleChange(value, status)
             }
           />
@@ -43,7 +43,7 @@ export default class RemoveColumnsModal extends Component<
     );
   }
 
-  handleChange(column: IColumn, status: boolean): void {
+  handleChange(column: Column, status: boolean): void {
     const newColumns = [...this.state.columns];
     const oldRecord = newColumns.find((pair) => pair[0].id === column.id);
     if (oldRecord) {

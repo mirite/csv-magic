@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import MainView from "../MainView/MainView";
-import { IFile, IFileHistory, ISorts, ITable } from "types";
+import { File, FileHistory, Sorts, Table } from "types";
 import ViewTabs from "./ViewTabs/ViewTabs";
 import { cloneDeep } from "modules/tools";
 
 interface IFilesContext {
-  files: Array<IFile>;
-  currentFile: IFile | undefined;
+  files: Array<File>;
+  currentFile: File | undefined;
 }
 export const OpenFilesContext = React.createContext<IFilesContext>({
   files: [],
@@ -14,10 +14,10 @@ export const OpenFilesContext = React.createContext<IFilesContext>({
 });
 
 function ViewContainer() {
-  const [files, setFiles] = useState<IFile[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
-  const handleLoad = (file?: IFile) => {
+  const handleLoad = (file?: File) => {
     if (!file) {
       return;
     }
@@ -46,11 +46,11 @@ function ViewContainer() {
   };
 
   const handleTableChange = (
-    table: ITable,
-    sorts: ISorts,
-    history: IFileHistory
+    table: Table,
+    sorts: Sorts,
+    history: FileHistory
   ) => {
-    const newFiles = cloneDeep(files) as IFile[];
+    const newFiles = cloneDeep(files) as File[];
     const file = newFiles[currentIndex];
     file.table = table;
     file.activeSorts = sorts;
@@ -73,9 +73,9 @@ function ViewContainer() {
           file={currentFile}
           onLoad={(file) => handleLoad(file)}
           onTableChange={(
-            table: ITable,
-            sorts: ISorts,
-            history: IFileHistory
+            table: Table,
+            sorts: Sorts,
+            history: FileHistory
           ) => handleTableChange(table, sorts, history)}
         />
       </div>

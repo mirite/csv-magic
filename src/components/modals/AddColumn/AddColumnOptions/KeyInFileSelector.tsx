@@ -1,9 +1,9 @@
 import { getColumns } from "modules/access-helpers";
 import React, { FunctionComponent } from "react";
-import { ITable } from "types";
+import { Table } from "types";
 
 interface KeyInFileSelectorProps {
-  table: ITable;
+  table: Table;
   label: string;
   onChange: (event: string) => void;
 }

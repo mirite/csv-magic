@@ -1,13 +1,13 @@
 import React, { Component, ComponentProps } from "react";
 import { getColumns } from "modules/access-helpers";
 import ColumnPosition from "./ColumnPosition/ColumnPosition";
-import { IColumn } from "types";
+import { Column } from "types";
 import styles from "./ReorderColumnsModal.module.css";
 import { reorderColumns } from "../../../modules/reordering";
 import Modal, { BaseModalProps } from "../BaseModal/Modal";
 
 interface IState {
-  columns: Array<IColumn>;
+  columns: Array<Column>;
 }
 
 /**
@@ -55,7 +55,7 @@ export default class ReorderColumnsModal extends Component<
 
   handleApply(): void {
     const { columns } = this.state;
-    const ids = columns.map((column: IColumn) => column.id);
+    const ids = columns.map((column: Column) => column.id);
     const table = reorderColumns(this.props.table, ids);
     this.props.onClose(table);
   }

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import styles from "./Modal.module.css";
-import { ITable } from "../../../types";
+import { Table } from "../../../types";
 
 interface Props extends BaseModalProps, PropsWithChildren {
   title?: string;
@@ -10,8 +10,8 @@ interface Props extends BaseModalProps, PropsWithChildren {
 }
 
 export type BaseModalProps = {
-  table: ITable;
-  onClose: (changedTable?: ITable) => void;
+  table: Table;
+  onClose: (changedTable?: Table) => void;
 };
 
 const Modal = (props: Props) => {

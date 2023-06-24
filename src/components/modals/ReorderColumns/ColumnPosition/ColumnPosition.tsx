@@ -6,11 +6,11 @@ import {
   faArrowCircleDown,
   faArrowCircleUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { IColumn } from "types";
+import { Column } from "types";
 import styles from "components/modals/ReorderColumns/ReorderColumnsModal.module.css";
 
 interface ColumnPositionProps {
-  value: IColumn;
+  value: Column;
   onMove: (distance: number) => void;
   toStart: number;
   toEnd: number;

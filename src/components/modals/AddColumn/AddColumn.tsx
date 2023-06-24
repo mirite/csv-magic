@@ -1,6 +1,6 @@
 import React, { Component, ComponentProps } from "react";
 import Modal, { BaseModalProps } from "../BaseModal/Modal";
-import { IMappedColumn } from "types";
+import { MappedColumn } from "types";
 import styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./AddColumnOptions/ColumnType";
 import LookupOptions from "./AddColumnOptions/options/LookupOptions";
@@ -12,7 +12,7 @@ import { addColumn, EGeneratorTypes } from "../../../modules/column-generation/c
 interface IState {
   newName: string;
   newType: EGeneratorTypes;
-  params: undefined | string | string[] | IMappedColumn;
+  params: undefined | string | string[] | MappedColumn;
 }
 
 /**
@@ -101,7 +101,7 @@ export default class AddColumnModal extends Component<BaseModalProps, IState> {
     if (this.state.newType === EGeneratorTypes.lookup) {
       return (
         <LookupOptions
-          onChange={(value: IMappedColumn) => this.handleParamsChange(value)}
+          onChange={(value: MappedColumn) => this.handleParamsChange(value)}
         />
       );
     }
@@ -121,7 +121,7 @@ export default class AddColumnModal extends Component<BaseModalProps, IState> {
     }
   }
 
-  handleParamsChange(value: string | string[] | IMappedColumn) {
+  handleParamsChange(value: string | string[] | MappedColumn) {
     this.setState({ params: value });
   }
 

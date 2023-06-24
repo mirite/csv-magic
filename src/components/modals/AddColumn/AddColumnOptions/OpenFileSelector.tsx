@@ -1,10 +1,10 @@
 import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
 import React, { FunctionComponent, useContext } from "react";
-import { IFile } from "types";
+import { File } from "types";
 
 interface OpenFileSelectorProps {
-  onChange: (file: IFile) => void;
-  currentFile?: IFile;
+  onChange: (file: File) => void;
+  currentFile?: File;
 }
 
 const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {

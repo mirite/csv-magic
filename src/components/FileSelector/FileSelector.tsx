@@ -1,6 +1,6 @@
 import React, { Component, FormEvent } from "react";
 import CSVLoader from "modules/csv/csv-loader";
-import { IFile } from "types";
+import { File } from "types";
 import FileInput from "./FileInput/FileInput";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import styles from "./FileSelector.module.css";
@@ -29,7 +29,7 @@ interface IProps {
   /**
    * The event to fire when the CSV file is selected and processed.
    */
-  onChange: (data: IFile) => void;
+  onChange: (data: File) => void;
 }
 
 /**

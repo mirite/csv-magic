@@ -2,16 +2,16 @@ import React, { Component, ComponentProps } from "react";
 import Modal, { BaseModalProps } from "../BaseModal/Modal";
 import FilterValue from "./FilterValue/FilterValue";
 import { getUniqueValuesInColumn } from "modules/access-helpers";
-import { IColumn, IFilter } from "types";
+import { Column, Filter } from "types";
 import styles from "./Filters.module.css";
 import Filtering from "../../../modules/filtering";
 
 interface IProps extends BaseModalProps {
-  column: IColumn;
+  column: Column;
 }
 
 interface IState {
-  filterList: IFilter;
+  filterList: Filter;
 }
 /**
  * A popover for filtering the showing rows based on their values.
@@ -59,7 +59,7 @@ export default class FiltersModal extends Component<IProps, IState> {
     /**
      * The new filter list once our change is applied.
      */
-    const newFilterList: IFilter = { column, values: [] };
+    const newFilterList: Filter = { column, values: [] };
 
     //If the filter status was switched to off, we just need the filter list with that filter removed
     //(Even if it was never there to begin with)
@@ -103,7 +103,7 @@ export default class FiltersModal extends Component<IProps, IState> {
     const values = allValues
       .map((item) => item[0])
       .filter((item) => !oldActiveValues.includes(item));
-    const filterList: IFilter = { column, values };
+    const filterList: Filter = { column, values };
     this.setState({ filterList });
   }
 

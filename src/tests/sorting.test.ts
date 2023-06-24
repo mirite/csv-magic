@@ -1,9 +1,9 @@
 import Sorting from "modules/sorting";
-import { ISorts } from "types";
+import { Sorts } from "types";
 import testTable from "./testTable";
 
 test("Set sorts", () => {
-  const sorts: ISorts = [];
+  const sorts: Sorts = [];
   const newSorts = Sorting.setSort(
     sorts,
     "95a026a0-69c3-445d-8ad8-93af7e24ec7d"
@@ -22,7 +22,7 @@ test("Set sorts", () => {
 });
 
 test("Apply sorting", () => {
-  const sorts: ISorts = Sorting.setSort(
+  const sorts: Sorts = Sorting.setSort(
     [],
     "95a026a0-69c3-445d-8ad8-93af7e24ec7d"
   );

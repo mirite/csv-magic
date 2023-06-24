@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
-import Row from "./table-parts/Row/Row";
+import RowComponent from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
-import { ICell, IRow, ISorts, ITable } from "types";
+import { Cell, Row, Sorts, Table } from "types";
 import styles from "components/Table/Table.module.css";
 
 interface IProps {
   /**
    * The data from the file that was opened.
    */
-  data: ITable;
+  data: Table;
   onSort: (columnID: string) => void;
-  onTableChange: (t: ITable) => void;
-  onRowAction: (action: string, row: IRow) => void;
-  activeSorts: ISorts;
+  onTableChange: (t: Table) => void;
+  onRowAction: (action: string, row: Row) => void;
+  activeSorts: Sorts;
 }
 
 const Table: React.FC<IProps> = (props) => {
   const { data, activeSorts, onSort, onRowAction } = props;
   const [activeCell, setActiveCell] = useState(data.firstCellId);
 
-  const handleCellChange = (changedCell: ICell, newValue: string) => {
+  const handleCellChange = (changedCell: Cell, newValue: string) => {
     const newCell = { ...changedCell };
     newCell.value = newValue;
     const newData = updateCell(data, newCell);
@@ -46,7 +46,7 @@ const Table: React.FC<IProps> = (props) => {
         />
         <tbody onClick={(e) => handleActiveCellChange(e)}>
           {data.contents.map((row) => (
-            <Row
+            <RowComponent
               key={row.id}
               {...row}
               activeCell={activeCell}

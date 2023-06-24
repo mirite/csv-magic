@@ -1,13 +1,13 @@
 import React from "react";
-import { ICell } from "types";
-import Cell from "./Cell";
+import { Cell } from "types";
+import CellComponent from "./Cell";
 
-const InactiveCell = (props: ICell) => {
+const InactiveCell = (props: Cell) => {
   const { value, id } = props;
   return (
-    <Cell {...props}>
+    <CellComponent {...props}>
       <span data-id={id}>{value}</span>
-    </Cell>
+    </CellComponent>
   );
 };
 

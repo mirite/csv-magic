@@ -1,11 +1,11 @@
 import { Parser } from "@json2csv/plainjs";
-import { IRawRow, IRawTable, ITable } from "types";
+import { RawRow, RawTable, Table } from "types";
 import { getColumnNameByID } from "../access-helpers";
 
-function convertToRawTable(data: ITable) {
-  const rawTable: IRawTable = [];
+function convertToRawTable(data: Table) {
+  const rawTable: RawTable = [];
   for (const row of data.contents) {
-    const rawRow: IRawRow = {};
+    const rawRow: RawRow = {};
     for (const cell of row.contents) {
       const columnName = getColumnNameByID(data, cell.columnID);
       rawRow[columnName] = cell.value;
@@ -33,15 +33,15 @@ function download(filename: string, text: string): void {
 
 export type supportedFileTypes = "json" | "sql" | "csv";
 
-function prepareForCSV(rawData: IRawTable): string {
+function prepareForCSV(rawData: RawTable): string {
   const parser = new Parser();
   return parser.parse(rawData);
 }
-function prepareForJSON(rawData: IRawTable): string {
+function prepareForJSON(rawData: RawTable): string {
   return JSON.stringify(rawData);
 }
 
-function prepareForSQL(rawData: IRawTable): string {
+function prepareForSQL(rawData: RawTable): string {
   let output = "";
   for (const row of rawData) {
     let columnNames = "";
@@ -65,7 +65,7 @@ const processors = {
 };
 
 export default (
-  data: ITable,
+  data: Table,
   fileType: supportedFileTypes,
   fileName?: string
 ) => {

@@ -1,15 +1,15 @@
 import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
 import React, { useContext, useEffect, useState } from "react";
-import { IFile, IMappedColumn } from "types";
+import { File, MappedColumn } from "types";
 import KeyInFileSelector from "../KeyInFileSelector";
 import OpenFileSelector from "../OpenFileSelector";
 
 interface LookupOptionsProps {
-  onChange: (e: IMappedColumn) => void;
+  onChange: (e: MappedColumn) => void;
 }
 
 const LookupOptions = (props: LookupOptionsProps) => {
-  const [otherFile, setOtherFile] = useState<IFile>();
+  const [otherFile, setOtherFile] = useState<File>();
   const [sourceMatchKey, setSourceMatchKey] = useState<string>();
   const [foreignMatchKey, setForeignMatchKey] = useState<string>();
   const [foreignImportKey, setForeignImportKey] = useState<string>();
@@ -25,7 +25,7 @@ const LookupOptions = (props: LookupOptionsProps) => {
     ) {
       return;
     }
-    const mappedColumn: IMappedColumn = {
+    const mappedColumn: MappedColumn = {
       foreignTable,
       sourceMatchID: sourceMatchKey,
       foreignMatchID: foreignMatchKey,
@@ -60,7 +60,7 @@ const LookupOptions = (props: LookupOptionsProps) => {
   return (
     <div>
       <OpenFileSelector
-        onChange={(e: IFile) => setOtherFile(e)}
+        onChange={(e: File) => setOtherFile(e)}
         currentFile={activeFile.currentFile}
       />
       <KeyInFileSelector

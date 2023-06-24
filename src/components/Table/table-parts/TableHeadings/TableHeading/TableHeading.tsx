@@ -9,15 +9,15 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./TableHeading.module.css";
-import { IColumn, ISorts } from "types";
+import { Column, Sorts } from "types";
 import RenameColumnModal from "../../../../modals/RenameColumn/RenameColumn";
 import { ModalContext } from "../../../../Editor/Editor";
 import FindAndReplaceModal from "../../../../modals/FindAndReplace/FindAndReplace";
 import FiltersModal from "../../../../modals/Filters/Filters";
 interface HeadingsProps {
-  column: IColumn;
+  column: Column;
   onSort: () => void;
-  activeSorts: ISorts;
+  activeSorts: Sorts;
 }
 
 const TableHeading = (props: HeadingsProps) => {

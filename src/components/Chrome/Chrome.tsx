@@ -3,11 +3,11 @@ import SaveAsField from "./SaveAsField/SaveAsField";
 import UndoRedo from "./UndoRedo/UndoRedo";
 import styles from "./Chrome.module.css";
 import SuperTools from "./SuperTools/SuperTools";
-import { IFile, ITable } from "types";
+import { File, Table } from "types";
 
 interface ChromeProps {
-  editorState: IFile;
-  onTableChange: (table: ITable) => void;
+  editorState: File;
+  onTableChange: (table: Table) => void;
 }
 
 const Chrome = (props: ChromeProps) => {

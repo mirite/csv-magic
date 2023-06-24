@@ -8,7 +8,7 @@ import { Statically } from "./column-generators/Statically";
 import { Lookup } from "./column-generators/Lookup";
 import { registerColumnInTable } from "../csv/csv-loader";
 import { cloneDeep, createCellID } from "../tools";
-import { ICell, IMappedColumn, ITable } from "types";
+import { Cell, MappedColumn, Table } from "types";
 
 export enum EGeneratorTypes {
   blank,
@@ -46,12 +46,12 @@ function getStrategy(
  * @return A new Table with the column added.
  */
 export function addColumn(
-  data: ITable,
+  data: Table,
   newColumnName: string,
   method: EGeneratorTypes,
-  methodParameters: string | string[] | IMappedColumn | undefined
-): ITable {
-  const newData = cloneDeep(data) as ITable;
+  methodParameters: string | string[] | MappedColumn | undefined
+): Table {
+  const newData = cloneDeep(data) as Table;
   const strategy = getStrategy(method, methodParameters);
   const newColumnId = registerColumnInTable(newData, newColumnName);
 
@@ -62,7 +62,7 @@ export function addColumn(
         "The row in which a column is being added does not have an id"
       );
     }
-    const newCell: ICell = {
+    const newCell: Cell = {
       id: createCellID(row.id, newColumnId),
       columnID: newColumnId,
       value: cellValue,

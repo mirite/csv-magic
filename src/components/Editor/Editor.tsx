@@ -1,27 +1,27 @@
 import React, { createContext, useState } from "react";
 import Chrome from "../Chrome/Chrome";
-import Table from "../Table/Table";
+import TableComponent from "../Table/Table";
 import Sorting from "modules/sorting";
-import { IActiveModal, IFile, IFileHistory, IRow, ISorts, ITable } from "types";
+import { Modal, File, FileHistory, Row, Sorts, Table } from "types";
 
 import { deleteRow, duplicateRow } from "modules/row-actions";
 
 interface IProps {
-  file: IFile;
-  onChange: (table: ITable, sorts: ISorts, history: IFileHistory) => void;
+  file: File;
+  onChange: (table: Table, sorts: Sorts, history: FileHistory) => void;
 }
 
 export type ModalContextType = {
-  setActiveModal: (modal: IActiveModal) => void;
-  table: ITable;
-  onClose: (changedTable?: ITable) => void;
+  setActiveModal: (modal: Modal) => void;
+  table: Table;
+  onClose: (changedTable?: Table) => void;
 };
 
 export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
 function Editor(props: IProps) {
   const { file, onChange } = props;
-  const [activeModal, setActiveModal] = useState<undefined | IActiveModal>(
+  const [activeModal, setActiveModal] = useState<undefined | Modal>(
     undefined
   );
 
@@ -34,19 +34,19 @@ function Editor(props: IProps) {
     setCoreState(newData, newSorts);
   };
 
-  const handleModalClose = (changedTable?: ITable) => {
+  const handleModalClose = (changedTable?: Table) => {
     if (changedTable) {
       handleTableChange(changedTable);
     }
     setActiveModal(undefined);
   };
 
-  const handleTableChange = (changedTable: ITable) => {
+  const handleTableChange = (changedTable: Table) => {
     const { activeSorts } = file;
     setCoreState(changedTable, activeSorts);
   };
 
-  const handleRowAction = (action: string, row: IRow) => {
+  const handleRowAction = (action: string, row: Row) => {
     const { table, activeSorts } = file;
     if (action === "delete") {
       const newTable = deleteRow(table, row);
@@ -57,7 +57,7 @@ function Editor(props: IProps) {
     }
   };
 
-  const setCoreState = (newTable: ITable, newSorts: ISorts) => {
+  const setCoreState = (newTable: Table, newSorts: Sorts) => {
     const { table, history } = file;
     const newHistory = [...history, table];
     onChange(newTable, newSorts, newHistory);
@@ -71,12 +71,12 @@ function Editor(props: IProps) {
     <ModalContext.Provider value={modalContext}>
       <Chrome
         editorState={file}
-        onTableChange={(e: ITable) => handleTableChange(e)}
+        onTableChange={(e: Table) => handleTableChange(e)}
       />
-      <Table
+      <TableComponent
         data={table}
         onSort={(e: string) => handleSort(e)}
-        onTableChange={(e: ITable) => handleTableChange(e)}
+        onTableChange={(e: Table) => handleTableChange(e)}
         onRowAction={(action, row) => handleRowAction(action, row)}
         activeSorts={activeSorts}
       />

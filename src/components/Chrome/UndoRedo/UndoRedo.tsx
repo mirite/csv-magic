@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo, faUndo } from "@fortawesome/free-solid-svg-icons";
-import { IFileHistory, ITable } from "types";
+import { FileHistory, Table } from "types";
 import styles from "./UndoRedo.module.css";
 
 interface UndoRedoProps {
-  history: IFileHistory;
-  onTableChange: (table: ITable) => void;
+  history: FileHistory;
+  onTableChange: (table: Table) => void;
 }
 
 const UndoRedo: FunctionComponent<UndoRedoProps> = (props) => {

@@ -1,5 +1,5 @@
 import { getCellValueByColumnID } from "./access-helpers";
-import { ISorts, ITable } from "types";
+import { Sorts, Table } from "types";
 import { cloneDeep } from "./tools";
 
 /**
@@ -9,8 +9,8 @@ import { cloneDeep } from "./tools";
  * @param  columnID The key to change the sort status on.
  * @return The new sorts array with the sort applied.
  */
-function setSort(sorts: ISorts, columnID: string) {
-  let newSorts = cloneDeep(sorts) as ISorts;
+function setSort(sorts: Sorts, columnID: string) {
+  let newSorts = cloneDeep(sorts) as Sorts;
   /**
    * The existing sort (if any) on the key.
    */
@@ -35,8 +35,8 @@ function setSort(sorts: ISorts, columnID: string) {
  * @param  sorts An array of the active sorts.
  * @return The Table after all sorts have been applied.
  */
-function applySorting(data: ITable, sorts: ISorts) {
-  const newData = cloneDeep(data) as ITable;
+function applySorting(data: Table, sorts: Sorts) {
+  const newData = cloneDeep(data) as Table;
   sorts.forEach((sort) => {
     const [key, ascending] = sort;
     newData.contents = newData.contents.sort((row1, row2) => {

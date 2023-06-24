@@ -1,20 +1,20 @@
 import { cloneDeep, createUUID } from "./tools";
-import { IRow, ITable } from "types";
+import { Row, Table } from "types";
 
-export function deleteRow(data: ITable, row: IRow): ITable {
-  const newData = cloneDeep(data) as ITable;
+export function deleteRow(data: Table, row: Row): Table {
+  const newData = cloneDeep(data) as Table;
   newData.contents = newData.contents.filter(
     (rowInTable) => rowInTable.id !== row.id
   );
   return newData;
 }
 
-export function duplicateRow(data: ITable, row: IRow): ITable {
-  const newData = cloneDeep(data) as ITable;
+export function duplicateRow(data: Table, row: Row): Table {
+  const newData = cloneDeep(data) as Table;
   const rowIndex = newData.contents.findIndex(
     (rowInTable) => rowInTable.id === row.id
   );
-  const newRow = cloneDeep(row) as IRow;
+  const newRow = cloneDeep(row) as Row;
   newRow.id = createUUID("row");
   for (const cell of newRow.contents) {
     const { columnID } = cell;

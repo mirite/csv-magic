@@ -1,12 +1,12 @@
 import React, { Component, ComponentProps } from "react";
 import Modal, { BaseModalProps } from "../BaseModal/Modal";
-import { IColumn } from "types";
+import { Column } from "types";
 import styles from "./FindAndReplaceModal.module.css";
 import { countOccurrences } from "modules/access-helpers";
 import { findAndReplaceInColumn } from "../../../modules/editing";
 
 interface IProps extends BaseModalProps {
-  column: IColumn;
+  column: Column;
 }
 
 interface IState {

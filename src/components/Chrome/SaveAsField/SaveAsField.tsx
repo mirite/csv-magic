@@ -1,10 +1,10 @@
 import React, { FormEvent, FunctionComponent, useState } from "react";
-import { ITable } from "types";
+import { Table } from "types";
 import CSVSaver, { supportedFileTypes } from "modules/csv/csv-saver";
 import styles from "./SaveAsField.module.css";
 
 interface SaveAsFieldProps {
-  table: ITable;
+  table: Table;
 }
 
 const SaveAsField: FunctionComponent<SaveAsFieldProps> = (props) => {

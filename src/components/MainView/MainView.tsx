@@ -1,19 +1,19 @@
 import React from "react";
 import FileSelector from "../FileSelector/FileSelector";
 import Editor from "../Editor/Editor";
-import { ITable, IFile, IFileHistory, ISorts } from "types";
+import { Table, File, FileHistory, Sorts } from "types";
 
 interface IProps {
   /**
    * The current open file (if any).
    */
-  file?: IFile;
+  file?: File;
 
   /**
    * The event handler to call when a new file is loaded.
    */
-  onLoad: (file?: IFile) => void;
-  onTableChange: (table: ITable, sorts: ISorts, history: IFileHistory) => void;
+  onLoad: (file?: File) => void;
+  onTableChange: (table: Table, sorts: Sorts, history: FileHistory) => void;
 }
 
 /**

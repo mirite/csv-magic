@@ -2,10 +2,10 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import ViewTab from "./ViewTab/ViewTab";
-import { IFile } from "types";
+import { File } from "types";
 
 interface ViewTabsProps {
-  files: Array<IFile>;
+  files: Array<File>;
   currentIndex: number;
   onTabClick: (index: number) => void;
   onTabClose: (index: number) => void;

@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 /**
  * A single editor window/file.
  */
-export interface IFile {
+export interface File {
   /**
    * A unique identifier for the file so that two files with the same name can be distinguished.
    */
@@ -15,15 +15,15 @@ export interface IFile {
   /**
    * The current state of the Table in the file
    */
-  table: ITable;
+  table: Table;
   /**
    * An array of currently active sorting methods.
    */
-  activeSorts: ISorts;
+  activeSorts: Sorts;
   /**
    * A list of previous states of the file.
    */
-  history: IFileHistory;
+  history: FileHistory;
 
   /**
    * A shortened version of the id, for display purposes.
@@ -36,34 +36,34 @@ export interface IFile {
 /**
  * A list of previous versions of the Table in a file.
  */
-export type IFileHistory = Array<ITable>;
+export type FileHistory = Array<Table>;
 
 /**
  * A list of sorts being applied to the Table, with the key as the first half of
  * a tuple and ascending? as the second.
  */
-export type ISorts = Array<[string, boolean]>;
+export type Sorts = Array<[string, boolean]>;
 
 //Table Elements
 
 /**
  * A Table with rows and columns.
  */
-export interface ITable {
+export interface Table {
   /**
    * The ID of the fist cell in a Table, used as the default cell being edited.
    */
   firstCellId?: string;
 
-  columns: Array<IColumn>;
+  columns: Array<Column>;
 
   /**
    * An array of the rows within the Table.
    */
-  contents: Array<IRow>;
+  contents: Array<Row>;
 }
 
-export interface IColumn {
+export interface Column {
   label: string;
   position: number;
   id: string;
@@ -72,7 +72,7 @@ export interface IColumn {
 /**
  * A single row within the Table.
  */
-export interface IRow {
+export interface Row {
   /**
    * A unique id for keying the row and allowing quicker access to the cells within.
    */
@@ -86,13 +86,13 @@ export interface IRow {
   /**
    * An array of the cells that comprise the row.
    */
-  contents: Array<ICell>;
+  contents: Array<Cell>;
 }
 
 /**
  * A single cell within the Table.
  */
-export interface ICell {
+export interface Cell {
   /**
    * A unique identifier in the form {row.id?cellIndex}
    */
@@ -112,24 +112,24 @@ export interface ICell {
 /**
  * A Table row as loaded from the file without any additional processing.
  */
-export interface IRawRow {
+export interface RawRow {
   [key: string]: string;
 }
 
 /**
  * A Table as loaded from the file without any additional processing.
  */
-export type IRawTable = Array<IRawRow>;
+export type RawTable = Array<RawRow>;
 
-export interface IFilter {
-  column: IColumn;
+export interface Filter {
+  column: Column;
   values: string[];
 }
 
-export type IActiveModal = ReactNode;
+export type Modal = ReactNode;
 
-export interface IMappedColumn {
-  foreignTable: ITable;
+export interface MappedColumn {
+  foreignTable: Table;
   sourceMatchID: string;
   foreignMatchID: string;
   foreignImportID: string;

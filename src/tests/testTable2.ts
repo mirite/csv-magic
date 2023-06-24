@@ -1,5 +1,5 @@
-import { ITable } from "types";
-const table: ITable = {
+import { Table } from "types";
+const table: Table = {
   contents: [
     {
       contents: [

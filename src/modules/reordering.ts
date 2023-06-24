@@ -1,4 +1,4 @@
-import { ICell, IColumn, IRow, ITable } from "types";
+import { Cell, Column, Row, Table } from "types";
 
 /**
  * Rearranges the columns in a Table.
@@ -7,10 +7,10 @@ import { ICell, IColumn, IRow, ITable } from "types";
  * @param  newColumnOrder An array of the ids of the columns in their new order.
  */
 export function reorderColumns(
-  table: ITable,
+  table: Table,
   newColumnOrder: Array<string>
-): ITable {
-  const reorderedTable: ITable = {
+): Table {
+  const reorderedTable: Table = {
     columns: [],
     contents: [],
   };
@@ -22,13 +22,13 @@ export function reorderColumns(
 }
 
 function createNewColumnField(
-  columns: IColumn[],
+  columns: Column[],
   newColumnOrder: string[]
-): IColumn[] {
-  const newColumns: IColumn[] = [];
+): Column[] {
+  const newColumns: Column[] = [];
   let position = 0;
   for (const id of newColumnOrder) {
-    const existingColumn: IColumn | undefined = columns.find(
+    const existingColumn: Column | undefined = columns.find(
       (c) => c.id === id
     );
     if (!existingColumn) {
@@ -41,19 +41,19 @@ function createNewColumnField(
   return newColumns;
 }
 
-function createNewRows(rows: IRow[], newColumnOrder: string[]): IRow[] {
+function createNewRows(rows: Row[], newColumnOrder: string[]): Row[] {
   return rows.map((row) => createNewRow(row, newColumnOrder));
 }
 
-function createNewRow(row: IRow, newColumnOrder: string[]): IRow {
-  const newRow: IRow = {
+function createNewRow(row: Row, newColumnOrder: string[]): Row {
+  const newRow: Row = {
     id: row.id,
     originalIndex: row.originalIndex,
     contents: [],
   };
 
   for (const columnID of newColumnOrder) {
-    const existingCell: ICell | undefined = row.contents.find(
+    const existingCell: Cell | undefined = row.contents.find(
       (c) => c.columnID === columnID
     );
     if (!existingCell) {

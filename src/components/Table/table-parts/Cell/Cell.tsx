@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from "react";
 import styles from "./Cell.module.css";
-import { ICell } from "types";
+import { Cell } from "types";
 
-type IProps = PropsWithChildren & ICell;
+type IProps = PropsWithChildren & Cell;
 
 /**
  * A single cell within a Table.

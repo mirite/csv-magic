@@ -1,5 +1,5 @@
 import csv from "csvtojson";
-import { ITable, IRow, IFile, IRawRow, IRawTable } from "types";
+import { Table, Row, File, RawRow, RawTable } from "types";
 import { getColumnId } from "../access-helpers";
 import { createCellID, createUUID } from "../tools";
 
@@ -9,7 +9,7 @@ import { createCellID, createUUID } from "../tools";
  * @param  content The text content of the CSV file.
  * @return The raw Table from the file.
  */
-async function loadFile(content: string): Promise<IRawTable> {
+async function loadFile(content: string): Promise<RawTable> {
   return csv().fromString(content);
 }
 
@@ -21,17 +21,17 @@ async function loadFile(content: string): Promise<IRawTable> {
  * @param  raw The raw Table loaded from the file.
  * @return The Table with our format applied.
  */
-function convertToTable(raw: IRawTable): ITable {
+function convertToTable(raw: RawTable): Table {
   /**
    * The Table being created from the raw data.
    */
-  const newTable: ITable = { contents: [], columns: [] };
+  const newTable: Table = { contents: [], columns: [] };
 
-  raw.forEach((rawRow: IRawRow, rowIndex) => {
+  raw.forEach((rawRow: RawRow, rowIndex) => {
     /**
      * A new row within the output Table.
      */
-    const newRow: IRow = { contents: [], originalIndex: rowIndex };
+    const newRow: Row = { contents: [], originalIndex: rowIndex };
 
     /**
      * Counter to make cell ids somewhat predictable.
@@ -66,7 +66,7 @@ function convertToTable(raw: IRawTable): ITable {
   return newTable;
 }
 
-export function registerColumnInTable(table: ITable, label: string) {
+export function registerColumnInTable(table: Table, label: string) {
   const id = createUUID("col");
   const position = table.columns.length;
   table.columns.push({
@@ -80,7 +80,7 @@ export function registerColumnInTable(table: ITable, label: string) {
 export default async function (
   fileName: string,
   fileText: string
-): Promise<IFile> {
+): Promise<File> {
   const source = await loadFile(fileText);
   const data = convertToTable(source);
   const id = createUUID("file");

@@ -1,5 +1,5 @@
 import { getCellByID, getColumnIndex } from "./access-helpers";
-import { ICell, IColumn, IRow, ITable } from "types";
+import { Cell, Column, Row, Table } from "types";
 import { cloneDeep } from "./tools";
 
 /**
@@ -9,8 +9,8 @@ import { cloneDeep } from "./tools";
  * @param  cell The new version of the cell to add to the Table.
  * @return A new Table with the cell changed.
  */
-export function updateCell(data: ITable, cell: ICell): ITable {
-  const newData = cloneDeep(data) as ITable;
+export function updateCell(data: Table, cell: Cell): Table {
+  const newData = cloneDeep(data) as Table;
   const cellToUpdate = getCellByID(newData, cell.id);
   if (cellToUpdate) {
     cellToUpdate.value = cell.value;
@@ -27,11 +27,11 @@ export function updateCell(data: ITable, cell: ICell): ITable {
  * @return A new Table with the column renamed.
  */
 export function renameColumn(
-  data: ITable,
+  data: Table,
   columnId: string,
   newColumnName: string
-): ITable {
-  const newData = cloneDeep(data) as ITable;
+): Table {
+  const newData = cloneDeep(data) as Table;
   const column = newData.columns.find((c) => c.id === columnId);
   if (!column) {
     throw new Error("Column ID not found");
@@ -49,12 +49,12 @@ export function renameColumn(
  * @param  toReplaceWith The string value to replace with.
  */
 export function findAndReplaceInColumn(
-  data: ITable,
-  column: IColumn,
+  data: Table,
+  column: Column,
   toFind: string,
   toReplaceWith: string
-): ITable {
-  const newData = cloneDeep(data) as ITable;
+): Table {
+  const newData = cloneDeep(data) as Table;
   const columnIndex = getColumnIndex(newData, column.id);
 
   for (const row of newData.contents) {
@@ -64,7 +64,7 @@ export function findAndReplaceInColumn(
   return newData;
 }
 
-function removeColumnsInRow(row: IRow, columnIdsToRemove: string[]): IRow {
+function removeColumnsInRow(row: Row, columnIdsToRemove: string[]): Row {
   const remainingCells = row.contents.filter(
     (cell) => !columnIdsToRemove.includes(cell.columnID)
   );
@@ -82,10 +82,10 @@ function removeColumnsInRow(row: IRow, columnIdsToRemove: string[]): IRow {
  * @return A new Table with the columns removed.
  */
 export function removeColumns(
-  data: ITable,
-  columnsToRemove: IColumn[]
-): ITable {
-  const newData = cloneDeep(data) as ITable;
+  data: Table,
+  columnsToRemove: Column[]
+): Table {
+  const newData = cloneDeep(data) as Table;
   const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
 
   newData.columns = newData.columns.filter(

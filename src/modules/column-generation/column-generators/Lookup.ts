@@ -1,17 +1,17 @@
 import GenerateColumnStrategy from "./GenerateColumnStrategy";
-import { IMappedColumn, IRow } from "types";
+import { MappedColumn, Row } from "types";
 import {
   getCellValueByColumnID,
   getRowWithMatchingValueInColumn,
 } from "../../access-helpers";
 
 export class Lookup extends GenerateColumnStrategy {
-  getValue(row: IRow | undefined): string {
-    const mappedGenerator = this.methodParameters as IMappedColumn;
+  getValue(row: Row | undefined): string {
+    const mappedGenerator = this.methodParameters as MappedColumn;
     const { foreignTable, sourceMatchID, foreignMatchID, foreignImportID } =
       mappedGenerator;
 
-    const localValue = getCellValueByColumnID(row as IRow, sourceMatchID);
+    const localValue = getCellValueByColumnID(row as Row, sourceMatchID);
 
     const remoteRow = getRowWithMatchingValueInColumn(
       foreignTable,

@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from "react";
-import Cell from "../Cell";
+import CellComponent from "../Cell";
 import styles from "components/Table/table-parts/Cell/Cell.module.css";
-import { ICell } from "types";
+import { Cell } from "types";
 
-interface Props extends ICell {
+interface Props extends Cell {
   onChange: (newValue: string) => void;
 }
 /**
@@ -19,14 +19,14 @@ const ActiveCell = (props: Props) => {
   };
 
   return (
-    <Cell {...props}>
+    <CellComponent {...props}>
       <textarea
         className={styles.input}
         onChange={handleChange}
         rows={rowCount}
         value={value}
       />
-    </Cell>
+    </CellComponent>
   );
 };
 
