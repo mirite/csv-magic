@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useId } from "react";
-import { EGeneratorTypes } from '../../../../modules/column-generation/column-generator';
+import { EGeneratorTypes } from "../../../../modules/column-generation/column-generator";
 
 interface ColumnTypeRadioProps {
   label: string;

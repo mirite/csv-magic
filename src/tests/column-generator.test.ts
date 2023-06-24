@@ -1,5 +1,8 @@
 import { getCellValueByColumnID, getColumns } from "modules/access-helpers";
-import { addColumn, EGeneratorTypes } from 'modules/column-generation/column-generator';
+import {
+  addColumn,
+  EGeneratorTypes,
+} from "modules/column-generation/column-generator";
 import testTable from "./testTable";
 import testTable2 from "./testTable2";
 

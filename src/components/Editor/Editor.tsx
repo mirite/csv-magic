@@ -21,9 +21,7 @@ export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
 function Editor(props: IProps) {
   const { file, onChange } = props;
-  const [activeModal, setActiveModal] = useState<undefined | Modal>(
-    undefined
-  );
+  const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
 
   const handleSort = (columnID: string) => {
     const { table, activeSorts } = file;
@@ -35,6 +33,7 @@ function Editor(props: IProps) {
   };
 
   const handleModalClose = (changedTable?: Table) => {
+    console.log(changedTable);
     if (changedTable) {
       handleTableChange(changedTable);
     }

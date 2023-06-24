@@ -72,11 +72,9 @@ function ViewContainer() {
         <MainView
           file={currentFile}
           onLoad={(file) => handleLoad(file)}
-          onTableChange={(
-            table: Table,
-            sorts: Sorts,
-            history: FileHistory
-          ) => handleTableChange(table, sorts, history)}
+          onTableChange={(table: Table, sorts: Sorts, history: FileHistory) =>
+            handleTableChange(table, sorts, history)
+          }
         />
       </div>
     </OpenFilesContext.Provider>

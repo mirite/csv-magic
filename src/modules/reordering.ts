@@ -28,9 +28,7 @@ function createNewColumnField(
   const newColumns: Column[] = [];
   let position = 0;
   for (const id of newColumnOrder) {
-    const existingColumn: Column | undefined = columns.find(
-      (c) => c.id === id
-    );
+    const existingColumn: Column | undefined = columns.find((c) => c.id === id);
     if (!existingColumn) {
       throw new Error("Column ID not found in Table");
     }

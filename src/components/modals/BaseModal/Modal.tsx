@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import styles from "./Modal.module.css";
-import { Table } from "../../../types";
+import { Table } from "types";
 
 interface Props extends BaseModalProps, PropsWithChildren {
   title?: string;
@@ -38,7 +38,7 @@ const Modal = (props: Props) => {
             </button>
             <button
               className="btn btn-primary"
-              onClick={() => onApply}
+              onClick={onApply}
               disabled={!isValid}
             >
               {applyText}

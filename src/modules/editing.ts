@@ -81,10 +81,7 @@ function removeColumnsInRow(row: Row, columnIdsToRemove: string[]): Row {
  * @param  columnsToRemove An array of the columns to remove by id.
  * @return A new Table with the columns removed.
  */
-export function removeColumns(
-  data: Table,
-  columnsToRemove: Column[]
-): Table {
+export function removeColumns(data: Table, columnsToRemove: Column[]): Table {
   const newData = cloneDeep(data) as Table;
   const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
 
