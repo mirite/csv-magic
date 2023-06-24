@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import CSVLoader from 'modules/csv/csv-loader';
-import { File } from 'types';
-import FileInput from './FileInput/FileInput';
-import SubmitButton from './SubmitButton/SubmitButton';
-import styles from './FileSelector.module.css';
+import React, { useState } from "react";
+import CSVLoader from "modules/csv/csv-loader";
+import { File } from "types";
+import FileInput from "./FileInput/FileInput";
+import SubmitButton from "./SubmitButton/SubmitButton";
+import styles from "./FileSelector.module.css";
 
 interface IProps {
   /**
