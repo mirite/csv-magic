@@ -4,7 +4,7 @@ import { Column } from "types";
 import styles from "./RemoveColumnsModal.module.css";
 import { getColumns } from "modules/access-helpers";
 import ColumnValue from "./ColumnValue/ColumnValue";
-import { removeColumns } from "../../../modules/editing";
+import { removeColumns } from "modules/editing";
 
 const RemoveColumnsModal = (props: BaseModalProps) => {
   const { table, onClose } = props;

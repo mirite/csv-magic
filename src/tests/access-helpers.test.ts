@@ -4,7 +4,7 @@ import {
   getColumnIndex,
   getRowWithMatchingValueInColumn,
   getUniqueValuesInColumn,
-} from "../modules/access-helpers";
+} from "modules/access-helpers";
 import testTable from "./testTable";
 
 test("Expect cell value in Table to be", () => {
