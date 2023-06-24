@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from 'react';
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import RowComponent from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
@@ -10,30 +10,30 @@ interface IProps {
    * The data from the file that was opened.
    */
   data: Table;
-  onSort: (columnID: string) => void;
+  onSort: (columnID: number) => void;
   onTableChange: (t: Table) => void;
   onRowAction: (action: string, row: Row) => void;
   activeSorts: Sorts;
 }
 
-const Table: React.FC<IProps> = (props) => {
-  const { data, activeSorts, onSort, onRowAction } = props;
+const TableComponent = (props: IProps) => {
+  const { data, activeSorts, onSort, onRowAction, onTableChange } = props;
   const [activeCell, setActiveCell] = useState(data.firstCellId);
 
-  const handleCellChange = (changedCell: Cell, newValue: string) => {
+  const handleCellChange = useCallback((changedCell: Cell, newValue: string) => {
     const newCell = { ...changedCell };
     newCell.value = newValue;
     const newData = updateCell(data, newCell);
-    props.onTableChange(newData);
-  };
+    onTableChange(newData);
+  },[]);
 
-  const handleActiveCellChange = (e: React.MouseEvent) => {
+  const handleActiveCellChange = useCallback((e: React.MouseEvent) => {
     const { target } = e;
     const { dataset } = target as HTMLElement;
     if (dataset && dataset.id) {
       setActiveCell(dataset.id);
     }
-  };
+  },[]);
 
   return (
     <div className={styles.container}>
@@ -42,7 +42,7 @@ const Table: React.FC<IProps> = (props) => {
           TablePart="thead"
           table={data}
           activeSorts={activeSorts}
-          onSort={(columnID: string) => onSort(columnID)}
+          onSort={(columnID) => onSort(columnID)}
         />
         <tbody onClick={(e) => handleActiveCellChange(e)}>
           {data.contents.map((row) => (
@@ -59,11 +59,11 @@ const Table: React.FC<IProps> = (props) => {
           TablePart="tfoot"
           table={data}
           activeSorts={activeSorts}
-          onSort={(columnID: string) => onSort(columnID)}
+          onSort={(columnID) => onSort(columnID)}
         />
       </table>
     </div>
   );
 };
 
-export default Table;
+export default TableComponent;

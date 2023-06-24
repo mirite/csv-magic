@@ -28,7 +28,7 @@ export function updateCell(data: Table, cell: Cell): Table {
  */
 export function renameColumn(
   data: Table,
-  columnId: string,
+  columnId: number,
   newColumnName: string
 ): Table {
   const newData = cloneDeep(data) as Table;
@@ -64,7 +64,7 @@ export function findAndReplaceInColumn(
   return newData;
 }
 
-function removeColumnsInRow(row: Row, columnIdsToRemove: string[]): Row {
+function removeColumnsInRow(row: Row, columnIdsToRemove: number[]): Row {
   const remainingCells = row.contents.filter(
     (cell) => !columnIdsToRemove.includes(cell.columnID)
   );

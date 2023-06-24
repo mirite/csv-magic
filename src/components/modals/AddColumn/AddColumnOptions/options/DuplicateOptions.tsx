@@ -3,11 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import KeyInFileSelector from "../KeyInFileSelector";
 
 interface LookupOptionsProps {
-  onChange: (e: string) => void;
+  onChange: (e: number) => void;
 }
 
 const DuplicateOptions = (props: LookupOptionsProps) => {
-  const [columnIDToDuplicate, setColumnIDToDuplicate] = useState<string>();
+  const [columnIDToDuplicate, setColumnIDToDuplicate] = useState<number>();
 
   const activeFile = useContext(OpenFilesContext);
   useEffect(() => {
@@ -27,7 +27,7 @@ const DuplicateOptions = (props: LookupOptionsProps) => {
       <KeyInFileSelector
         table={activeFile.currentFile.table}
         label="Key in this table to duplicate:"
-        onChange={(key: string) => setColumnIDToDuplicate(key)}
+        onChange={(key) => setColumnIDToDuplicate(key)}
       />
     </div>
   );

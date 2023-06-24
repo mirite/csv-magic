@@ -9,8 +9,8 @@ import StaticOptions from "./AddColumnOptions/options/StaticOptions";
 import DuplicateOptions from "./AddColumnOptions/options/DuplicateOptions";
 import {
   addColumn,
-  EGeneratorTypes,
-} from "modules/column-generation/column-generator";
+  EGeneratorTypes, MethodParameters,
+} from 'modules/column-generation/column-generator';
 
 const AddColumnModal = (props: BaseModalProps) => {
   const { table, onClose } = props;
@@ -19,7 +19,7 @@ const AddColumnModal = (props: BaseModalProps) => {
     EGeneratorTypes.blank
   );
   const [params, setParams] = useState<
-    undefined | string | string[] | MappedColumn
+    undefined | string | string[] | MappedColumn | number
   >(undefined);
 
   const handleNewNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,7 @@ const AddColumnModal = (props: BaseModalProps) => {
     setNewName(value);
   };
 
-  const handleParamsChange = (value: string | string[] | MappedColumn) => {
+  const handleParamsChange = (value: MethodParameters) => {
     setParams(value);
   };
 
@@ -69,7 +69,7 @@ const AddColumnModal = (props: BaseModalProps) => {
     if (newType === EGeneratorTypes.duplicate) {
       return (
         <DuplicateOptions
-          onChange={(value: string) => handleParamsChange(value)}
+          onChange={(value) => handleParamsChange(value)}
         />
       );
     }

@@ -1,7 +1,7 @@
 import csv from "csvtojson";
 import { Table, Row, File, RawRow, RawTable } from "types";
 import { getColumnId } from "../access-helpers";
-import { createCellID, createUUID } from "../tools";
+import { createCellID, createID } from '../tools';
 
 /**
  * Takes the text content of a CSV file and returns the raw Table from it (an array of objects (rows) with keys and values).
@@ -37,14 +37,12 @@ function convertToTable(raw: RawTable): Table {
      * Counter to make cell ids somewhat predictable.
      */
     let columnPosition = 0;
-    newRow.id = createUUID("row");
+    newRow.id = createID("row");
     for (const [label, rawValue] of Object.entries(rawRow)) {
-      let columnId;
+      let columnId: number;
       if (rowIndex === 0) {
         columnId = registerColumnInTable(newTable, label);
-      }
-
-      if (!columnId) {
+      } else {
         columnId = getColumnId(newTable, columnPosition);
       }
       /**
@@ -67,8 +65,8 @@ function convertToTable(raw: RawTable): Table {
 }
 
 export function registerColumnInTable(table: Table, label: string) {
-  const id = createUUID("col");
   const position = table.columns.length;
+  const id = createID("column");
   table.columns.push({
     label,
     position,
@@ -83,8 +81,7 @@ export default async function (
 ): Promise<File> {
   const source = await loadFile(fileText);
   const data = convertToTable(source);
-  const id = createUUID("file");
-  const prettyID = id.substring(id.length - 4);
+  const id = createID("file");
   const prettyName =
     fileName.length > 20 ? generatePrettyName(fileName) : fileName;
   return {
@@ -93,7 +90,7 @@ export default async function (
     activeSorts: [],
     history: [],
     id,
-    prettyID,
+    prettyID: id.toString(),
     prettyName,
   };
 }

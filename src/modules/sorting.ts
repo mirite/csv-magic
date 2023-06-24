@@ -9,7 +9,7 @@ import { cloneDeep } from "./tools";
  * @param  columnID The key to change the sort status on.
  * @return The new sorts array with the sort applied.
  */
-function setSort(sorts: Sorts, columnID: string) {
+function setSort(sorts: Sorts, columnID: number) {
   let newSorts = cloneDeep(sorts) as Sorts;
   /**
    * The existing sort (if any) on the key.

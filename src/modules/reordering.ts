@@ -8,7 +8,7 @@ import { Cell, Column, Row, Table } from "types";
  */
 export function reorderColumns(
   table: Table,
-  newColumnOrder: Array<string>
+  newColumnOrder: Array<number>
 ): Table {
   const reorderedTable: Table = {
     columns: [],
@@ -23,7 +23,7 @@ export function reorderColumns(
 
 function createNewColumnField(
   columns: Column[],
-  newColumnOrder: string[]
+  newColumnOrder: number[]
 ): Column[] {
   const newColumns: Column[] = [];
   let position = 0;
@@ -39,11 +39,11 @@ function createNewColumnField(
   return newColumns;
 }
 
-function createNewRows(rows: Row[], newColumnOrder: string[]): Row[] {
+function createNewRows(rows: Row[], newColumnOrder: number[]): Row[] {
   return rows.map((row) => createNewRow(row, newColumnOrder));
 }
 
-function createNewRow(row: Row, newColumnOrder: string[]): Row {
+function createNewRow(row: Row, newColumnOrder: number[]): Row {
   const newRow: Row = {
     id: row.id,
     originalIndex: row.originalIndex,

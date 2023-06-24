@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import Chrome from "../Chrome/Chrome";
-import TableComponent from "../Table/Table";
+import TableComponent from "../Table/TableComponent";
 import Sorting from "modules/sorting";
 import { Modal, File, FileHistory, Row, Sorts, Table } from "types";
 
@@ -23,7 +23,7 @@ function Editor(props: IProps) {
   const { file, onChange } = props;
   const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
 
-  const handleSort = (columnID: string) => {
+  const handleSort = (columnID: number) => {
     const { table, activeSorts } = file;
 
     const newSorts = Sorting.setSort(activeSorts, columnID);
@@ -74,7 +74,7 @@ function Editor(props: IProps) {
       />
       <TableComponent
         data={table}
-        onSort={(e: string) => handleSort(e)}
+        onSort={(e) => handleSort(e)}
         onTableChange={(e: Table) => handleTableChange(e)}
         onRowAction={(action, row) => handleRowAction(action, row)}
         activeSorts={activeSorts}

@@ -10,9 +10,9 @@ interface LookupOptionsProps {
 
 const LookupOptions = (props: LookupOptionsProps) => {
   const [otherFile, setOtherFile] = useState<File>();
-  const [sourceMatchKey, setSourceMatchKey] = useState<string>();
-  const [foreignMatchKey, setForeignMatchKey] = useState<string>();
-  const [foreignImportKey, setForeignImportKey] = useState<string>();
+  const [sourceMatchKey, setSourceMatchKey] = useState<number>();
+  const [foreignMatchKey, setForeignMatchKey] = useState<number>();
+  const [foreignImportKey, setForeignImportKey] = useState<number>();
 
   const activeFile = useContext(OpenFilesContext);
   useEffect(() => {
@@ -47,12 +47,12 @@ const LookupOptions = (props: LookupOptionsProps) => {
         <KeyInFileSelector
           table={otherFile?.table}
           label="Key in the other table to match on:"
-          onChange={(key: string) => setForeignMatchKey(key)}
+          onChange={(key) => setForeignMatchKey(key)}
         />
         <KeyInFileSelector
           table={otherFile?.table}
           label="Key in the other table to import:"
-          onChange={(key: string) => setForeignImportKey(key)}
+          onChange={(key) => setForeignImportKey(key)}
         />
       </div>
     );
@@ -66,7 +66,7 @@ const LookupOptions = (props: LookupOptionsProps) => {
       <KeyInFileSelector
         table={activeFile.currentFile.table}
         label="Key in this table to match on:"
-        onChange={(key: string) => setSourceMatchKey(key)}
+        onChange={(key) => setSourceMatchKey(key)}
       />
       {otherFileKeySelector()}
     </div>

@@ -7,7 +7,7 @@ import { Cell, Column, Row, Table } from "types";
  * @param  columnId The key of the value to find.
  * @return The value at the specified key. Blank if the key was not present.
  */
-export function getCellValueByColumnID(row: Row, columnId: string): string {
+export function getCellValueByColumnID(row: Row, columnId: number): string {
   const foundCell = row.contents.find((cell) => cell.columnID === columnId);
   if (foundCell) {
     return foundCell.value;
@@ -23,9 +23,9 @@ export function getCellValueByColumnID(row: Row, columnId: string): string {
  * @return The cell at the specified id.
  */
 export function getCellByID(table: Table, id: string): Cell | undefined {
-  const ids = id.split("?");
-  const rowId = ids[0];
-  const columnId = ids[1];
+  const ids = id.split(",");
+  const rowId = Number.parseInt(ids[0]);
+  const columnId = Number.parseInt(ids[1]);
   if (!columnId || !rowId) {
     throw new Error("Bad Cell Id Provided");
   }
@@ -34,7 +34,7 @@ export function getCellByID(table: Table, id: string): Cell | undefined {
   return foundRow?.contents[cellIndex];
 }
 
-export function getColumnNameByID(table: Table, id: string): string {
+export function getColumnNameByID(table: Table, id: number): string {
   const value = table.columns.find((c) => c.id === id)?.label;
   if (!value) {
     throw new Error("Column ID not found");
@@ -71,7 +71,7 @@ export function getColumns(table: Table): Array<Column> {
  */
 export function getUniqueValuesInColumn(
   table: Table,
-  columnId: string
+  columnId: number
 ): Array<[string, number]> {
   const values: Array<[string, number]> = [];
   for (const row of table.contents) {
@@ -96,7 +96,7 @@ export function getUniqueValuesInColumn(
  * @param  columnId The id of the column to find.
  * @return The 0-based index within a row that corresponds to the column name, -1 if the column was not found.
  */
-export function getColumnIndex(data: Table, columnId: string): number {
+export function getColumnIndex(data: Table, columnId: number): number {
   const { columns } = data;
   const column = columns.find((c) => c.id === columnId);
   if (column) {
@@ -112,7 +112,7 @@ export function getColumnIndex(data: Table, columnId: string): number {
  * @param  index The name position index of the column to find.
  * @return The id of the column.
  */
-export function getColumnId(data: Table, index: number): string {
+export function getColumnId(data: Table, index: number) {
   const { columns } = data;
   const column = columns.find((c) => c.position === index);
   if (!column) {
@@ -123,7 +123,7 @@ export function getColumnId(data: Table, index: number): string {
 
 export function countOccurrences(
   data: Table,
-  columnID: string,
+  columnID: number,
   needle: string
 ): number {
   const columnIndex = getColumnIndex(data, columnID);
@@ -138,7 +138,7 @@ export function countOccurrences(
 
 export function getRowWithMatchingValueInColumn(
   table: Table,
-  columnId: string,
+  columnId: number,
   valueToFind: string
 ): Row | undefined {
   const rows = table.contents;

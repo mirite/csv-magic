@@ -7,7 +7,7 @@ export interface File {
   /**
    * A unique identifier for the file so that two files with the same name can be distinguished.
    */
-  id: string;
+  id: number;
   /**
    * The name of the file that was opened.
    */
@@ -42,7 +42,7 @@ export type FileHistory = Array<Table>;
  * A list of sorts being applied to the Table, with the key as the first half of
  * a tuple and ascending? as the second.
  */
-export type Sorts = Array<[string, boolean]>;
+export type Sorts = Array<[number, boolean]>;
 
 //Table Elements
 
@@ -66,7 +66,7 @@ export interface Table {
 export interface Column {
   label: string;
   position: number;
-  id: string;
+  id: number;
 }
 
 /**
@@ -76,7 +76,7 @@ export interface Row {
   /**
    * A unique id for keying the row and allowing quicker access to the cells within.
    */
-  id?: string;
+  id?: number;
 
   /**
    * The original line index of the row from when it was loaded from a file.
@@ -101,7 +101,7 @@ export interface Cell {
   /**
    * The key or column that the cell belongs to.
    */
-  columnID: string;
+  columnID: number;
 
   /**
    * The text content of the cell.
@@ -130,7 +130,7 @@ export type Modal = ReactNode;
 
 export interface MappedColumn {
   foreignTable: Table;
-  sourceMatchID: string;
-  foreignMatchID: string;
-  foreignImportID: string;
+  sourceMatchID: number;
+  foreignMatchID: number;
+  foreignImportID: number;
 }

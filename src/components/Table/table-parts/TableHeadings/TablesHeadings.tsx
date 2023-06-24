@@ -7,7 +7,7 @@ import IntrinsicElements = React.JSX.IntrinsicElements;
 interface TableHeadingsProps {
   TablePart: keyof IntrinsicElements;
   table: Table;
-  onSort: (columnID: string) => void;
+  onSort: (columnID: number) => void;
   activeSorts: Sorts;
 }
 

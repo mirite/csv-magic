@@ -16,7 +16,7 @@ const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const fileID = e.currentTarget.value;
+    const fileID = Number.parseInt(e.currentTarget.value);
     const file = cleanedFiles.find(
       (currentFileInLoop) => currentFileInLoop.id === fileID
     );
