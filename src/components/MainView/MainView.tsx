@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import FileSelector from "../FileSelector/FileSelector";
 import Editor from "../Editor/Editor";
 import { ITable, IFile, IFileHistory, ISorts } from "types";
@@ -13,39 +13,24 @@ interface IProps {
    * The event handler to call when a new file is loaded.
    */
   onLoad: (file?: IFile) => void;
-  onTableChange: (table: ITable, sorts: ISorts, history: IFileHistory) => any;
+  onTableChange: (table: ITable, sorts: ISorts, history: IFileHistory) => void;
 }
 
 /**
  * A pane for a file. Shows the open file dialog if there isn't a file yet, or the file if there is.
  */
-class MainView extends Component<IProps> {
-  /**
-   * Returns The appropriate view based on whether the FilePane has a file open.
-   *
-   * @return The appropriate view based on whether the FilePane has a file open.
-   */
-  getView() {
-    if (this.props.file) {
-      return (
-        <Editor
-          file={this.props.file}
-          onChange={(table: ITable, sorts: ISorts, history: IFileHistory) =>
-            this.handleTableChange(table, sorts, history)
-          }
-        />
-      );
-    }
-    return <FileSelector onChange={(data) => this.props.onLoad(data)} />;
-  }
+function MainView(props: IProps) {
+  const { file, onLoad, onTableChange } = props;
 
-  handleTableChange(table: ITable, sorts: ISorts, history: IFileHistory) {
-    this.props.onTableChange(table, sorts, history);
-  }
-
-  render() {
-    return <div>{this.getView()}</div>;
-  }
+  return (
+    <div>
+      {file ? (
+        <Editor file={file} onChange={onTableChange} />
+      ) : (
+        <FileSelector onChange={(data) => onLoad(data)} />
+      )}
+    </div>
+  );
 }
 
 export default MainView;

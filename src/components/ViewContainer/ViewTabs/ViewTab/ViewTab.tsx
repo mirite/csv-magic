@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React, { ReactNode } from "react";
 import styles from "./ViewTab.module.css";
+import CloseButton from "./CloseButton";
 
 interface IProps {
   /**
    * The label or name to display on the tab.
    */
-  label: string | JSX.Element;
+  label: string | ReactNode;
 
   /**
    * true represents that the current tab is active.
@@ -23,7 +24,7 @@ interface IProps {
   onClose: () => void;
 
   /**
-   * Whether or not this tab is the home tab.
+   * Whether this tab is the home tab.
    */
   home: boolean;
 }
@@ -31,44 +32,30 @@ interface IProps {
 /**
  * A tab in the app representing an open file.
  */
-class ViewTab extends Component<IProps> {
-  closeButton() {
-    const { active } = this.props;
-    const closeClass = styles.closeButton + (active ? " " + styles.active : "");
-    return (
-      <button className={closeClass} onClick={() => this.props.onClose()}>
-        X
-      </button>
-    );
-  }
-  render() {
-    const { label: name, active, home } = this.props;
-    const titleClass =
-      (home ? styles.homeButton : styles.titleButton) +
-      (active ? " " + styles.active : "");
+function ViewTab(props: IProps) {
+  const { active, onClick, onClose, home, label } = props;
 
-    return (
-      <li className={styles.navItem}>
-        <button
-          className={titleClass}
-          aria-current="page"
-          onClick={(e) => this.handleClick(e)}
-        >
-          {name}
-        </button>
-        {home ? "" : this.closeButton()}
-      </li>
-    );
-  }
-  /**
-   * Handles clicks on a tab and passes that event back to the parent component.
-   *
-   * @param  e The click event object.
-   */
-  handleClick(e: React.MouseEvent): void {
+  const titleClass =
+    (home ? styles.homeButton : styles.titleButton) +
+    (active ? " " + styles.active : "");
+
+  const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    this.props.onClick();
-  }
+    onClick();
+  };
+
+  return (
+    <li className={styles.navItem}>
+      <button
+        className={titleClass}
+        aria-current="page"
+        onClick={(e) => handleClick(e)}
+      >
+        {label}
+      </button>
+      {home ? "" : <CloseButton active={active} onClose={onClose} />}
+    </li>
+  );
 }
 
 export default ViewTab;

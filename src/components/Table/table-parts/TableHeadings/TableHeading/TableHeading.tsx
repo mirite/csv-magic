@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowsAltV,
@@ -13,12 +13,12 @@ import { availableModal, IColumn, ISorts } from "types";
 
 interface HeadingsProps {
   column: IColumn;
-  onSetActiveModal: (arg0: availableModal, column: IColumn) => any;
-  onSort: Function;
+  onSetActiveModal: (arg0: availableModal, column: IColumn) => void;
+  onSort: () => void;
   activeSorts: ISorts;
 }
 
-const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
+const TableHeading = (props: HeadingsProps) => {
   const { column, onSetActiveModal } = props;
   const getSortStateIcon = () => {
     const sort = props.activeSorts.find((e) => e[0] === column.id);
@@ -60,7 +60,7 @@ const TableHeading: FunctionComponent<HeadingsProps> = (props) => {
           </button>
           <button
             className={styles.button}
-            onClick={() => props.onSort(column)}
+            onClick={() => props.onSort()}
             title="Sort on Column"
           >
             <FontAwesomeIcon icon={getSortStateIcon()} />

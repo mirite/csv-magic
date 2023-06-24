@@ -1,7 +1,6 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import autoprefixer from "autoprefixer";
-import webpack from "webpack";
 const __dirname = path.resolve();
 export default {
   entry: {
@@ -81,6 +80,6 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       template: "public/index.html",
-    }),
+    })
   ],
 };
