@@ -1,7 +1,7 @@
 import React, { useId } from "react";
 
 interface FileInputProps {
-  onAttachFile: (e: React.ChangeEvent) => unknown;
+  onAttachFile: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
 const FileInput = (props: FileInputProps) => {
