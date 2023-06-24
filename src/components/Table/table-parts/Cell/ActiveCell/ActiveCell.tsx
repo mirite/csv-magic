@@ -1,65 +1,33 @@
-import React, { ChangeEvent } from "react";
-import Cell, { IProps } from "../Cell";
+import React, { ChangeEvent } from 'react';
+import Cell from "../Cell";
 import styles from "components/Table/table-parts/Cell/Cell.module.css";
+import { ICell } from 'types';
 
+interface Props extends ICell {
+  onChange: (newValue: string)=>void;
+}
 /**
  * A Table cell that is currently selected. This changes the text label into an input for editing.
  */
-class ActiveCell extends Cell {
-  constructor(props: IProps) {
-    super(props);
-    this.state = { value: this.props.data.value };
-  }
+const ActiveCell = (props:Props) => {
+  const { value, onChange } = props;
+  const rowCount = value.split('\n').length;
 
-  /**
-   * Update the input state if the outside cell props were changed.
-   *
-   * @param  prevProps The previous props object.
-   */
-  componentDidUpdate(prevProps: IProps) {
-    if (this.props !== prevProps) {
-      this.setState({ value: this.props.data.value });
-    }
-  }
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.currentTarget.value;
+    onChange(newValue);
+  };
 
-  componentWillUnmount() {
-    const { id, columnID: key, value: initValue } = this.props.data;
-    const { value } = this.state;
-    //Call the parent event handler if one was set. and if the cell was actually changed.
-    if (value === initValue || !this.props.onCellChange) {
-      return;
-    }
-
-    this.props.onCellChange({ id, columnID: key, value });
-  }
-
-  /**
-   * Handles the change event in the cell input field.
-   *
-   * @param  e The input change event.
-   */
-  handleChange(e: ChangeEvent) {
-    /**
-     * The new value from the input.
-     */
-    const newValue = (e.currentTarget as HTMLInputElement).value;
-    this.setState({ value: newValue });
-  }
-
-  render() {
-    const { value } = this.state;
-    const rowCount = value.split("\\n").length;
-    return (
-      <td className={styles.container}>
-        <textarea
+  return (
+      <Cell {...props}>
+      <textarea
           className={styles.input}
-          onChange={(e) => this.handleChange(e)}
+          onChange={handleChange}
           rows={rowCount}
           value={value}
-        />
-      </td>
-    );
-  }
-}
+      />
+      </Cell>
+  );
+};
 
 export default ActiveCell;

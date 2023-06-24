@@ -1,12 +1,20 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import autoprefixer from "autoprefixer";
+import webpack from 'webpack';
 const __dirname = path.resolve();
 export default {
   entry: {
-    app: path.join(__dirname, "src/index.tsx"),
+    app: [
+      "webpack-dev-server/client?http://localhost:8080", // HMR needs a full path
+      "webpack/hot/only-dev-server", // "only" prevents reload on syntax errors
+      path.join(__dirname, "src/index.tsx"),
+    ],
   },
   devtool: "source-map",
+  devServer: {
+    hot: true, // enable HMR
+  },
   module: {
     rules: [
       { test: /\.tsx?$/, loader: "ts-loader" },
@@ -73,6 +81,6 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       template: "public/index.html",
-    }),
+    })
   ],
 };

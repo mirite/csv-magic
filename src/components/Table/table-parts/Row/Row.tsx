@@ -3,6 +3,7 @@ import Cell from "../Cell/Cell";
 import ActiveCell from "../Cell/ActiveCell/ActiveCell";
 import { ICell, IRow } from "types";
 import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading";
+import InactiveCell from '../Cell/InactiveCell';
 
 interface IProps {
   /**
@@ -13,7 +14,7 @@ interface IProps {
   /**
    * Handler for when the data in a cell is changed.
    */
-  onCellChange: (arg0: ICell) => any;
+  onCellChange: (arg0: ICell) => void;
 
   /**
    * The ID of the active cell within the Table (if there is one)
@@ -30,7 +31,7 @@ class Row extends Component<IProps> {
   renderNormalRow() {
     const { contents } = this.props.data;
     return contents.map((cell) => {
-      return <Cell key={cell.id} data={cell} />;
+      return <InactiveCell key={cell.id} {...cell} />;
     });
   }
 
@@ -42,12 +43,12 @@ class Row extends Component<IProps> {
         return (
           <ActiveCell
             key={cell.id}
-            data={cell}
-            onCellChange={(e: ICell) => onCellChange(e)}
+            {...cell}
+            onChange={() => onCellChange(cell)}
           />
         );
       }
-      return <Cell key={cell.id} data={cell} />;
+      return <InactiveCell key={cell.id} {...cell} />;
     });
   }
 
