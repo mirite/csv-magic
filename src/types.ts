@@ -1,4 +1,5 @@
-import modals from "./components/modals";
+import { ComponentType, ReactElement, ReactNode } from 'react';
+import { BaseModalProps } from './components/modals/BaseModal/Modal';
 
 /**
  * A single editor window/file.
@@ -126,10 +127,7 @@ export interface IFilter {
   values: string[];
 }
 
-export interface IActiveModal {
-  Action: ConcreteModal;
-  column?: IColumn;
-}
+export type IActiveModal = ReactNode;
 
 export enum EGeneratorTypes {
   blank,
@@ -146,5 +144,3 @@ export interface IMappedColumn {
   foreignImportID: string;
 }
 
-export type ConcreteModal = (typeof modals)[keyof typeof modals];
-export type availableModal = keyof typeof modals;

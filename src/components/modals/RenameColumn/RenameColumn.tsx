@@ -1,6 +1,6 @@
 import React, { Component, ComponentProps } from "react";
 import Modal, { BaseModalProps } from "../BaseModal/Modal";
-import { IColumn } from "types";
+import { IColumn } from 'types';
 import styles from "./RenameColumn.module.css";
 import { renameColumn } from "../../../modules/editing";
 

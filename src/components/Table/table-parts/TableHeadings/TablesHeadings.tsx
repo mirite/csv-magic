@@ -1,19 +1,18 @@
 import React from "react";
 import TableHeading from "./TableHeading/TableHeading";
 import { getColumns } from "modules/access-helpers";
-import { availableModal, IColumn, ISorts, ITable } from "types";
+import { ISorts, ITable } from 'types';
 import IntrinsicElements = React.JSX.IntrinsicElements;
 
 interface TableHeadingsProps {
   TablePart: keyof IntrinsicElements;
   table: ITable;
-  onSetActiveModal: (arg0: availableModal, column: IColumn) => void;
   onSort: (columnID: string) => void;
   activeSorts: ISorts;
 }
 
 const TableHeadings = (props: TableHeadingsProps) => {
-  const { activeSorts, table, onSort, onSetActiveModal, TablePart } = props;
+  const { activeSorts, table, onSort, TablePart } = props;
 
   return (
     <TablePart>
@@ -24,9 +23,6 @@ const TableHeadings = (props: TableHeadingsProps) => {
             key={column.id}
             column={column}
             activeSorts={activeSorts}
-            onSetActiveModal={(t: availableModal) =>
-              onSetActiveModal(t, column)
-            }
             onSort={() => onSort(column.id)}
           />
         ))}

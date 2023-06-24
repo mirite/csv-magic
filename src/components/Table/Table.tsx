@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import Row from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
-import { availableModal, ICell, IColumn, IRow, ISorts, ITable } from "types";
+import { ICell, IRow, ISorts, ITable } from 'types';
 import styles from "components/Table/Table.module.css";
 
 interface IProps {
@@ -11,14 +11,13 @@ interface IProps {
    */
   data: ITable;
   onSort: (columnID: string) => void;
-  onSetActiveModal: (activeModal: availableModal, column: IColumn) => void;
   onTableChange: (t: ITable) => void;
   onRowAction: (action: string, row: IRow) => void;
   activeSorts: ISorts;
 }
 
 const Table: React.FC<IProps> = (props) => {
-  const { data, activeSorts, onSort, onSetActiveModal, onRowAction } = props;
+  const { data, activeSorts, onSort, onRowAction } = props;
   const [activeCell, setActiveCell] = useState(data.firstCellId);
 
   const handleCellChange = (changedCell: ICell, newValue: string) => {
@@ -44,7 +43,6 @@ const Table: React.FC<IProps> = (props) => {
           table={data}
           activeSorts={activeSorts}
           onSort={(columnID: string) => onSort(columnID)}
-          onSetActiveModal={onSetActiveModal}
         />
         <tbody onClick={(e) => handleActiveCellChange(e)}>
           {data.contents.map((row) => (
@@ -62,7 +60,6 @@ const Table: React.FC<IProps> = (props) => {
           table={data}
           activeSorts={activeSorts}
           onSort={(columnID: string) => onSort(columnID)}
-          onSetActiveModal={onSetActiveModal}
         />
       </table>
     </div>
