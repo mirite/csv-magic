@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import Row from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
@@ -37,37 +37,35 @@ const Table: React.FC<IProps> = (props) => {
   };
 
   return (
-      <div className={styles.container}>
-        <table>
-          <thead>
-          <TableHeadings
-              table={data}
-              activeSorts={activeSorts}
-              onSort={(columnID: string) => onSort(columnID)}
-              onSetActiveModal={onSetActiveModal}
-          />
-          </thead>
-          <tbody onClick={(e) => handleActiveCellChange(e)}>
+    <div className={styles.container}>
+      <table>
+        <TableHeadings
+          TablePart="thead"
+          table={data}
+          activeSorts={activeSorts}
+          onSort={(columnID: string) => onSort(columnID)}
+          onSetActiveModal={onSetActiveModal}
+        />
+        <tbody onClick={(e) => handleActiveCellChange(e)}>
           {data.contents.map((row) => (
-              <Row
-                  key={row.id}
-                  {...row}
-                  activeCell={activeCell}
-                  onCellChange={(e, newValue) => handleCellChange(e, newValue)}
-                  onAction={(action: string) => onRowAction(action, row)}
-              />
+            <Row
+              key={row.id}
+              {...row}
+              activeCell={activeCell}
+              onCellChange={(e, newValue) => handleCellChange(e, newValue)}
+              onAction={(action: string) => onRowAction(action, row)}
+            />
           ))}
-          </tbody>
-          <tfoot>
-          <TableHeadings
-              table={data}
-              activeSorts={activeSorts}
-              onSort={(columnID: string) => onSort(columnID)}
-              onSetActiveModal={onSetActiveModal}
-          />
-          </tfoot>
-        </table>
-      </div>
+        </tbody>
+        <TableHeadings
+          TablePart="tfoot"
+          table={data}
+          activeSorts={activeSorts}
+          onSort={(columnID: string) => onSort(columnID)}
+          onSetActiveModal={onSetActiveModal}
+        />
+      </table>
+    </div>
   );
 };
 
