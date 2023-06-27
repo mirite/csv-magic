@@ -2,19 +2,18 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import ViewTab from "./ViewTab/ViewTab";
-import { useFileStore } from '../../../modules/useFileStore';
-
+import { useFileStore } from "../../../modules/useFileStore";
 
 const ViewTabs = () => {
-  const {setCurrentIndex, removeFile, files, currentIndex} = useFileStore();
+  const { setCurrentIndex, removeFile, files, currentIndex } = useFileStore();
 
-    const handleTabClick = (index: number) => {
-        setCurrentIndex(index);
-    };
+  const handleTabClick = (index: number) => {
+    setCurrentIndex(index);
+  };
 
-    const handleTabClose = (index: number) => {
-        removeFile(index);
-    };
+  const handleTabClose = (index: number) => {
+    removeFile(index);
+  };
 
   return (
     <ul className="nav nav-tabs">

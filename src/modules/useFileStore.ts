@@ -1,9 +1,10 @@
-import { create, SetState } from "zustand";
+import { create } from "zustand";
 import { File, FileHistory, Sorts, Table } from "../types";
 
 export interface FileStoreState {
   currentIndex: number;
   files: File[];
+  currentFile: File | null;
 }
 
 interface FileStoreActions {
@@ -12,7 +13,6 @@ interface FileStoreActions {
   clearFiles: () => void;
   setCurrentIndex: (index: number) => void;
   updateCurrentFile: (table: Table, sorts: Sorts, history: FileHistory) => void;
-  getCurrentFile: () => File;
 }
 
 export const useFileStore = create<FileStoreState & FileStoreActions>(
@@ -41,6 +41,6 @@ export const useFileStore = create<FileStoreState & FileStoreActions>(
         return { files: newFiles };
       });
     },
-	  getCurrentFile: () => get().files[get().currentIndex]
-  }),
+    currentFile: get().files[get().currentIndex],
+  })
 );

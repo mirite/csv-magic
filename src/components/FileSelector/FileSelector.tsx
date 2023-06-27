@@ -3,10 +3,10 @@ import CSVLoader from "modules/csv/csv-loader";
 import FileInput from "./FileInput/FileInput";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import styles from "./FileSelector.module.css";
-import { useFileStore } from 'modules/useFileStore';
+import { useFileStore } from "modules/useFileStore";
 
 const FileSelector = () => {
-  const {addFile, setCurrentIndex, files} = useFileStore();
+  const { addFile, setCurrentIndex, files } = useFileStore();
   const [processing, setProcessing] = useState<boolean>(false);
   const [fileTextContent, setFileTextContent] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
@@ -29,13 +29,13 @@ const FileSelector = () => {
     setProcessing(true);
     const file = await CSVLoader(fileName, fileTextContent);
 
-      if (!file) {
-        return;
-      }
+    if (!file) {
+      return;
+    }
 
-      addFile(file);
-      setCurrentIndex(files.length);
-    };
+    addFile(file);
+    setCurrentIndex(files.length);
+  };
 
   return (
     <div>

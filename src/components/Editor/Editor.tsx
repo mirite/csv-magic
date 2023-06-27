@@ -5,7 +5,7 @@ import Sorting from "modules/sorting";
 import { Modal, Row, Sorts, Table } from "types";
 
 import { deleteRow, duplicateRow } from "modules/row-actions";
-import { useFileStore } from '../../modules/useFileStore';
+import { useFileStore } from "modules/useFileStore";
 
 export type ModalContextType = {
   setActiveModal: (modal: Modal) => void;
@@ -16,8 +16,8 @@ export type ModalContextType = {
 export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
 function Editor() {
-  const { getCurrentFile, updateCurrentFile } = useFileStore();
-  const file = getCurrentFile();
+  const { currentFile: file, updateCurrentFile } = useFileStore();
+  if (!file) return <>No File Loaded</>;
   const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
 
   const handleSort = (columnID: number) => {
