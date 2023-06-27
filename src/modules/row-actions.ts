@@ -1,4 +1,4 @@
-import { cloneDeep, createID } from './tools';
+import { cloneDeep, createID } from "./tools";
 import { Row, Table } from "types";
 
 export function deleteRow(data: Table, row: Row): Table {

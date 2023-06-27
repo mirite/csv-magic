@@ -36,7 +36,12 @@ function getStrategy(
   }
 }
 
-export type MethodParameters = string | string[] | MappedColumn | undefined | number;
+export type MethodParameters =
+  | string
+  | string[]
+  | MappedColumn
+  | undefined
+  | number;
 /**
  * Adds a new column to a Table and fills it with values using the method and parameters provided.
  *

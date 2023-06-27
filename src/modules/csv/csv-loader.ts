@@ -1,7 +1,7 @@
 import csv from "csvtojson";
 import { Table, Row, File, RawRow, RawTable } from "types";
 import { getColumnId } from "../access-helpers";
-import { createCellID, createID } from '../tools';
+import { createCellID, createID } from "../tools";
 
 /**
  * Takes the text content of a CSV file and returns the raw Table from it (an array of objects (rows) with keys and values).

@@ -2,14 +2,10 @@ import React, { createContext, useState } from "react";
 import Chrome from "../Chrome/Chrome";
 import TableComponent from "../Table/TableComponent";
 import Sorting from "modules/sorting";
-import { Modal, File, FileHistory, Row, Sorts, Table } from "types";
+import { Modal, Row, Sorts, Table } from "types";
 
 import { deleteRow, duplicateRow } from "modules/row-actions";
-
-interface IProps {
-  file: File;
-  onChange: (table: Table, sorts: Sorts, history: FileHistory) => void;
-}
+import { useFileStore } from '../../modules/useFileStore';
 
 export type ModalContextType = {
   setActiveModal: (modal: Modal) => void;
@@ -19,8 +15,9 @@ export type ModalContextType = {
 
 export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
-function Editor(props: IProps) {
-  const { file, onChange } = props;
+function Editor() {
+  const { getCurrentFile, updateCurrentFile } = useFileStore();
+  const file = getCurrentFile();
   const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
 
   const handleSort = (columnID: number) => {
@@ -59,7 +56,7 @@ function Editor(props: IProps) {
   const setCoreState = (newTable: Table, newSorts: Sorts) => {
     const { table, history } = file;
     const newHistory = [...history, table];
-    onChange(newTable, newSorts, newHistory);
+    updateCurrentFile(newTable, newSorts, newHistory);
   };
 
   const { table, activeSorts } = file;

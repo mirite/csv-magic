@@ -2,17 +2,19 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import ViewTab from "./ViewTab/ViewTab";
-import { File } from "types";
+import { useFileStore } from '../../../modules/useFileStore';
 
-interface ViewTabsProps {
-  files: Array<File>;
-  currentIndex: number;
-  onTabClick: (index: number) => void;
-  onTabClose: (index: number) => void;
-}
 
-const ViewTabs = (props: ViewTabsProps) => {
-  const { files, onTabClick, onTabClose, currentIndex } = props;
+const ViewTabs = () => {
+  const {setCurrentIndex, removeFile, files, currentIndex} = useFileStore();
+
+    const handleTabClick = (index: number) => {
+        setCurrentIndex(index);
+    };
+
+    const handleTabClose = (index: number) => {
+        removeFile(index);
+    };
 
   return (
     <ul className="nav nav-tabs">
@@ -20,8 +22,8 @@ const ViewTabs = (props: ViewTabsProps) => {
         <ViewTab
           key={file.id}
           label={`${file.prettyName} - (${file.prettyID})`}
-          onClick={() => onTabClick(index)}
-          onClose={() => onTabClose(index)}
+          onClick={() => handleTabClick(index)}
+          onClose={() => handleTabClose(index)}
           active={index === currentIndex}
           home={false}
         />
@@ -34,8 +36,8 @@ const ViewTabs = (props: ViewTabsProps) => {
             "CSV Magic"
           )
         }
-        onClick={() => onTabClick(-1)}
-        onClose={() => onTabClose(-1)}
+        onClick={() => handleTabClick(-1)}
+        onClose={() => handleTabClose(-1)}
         active={-1 === currentIndex}
         home={true}
       />

@@ -1,5 +1,5 @@
 import { getColumns } from "modules/access-helpers";
-import React, { FunctionComponent, useId } from 'react';
+import React, { FunctionComponent, useId } from "react";
 import { Table } from "types";
 
 interface KeyInFileSelectorProps {
@@ -21,7 +21,9 @@ const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
       <label htmlFor={id}>{props.label}</label>
       <select
         id={id}
-        onChange={(event) => props.onChange(Number.parseInt(event.currentTarget.value))}
+        onChange={(event) =>
+          props.onChange(Number.parseInt(event.currentTarget.value))
+        }
       >
         <option value="">Please select a key</option>
         {columns.map((key) => (

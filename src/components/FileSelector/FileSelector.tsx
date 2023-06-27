@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import CSVLoader from "modules/csv/csv-loader";
-import { File } from "types";
 import FileInput from "./FileInput/FileInput";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import styles from "./FileSelector.module.css";
+import { useFileStore } from 'modules/useFileStore';
 
-interface IProps {
-  /**
-   * The event to fire when the CSV file is selected and processed.
-   */
-  onChange: (data: File) => void;
-}
-
-const FileSelector = (props: IProps) => {
+const FileSelector = () => {
+  const {addFile, setCurrentIndex, files} = useFileStore();
   const [processing, setProcessing] = useState<boolean>(false);
   const [fileTextContent, setFileTextContent] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
@@ -33,9 +27,15 @@ const FileSelector = (props: IProps) => {
   const process = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setProcessing(true);
-    const data = await CSVLoader(fileName, fileTextContent);
-    props.onChange(data);
-  };
+    const file = await CSVLoader(fileName, fileTextContent);
+
+      if (!file) {
+        return;
+      }
+
+      addFile(file);
+      setCurrentIndex(files.length);
+    };
 
   return (
     <div>

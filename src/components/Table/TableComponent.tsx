@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import RowComponent from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
@@ -20,12 +20,15 @@ const TableComponent = (props: IProps) => {
   const { data, activeSorts, onSort, onRowAction, onTableChange } = props;
   const [activeCell, setActiveCell] = useState(data.firstCellId);
 
-  const handleCellChange = useCallback((changedCell: Cell, newValue: string) => {
-    const newCell = { ...changedCell };
-    newCell.value = newValue;
-    const newData = updateCell(data, newCell);
-    onTableChange(newData);
-  },[]);
+  const handleCellChange = useCallback(
+    (changedCell: Cell, newValue: string) => {
+      const newCell = { ...changedCell };
+      newCell.value = newValue;
+      const newData = updateCell(data, newCell);
+      onTableChange(newData);
+    },
+    []
+  );
 
   const handleActiveCellChange = useCallback((e: React.MouseEvent) => {
     const { target } = e;
@@ -33,7 +36,7 @@ const TableComponent = (props: IProps) => {
     if (dataset && dataset.id) {
       setActiveCell(dataset.id);
     }
-  },[]);
+  }, []);
 
   return (
     <div className={styles.container}>
