@@ -3,19 +3,20 @@ import ActiveCell from "../Cell/ActiveCell/ActiveCell";
 import { Cell, Row } from "types";
 import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading";
 import InactiveCell from "../Cell/InactiveCell";
+import { RowAction } from "../../../Editor/Editor";
 
 interface IProps extends Row {
   /**
    * Handler for when the data in a cell is changed.
    */
-  onCellChange: (arg0: Cell, newValue: string) => void;
+  onCellChange: (cell: Cell, newValue: string) => void;
 
   /**
    * The ID of the active cell within the Table (if there is one)
    */
   activeCell?: string;
 
-  onAction: (action: string) => void;
+  onAction: (action: RowAction) => void;
 }
 
 /**
@@ -25,7 +26,7 @@ function Row(props: IProps) {
   const { contents: cells, activeCell, onCellChange, onAction } = props;
   return (
     <tr>
-      <RowHeading onAction={(action: string) => onAction(action)} />
+      <RowHeading onAction={(action) => onAction(action)} />
       {cells.map((cell) =>
         activeCell === cell.id ? (
           <ActiveCell

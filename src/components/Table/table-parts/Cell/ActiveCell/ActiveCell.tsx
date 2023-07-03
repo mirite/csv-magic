@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import CellComponent from "../Cell";
 import styles from "components/Table/table-parts/Cell/Cell.module.css";
 import { Cell } from "types";
@@ -11,11 +11,24 @@ interface Props extends Cell {
  */
 const ActiveCell = (props: Props) => {
   const { value, onChange } = props;
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
   const rowCount = value.split("\n").length;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if(value === debouncedValue) return;
+      onChange(debouncedValue);
+    }, 1000); // Adjust debounce delay as needed
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [debouncedValue, onChange]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.currentTarget.value;
-    onChange(newValue);
+    setDebouncedValue(newValue);
   };
 
   return (
@@ -24,7 +37,7 @@ const ActiveCell = (props: Props) => {
         className={styles.input}
         onChange={handleChange}
         rows={rowCount}
-        value={value}
+        value={debouncedValue}
       />
     </CellComponent>
   );

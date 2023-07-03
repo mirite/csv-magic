@@ -3,22 +3,23 @@ import SaveAsField from "./SaveAsField/SaveAsField";
 import UndoRedo from "./UndoRedo/UndoRedo";
 import styles from "./Chrome.module.css";
 import SuperTools from "./SuperTools/SuperTools";
-import { File, Table } from "types";
+import { Table } from "types";
+import { useFileStore } from "modules/useFileStore";
 
 interface ChromeProps {
-  editorState: File;
   onTableChange: (table: Table) => void;
 }
 
 const Chrome = (props: ChromeProps) => {
+  const file = useFileStore().currentFile();
+  if (!file) {
+    return <p>No file active</p>;
+  }
   return (
     <div className={styles.container}>
-      <UndoRedo
-        history={props.editorState.history}
-        onTableChange={props.onTableChange}
-      />
+      <UndoRedo history={file.history} onTableChange={props.onTableChange} />
       <SuperTools />
-      <SaveAsField table={props.editorState.table} />
+      <SaveAsField table={file.table} />
     </div>
   );
 };

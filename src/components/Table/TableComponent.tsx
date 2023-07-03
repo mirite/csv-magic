@@ -2,23 +2,25 @@ import React, { useCallback, useState } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import RowComponent from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
-import { Cell, Row, Sorts, Table } from "types";
+import { Cell, Row, Table } from "types";
 import styles from "components/Table/Table.module.css";
+import { useFileStore } from "../../modules/useFileStore";
+import { RowAction } from "../Editor/Editor";
 
 interface IProps {
-  /**
-   * The data from the file that was opened.
-   */
-  data: Table;
   onSort: (columnID: number) => void;
   onTableChange: (t: Table) => void;
-  onRowAction: (action: string, row: Row) => void;
-  activeSorts: Sorts;
+  onTableBodyClick: (e: React.MouseEvent<HTMLTableSectionElement>) => void;
+  onRowAction: (action: RowAction, row: Row) => void;
+  activeCell?: string;
 }
 
 const TableComponent = (props: IProps) => {
-  const { data, activeSorts, onSort, onRowAction, onTableChange } = props;
-  const [activeCell, setActiveCell] = useState(data.firstCellId);
+  const currentFile = useFileStore().currentFile();
+  if (!currentFile) return <>No File Loaded</>;
+  const { table: data, activeSorts } = currentFile;
+  const { onSort, onRowAction, onTableChange, activeCell, onTableBodyClick } =
+    props;
 
   const handleCellChange = useCallback(
     (changedCell: Cell, newValue: string) => {
@@ -30,14 +32,6 @@ const TableComponent = (props: IProps) => {
     []
   );
 
-  const handleActiveCellChange = useCallback((e: React.MouseEvent) => {
-    const { target } = e;
-    const { dataset } = target as HTMLElement;
-    if (dataset && dataset.id) {
-      setActiveCell(dataset.id);
-    }
-  }, []);
-
   return (
     <div className={styles.container}>
       <table>
@@ -47,14 +41,14 @@ const TableComponent = (props: IProps) => {
           activeSorts={activeSorts}
           onSort={(columnID) => onSort(columnID)}
         />
-        <tbody onClick={(e) => handleActiveCellChange(e)}>
+        <tbody onClick={onTableBodyClick}>
           {data.contents.map((row) => (
             <RowComponent
               key={row.id}
               {...row}
               activeCell={activeCell}
               onCellChange={(e, newValue) => handleCellChange(e, newValue)}
-              onAction={(action: string) => onRowAction(action, row)}
+              onAction={(action) => onRowAction(action, row)}
             />
           ))}
         </tbody>

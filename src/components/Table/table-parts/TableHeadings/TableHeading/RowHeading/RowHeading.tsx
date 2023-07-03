@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from "react";
 import styles from "../TableHeading.module.css";
+import { RowAction } from "../../../../../Editor/Editor";
 
 interface RowHeadingProps {
-  onAction: (actionName: string) => void;
+  onAction: (actionName: RowAction) => void;
 }
 
 const RowHeading: FunctionComponent<RowHeadingProps> = (props) => {
