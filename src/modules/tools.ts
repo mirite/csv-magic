@@ -1,10 +1,8 @@
-import _ from "lodash";
-
-export function cloneDeep(data: object) {
-  return _.cloneDeep(data);
+export function cloneDeep<T extends object>(data: T) {
+  return structuredClone(data);
 }
 
-export function createCellID(rowID: number, columnID: number): string {
+export function createCellID(rowID: number, columnID: number) {
   return rowID + "," + columnID;
 }
 

@@ -10,7 +10,7 @@ import { cloneDeep } from "./tools";
  * @return The new sorts array with the sort applied.
  */
 function setSort(sorts: Sorts, columnID: number) {
-  let newSorts = cloneDeep(sorts) as Sorts;
+  let newSorts = cloneDeep(sorts);
   /**
    * The existing sort (if any) on the key.
    */
@@ -36,7 +36,7 @@ function setSort(sorts: Sorts, columnID: number) {
  * @return The Table after all sorts have been applied.
  */
 function applySorting(data: Table, sorts: Sorts) {
-  const newData = cloneDeep(data) as Table;
+  const newData = cloneDeep(data);
   sorts.forEach((sort) => {
     const [key, ascending] = sort;
     newData.contents = newData.contents.sort((row1, row2) => {

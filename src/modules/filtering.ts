@@ -3,7 +3,7 @@ import { getCellValueByColumnID } from "./access-helpers";
 import { cloneDeep } from "./tools";
 
 function applyFilters(data: Table, activeFilter: Filter) {
-  const newData = cloneDeep(data) as Table;
+  const newData = cloneDeep(data);
 
   newData.contents = newData.contents.filter((row) => {
     return activeFilter.values.includes(

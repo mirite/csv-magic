@@ -10,7 +10,7 @@ import { cloneDeep } from "./tools";
  * @return A new Table with the cell changed.
  */
 export function updateCell(data: Table, cell: Cell): Table {
-  const newData = cloneDeep(data) as Table;
+  const newData = cloneDeep(data);
   const cellToUpdate = getCellByID(newData, cell.id);
   if (cellToUpdate) {
     cellToUpdate.value = cell.value;
@@ -31,7 +31,7 @@ export function renameColumn(
   columnId: number,
   newColumnName: string
 ): Table {
-  const newData = cloneDeep(data) as Table;
+  const newData = cloneDeep(data);
   const column = newData.columns.find((c) => c.id === columnId);
   if (!column) {
     throw new Error("Column ID not found");
@@ -54,7 +54,7 @@ export function findAndReplaceInColumn(
   toFind: string,
   toReplaceWith: string
 ): Table {
-  const newData = cloneDeep(data) as Table;
+  const newData = cloneDeep(data);
   const columnIndex = getColumnIndex(newData, column.id);
 
   for (const row of newData.contents) {
@@ -82,7 +82,7 @@ function removeColumnsInRow(row: Row, columnIdsToRemove: number[]): Row {
  * @return A new Table with the columns removed.
  */
 export function removeColumns(data: Table, columnsToRemove: Column[]): Table {
-  const newData = cloneDeep(data) as Table;
+  const newData = cloneDeep(data);
   const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
 
   newData.columns = newData.columns.filter(

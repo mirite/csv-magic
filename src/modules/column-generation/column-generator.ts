@@ -57,7 +57,7 @@ export function addColumn(
   method: EGeneratorTypes,
   methodParameters: MethodParameters
 ): Table {
-  const newData = cloneDeep(data) as Table;
+  const newData = cloneDeep(data);
   const strategy = getStrategy(method, methodParameters);
   const newColumnId = registerColumnInTable(newData, newColumnName);
 
