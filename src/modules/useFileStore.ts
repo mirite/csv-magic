@@ -4,7 +4,7 @@ import { File, FileHistory, Sorts, Table } from "../types";
 export interface FileStoreState {
   currentIndex: number;
   files: File[];
-  currentFile: File | null;
+  currentFile: () => File | null;
 }
 
 interface FileStoreActions {
@@ -41,6 +41,12 @@ export const useFileStore = create<FileStoreState & FileStoreActions>(
         return { files: newFiles };
       });
     },
-    currentFile: get().files[get().currentIndex],
+    currentFile: () => {
+      const currentIndex = get().currentIndex;
+      const files = get().files;
+      return currentIndex >= 0 && currentIndex < files.length
+        ? files[currentIndex]
+        : null;
+    },
   })
 );

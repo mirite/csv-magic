@@ -9,7 +9,7 @@ import { useFileStore } from "../../modules/useFileStore";
 function MainView() {
   const { currentFile } = useFileStore();
 
-  return <div>{currentFile ? <Editor /> : <FileSelector />}</div>;
+  return <div>{currentFile() ? <Editor /> : <FileSelector />}</div>;
 }
 
 export default MainView;

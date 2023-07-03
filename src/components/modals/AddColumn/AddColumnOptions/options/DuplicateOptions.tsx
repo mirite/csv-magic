@@ -1,6 +1,6 @@
-import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import KeyInFileSelector from "../KeyInFileSelector";
+import { useFileStore } from "modules/useFileStore";
 
 interface LookupOptionsProps {
   onChange: (e: number) => void;
@@ -9,7 +9,8 @@ interface LookupOptionsProps {
 const DuplicateOptions = (props: LookupOptionsProps) => {
   const [columnIDToDuplicate, setColumnIDToDuplicate] = useState<number>();
 
-  const activeFile = useContext(OpenFilesContext);
+  const activeFile = useFileStore();
+  const currentFile = activeFile.currentFile();
   useEffect(() => {
     if (!columnIDToDuplicate) {
       return;
@@ -18,14 +19,14 @@ const DuplicateOptions = (props: LookupOptionsProps) => {
     props.onChange(columnIDToDuplicate);
   }, [columnIDToDuplicate]);
 
-  if (!activeFile.currentFile?.table) {
+  if (!currentFile?.table) {
     return <p>No file active</p>;
   }
 
   return (
     <div>
       <KeyInFileSelector
-        table={activeFile.currentFile.table}
+        table={currentFile.table}
         label="Key in this table to duplicate:"
         onChange={(key) => setColumnIDToDuplicate(key)}
       />

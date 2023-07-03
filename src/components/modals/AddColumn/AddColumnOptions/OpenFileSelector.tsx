@@ -1,6 +1,6 @@
-import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent } from "react";
 import { File } from "types";
+import { useFileStore } from "modules/useFileStore";
 
 interface OpenFileSelectorProps {
   onChange: (file: File) => void;
@@ -8,7 +8,7 @@ interface OpenFileSelectorProps {
 }
 
 const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
-  const fileContext = useContext(OpenFilesContext);
+  const fileContext = useFileStore();
   const { files } = fileContext;
 
   const cleanedFiles = files.filter(

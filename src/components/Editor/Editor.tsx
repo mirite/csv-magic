@@ -16,7 +16,8 @@ export type ModalContextType = {
 export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
 function Editor() {
-  const { currentFile: file, updateCurrentFile } = useFileStore();
+  const { currentFile, updateCurrentFile } = useFileStore();
+  const file = currentFile();
   if (!file) return <>No File Loaded</>;
   const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
 
