@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FunctionComponent, useState } from "react";
-import { IColumn } from "types";
+import { Column } from "types";
 
 interface ColumnValueProps {
-  value: IColumn;
-  onChange: (value: IColumn, state: boolean) => void;
+  value: Column;
+  onChange: (value: Column, state: boolean) => void;
 }
 
 const ColumnValue: FunctionComponent<ColumnValueProps> = (props) => {

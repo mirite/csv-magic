@@ -1,14 +1,14 @@
-import { OpenFilesContext } from "components/ViewContainer/ViewContainer";
-import React, { FunctionComponent, useContext } from "react";
-import { IFile } from "types";
+import React, { FunctionComponent } from "react";
+import { File } from "types";
+import { useFileStore } from "modules/useFileStore";
 
 interface OpenFileSelectorProps {
-  onChange: Function;
-  currentFile?: IFile;
+  onChange: (file: File) => void;
+  currentFile?: File;
 }
 
 const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
-  const fileContext = useContext(OpenFilesContext);
+  const fileContext = useFileStore();
   const { files } = fileContext;
 
   const cleanedFiles = files.filter(
@@ -16,10 +16,11 @@ const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const fileID = e.currentTarget.value;
+    const fileID = Number.parseInt(e.currentTarget.value);
     const file = cleanedFiles.find(
       (currentFileInLoop) => currentFileInLoop.id === fileID
     );
+    if (!file) return;
     props.onChange(file);
   };
 

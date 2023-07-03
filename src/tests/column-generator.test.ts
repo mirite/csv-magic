@@ -1,6 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { getCellValueByColumnID, getColumns } from "modules/access-helpers";
-import { addColumn } from "modules/column-generation/column-generator";
-import { EGeneratorTypes } from "types";
+import {
+  addColumn,
+  EGeneratorTypes,
+} from "modules/column-generation/column-generator";
 import testTable from "./testTable";
 import testTable2 from "./testTable2";
 
@@ -14,8 +18,8 @@ test("Add blank column", () => {
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
-  expect(lastColumn!.label).toBe("test");
-  expect(getCellValueByColumnID(newTable.contents[0], lastColumn!.id)).toBe("");
+  expect(lastColumn?.label).toBe("test");
+  expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe("");
 });
 
 test("Add static column", () => {
@@ -28,8 +32,8 @@ test("Add static column", () => {
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
-  expect(lastColumn!.label).toBe("testStatic");
-  expect(getCellValueByColumnID(newTable.contents[0], lastColumn!.id)).toBe(
+  expect(lastColumn?.label).toBe("testStatic");
+  expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe(
     "abc123"
   );
 });
@@ -44,11 +48,11 @@ test("Add duplicated column", () => {
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
-  expect(lastColumn!.label).toBe("testDuplicate");
-  expect(getCellValueByColumnID(newTable.contents[0], lastColumn!.id)).toBe(
+  expect(lastColumn?.label).toBe("testDuplicate");
+  expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe(
     "2021-11-30T22:47:16.830Z"
   );
-  expect(getCellValueByColumnID(newTable.contents[1], lastColumn!.id)).toBe(
+  expect(getCellValueByColumnID(newTable.contents[1], lastColumn?.id)).toBe(
     "2021-11-30T22:47:21.910Z"
   );
 });
@@ -62,18 +66,18 @@ test("Add pool column", () => {
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
-  expect(lastColumn!.label).toBe("testPool");
+  expect(lastColumn?.label).toBe("testPool");
   const firstValue = getCellValueByColumnID(
     newTable.contents[0],
-    lastColumn!.id
+    lastColumn?.id
   );
   const secondValue = getCellValueByColumnID(
     newTable.contents[1],
-    lastColumn!.id
+    lastColumn?.id
   );
   const thirdValue = getCellValueByColumnID(
     newTable.contents[2],
-    lastColumn!.id
+    lastColumn?.id
   );
 
   expect(firstValue).toMatch(/[abc]/);
@@ -103,8 +107,8 @@ test("Add lookup column", () => {
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
-  expect(lastColumn!.label).toBe("testLookup");
-  expect(getCellValueByColumnID(newTable.contents[0], lastColumn!.id)).toBe(
+  expect(lastColumn?.label).toBe("testLookup");
+  expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe(
     "https://4263974.app.netsuite.com/app/common/entity/contact.nl?id=13233"
   );
 });

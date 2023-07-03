@@ -1,5 +1,7 @@
-import { ITable } from "types";
-const table: ITable = {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+import { Table } from "types";
+const table: Table = {
   contents: [
     {
       contents: [

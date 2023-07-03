@@ -1,78 +1,53 @@
-import React from "react";
-import BaseModal, { BaseModalProps } from "../BaseModal/BaseModal";
+import React, { ComponentProps, useState } from "react";
 import { getColumns } from "modules/access-helpers";
 import ColumnPosition from "./ColumnPosition/ColumnPosition";
-import { IColumn, ITable } from "types";
+import { Column } from "types";
 import styles from "./ReorderColumnsModal.module.css";
-import { reorderColumns } from "../../../modules/reordering";
+import { reorderColumns } from "modules/reordering";
+import Modal, { BaseModalProps } from "../BaseModal/Modal";
 
-interface IState {
-  columns: Array<IColumn>;
-}
+const ReorderColumnsModal = (props: BaseModalProps) => {
+  const { table } = props;
+  const originalColumns = getColumns(table);
+  const [columns, setColumns] = useState<Column[]>(originalColumns);
 
-/**
- * A popover for filtering the showing rows based on their values.
- */
-export default class ReorderColumnsModal extends BaseModal<
-  BaseModalProps,
-  IState
-> {
-  constructor(props: BaseModalProps) {
-    super(props);
-    const { table } = props;
-    const columns = getColumns(table);
-    this.state = {
-      columns,
-    };
-  }
-
-  getContent(): JSX.Element {
-    const { columns } = this.state;
-    return (
-      <div className={styles.list}>
-        {columns.map((column, index) => (
-          <ColumnPosition
-            key={column.id}
-            value={column}
-            onMove={(distance: number) => this.handleChange(index, distance)}
-            toStart={-1 * index}
-            toEnd={columns.length - 1 - index}
-          />
-        ))}
-      </div>
-    );
-  }
-
-  handleChange(initialIndex: number, distance: number) {
-    const { columns } = this.state;
+  const handleChange = (initialIndex: number, distance: number) => {
     const newIndex = initialIndex + distance;
     const newOrder = [...columns];
     const columnToMove = newOrder[initialIndex];
     newOrder.splice(initialIndex, 1);
     newOrder.splice(newIndex, 0, columnToMove);
-    this.setState({ columns: newOrder });
-  }
+    setColumns(newOrder);
+  };
 
-  handleApply(): void {
-    const { columns } = this.state;
-    const ids = columns.map((column) => column.id);
-    super.handleApply(ids);
-    this.props.onClose();
-  }
+  const handleApply = (): void => {
+    const ids = columns.map((column: Column) => column.id);
+    const newTable = reorderColumns(table, ids);
+    props.onClose(newTable);
+  };
 
-  isApplyEnabled() {
-    return true;
-  }
+  const options: ComponentProps<typeof Modal> = {
+    title: "Reorder Columns",
+    applyText: "Reorder Columns",
+    onApply: handleApply,
+    ...props,
+  };
 
-  getApplyText() {
-    return "Reorder Columns";
-  }
+  return (
+    <Modal {...options}>
+      <div className={styles.list}>
+        {columns.map((column, index) => (
+          <ColumnPosition
+            key={column.id}
+            value={column}
+            onMove={(distance: number) => handleChange(index, distance)}
+            toStart={-1 * index}
+            toEnd={columns.length - 1 - index}
+          />
+        ))}
+      </div>
+    </Modal>
+  );
+};
 
-  getTitle(): string {
-    return "Reorder Columns";
-  }
-
-  toCall(): (t: ITable, ...params: any[]) => ITable {
-    return reorderColumns;
-  }
-}
+export default ReorderColumnsModal;

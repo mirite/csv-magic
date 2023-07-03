@@ -1,160 +1,84 @@
-import React, { Component, Fragment } from "react";
+import React, { createContext, useCallback, useState } from "react";
 import Chrome from "../Chrome/Chrome";
-import Table from "../Table/Table";
+import TableComponent from "../Table/TableComponent";
 import Sorting from "modules/sorting";
-import {
-  availableModal,
-  IActiveModal,
-  IColumn,
-  IFile,
-  IFileHistory,
-  IRow,
-  ISorts,
-  ITable,
-} from "types";
+import { Modal, Row, Sorts, Table } from "types";
 
 import { deleteRow, duplicateRow } from "modules/row-actions";
-import modals from "../modals";
+import { useFileStore } from "modules/useFileStore";
 
-interface IProps {
-  /**
-   * The data from the file that was opened.
-   */
-  file: IFile;
-  onChange: (table: ITable, sorts: ISorts, history: IFileHistory) => any;
-}
+export type ModalContextType = {
+  setActiveModal: (modal: Modal) => void;
+  table: Table;
+  onClose: (changedTable?: Table) => void;
+};
 
-interface IState {
-  activeModal: undefined | IActiveModal;
-}
+const rowActions = {
+  delete: deleteRow,
+  duplicate: duplicateRow,
+} as const;
 
-/**
- * A file that has been opened and is being displayed as a Table in the editor.
- */
-class Editor extends Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
+export type RowAction = keyof typeof rowActions;
+export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
-    this.state = {
-      activeModal: undefined,
-    };
-  }
+function Editor() {
+  const { currentFile, updateCurrentFile } = useFileStore();
+  const file = currentFile();
+  if (!file) return <>No File Loaded</>;
+  const { table, activeSorts, history } = file;
+  const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
+  const [activeCell, setActiveCell] = useState(table.firstCellId);
 
-  /**
-   * Handles the sorting on a key.
-   *
-   * @param  columnID The field to sort on.
-   */
-  handleSort(columnID: string) {
-    const { table, activeSorts } = this.props.file;
+  const handleTableClick = useCallback(
+    (e: React.MouseEvent<HTMLTableSectionElement>) => {
+      const { target } = e;
+      const { dataset } = target as HTMLElement;
+      if (dataset && dataset.id) {
+        setActiveCell(dataset.id);
+      }
+    },
+    []
+  );
 
-    /**
-     * Adds the new sort to the list of sorts if it isn't present or toggles direction/removes sort if it is already present.
-     */
+  const handleSort = (columnID: number) => {
     const newSorts = Sorting.setSort(activeSorts, columnID);
 
-    /**
-     * The updated data with sorting applied.
-     */
     const newData = Sorting.applySorting(table, newSorts);
-    this.setCoreState(newData, newSorts);
-  }
+    setCoreState(newData, newSorts);
+  };
 
-  /**
-   * Handles the closing of the filter window.
-   */
-  handleModalClose(): void {
-    this.setState({ activeModal: undefined });
-  }
-
-  /**
-   * Displays the filter modal if it is active.
-   */
-  getModals() {
-    const { table } = this.props.file;
-    const { activeModal } = this.state;
-    if (!activeModal) {
-      return;
+  const handleModalClose = (changedTable?: Table) => {
+    if (changedTable) {
+      setCoreState(changedTable);
     }
-    const { column, Action } = activeModal;
+    setActiveModal(undefined);
+  };
 
-    return (
-      <Action
-        column={column!}
-        table={table}
-        onApply={(t: ITable) => this.handleTableChange(t)}
-        onClose={() => this.handleModalClose()}
-      />
-    );
-  }
+  const handleRowAction = (action: RowAction, row: Row) => {
+    const newTable = rowActions[action](table, row);
+    setCoreState(newTable);
+  };
 
-  /**
-   * Handles showing the filter window for the specified key.
-   *
-   * @param  modalName The modal to display.
-   * @param  column    The key to run the modal on.
-   */
-  handleSetActiveModal(modalName: availableModal, column?: IColumn) {
-    const action = modals[modalName];
-    if (!action) {
-      throw new Error(`Invalid modal requested "${modalName}"`);
-    }
-    this.setState({ activeModal: { column, Action: action } });
-  }
-
-  /**
-   * Handles the change of a value within a Table.
-   *
-   * @param  changedTable The new Table data.
-   */
-  handleTableChange(changedTable: ITable) {
-    const { activeSorts } = this.props.file;
-    this.setCoreState(changedTable, activeSorts);
-  }
-
-  handleRowAction(action: string, row: IRow): void {
-    const { table, activeSorts } = this.props.file;
-    if (action === "delete") {
-      const newTable = deleteRow(table, row);
-      this.setCoreState(newTable, activeSorts);
-    } else if (action === "duplicate") {
-      const newTable = duplicateRow(table, row);
-      this.setCoreState(newTable, activeSorts);
-    }
-  }
-
-  setCoreState(newTable: ITable, newSorts: ISorts) {
-    const { onChange } = this.props;
-    const { table, history } = this.props.file;
+  const setCoreState = (newTable: Table, newSorts?: Sorts) => {
     const newHistory = [...history, table];
-    onChange(newTable, newSorts, newHistory);
-  }
+    updateCurrentFile(newTable, newSorts || activeSorts, newHistory);
+  };
 
-  render() {
-    const { table, activeSorts } = this.props.file;
-    return (
-      <Fragment>
-        <Chrome
-          editorState={this.props.file}
-          onTableChange={(e: ITable) => this.handleTableChange(e)}
-          onSetActiveModal={(modal: availableModal) =>
-            this.handleSetActiveModal(modal)
-          }
-        />
-        <Table
-          data={table}
-          onSort={(e: string) => this.handleSort(e)}
-          onSetActiveModal={(modal, column) =>
-            this.handleSetActiveModal(modal, column)
-          }
-          onTableChange={(e: ITable) => this.handleTableChange(e)}
-          onRowAction={(action, row) => this.handleRowAction(action, row)}
-          activeSorts={activeSorts}
-        />
-        {this.getModals()}
-      </Fragment>
-    );
-  }
+  const modalContext = { setActiveModal, onClose: handleModalClose, table };
+  ModalContext = createContext<ModalContextType>(modalContext);
+  return (
+    <ModalContext.Provider value={modalContext}>
+      <Chrome onTableChange={(e: Table) => setCoreState(e)} />
+      <TableComponent
+        onSort={(e) => handleSort(e)}
+        onTableChange={(e: Table) => setCoreState(e)}
+        onRowAction={(action, row) => handleRowAction(action, row)}
+        activeCell={activeCell}
+        onTableBodyClick={handleTableClick}
+      />
+      {activeModal}
+    </ModalContext.Provider>
+  );
 }
 
 export default Editor;

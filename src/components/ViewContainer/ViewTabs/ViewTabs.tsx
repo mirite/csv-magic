@@ -1,21 +1,32 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import ViewTab from "./ViewTab/ViewTab";
-import { IFile } from "types";
+import { useFileStore } from "../../../modules/useFileStore";
 
-interface ViewTabsProps {
-  files: Array<IFile>;
-  currentIndex: number;
-  onTabClick: (index: number) => any;
-  onTabClose: (index: number) => any;
-}
+const ViewTabs = () => {
+  const { setCurrentIndex, removeFile, files, currentIndex } = useFileStore();
 
-const ViewTabs: FunctionComponent<ViewTabsProps> = (props) => {
-  const { files, onTabClick, onTabClose, currentIndex } = props;
+  const handleTabClick = (index: number) => {
+    setCurrentIndex(index);
+  };
 
-  const homeTab = () => {
-    return (
+  const handleTabClose = (index: number) => {
+    removeFile(index);
+  };
+
+  return (
+    <ul className="nav nav-tabs">
+      {files.map((file, index) => (
+        <ViewTab
+          key={file.id}
+          label={`${file.prettyName} - (${file.prettyID})`}
+          onClick={() => handleTabClick(index)}
+          onClose={() => handleTabClose(index)}
+          active={index === currentIndex}
+          home={false}
+        />
+      ))}
       <ViewTab
         label={
           files.length > 0 ? (
@@ -24,27 +35,11 @@ const ViewTabs: FunctionComponent<ViewTabsProps> = (props) => {
             "CSV Magic"
           )
         }
-        onClick={() => onTabClick(-1)}
-        onClose={() => onTabClose(-1)}
+        onClick={() => handleTabClick(-1)}
+        onClose={() => handleTabClose(-1)}
         active={-1 === currentIndex}
         home={true}
       />
-    );
-  };
-
-  return (
-    <ul className="nav nav-tabs">
-      {files.map((file, index) => (
-        <ViewTab
-          key={index}
-          label={`${file.prettyName} - (${file.prettyID})`}
-          onClick={() => onTabClick(index)}
-          onClose={() => onTabClose(index)}
-          active={index === currentIndex}
-          home={false}
-        />
-      ))}
-      {homeTab()}
     </ul>
   );
 };

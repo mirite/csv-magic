@@ -1,96 +1,52 @@
-import React, { Component, FormEvent } from "react";
+import React, { useState } from "react";
 import CSVLoader from "modules/csv/csv-loader";
-import { IFile } from "types";
 import FileInput from "./FileInput/FileInput";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import styles from "./FileSelector.module.css";
+import { useFileStore } from "modules/useFileStore";
 
-interface IState {
-  /**
-   * True indicates that the CSVLoader is currently processing the file.
-   */
-  processing: boolean;
+const FileSelector = () => {
+  const { addFile, setCurrentIndex, files } = useFileStore();
+  const [processing, setProcessing] = useState<boolean>(false);
+  const [fileTextContent, setFileTextContent] = useState<string>("");
+  const [fileName, setFileName] = useState<string>("");
+  const [fileAttached, setFileAttached] = useState<boolean>(false);
 
-  /**
-   * True indicates that a file has been selected.
-   */
-  fileAttached: boolean;
-  /**
-   * The inner textContent of the CSV file.
-   */
-  fileTextContent: string;
-  /**
-   * The name of the selected file.
-   */
-  fileName: string;
-}
-
-interface IProps {
-  /**
-   * The event to fire when the CSV file is selected and processed.
-   */
-  onChange: (data: IFile) => void;
-}
-
-/**
- * Allows a user to select a file and passes that file back to the parent component.
- */
-class FileSelector extends Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      processing: false,
-      fileTextContent: "",
-      fileName: "",
-      fileAttached: false,
-    };
-  }
-
-  /**
-   * Gets the file that was selected and add it to the component state.
-   *
-   * @param  e The form on change even.t
-   */
-  async handleAttachFile(e: FormEvent): Promise<void> {
-    const { files } = e.target as HTMLInputElement;
+  const handleAttachFile = async (e: React.FormEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
     const file = files?.item(0);
-    const fileText = await file?.text();
-    const fileName = file?.name;
-    this.setState({
-      fileTextContent: fileText ?? "",
-      fileName: fileName ?? "untitled",
-      fileAttached: true,
-    });
-  }
+    if (file) {
+      const fileText = await file.text();
+      const fileName = file.name;
+      setFileTextContent(fileText);
+      setFileName(fileName);
+      setFileAttached(true);
+    }
+  };
 
-  /**
-   * Takes the selected file and pass it back to the parent component in IFile format.
-   *
-   * @param  e The form submit event.
-   */
-  async process(e: FormEvent): Promise<void> {
+  const process = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    this.setState({ processing: true });
-    const data = await CSVLoader(
-      this.state.fileName,
-      this.state.fileTextContent
-    );
-    this.props.onChange(data);
-  }
+    setProcessing(true);
+    const file = await CSVLoader(fileName, fileTextContent);
 
-  render() {
-    const { processing, fileAttached } = this.state;
-    return (
-      <div>
-        <form onSubmit={(e) => this.process(e)}>
-          <FileInput onAttachFile={(e) => this.handleAttachFile(e)} />
-          <div className={styles.submitButtonContainer}>
-            <SubmitButton processing={processing} fileAttached={fileAttached} />
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+    if (!file) {
+      return;
+    }
+
+    addFile(file);
+    setCurrentIndex(files.length);
+  };
+
+  return (
+    <div>
+      <form onSubmit={process}>
+        <FileInput onAttachFile={handleAttachFile} />
+        <div className={styles.submitButtonContainer}>
+          <SubmitButton processing={processing} fileAttached={fileAttached} />
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default FileSelector;

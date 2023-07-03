@@ -1,35 +1,33 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import TableHeading from "./TableHeading/TableHeading";
 import { getColumns } from "modules/access-helpers";
-import { availableModal, IColumn, ISorts, ITable } from "types";
+import { Sorts, Table } from "types";
+import IntrinsicElements = React.JSX.IntrinsicElements;
 
 interface TableHeadingsProps {
-  table: ITable;
-  onSetActiveModal: (arg0: availableModal, column: IColumn) => void;
-  onSort: Function;
-  activeSorts: ISorts;
+  TablePart: keyof IntrinsicElements;
+  table: Table;
+  onSort: (columnID: number) => void;
+  activeSorts: Sorts;
 }
 
-const TableHeadings: FunctionComponent<TableHeadingsProps> = (props) => {
-  const cells = [];
-  const { activeSorts, table, onSort, onSetActiveModal } = props;
+const TableHeadings = (props: TableHeadingsProps) => {
+  const { activeSorts, table, onSort, TablePart } = props;
 
-  for (const column of getColumns(table)) {
-    cells.push(
-      <TableHeading
-        key={column.id}
-        column={column}
-        activeSorts={activeSorts}
-        onSetActiveModal={(t: availableModal) => onSetActiveModal(t, column)}
-        onSort={() => onSort(column.id)}
-      />
-    );
-  }
   return (
-    <tr>
-      <th />
-      {cells}
-    </tr>
+    <TablePart>
+      <tr>
+        <th />
+        {getColumns(table).map((column) => (
+          <TableHeading
+            key={column.id}
+            column={column}
+            activeSorts={activeSorts}
+            onSort={() => onSort(column.id)}
+          />
+        ))}
+      </tr>
+    </TablePart>
   );
 };
 

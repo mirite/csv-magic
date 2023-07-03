@@ -1,81 +1,60 @@
-import React from "react";
-import BaseModal, { BaseModalProps } from "../BaseModal/BaseModal";
-import { IColumn, ITable } from "types";
+import React, { useState } from "react";
+import Modal, { BaseModalProps } from "../BaseModal/Modal";
+import { Column } from "types";
 import styles from "./RemoveColumnsModal.module.css";
 import { getColumns } from "modules/access-helpers";
 import ColumnValue from "./ColumnValue/ColumnValue";
-import { removeColumns } from "../../../modules/editing";
+import { removeColumns } from "modules/editing";
 
-interface IState {
-  columns: Array<[IColumn, boolean]>;
-}
+const RemoveColumnsModal = (props: BaseModalProps) => {
+  const { table, onClose } = props;
+  const columns = getColumns(table);
+  const [columnsState, setColumnsState] = useState<Array<[Column, boolean]>>(
+    columns.map((label) => [label, false])
+  );
 
-/**
- * A popover for filtering the showing rows based on their values.
- */
-export default class RemoveColumnsModal extends BaseModal<
-  BaseModalProps,
-  IState
-> {
-  getTitle(): string {
-    return "Remove Columns";
-  }
+  const handleChange = (column: Column, status: boolean): void => {
+    const newColumns = [...columnsState];
+    const index = newColumns.findIndex((pair) => pair[0].id === column.id);
+    if (index !== -1) {
+      newColumns[index][1] = status;
+      setColumnsState(newColumns);
+    }
+  };
 
-  toCall(): (t: ITable, ...params: any[]) => ITable {
-    return removeColumns;
-  }
+  const getColumnsToDelete = () => {
+    return columnsState.filter((pair) => pair[1]).map((pair) => pair[0]);
+  };
 
-  constructor(props: BaseModalProps) {
-    super(props);
-    const { table } = props;
-    const columns = getColumns(table);
-    this.state = {
-      columns: columns.map((label) => [label, false]),
-    };
-  }
+  const handleApply = () => {
+    const columnsToDelete = getColumnsToDelete();
+    const newTable = removeColumns(table, columnsToDelete);
+    onClose(newTable);
+  };
 
-  getContent(): JSX.Element {
-    const { columns } = this.state;
-    return (
+  const options: React.ComponentProps<typeof Modal> = {
+    title: "Remove Columns",
+    applyText: "Remove Selected Columns",
+    onApply: handleApply,
+    isValid: getColumnsToDelete().length > 0,
+    ...props,
+  };
+
+  return (
+    <Modal {...options}>
       <ul className={styles.list}>
-        {columns.map((pair) => (
+        {columnsState.map((pair) => (
           <ColumnValue
             key={pair[0].id}
             value={pair[0]}
-            onChange={(value: IColumn, status: boolean) =>
-              this.handleChange(value, status)
+            onChange={(value: Column, status: boolean) =>
+              handleChange(value, status)
             }
           />
         ))}
       </ul>
-    );
-  }
+    </Modal>
+  );
+};
 
-  handleChange(column: IColumn, status: boolean): void {
-    const newColumns = [...this.state.columns];
-    const oldRecord = newColumns.find((pair) => pair[0].id === column.id);
-    if (oldRecord) {
-      oldRecord[1] = status;
-      this.setState({ columns: newColumns });
-    }
-  }
-
-  getColumnsToDelete() {
-    const { columns } = this.state;
-    return columns.filter((pair) => pair[1]).map((pair) => pair[0]);
-  }
-
-  handleApply(): void {
-    const columnsToDelete = this.getColumnsToDelete();
-    super.handleApply(columnsToDelete);
-    this.props.onClose();
-  }
-
-  isApplyEnabled() {
-    return this.getColumnsToDelete().length > 0;
-  }
-
-  getApplyText() {
-    return "Remove Selected Columns";
-  }
-}
+export default RemoveColumnsModal;

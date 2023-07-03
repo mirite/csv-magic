@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import styles from "../AddColumnOptions.module.css";
 
 interface StaticOptionsProps {
   onChange: (e: string) => void;
 }
 
-const StaticOptions: FunctionComponent<StaticOptionsProps> = (props) => {
+const StaticOptions = (props: StaticOptionsProps) => {
   return (
     <div>
       <label htmlFor="static-option" className={styles.label}>

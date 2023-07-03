@@ -1,6 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 import { getColumnNames } from "modules/access-helpers";
 import { removeColumns, renameColumn } from "modules/editing";
-import { IColumn } from "types";
+import { Column } from "types";
 import testTable from "./testTable";
 
 test("Rename columns", () => {
@@ -14,7 +16,7 @@ test("Rename columns", () => {
 });
 
 test("Remove Columns", () => {
-  const columnsToRemove: Array<IColumn> = [
+  const columnsToRemove: Array<Column> = [
     {
       label: "retry",
       position: 1,

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinusSquare,
@@ -6,19 +6,20 @@ import {
   faRandom,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./SuperTools.module.css";
-import { availableModal } from "types";
+import { ModalContext } from "../../Editor/Editor";
+import RemoveColumns from "../../modals/RemoveColumns/RemoveColumns";
+import AddColumn from "../../modals/AddColumn/AddColumn";
+import ReorderColumns from "../../modals/ReorderColumns/ReorderColumns";
 
-interface SuperToolsProps {
-  onSetActiveModal: (modalToDisplay: availableModal) => void;
-}
-
-const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
-  const { onSetActiveModal } = props;
+const SuperTools = () => {
+  const { setActiveModal, onClose, table } = useContext(ModalContext);
   return (
     <div>
       <button
         className={styles.remove}
-        onClick={() => onSetActiveModal("RemoveColumns")}
+        onClick={() =>
+          setActiveModal(<RemoveColumns onClose={onClose} table={table} />)
+        }
         title="Remove Columns"
       >
         <FontAwesomeIcon icon={faMinusSquare} />
@@ -26,7 +27,9 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
       </button>
       <button
         className={styles.add}
-        onClick={() => onSetActiveModal("AddColumn")}
+        onClick={() =>
+          setActiveModal(<AddColumn onClose={onClose} table={table} />)
+        }
         title="Add Column"
       >
         <FontAwesomeIcon icon={faPlusSquare} />
@@ -34,7 +37,9 @@ const SuperTools: FunctionComponent<SuperToolsProps> = (props) => {
       </button>
       <button
         className={styles.add}
-        onClick={() => onSetActiveModal("ReorderColumns")}
+        onClick={() =>
+          setActiveModal(<ReorderColumns onClose={onClose} table={table} />)
+        }
         title="Reorder Columns"
       >
         <FontAwesomeIcon icon={faRandom} />

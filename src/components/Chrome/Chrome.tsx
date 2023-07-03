@@ -1,25 +1,25 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import SaveAsField from "./SaveAsField/SaveAsField";
 import UndoRedo from "./UndoRedo/UndoRedo";
 import styles from "./Chrome.module.css";
 import SuperTools from "./SuperTools/SuperTools";
-import { availableModal, IFile } from "types";
+import { Table } from "types";
+import { useFileStore } from "modules/useFileStore";
 
 interface ChromeProps {
-  editorState: IFile;
-  onTableChange: Function;
-  onSetActiveModal: (arg0: availableModal) => void;
+  onTableChange: (table: Table) => void;
 }
 
-const Chrome: FunctionComponent<ChromeProps> = (props) => {
+const Chrome = (props: ChromeProps) => {
+  const file = useFileStore().currentFile();
+  if (!file) {
+    return <p>No file active</p>;
+  }
   return (
     <div className={styles.container}>
-      <UndoRedo
-        history={props.editorState.history}
-        onTableChange={props.onTableChange}
-      />
-      <SuperTools onSetActiveModal={props.onSetActiveModal} />
-      <SaveAsField table={props.editorState.table} />
+      <UndoRedo history={file.history} onTableChange={props.onTableChange} />
+      <SuperTools />
+      <SaveAsField table={file.table} />
     </div>
   );
 };

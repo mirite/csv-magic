@@ -1,9 +1,9 @@
-import { IFilter, ITable } from "types";
+import { Filter, Table } from "types";
 import { getCellValueByColumnID } from "./access-helpers";
 import { cloneDeep } from "./tools";
 
-function applyFilters(data: ITable, activeFilter: IFilter) {
-  const newData = cloneDeep(data) as ITable;
+function applyFilters(data: Table, activeFilter: Filter) {
+  const newData = cloneDeep(data) as Table;
 
   newData.contents = newData.contents.filter((row) => {
     return activeFilter.values.includes(

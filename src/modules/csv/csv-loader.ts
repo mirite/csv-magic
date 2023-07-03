@@ -1,7 +1,7 @@
 import csv from "csvtojson";
-import { ITable, IRow, IFile, IRawRow, IRawTable } from "types";
+import { Table, Row, File, RawRow, RawTable } from "types";
 import { getColumnId } from "../access-helpers";
-import { createCellID, createUUID } from "../tools";
+import { createCellID, createID } from "../tools";
 
 /**
  * Takes the text content of a CSV file and returns the raw Table from it (an array of objects (rows) with keys and values).
@@ -9,7 +9,7 @@ import { createCellID, createUUID } from "../tools";
  * @param  content The text content of the CSV file.
  * @return The raw Table from the file.
  */
-async function loadFile(content: string): Promise<IRawTable> {
+async function loadFile(content: string): Promise<RawTable> {
   return csv().fromString(content);
 }
 
@@ -21,30 +21,28 @@ async function loadFile(content: string): Promise<IRawTable> {
  * @param  raw The raw Table loaded from the file.
  * @return The Table with our format applied.
  */
-function convertToTable(raw: IRawTable): ITable {
+function convertToTable(raw: RawTable): Table {
   /**
    * The Table being created from the raw data.
    */
-  const newTable: ITable = { contents: [], columns: [] };
+  const newTable: Table = { contents: [], columns: [] };
 
-  raw.forEach((rawRow: IRawRow, rowIndex) => {
+  raw.forEach((rawRow: RawRow, rowIndex) => {
     /**
      * A new row within the output Table.
      */
-    const newRow: IRow = { contents: [], originalIndex: rowIndex };
+    const newRow: Row = { contents: [], originalIndex: rowIndex };
 
     /**
      * Counter to make cell ids somewhat predictable.
      */
     let columnPosition = 0;
-    newRow.id = createUUID("row");
+    newRow.id = createID("row");
     for (const [label, rawValue] of Object.entries(rawRow)) {
-      let columnId;
+      let columnId: number;
       if (rowIndex === 0) {
         columnId = registerColumnInTable(newTable, label);
-      }
-
-      if (!columnId) {
+      } else {
         columnId = getColumnId(newTable, columnPosition);
       }
       /**
@@ -66,9 +64,9 @@ function convertToTable(raw: IRawTable): ITable {
   return newTable;
 }
 
-export function registerColumnInTable(table: ITable, label: string) {
-  const id = createUUID("col");
+export function registerColumnInTable(table: Table, label: string) {
   const position = table.columns.length;
+  const id = createID("column");
   table.columns.push({
     label,
     position,
@@ -80,11 +78,10 @@ export function registerColumnInTable(table: ITable, label: string) {
 export default async function (
   fileName: string,
   fileText: string
-): Promise<IFile> {
+): Promise<File> {
   const source = await loadFile(fileText);
   const data = convertToTable(source);
-  const id = createUUID("file");
-  const prettyID = id.substring(id.length - 4);
+  const id = createID("file");
   const prettyName =
     fileName.length > 20 ? generatePrettyName(fileName) : fileName;
   return {
@@ -93,7 +90,7 @@ export default async function (
     activeSorts: [],
     history: [],
     id,
-    prettyID,
+    prettyID: id.toString(),
     prettyName,
   };
 }

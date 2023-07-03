@@ -8,7 +8,15 @@ import { Statically } from "./column-generators/Statically";
 import { Lookup } from "./column-generators/Lookup";
 import { registerColumnInTable } from "../csv/csv-loader";
 import { cloneDeep, createCellID } from "../tools";
-import { EGeneratorTypes, ICell, IMappedColumn, ITable } from "types";
+import { Cell, MappedColumn, Table } from "types";
+
+export enum EGeneratorTypes {
+  blank,
+  statically,
+  lookup,
+  pool,
+  duplicate,
+}
 
 function getStrategy(
   method: EGeneratorTypes,
@@ -28,6 +36,12 @@ function getStrategy(
   }
 }
 
+export type MethodParameters =
+  | string
+  | string[]
+  | MappedColumn
+  | undefined
+  | number;
 /**
  * Adds a new column to a Table and fills it with values using the method and parameters provided.
  *
@@ -38,19 +52,24 @@ function getStrategy(
  * @return A new Table with the column added.
  */
 export function addColumn(
-  data: ITable,
+  data: Table,
   newColumnName: string,
   method: EGeneratorTypes,
-  methodParameters: string | string[] | IMappedColumn | undefined
-): ITable {
-  const newData = cloneDeep(data) as ITable;
+  methodParameters: MethodParameters
+): Table {
+  const newData = cloneDeep(data) as Table;
   const strategy = getStrategy(method, methodParameters);
   const newColumnId = registerColumnInTable(newData, newColumnName);
 
   for (const row of newData.contents) {
     const cellValue = strategy.getValue(row);
-    const newCell: ICell = {
-      id: createCellID(row.id!, newColumnId),
+    if (!row.id) {
+      throw new Error(
+        "The row in which a column is being added does not have an id"
+      );
+    }
+    const newCell: Cell = {
+      id: createCellID(row.id, newColumnId),
       columnID: newColumnId,
       value: cellValue,
     };

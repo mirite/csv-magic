@@ -1,73 +1,56 @@
-import React from "react";
-import BaseModal, { BaseModalProps } from "../BaseModal/BaseModal";
-import { IColumn, ITable } from "types";
+import React, { useId, useState } from "react";
+import Modal, { BaseModalProps } from "../BaseModal/Modal";
+import { Column } from "types";
 import styles from "./RenameColumn.module.css";
-import { renameColumn } from "../../../modules/editing";
+import { renameColumn } from "modules/editing";
 
 interface IProps extends BaseModalProps {
-  column: IColumn;
+  column: Column;
 }
 
-interface IState {
-  newName: string;
-}
-/**
- * A popover for filtering the showing rows based on their values.
- */
-export default class RenameColumnModal extends BaseModal<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      newName: "",
-    };
-  }
-  getContent(): JSX.Element {
-    const { column } = this.props;
-    return (
+const RenameColumnModal = (props: IProps) => {
+  const { column, table, onClose } = props;
+  const [newName, setNewName] = useState<string>("");
+
+  const handleNewNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setNewName(value);
+  };
+
+  const handleApply = () => {
+    const changedTable = renameColumn(table, column.id, newName.trim());
+    onClose(changedTable);
+  };
+
+  const id = useId();
+
+  const options: React.ComponentProps<typeof Modal> = {
+    title: "Rename Column",
+    applyText: "Rename",
+    onApply: handleApply,
+    isValid: newName.trim() !== "",
+    ...props,
+  };
+
+  return (
+    <Modal {...options}>
       <div>
         <p>Renaming &quot;{column.label}&quot;</p>
         <div className={styles.container}>
           <div className={styles.group}>
-            <label htmlFor="find-input">New Name:</label>
+            <label htmlFor={id}>New Name:</label>
             <input
-              id="find-input"
+              id={id}
               className={styles.input}
               type="text"
-              value={this.state.newName}
-              onChange={(e) => this.handleNewNameChange(e)}
+              value={newName}
+              onChange={handleNewNameChange}
             />
           </div>
         </div>
       </div>
-    );
-  }
+    </Modal>
+  );
+};
 
-  handleNewNameChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    const { value } = e.target;
-    this.setState({ newName: value });
-  }
-
-  handleApply(): void {
-    const { newName } = this.state;
-    const { column } = this.props;
-    super.handleApply(column, newName.trim());
-    this.props.onClose();
-  }
-
-  getApplyText() {
-    return "Rename";
-  }
-
-  isApplyEnabled() {
-    const { newName } = this.state;
-    return newName.trim() !== "";
-  }
-
-  getTitle(): string {
-    return "Rename Column";
-  }
-
-  toCall(): (t: ITable, ...params: any[]) => ITable {
-    return renameColumn;
-  }
-}
+export default RenameColumnModal;

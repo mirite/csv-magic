@@ -1,11 +1,11 @@
 import { getColumns } from "modules/access-helpers";
-import React, { FunctionComponent } from "react";
-import { ITable } from "types";
+import React, { FunctionComponent, useId } from "react";
+import { Table } from "types";
 
 interface KeyInFileSelectorProps {
-  table: ITable;
+  table: Table;
   label: string;
-  onChange: (event: string) => void;
+  onChange: (value: number) => void;
 }
 
 const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
@@ -15,12 +15,15 @@ const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
     return <p>No Keys Found In File</p>;
   }
   const columns = getColumns(props.table);
+  const id = useId();
   return (
     <div>
-      <label htmlFor="select-key-in-file">{props.label}</label>
+      <label htmlFor={id}>{props.label}</label>
       <select
-        id="select-key-in-file"
-        onChange={(event) => props.onChange(event.currentTarget.value)}
+        id={id}
+        onChange={(event) =>
+          props.onChange(Number.parseInt(event.currentTarget.value))
+        }
       >
         <option value="">Please select a key</option>
         {columns.map((key) => (

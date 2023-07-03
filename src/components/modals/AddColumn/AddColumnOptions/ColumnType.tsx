@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react";
-import { EGeneratorTypes } from "types";
+import React, { FunctionComponent, useId } from "react";
+import { EGeneratorTypes } from "modules/column-generation/column-generator";
 
 interface ColumnTypeRadioProps {
   label: string;
@@ -10,7 +10,7 @@ interface ColumnTypeRadioProps {
 }
 
 const ColumnTypeRadio: FunctionComponent<ColumnTypeRadioProps> = (props) => {
-  const id = props.label + "-radio";
+  const id = useId();
   return (
     <div>
       <input
