@@ -19,7 +19,7 @@ const ActiveCell = (props: Props) => {
     const timer = setTimeout(() => {
       if(value === debouncedValue) return;
       onChange(debouncedValue);
-    }, 1000); // Adjust debounce delay as needed
+    }, 600); // Adjust debounce delay as needed
 
     return () => {
       clearTimeout(timer);
