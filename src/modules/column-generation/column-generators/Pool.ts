@@ -1,43 +1,33 @@
-import _ from "lodash";
-import GenerateColumnStrategy, {
-  StrategyParameters,
-} from "./GenerateColumnStrategy";
+import { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 
-export class Pool extends GenerateColumnStrategy {
-  private generator: Generator<string, string, unknown>;
+let generator: ReturnType<typeof poolValuesGenerator>;
 
-  constructor(protected methodParameters: StrategyParameters) {
-    super(methodParameters);
-    this.generator = this.poolValuesGenerator();
-  }
+export const Pool: GenerateColumnStrategy<string[]> = {
+  init: (poolValues: string[]) => {
+    generator = poolValuesGenerator(poolValues);
+  },
+  generate: () => {
+    return generator.next().value;
+  },
+};
 
+/**
+ * Generator to evenly assign values from the pool of strings provided.
+ * Starts at a random index and loops from there.
+ *
+ * @return The next string in the pool.
+ */
+function* poolValuesGenerator(poolValues: string[]) {
   /**
-   * Generator to evenly assign values from the pool of strings provided.
-   * Starts at a random index and loops from there.
-   *
-   * @return The next string in the pool.
+   * The current index within the pool values that are being cycled through.
    */
-  *poolValuesGenerator() {
-    /**
-     * The list of strings that can be assigned from.
-     */
-    const poolValues = this.methodParameters as Array<string>;
-
-    /**
-     * The current index within the pool values that are being cycled through.
-     */
-    let poolValueIndex = _.random(0, poolValues.length - 1, false);
-    while (poolValueIndex < poolValues.length) {
-      yield poolValues[poolValueIndex];
-      poolValueIndex++;
-      if (poolValueIndex === poolValues.length) {
-        poolValueIndex = 0;
-      }
+  let poolValueIndex = Math.floor(Math.random() * poolValues.length);
+  while (poolValueIndex < poolValues.length) {
+    yield poolValues[poolValueIndex];
+    poolValueIndex++;
+    if (poolValueIndex === poolValues.length) {
+      poolValueIndex = 0;
     }
-    return "";
   }
-
-  getValue(): string {
-    return this.generator.next().value;
-  }
+  return "";
 }

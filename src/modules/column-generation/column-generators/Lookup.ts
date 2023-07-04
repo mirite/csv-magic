@@ -1,13 +1,12 @@
-import GenerateColumnStrategy from "./GenerateColumnStrategy";
+import { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 import { MappedColumn, Row } from "types";
 import {
   getCellValueByColumnID,
   getRowWithMatchingValueInColumn,
 } from "../../access-helpers";
 
-export class Lookup extends GenerateColumnStrategy {
-  getValue(row: Row | undefined): string {
-    const mappedGenerator = this.methodParameters as MappedColumn;
+export const Lookup: GenerateColumnStrategy<MappedColumn> = {
+  generate: (row: Row, mappedGenerator: MappedColumn) => {
     const { foreignTable, sourceMatchID, foreignMatchID, foreignImportID } =
       mappedGenerator;
 
@@ -23,5 +22,5 @@ export class Lookup extends GenerateColumnStrategy {
       return getCellValueByColumnID(remoteRow, foreignImportID);
     }
     return "";
-  }
-}
+  },
+};

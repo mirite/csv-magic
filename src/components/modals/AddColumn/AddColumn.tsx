@@ -8,78 +8,93 @@ import PoolOptions from "./AddColumnOptions/options/PoolOptions";
 import StaticOptions from "./AddColumnOptions/options/StaticOptions";
 import DuplicateOptions from "./AddColumnOptions/options/DuplicateOptions";
 import {
-  addColumn,
-  EGeneratorTypes,
-  MethodParameters,
+  addColumn
 } from "modules/column-generation/column-generator";
+import {
+  Blank,
+  Duplicate,
+  Lookup,
+  Pool,
+  Statically,
+} from "modules/column-generation/column-generators";
+
+const columnTypeRadios = {
+  "Blank": {
+    label: "Blank",
+    description: "An empty column, nothing magical here.",
+    type: Blank,
+    OptionsComponent: () => <span>There are no options for blank.</span>,
+    default: true,
+  },
+  "Static": {
+    label: "Static",
+    description: "A column filled with a set value, It could be blank if you are really opposed to using the blank option.",
+    type: Statically,
+    OptionsComponent: (setParams:(value: string)=>void) => (
+        <StaticOptions
+            onChange={(value: string) => setParams(value)}
+        />
+    ),
+  },
+  "Lookup": {
+    label: "Lookup",
+    description: "A column filled with data from matches in another open table. Basically a portal.",
+    type: Lookup,
+    OptionsComponent: (setParams:(value: MappedColumn)=>void) => (
+        <LookupOptions
+            onChange={(value: MappedColumn) => setParams(value)}
+        />
+    ),
+  },
+  "Pool": {
+    label: "Pool",
+    description: "A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want).",
+    type: Pool,
+    OptionsComponent: (setParams:(value: string[])=>void) => (
+        <PoolOptions
+            onChange={(values: string[]) => setParams(values)}
+        />
+    ),
+  },
+  "Duplicate": {
+    label: "Duplicate",
+    description: "A column that is an exact clone of a column in this table.",
+    type: Duplicate,
+    OptionsComponent: (setParams:(value: number)=>void) => (
+        <DuplicateOptions onChange={(value) => setParams(value)} />
+    ),
+  },
+} as const;
+
 
 const AddColumnModal = (props: BaseModalProps) => {
   const { table, onClose } = props;
-  const [newName, setNewName] = useState<string>("");
-  const [newType, setNewType] = useState<EGeneratorTypes>(
-    EGeneratorTypes.blank
-  );
-  const [params, setParams] = useState<
+  const [columnName, setColumnName] = useState<string>("");
+  const [columnType, setColumnType] = useState<keyof typeof columnTypeRadios>("Blank");
+  const [columnParameters, setColumnParameters] = useState<
     undefined | string | string[] | MappedColumn | number
   >(undefined);
 
-  const handleNewNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setNewName(value);
+    setColumnName(value);
   };
 
-  const handleParamsChange = (value: MethodParameters) => {
-    setParams(value);
-  };
-
-  const handleTypeChange = (e: EGeneratorTypes) => {
-    setNewType(e);
-    setParams(undefined);
+  const handleTypeChange = (e: keyof typeof columnTypeRadios) => {
+    setColumnType(e);
+    setColumnParameters(undefined);
   };
 
   const handleApply = () => {
-    const newTable = addColumn(table, newName, newType, params);
+    const newTable = addColumn(table, columnName, columnTypeRadios[columnType].type, columnParameters);
     onClose(newTable);
-  };
-
-  const additionalOptions = () => {
-    if (newType === EGeneratorTypes.blank) {
-      return <span>There are no options for blank.</span>;
-    }
-    if (newType === EGeneratorTypes.statically) {
-      return (
-        <StaticOptions
-          onChange={(value: string) => handleParamsChange(value)}
-        />
-      );
-    }
-    if (newType === EGeneratorTypes.lookup) {
-      return (
-        <LookupOptions
-          onChange={(value: MappedColumn) => handleParamsChange(value)}
-        />
-      );
-    }
-    if (newType === EGeneratorTypes.pool) {
-      return (
-        <PoolOptions
-          onChange={(values: string[]) => handleParamsChange(values)}
-        />
-      );
-    }
-    if (newType === EGeneratorTypes.duplicate) {
-      return (
-        <DuplicateOptions onChange={(value) => handleParamsChange(value)} />
-      );
-    }
-    return null;
   };
 
   const options: React.ComponentProps<typeof Modal> = {
     title: "Add Column",
     applyText: "Add Column",
     onApply: handleApply,
-    isValid: !!((params || newType === EGeneratorTypes.blank) && newName),
+    isValid: !!((columnParameters || columnType === "Blank") && columnName),
     ...props,
   };
 
@@ -95,47 +110,17 @@ const AddColumnModal = (props: BaseModalProps) => {
               id="name-input"
               className={styles.input}
               type="text"
-              value={newName}
-              onChange={handleNewNameChange}
+              value={columnName}
+              onChange={handleNameChange}
             />
           </div>
           <div className={styles.group}>
             <h3>Column Type:</h3>
-            <ColumnTypeRadio
-              label="Blank"
-              description="An empty column, nothing magical here."
-              type={EGeneratorTypes.blank}
-              onChange={handleTypeChange}
-              default={true}
-            />
-            <ColumnTypeRadio
-              label="Static"
-              description="A column filled with a set value, It could be blank if you are really opposed to using the blank option."
-              type={EGeneratorTypes.statically}
-              onChange={handleTypeChange}
-            />
-            <ColumnTypeRadio
-              label="Lookup"
-              description="A column filled with data from matches in another open table. Basically a portal."
-              type={EGeneratorTypes.lookup}
-              onChange={handleTypeChange}
-            />
-            <ColumnTypeRadio
-              label="Pool"
-              description="A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want)."
-              type={EGeneratorTypes.pool}
-              onChange={handleTypeChange}
-            />
-            <ColumnTypeRadio
-              label="Duplicate"
-              description="A column that is an exact clone of a column in this table."
-              type={EGeneratorTypes.duplicate}
-              onChange={handleTypeChange}
-            />
+            {Object.entries(columnTypeRadios).map(([key, value]) => (<ColumnTypeRadio key={key} label={value.label} description={value.description} type={value.type} onChange={handleTypeChange} default={!("default" in value) || value.default} />))}
           </div>
           <div className={styles.group}>
             <h3>Options:</h3>
-            {additionalOptions()}
+            {columnTypeRadios[columnType].OptionsComponent(setColumnParameters)}
           </div>
         </div>
       </div>

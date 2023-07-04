@@ -1,7 +1,7 @@
-import GenerateColumnStrategy from "./GenerateColumnStrategy";
+import { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 
-export class Statically extends GenerateColumnStrategy {
-  getValue(): string {
-    return this.methodParameters as string;
-  }
-}
+export const Statically: GenerateColumnStrategy<string> = {
+  generate: (row, params) => {
+    return params;
+  },
+};

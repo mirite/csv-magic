@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from "react";
 import CellComponent from "../Cell";
 import styles from "components/Table/table-parts/Cell/Cell.module.css";
 import { Cell } from "types";
@@ -17,7 +17,7 @@ const ActiveCell = (props: Props) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if(value === debouncedValue) return;
+      if (value === debouncedValue) return;
       onChange(debouncedValue);
     }, 600); // Adjust debounce delay as needed
 

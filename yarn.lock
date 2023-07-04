@@ -2888,7 +2888,6 @@ __metadata:
     eslint-webpack-plugin: ^4.0.1
     html-webpack-plugin: ^5.5.3
     jest: ^29.5.0
-    lodash: ^4.17.21
     postcss: ^8.4.24
     postcss-loader: ^7.3.3
     prettier: ^2.8.8
