@@ -86,7 +86,7 @@ const AddColumnModal = (props: BaseModalProps) => {
   };
 
   const handleApply = () => {
-    const newTable = addColumn(table, columnName, columnTypeRadios[columnType].type, columnParameters);
+    const newTable = addColumn<typeof columnParameters>(table, columnName, columnTypeRadios[columnType].type, columnParameters);
     onClose(newTable);
   };
 
