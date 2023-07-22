@@ -17,6 +17,7 @@ import {
   Pool,
   Statically,
 } from "modules/column-generation/column-generators";
+import { GenerateColumnStrategy } from '../../../modules/column-generation/column-generators/GenerateColumnStrategy';
 
 const columnTypeRadios = {
   "Blank": {
@@ -86,7 +87,7 @@ const AddColumnModal = (props: BaseModalProps) => {
   };
 
   const handleApply = () => {
-    const newTable = addColumn<typeof columnParameters>(table, columnName, columnTypeRadios[columnType].type, columnParameters);
+    const newTable = addColumn<typeof columnParameters>(table, columnName, columnTypeRadios[columnType].type as GenerateColumnStrategy<typeof columnParameters>, columnParameters);
     onClose(newTable);
   };
 
