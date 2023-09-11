@@ -9,7 +9,7 @@ test("Rename columns", () => {
   const newTable = renameColumn(
     testTable,
     "911fd1c0-516d-44b0-b8fd-abeaf5344648",
-    "blah"
+    "blah",
   );
   const columnNames = getColumnNames(newTable);
   expect(columnNames[1]).toBe("blah");
@@ -33,6 +33,6 @@ test("Remove Columns", () => {
   expect(newTable.columns[1].id).toBe("1bd90560-5142-4d62-a245-36e0003702ff");
   expect(newTable.contents[0].contents.length).toBe(12);
   expect(newTable.contents[0].contents[1].columnID).toBe(
-    "1bd90560-5142-4d62-a245-36e0003702ff"
+    "1bd90560-5142-4d62-a245-36e0003702ff",
   );
 });

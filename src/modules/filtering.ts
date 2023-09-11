@@ -7,7 +7,7 @@ function applyFilters(data: Table, activeFilter: Filter) {
 
   newData.contents = newData.contents.filter((row) => {
     return activeFilter.values.includes(
-      getCellValueByColumnID(row, activeFilter.column.id)
+      getCellValueByColumnID(row, activeFilter.column.id),
     );
   });
 

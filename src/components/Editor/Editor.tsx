@@ -37,7 +37,7 @@ function Editor() {
         setActiveCell(dataset.id);
       }
     },
-    []
+    [],
   );
 
   const handleSort = (columnID: number) => {

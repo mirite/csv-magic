@@ -15,7 +15,7 @@ export const Lookup: GenerateColumnStrategy<MappedColumn> = {
     const remoteRow = getRowWithMatchingValueInColumn(
       foreignTable,
       foreignMatchID,
-      localValue
+      localValue,
     );
 
     if (remoteRow) {

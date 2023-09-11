@@ -36,7 +36,7 @@ function Row(props: IProps) {
           />
         ) : (
           <InactiveCell key={cell.id} {...cell} />
-        )
+        ),
       )}
     </tr>
   );

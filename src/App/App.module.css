@@ -1,7 +1,8 @@
 .header {
   text-align: center;
   color: #111;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at 100% 50%,
       transparent 20%,
       rgba(255, 255, 255, 0.3) 21%,

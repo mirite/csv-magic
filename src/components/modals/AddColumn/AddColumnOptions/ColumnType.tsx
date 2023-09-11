@@ -1,11 +1,9 @@
 import React, { FunctionComponent, useId } from "react";
-import { EGeneratorTypes } from "modules/column-generation/column-generator";
 
 interface ColumnTypeRadioProps {
   label: string;
   description: string;
-  type: EGeneratorTypes;
-  onChange: (e: EGeneratorTypes) => void;
+  onChange: () => void;
   default?: boolean;
 }
 
@@ -17,7 +15,7 @@ const ColumnTypeRadio: FunctionComponent<ColumnTypeRadioProps> = (props) => {
         type="radio"
         id={id}
         name="column-type"
-        onChange={() => props.onChange(props.type)}
+        onChange={() => props.onChange()}
         defaultChecked={props.default}
       />
       <label htmlFor={id}>

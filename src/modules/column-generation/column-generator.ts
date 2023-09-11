@@ -16,7 +16,7 @@ export function addColumn<T>(
   data: Table,
   newColumnName: string,
   strategy: GenerateColumnStrategy<T>,
-  methodParameters: T
+  methodParameters: T,
 ): Table {
   const newData = cloneDeep(data);
   if (strategy.init) {
@@ -28,7 +28,7 @@ export function addColumn<T>(
     const cellValue = strategy.generate(row, methodParameters);
     if (!row.id) {
       throw new Error(
-        "The row in which a column is being added does not have an id"
+        "The row in which a column is being added does not have an id",
       );
     }
     const newCell: Cell = {

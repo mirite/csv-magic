@@ -8,7 +8,7 @@ import { Cell, Column, Row, Table } from "types";
  */
 export function reorderColumns(
   table: Table,
-  newColumnOrder: Array<number>
+  newColumnOrder: Array<number>,
 ): Table {
   const reorderedTable: Table = {
     columns: [],
@@ -23,7 +23,7 @@ export function reorderColumns(
 
 function createNewColumnField(
   columns: Column[],
-  newColumnOrder: number[]
+  newColumnOrder: number[],
 ): Column[] {
   const newColumns: Column[] = [];
   let position = 0;
@@ -52,7 +52,7 @@ function createNewRow(row: Row, newColumnOrder: number[]): Row {
 
   for (const columnID of newColumnOrder) {
     const existingCell: Cell | undefined = row.contents.find(
-      (c) => c.columnID === columnID
+      (c) => c.columnID === columnID,
     );
     if (!existingCell) {
       throw new Error("Column ID not found in row");

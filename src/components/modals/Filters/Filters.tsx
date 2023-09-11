@@ -21,11 +21,11 @@ const FiltersModal = (props: IProps) => {
 
     if (!newStatus) {
       newFilterList.values = oldFilterList.filter(
-        (existingValue) => existingValue !== valueToToggle
+        (existingValue) => existingValue !== valueToToggle,
       );
     } else {
       const existingFilter = oldFilterList.find(
-        (existingValue) => existingValue === valueToToggle
+        (existingValue) => existingValue === valueToToggle,
       );
 
       if (existingFilter) {

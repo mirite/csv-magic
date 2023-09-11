@@ -71,13 +71,13 @@ export function getColumns(table: Table): Array<Column> {
  */
 export function getUniqueValuesInColumn(
   table: Table,
-  columnId: number
+  columnId: number,
 ): Array<[string, number]> {
   const values: Array<[string, number]> = [];
   for (const row of table.contents) {
     const cellValue = getCellValueByColumnID(row, columnId);
     const existingRecord = values.find(
-      (valuePair) => valuePair[0] === cellValue
+      (valuePair) => valuePair[0] === cellValue,
     );
 
     if (existingRecord) {
@@ -124,7 +124,7 @@ export function getColumnId(data: Table, index: number) {
 export function countOccurrences(
   data: Table,
   columnID: number,
-  needle: string
+  needle: string,
 ): number {
   const columnIndex = getColumnIndex(data, columnID);
   let count = 0;
@@ -139,7 +139,7 @@ export function countOccurrences(
 export function getRowWithMatchingValueInColumn(
   table: Table,
   columnId: number,
-  valueToFind: string
+  valueToFind: string,
 ): Row | undefined {
   const rows = table.contents;
   for (const row of rows) {

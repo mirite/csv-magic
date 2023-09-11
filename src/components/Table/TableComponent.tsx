@@ -29,7 +29,7 @@ const TableComponent = (props: IProps) => {
       const newData = updateCell(data, newCell);
       onTableChange(newData);
     },
-    []
+    [],
   );
 
   return (

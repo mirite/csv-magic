@@ -48,5 +48,5 @@ export const useFileStore = create<FileStoreState & FileStoreActions>(
         ? files[currentIndex]
         : null;
     },
-  })
+  }),
 );

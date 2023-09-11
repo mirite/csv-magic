@@ -10,7 +10,7 @@ const RemoveColumnsModal = (props: BaseModalProps) => {
   const { table, onClose } = props;
   const columns = getColumns(table);
   const [columnsState, setColumnsState] = useState<Array<[Column, boolean]>>(
-    columns.map((label) => [label, false])
+    columns.map((label) => [label, false]),
   );
 
   const handleChange = (column: Column, status: boolean): void => {

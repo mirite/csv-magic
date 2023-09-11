@@ -29,7 +29,7 @@ export function updateCell(data: Table, cell: Cell): Table {
 export function renameColumn(
   data: Table,
   columnId: number,
-  newColumnName: string
+  newColumnName: string,
 ): Table {
   const newData = cloneDeep(data);
   const column = newData.columns.find((c) => c.id === columnId);
@@ -52,7 +52,7 @@ export function findAndReplaceInColumn(
   data: Table,
   column: Column,
   toFind: string,
-  toReplaceWith: string
+  toReplaceWith: string,
 ): Table {
   const newData = cloneDeep(data);
   const columnIndex = getColumnIndex(newData, column.id);
@@ -66,7 +66,7 @@ export function findAndReplaceInColumn(
 
 function removeColumnsInRow(row: Row, columnIdsToRemove: number[]): Row {
   const remainingCells = row.contents.filter(
-    (cell) => !columnIdsToRemove.includes(cell.columnID)
+    (cell) => !columnIdsToRemove.includes(cell.columnID),
   );
   return {
     id: row.id,
@@ -86,11 +86,11 @@ export function removeColumns(data: Table, columnsToRemove: Column[]): Table {
   const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
 
   newData.columns = newData.columns.filter(
-    (c) => !idsOfColumnsToRemove.includes(c.id)
+    (c) => !idsOfColumnsToRemove.includes(c.id),
   );
 
   newData.contents = newData.contents.map((row) =>
-    removeColumnsInRow(row, idsOfColumnsToRemove)
+    removeColumnsInRow(row, idsOfColumnsToRemove),
   );
   return newData;
 }

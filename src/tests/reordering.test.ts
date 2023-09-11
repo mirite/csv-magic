@@ -32,6 +32,6 @@ test("Reorder columns (body)", () => {
   expect(reorderedTable.contents[0].contents[1].value).toEqual("FALSE");
   expect(reorderedTable.contents[0].contents[2].value).toEqual("LOL");
   expect(reorderedTable.contents[0].contents[3].value).toEqual(
-    "2021-11-30T22:47:16.830Z"
+    "2021-11-30T22:47:16.830Z",
   );
 });

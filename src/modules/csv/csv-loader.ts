@@ -77,7 +77,7 @@ export function registerColumnInTable(table: Table, label: string) {
 
 export default async function (
   fileName: string,
-  fileText: string
+  fileText: string,
 ): Promise<File> {
   const source = await loadFile(fileText);
   const data = convertToTable(source);
