@@ -16,6 +16,7 @@
   composes: m-2 from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
   max-width: 400px;
 }
+
 .button {
   composes: btn btn-info m-2 from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
 }
