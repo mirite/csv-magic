@@ -1,6 +1,11 @@
 {
   "name": "csv-magic",
   "version": "1.9.0",
+  "description": "A CSV editor that provides common manipulation tasks such as sorting, filtering and renaming.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirite/csv-magic.git"
+  },
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
