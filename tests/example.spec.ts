@@ -20,6 +20,10 @@ test("Can duplicate row", async ({ page }) => {
   expect(await page.locator('span[data-id="2,1"]').textContent()).toBe("A");
 });
 
+/**
+ * Opens the test file in the editor.
+ * @param {Page} page The page to open the test file on.
+ */
 async function openTestFile(page: Page) {
   await page.goto("http://localhost:8080/");
   await page.getByLabel("File:").click();
