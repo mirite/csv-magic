@@ -6,6 +6,7 @@ type IProps = PropsWithChildren & Cell;
 
 /**
  * A single cell within a Table.
+ * @param props
  */
 const Cell = (props: IProps) => {
   const { children, id } = props;

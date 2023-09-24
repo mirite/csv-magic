@@ -8,6 +8,7 @@ interface Props extends Cell {
 }
 /**
  * A Table cell that is currently selected. This changes the text label into an input for editing.
+ * @param props
  */
 const ActiveCell = (props: Props) => {
   const { value, onChange } = props;

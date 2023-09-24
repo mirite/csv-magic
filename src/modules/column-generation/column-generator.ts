@@ -5,12 +5,11 @@ import { GenerateColumnStrategy } from "./column-generators/GenerateColumnStrate
 
 /**
  * Adds a new column to a Table and fills it with values using the method and parameters provided.
- *
  * @param  data             The Table to add the column to.
  * @param  newColumnName    The name of the new column
  * @param strategy
  * @param  methodParameters The options used by the method selected.
- * @return A new Table with the column added.
+ * @returns A new Table with the column added.
  */
 export function addColumn<T>(
   data: Table,

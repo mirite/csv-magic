@@ -1,6 +1,11 @@
 import { cloneDeep, createID } from "./tools";
 import { Row, Table } from "types";
 
+/**
+ *
+ * @param data
+ * @param row
+ */
 export function deleteRow(data: Table, row: Row): Table {
   const newData = cloneDeep(data);
   newData.contents = newData.contents.filter(
@@ -9,6 +14,11 @@ export function deleteRow(data: Table, row: Row): Table {
   return newData;
 }
 
+/**
+ *
+ * @param data
+ * @param row
+ */
 export function duplicateRow(data: Table, row: Row): Table {
   const newData = cloneDeep(data);
   const rowIndex = newData.contents.findIndex(

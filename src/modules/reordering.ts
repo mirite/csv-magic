@@ -2,7 +2,6 @@ import { Cell, Column, Row, Table } from "types";
 
 /**
  * Rearranges the columns in a Table.
- *
  * @param  table          The Table to reorder the columns in.
  * @param  newColumnOrder An array of the ids of the columns in their new order.
  */
@@ -21,6 +20,11 @@ export function reorderColumns(
   return reorderedTable;
 }
 
+/**
+ *
+ * @param columns
+ * @param newColumnOrder
+ */
 function createNewColumnField(
   columns: Column[],
   newColumnOrder: number[],
@@ -39,10 +43,20 @@ function createNewColumnField(
   return newColumns;
 }
 
+/**
+ *
+ * @param rows
+ * @param newColumnOrder
+ */
 function createNewRows(rows: Row[], newColumnOrder: number[]): Row[] {
   return rows.map((row) => createNewRow(row, newColumnOrder));
 }
 
+/**
+ *
+ * @param row
+ * @param newColumnOrder
+ */
 function createNewRow(row: Row, newColumnOrder: number[]): Row {
   const newRow: Row = {
     id: row.id,

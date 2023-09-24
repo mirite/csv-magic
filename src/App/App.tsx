@@ -9,6 +9,9 @@ const ViewContainer = React.lazy(
     ),
 );
 
+/**
+ *
+ */
 function App() {
   return (
     <div className={styles.App}>

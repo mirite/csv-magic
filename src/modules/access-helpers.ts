@@ -2,10 +2,9 @@ import { Cell, Column, Row, Table } from "types";
 
 /**
  * Takes a row and returns the value at the specified key.
- *
  * @param  row      The row to search for the cell in,
  * @param  columnId The key of the value to find.
- * @return The value at the specified key. Blank if the key was not present.
+ * @returns The value at the specified key. Blank if the key was not present.
  */
 export function getCellValueByColumnID(row: Row, columnId: number): string {
   const foundCell = row.contents.find((cell) => cell.columnID === columnId);
@@ -17,10 +16,9 @@ export function getCellValueByColumnID(row: Row, columnId: number): string {
 
 /**
  * Finds a specified cell by id within a Table.
- *
  * @param  table The Table tto to search in.
  * @param  id    The ID of the cell to find.
- * @return The cell at the specified id.
+ * @returns The cell at the specified id.
  */
 export function getCellByID(table: Table, id: string): Cell | undefined {
   const ids = id.split(",");
@@ -34,6 +32,11 @@ export function getCellByID(table: Table, id: string): Cell | undefined {
   return foundRow?.contents[cellIndex];
 }
 
+/**
+ *
+ * @param table
+ * @param id
+ */
 export function getColumnNameByID(table: Table, id: number): string {
   const value = table.columns.find((c) => c.id === id)?.label;
   if (!value) {
@@ -44,9 +47,8 @@ export function getColumnNameByID(table: Table, id: number): string {
 
 /**
  * Gets a list of the columns within a Table as strings.
- *
  * @param  table The Table to find the columns of.
- * @return An array of strings that represent the column names.
+ * @returns An array of strings that represent the column names.
  */
 export function getColumnNames(table: Table): Array<string> {
   return getColumns(table).map((columnPair) => columnPair.label);
@@ -54,9 +56,8 @@ export function getColumnNames(table: Table): Array<string> {
 
 /**
  * Gets a list of the columns within a Table.
- *
  * @param  table The Table to find the columns of.
- * @return An array of columns with their indexes.
+ * @returns An array of columns with their indexes.
  */
 export function getColumns(table: Table): Array<Column> {
   return table.columns;
@@ -64,10 +65,9 @@ export function getColumns(table: Table): Array<Column> {
 
 /**
  * Returns an array of tuples with the unique values in a columns and the count of how many times they appeared.
- *
  * @param  table    The Table to get the information of.
  * @param  columnId The id of the column to find values in.
- * @return An array of tuples with the unique value and the count of how many times it appears.
+ * @returns An array of tuples with the unique value and the count of how many times it appears.
  */
 export function getUniqueValuesInColumn(
   table: Table,
@@ -91,10 +91,9 @@ export function getUniqueValuesInColumn(
 
 /**
  * Returns the index within a row that corresponds to the column name provided.
- *
  * @param  data     The Table to search in.
  * @param  columnId The id of the column to find.
- * @return The 0-based index within a row that corresponds to the column name, -1 if the column was not found.
+ * @returns The 0-based index within a row that corresponds to the column name, -1 if the column was not found.
  */
 export function getColumnIndex(data: Table, columnId: number): number {
   const { columns } = data;
@@ -107,10 +106,9 @@ export function getColumnIndex(data: Table, columnId: number): number {
 
 /**
  * Returns the index within a row that corresponds to the column name provided.
- *
  * @param  data  The Table to search in.
  * @param  index The name position index of the column to find.
- * @return The id of the column.
+ * @returns The id of the column.
  */
 export function getColumnId(data: Table, index: number) {
   const { columns } = data;
@@ -121,6 +119,12 @@ export function getColumnId(data: Table, index: number) {
   return column.id;
 }
 
+/**
+ *
+ * @param data
+ * @param columnID
+ * @param needle
+ */
 export function countOccurrences(
   data: Table,
   columnID: number,
@@ -136,6 +140,12 @@ export function countOccurrences(
   return count;
 }
 
+/**
+ *
+ * @param table
+ * @param columnId
+ * @param valueToFind
+ */
 export function getRowWithMatchingValueInColumn(
   table: Table,
   columnId: number,
