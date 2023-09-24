@@ -33,14 +33,14 @@
 }
 
 .titleButton {
-  composes: navlink title;
+  composes: navLink title;
 }
 
 .closeButton {
-  composes: navlink close;
+  composes: navLink close;
 }
 
 .homeButton {
-  composes: navlink;
+  composes: navLink;
   background-color: lightgreen;
 }
