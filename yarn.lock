@@ -937,21 +937,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@json2csv/formatters@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@json2csv/formatters@npm:7.0.1"
-  checksum: a9f2b2cfe8b3e3c68a0fc0484b75ec2d3d8b4d2040bef93ed242c286beb9109d5f1f6d3e314f3420477023601296bc6739185c1b8e8e3c77e2624a4391b361a2
+"@json2csv/formatters@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "@json2csv/formatters@npm:7.0.3"
+  checksum: 283ae93eda527a25f0dedbfe3350f06a2c35c925da293e92a54b31fba979fa9afc39de2b3766012e52f8f8539bfa0468eb25081370d8728f93bf5cb8d08a9a8f
   languageName: node
   linkType: hard
 
-"@json2csv/plainjs@npm:^7.0.1":
-  version: 7.0.1
-  resolution: "@json2csv/plainjs@npm:7.0.1"
+"@json2csv/plainjs@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "@json2csv/plainjs@npm:7.0.3"
   dependencies:
-    "@json2csv/formatters": ^7.0.1
-    "@streamparser/json": ^0.0.15
+    "@json2csv/formatters": ^7.0.3
+    "@streamparser/json": ^0.0.17
     lodash.get: ^4.4.2
-  checksum: 73532b97fd70be4206460f16e552646d96c8ef3b145111be569c2041b99d2616d8a29e5ecc9b8d0ca5ecd1eedf65da5a0508b3093593169b9ebbc31136c5e28a
+  checksum: 34d0d9558494f530938bf4a259c65413bb069bd4ab66f6c56e1e46e02c20d35f68b3c994e2784aeae81dc365e59b22be2d2d88a11a0777b168a76ebf68f350f7
   languageName: node
   linkType: hard
 
@@ -1048,10 +1048,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@streamparser/json@npm:^0.0.15":
-  version: 0.0.15
-  resolution: "@streamparser/json@npm:0.0.15"
-  checksum: db98e67ba7fd500b25c56d2a22a942310307c41a95281b68f6627802173b24a76025b98563968ed84490e5401cb2ccb53d331de9245e8410777b45bb917c5c1d
+"@streamparser/json@npm:^0.0.17":
+  version: 0.0.17
+  resolution: "@streamparser/json@npm:0.0.17"
+  checksum: 5e1cb2113d3393b5858a2d32133ba9efed2ea732100f9967c50ec6104bc4d4948546d3263cbdb6b69185a49420dc216fb5f341b38eaad57293d6693357036c46
   languageName: node
   linkType: hard
 
@@ -2913,7 +2913,7 @@ __metadata:
     "@fortawesome/fontawesome-svg-core": ^6.4.0
     "@fortawesome/free-solid-svg-icons": ^6.4.0
     "@fortawesome/react-fontawesome": ^0.2.0
-    "@json2csv/plainjs": ^7.0.1
+    "@json2csv/plainjs": ^7.0.3
     "@types/jest": ^29.5.3
     "@types/json2csv": ^5.0.3
     "@types/lodash": ^4.14.195
@@ -3964,7 +3964,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -6913,7 +6913,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -6926,7 +6926,7 @@ __metadata:
 
 "resolve@patch:resolve@^2.0.0-next.4#~builtin<compat/resolve>":
   version: 2.0.0-next.4
-  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.4#~builtin<compat/resolve>::version=2.0.0-next.4&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.4#~builtin<compat/resolve>::version=2.0.0-next.4&hash=07638b"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -7865,11 +7865,11 @@ __metadata:
 
 "typescript@patch:typescript@^5.1.6#~builtin<compat/typescript>":
   version: 5.1.6
-  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=5da071"
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: f53bfe97f7c8b2b6d23cf572750d4e7d1e0c5fff1c36d859d0ec84556a827b8785077bc27676bf7e71fae538e517c3ecc0f37e7f593be913d884805d931bc8be
+  checksum: 21e88b0a0c0226f9cb9fd25b9626fb05b4c0f3fddac521844a13e1f30beb8f14e90bd409a9ac43c812c5946d714d6e0dee12d5d02dfc1c562c5aacfa1f49b606
   languageName: node
   linkType: hard
 
