@@ -3,7 +3,7 @@
   "version": "1.10.0",
   "author": {
     "name": "Jesse Conner",
-    "email": "me@jesseconner.ca>"
+    "email": "me@jesseconner.ca"
   },
   "description": "A CSV editor that provides common manipulation tasks such as sorting, filtering and renaming.",
   "repository": {
