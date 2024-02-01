@@ -1,5 +1,5 @@
 .container {
-  background-color: rgb(189, 189, 189);
+  background-color: rgb(189 189 189);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

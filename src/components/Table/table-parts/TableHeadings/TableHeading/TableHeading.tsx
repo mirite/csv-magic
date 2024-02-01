@@ -48,7 +48,7 @@ const TableHeading = (props: HeadingsProps) => {
                   column={column}
                   onClose={onClose}
                   table={table}
-                />
+                />,
               )
             }
             title="Rename Column"
@@ -63,7 +63,7 @@ const TableHeading = (props: HeadingsProps) => {
                   column={column}
                   table={table}
                   onClose={onClose}
-                />
+                />,
               )
             }
             title="Find and Replace in Column"
@@ -74,7 +74,11 @@ const TableHeading = (props: HeadingsProps) => {
             className={styles.button}
             onClick={() =>
               setActiveModal(
-                <FiltersModal column={column} table={table} onClose={onClose} />
+                <FiltersModal
+                  column={column}
+                  table={table}
+                  onClose={onClose}
+                />,
               )
             }
             title="Filter Column"

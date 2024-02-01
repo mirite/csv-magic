@@ -14,7 +14,7 @@ const FindAndReplaceModal = (props: IProps) => {
   const [findValue, setFindValue] = useState("");
   const [replaceValue, setReplaceValue] = useState("");
   const [testResult, setTestResult] = useState(
-    "Test to see how many rows this will impact."
+    "Test to see how many rows this will impact.",
   );
 
   const handleFindChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -23,7 +23,7 @@ const FindAndReplaceModal = (props: IProps) => {
   };
 
   const handleReplaceChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     const { value } = e.target;
     setReplaceValue(value);
@@ -34,7 +34,7 @@ const FindAndReplaceModal = (props: IProps) => {
       table,
       column,
       findValue,
-      replaceValue
+      replaceValue,
     );
     onClose(newTable);
   };

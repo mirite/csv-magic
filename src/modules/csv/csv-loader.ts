@@ -5,9 +5,8 @@ import { createCellID, createID } from "../tools";
 
 /**
  * Takes the text content of a CSV file and returns the raw Table from it (an array of objects (rows) with keys and values).
- *
  * @param  content The text content of the CSV file.
- * @return The raw Table from the file.
+ * @returns The raw Table from the file.
  */
 async function loadFile(content: string): Promise<RawTable> {
   return csv().fromString(content);
@@ -17,9 +16,8 @@ async function loadFile(content: string): Promise<RawTable> {
  * Takes the raw Table and applies some processing to make it easier for our app to work with.
  * Transforms the rows from objects with keys to an array of our ICell interface, adding ids and making it easier to loop
  * through them.
- *
  * @param  raw The raw Table loaded from the file.
- * @return The Table with our format applied.
+ * @returns The Table with our format applied.
  */
 function convertToTable(raw: RawTable): Table {
   /**
@@ -64,6 +62,11 @@ function convertToTable(raw: RawTable): Table {
   return newTable;
 }
 
+/**
+ *
+ * @param table
+ * @param label
+ */
 export function registerColumnInTable(table: Table, label: string) {
   const position = table.columns.length;
   const id = createID("column");
@@ -75,9 +78,14 @@ export function registerColumnInTable(table: Table, label: string) {
   return id;
 }
 
+/**
+ *
+ * @param fileName
+ * @param fileText
+ */
 export default async function (
   fileName: string,
-  fileText: string
+  fileText: string,
 ): Promise<File> {
   const source = await loadFile(fileText);
   const data = convertToTable(source);
@@ -94,6 +102,10 @@ export default async function (
     prettyName,
   };
 }
+/**
+ *
+ * @param fileName
+ */
 function generatePrettyName(fileName: string) {
   return (
     fileName.substring(0, 10) + "~" + fileName.substring(fileName.length - 8)

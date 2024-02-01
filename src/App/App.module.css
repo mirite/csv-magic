@@ -1,26 +1,27 @@
 .header {
   text-align: center;
   color: #111;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at 100% 50%,
       transparent 20%,
-      rgba(255, 255, 255, 0.3) 21%,
-      rgba(255, 255, 255, 0.3) 34%,
+      rgb(255 255 255 / 30%) 21%,
+      rgb(255 255 255 / 30%) 34%,
       transparent 35%,
       transparent
     ),
     radial-gradient(
         circle at 0% 50%,
         transparent 20%,
-        rgba(255, 255, 255, 0.3) 21%,
-        rgba(255, 255, 255, 0.3) 34%,
+        rgb(255 255 255 / 30%) 21%,
+        rgb(255 255 255 / 30%) 34%,
         transparent 35%,
         transparent
       )
       0 -50px;
   background-color: slategray;
   background-size: 75px 100px;
-  box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 50px 0 rgb(0 0 0 / 20%);
 }
 
 .header h1 {

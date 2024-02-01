@@ -13,7 +13,7 @@ test("Add blank column", () => {
     testTable,
     "test",
     EGeneratorTypes.blank,
-    undefined
+    undefined,
   );
 
   const columns = getColumns(newTable);
@@ -27,14 +27,14 @@ test("Add static column", () => {
     testTable,
     "testStatic",
     EGeneratorTypes.statically,
-    "abc123"
+    "abc123",
   );
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
   expect(lastColumn?.label).toBe("testStatic");
   expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe(
-    "abc123"
+    "abc123",
   );
 });
 
@@ -43,17 +43,17 @@ test("Add duplicated column", () => {
     testTable,
     "testDuplicate",
     EGeneratorTypes.duplicate,
-    "95a026a0-69c3-445d-8ad8-93af7e24ec7d"
+    "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
   );
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
   expect(lastColumn?.label).toBe("testDuplicate");
   expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe(
-    "2021-11-30T22:47:16.830Z"
+    "2021-11-30T22:47:16.830Z",
   );
   expect(getCellValueByColumnID(newTable.contents[1], lastColumn?.id)).toBe(
-    "2021-11-30T22:47:21.910Z"
+    "2021-11-30T22:47:21.910Z",
   );
 });
 
@@ -69,15 +69,15 @@ test("Add pool column", () => {
   expect(lastColumn?.label).toBe("testPool");
   const firstValue = getCellValueByColumnID(
     newTable.contents[0],
-    lastColumn?.id
+    lastColumn?.id,
   );
   const secondValue = getCellValueByColumnID(
     newTable.contents[1],
-    lastColumn?.id
+    lastColumn?.id,
   );
   const thirdValue = getCellValueByColumnID(
     newTable.contents[2],
-    lastColumn?.id
+    lastColumn?.id,
   );
 
   expect(firstValue).toMatch(/[abc]/);
@@ -109,6 +109,6 @@ test("Add lookup column", () => {
   const lastColumn = columns[columns.length - 1];
   expect(lastColumn?.label).toBe("testLookup");
   expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe(
-    "https://4263974.app.netsuite.com/app/common/entity/contact.nl?id=13233"
+    "https://4263974.app.netsuite.com/app/common/entity/contact.nl?id=13233",
   );
 });

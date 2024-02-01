@@ -21,6 +21,7 @@ interface IProps extends Row {
 
 /**
  * Displays a row of cells within a Table.
+ * @param props
  */
 function Row(props: IProps) {
   const { contents: cells, activeCell, onCellChange, onAction } = props;
@@ -36,7 +37,7 @@ function Row(props: IProps) {
           />
         ) : (
           <InactiveCell key={cell.id} {...cell} />
-        )
+        ),
       )}
     </tr>
   );

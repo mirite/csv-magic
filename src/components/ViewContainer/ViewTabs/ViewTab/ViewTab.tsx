@@ -31,6 +31,7 @@ interface IProps {
 
 /**
  * A tab in the app representing an open file.
+ * @param props
  */
 function ViewTab(props: IProps) {
   const { active, onClick, onClose, home, label } = props;

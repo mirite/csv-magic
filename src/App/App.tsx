@@ -1,9 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import ViewContainer from "../components/ViewContainer/ViewContainer";
 import "../index.scss";
 import styles from "./App.module.css";
+const ViewContainer = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "view-container" */ "../components/ViewContainer/ViewContainer"
+    ),
+);
 
+/**
+ *
+ */
 function App() {
   return (
     <div className={styles.App}>
@@ -30,7 +38,9 @@ function App() {
             View On GitHub
           </a>
         </p>
-        <ViewContainer />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ViewContainer />
+        </Suspense>
       </main>
       <footer className={styles.footer}>
         Copyright &copy; {new Date().getFullYear()}{" "}

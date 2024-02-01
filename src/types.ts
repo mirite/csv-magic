@@ -112,9 +112,7 @@ export interface Cell {
 /**
  * A Table row as loaded from the file without any additional processing.
  */
-export interface RawRow {
-  [key: string]: string;
-}
+export type RawRow = Record<string, string>;
 
 /**
  * A Table as loaded from the file without any additional processing.

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import RowComponent from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
@@ -29,7 +29,7 @@ const TableComponent = (props: IProps) => {
       const newData = updateCell(data, newCell);
       onTableChange(newData);
     },
-    []
+    [],
   );
 
   return (

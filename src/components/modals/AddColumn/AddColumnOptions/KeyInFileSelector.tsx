@@ -9,7 +9,7 @@ interface KeyInFileSelectorProps {
 }
 
 const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
-  props
+  props,
 ) => {
   if (!props.table) {
     return <p>No Keys Found In File</p>;

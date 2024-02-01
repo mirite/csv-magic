@@ -1,7 +1,7 @@
-import GenerateColumnStrategy from "./GenerateColumnStrategy";
+import { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 
-export class Blank extends GenerateColumnStrategy {
-  getValue(): string {
+export const Blank: GenerateColumnStrategy<undefined> = {
+  generate: () => {
     return "";
-  }
-}
+  },
+};

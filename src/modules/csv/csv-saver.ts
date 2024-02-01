@@ -2,6 +2,10 @@ import { Parser } from "@json2csv/plainjs";
 import { RawRow, RawTable, Table } from "types";
 import { getColumnNameByID } from "../access-helpers";
 
+/**
+ *
+ * @param data
+ */
 function convertToRawTable(data: Table) {
   const rawTable: RawTable = [];
   for (const row of data.contents) {
@@ -15,11 +19,16 @@ function convertToRawTable(data: Table) {
   return rawTable;
 }
 
+/**
+ *
+ * @param filename
+ * @param text
+ */
 function download(filename: string, text: string): void {
   const element = document.createElement("a");
   element.setAttribute(
     "href",
-    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text),
   );
   element.setAttribute("download", filename);
 
@@ -33,14 +42,26 @@ function download(filename: string, text: string): void {
 
 export type supportedFileTypes = "json" | "sql" | "csv";
 
+/**
+ *
+ * @param rawData
+ */
 function prepareForCSV(rawData: RawTable): string {
   const parser = new Parser();
   return parser.parse(rawData);
 }
+/**
+ *
+ * @param rawData
+ */
 function prepareForJSON(rawData: RawTable): string {
   return JSON.stringify(rawData);
 }
 
+/**
+ *
+ * @param rawData
+ */
 function prepareForSQL(rawData: RawTable): string {
   let output = "";
   for (const row of rawData) {
@@ -67,7 +88,7 @@ const processors = {
 export default (
   data: Table,
   fileType: supportedFileTypes,
-  fileName?: string
+  fileName?: string,
 ) => {
   const name = fileName
     ? fileName + "." + fileType

@@ -1,13 +1,6 @@
-import { MappedColumn, Row } from "types";
+import { Row } from "types";
 
-export type StrategyParameters =
-  | string
-  | string[]
-  | MappedColumn
-  | number
-  | undefined;
-
-export default abstract class GenerateColumnStrategy {
-  constructor(protected methodParameters: StrategyParameters) {}
-  abstract getValue(row?: Row): string;
-}
+export type GenerateColumnStrategy<T> = {
+  init?: (params: T) => void;
+  generate: (row: Row, params: T) => string;
+};
