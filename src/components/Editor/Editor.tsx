@@ -21,7 +21,7 @@ const rowActions = {
 export type RowAction = keyof typeof rowActions;
 export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
-/**
+/*
  *
  */
 function Editor() {

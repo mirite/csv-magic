@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import ActiveCell from "../Cell/ActiveCell/ActiveCell";
 import { Cell, Row } from "types";
 import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading";
@@ -25,7 +25,7 @@ interface IProps {
  * @param props The table row data.
  * @returns A table row.
  */
-function Row(props: IProps) {
+const Row = memo(function Row(props: IProps) {
   const { activeCell, onCellChange, onAction, data } = props;
   return (
     <tr>
@@ -39,6 +39,6 @@ function Row(props: IProps) {
       )}
     </tr>
   );
-}
+});
 
 export default Row;
