@@ -23,16 +23,15 @@ interface HeadingsProps {
 const TableHeading = (props: HeadingsProps) => {
   const { column } = props;
   const { setActiveModal, table, onClose } = useContext(ModalContext);
-  const getSortStateIcon = () => {
-    const sort = props.activeSorts.find((e) => e[0] === column.id);
-    if (!sort) {
-      return faArrowsAltV;
-    }
-    if (sort[1]) {
-      return faArrowUp;
-    }
-    return faArrowDown;
-  };
+  let sortStateIcon;
+  const sort = props.activeSorts.find((e) => e[0] === column.id);
+  if (!sort) {
+    sortStateIcon = faArrowsAltV;
+  } else if (sort[1]) {
+    sortStateIcon = faArrowUp;
+  } else {
+    sortStateIcon = faArrowDown;
+  }
 
   return (
     <th scope="col" className={styles.cell} key={column.id}>
@@ -90,7 +89,7 @@ const TableHeading = (props: HeadingsProps) => {
             onClick={() => props.onSort()}
             title="Sort on Column"
           >
-            <FontAwesomeIcon icon={getSortStateIcon()} />
+            <FontAwesomeIcon icon={sortStateIcon} />
           </button>
         </div>
       </div>

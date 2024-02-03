@@ -5,7 +5,7 @@ import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading";
 import InactiveCell from "../Cell/InactiveCell";
 import { RowAction } from "../../../Editor/Editor";
 
-interface IProps extends Row {
+interface IProps {
   /**
    * Handler for when the data in a cell is changed.
    */
@@ -16,19 +16,21 @@ interface IProps extends Row {
    */
   activeCell?: string;
 
-  onAction: (action: RowAction) => void;
+  onAction: (row: Row, action: RowAction) => void;
+  data: Row;
 }
 
 /**
  * Displays a row of cells within a Table.
- * @param props
+ * @param props The table row data.
+ * @returns A table row.
  */
 function Row(props: IProps) {
-  const { contents: cells, activeCell, onCellChange, onAction } = props;
+  const { activeCell, onCellChange, onAction, data } = props;
   return (
     <tr>
-      <RowHeading onAction={(action) => onAction(action)} />
-      {cells.map((cell) =>
+      <RowHeading onAction={(action) => onAction(data, action)} />
+      {data.contents.map((cell) =>
         activeCell === cell.id ? (
           <ActiveCell
             key={cell.id}

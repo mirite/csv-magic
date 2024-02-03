@@ -1,17 +1,18 @@
 import React, { useCallback } from "react";
-import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import RowComponent from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
 import { Cell, Row, Table } from "types";
 import styles from "components/Table/Table.module.css";
 import { useFileStore } from "../../modules/useFileStore";
 import { RowAction } from "../Editor/Editor";
+import { getColumns } from "../../modules/access-helpers";
+import TableHeading from "./table-parts/TableHeadings/TableHeading/TableHeading";
 
 interface IProps {
   onSort: (columnID: number) => void;
   onTableChange: (t: Table) => void;
   onTableBodyClick: (e: React.MouseEvent<HTMLTableSectionElement>) => void;
-  onRowAction: (action: RowAction, row: Row) => void;
+  onRowAction: (row: Row, action: RowAction) => void;
   activeCell?: string;
 }
 
@@ -32,32 +33,47 @@ const TableComponent = (props: IProps) => {
     [],
   );
 
+  const columns = getColumns(data);
   return (
     <div className={styles.container}>
       <table>
-        <TableHeadings
-          TablePart="thead"
-          table={data}
-          activeSorts={activeSorts}
-          onSort={(columnID) => onSort(columnID)}
-        />
+        <thead>
+          <tr>
+            <th />
+            {columns.map((column) => (
+              <TableHeading
+                key={column.id}
+                column={column}
+                activeSorts={activeSorts}
+                onSort={() => onSort(column.id)}
+              />
+            ))}
+          </tr>
+        </thead>
         <tbody onClick={onTableBodyClick}>
           {data.contents.map((row) => (
             <RowComponent
               key={row.id}
-              {...row}
+              data={row}
               activeCell={activeCell}
-              onCellChange={(e, newValue) => handleCellChange(e, newValue)}
-              onAction={(action) => onRowAction(action, row)}
+              onCellChange={handleCellChange}
+              onAction={onRowAction}
             />
           ))}
         </tbody>
-        <TableHeadings
-          TablePart="tfoot"
-          table={data}
-          activeSorts={activeSorts}
-          onSort={(columnID) => onSort(columnID)}
-        />
+        <tfoot>
+          <tr>
+            <th />
+            {columns.map((column) => (
+              <TableHeading
+                key={column.id}
+                column={column}
+                activeSorts={activeSorts}
+                onSort={() => onSort(column.id)}
+              />
+            ))}
+          </tr>
+        </tfoot>
       </table>
     </div>
   );

@@ -57,7 +57,7 @@ function Editor() {
     setActiveModal(undefined);
   };
 
-  const handleRowAction = (action: RowAction, row: Row) => {
+  const handleRowAction = (row: Row, action: RowAction) => {
     const newTable = rowActions[action](table, row);
     setCoreState(newTable);
   };
@@ -75,7 +75,7 @@ function Editor() {
       <TableComponent
         onSort={(e) => handleSort(e)}
         onTableChange={(e: Table) => setCoreState(e)}
-        onRowAction={(action, row) => handleRowAction(action, row)}
+        onRowAction={handleRowAction}
         activeCell={activeCell}
         onTableBodyClick={handleTableClick}
       />
