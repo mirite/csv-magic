@@ -24,11 +24,7 @@ export function updateCell(data: Table, cell: Cell): Table {
  * @param  newColumnName What to change the name to.
  * @returns A new Table with the column renamed.
  */
-export function renameColumn(
-  data: Table,
-  columnId: number,
-  newColumnName: string,
-): Table {
+export function renameColumn(data: Table, columnId: number, newColumnName: string): Table {
   const newData = cloneDeep(data);
   const column = newData.columns.find((c) => c.id === columnId);
   if (!column) {
@@ -45,12 +41,7 @@ export function renameColumn(
  * @param  toFind        The string value to search for.
  * @param  toReplaceWith The string value to replace with.
  */
-export function findAndReplaceInColumn(
-  data: Table,
-  column: Column,
-  toFind: string,
-  toReplaceWith: string,
-): Table {
+export function findAndReplaceInColumn(data: Table, column: Column, toFind: string, toReplaceWith: string): Table {
   const newData = cloneDeep(data);
   const columnIndex = getColumnIndex(newData, column.id);
 
@@ -67,9 +58,7 @@ export function findAndReplaceInColumn(
  * @param columnIdsToRemove
  */
 function removeColumnsInRow(row: Row, columnIdsToRemove: number[]): Row {
-  const remainingCells = row.contents.filter(
-    (cell) => !columnIdsToRemove.includes(cell.columnID),
-  );
+  const remainingCells = row.contents.filter((cell) => !columnIdsToRemove.includes(cell.columnID));
   return {
     id: row.id,
     originalIndex: row.originalIndex,
@@ -86,12 +75,8 @@ export function removeColumns(data: Table, columnsToRemove: Column[]): Table {
   const newData = cloneDeep(data);
   const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
 
-  newData.columns = newData.columns.filter(
-    (c) => !idsOfColumnsToRemove.includes(c.id),
-  );
+  newData.columns = newData.columns.filter((c) => !idsOfColumnsToRemove.includes(c.id));
 
-  newData.contents = newData.contents.map((row) =>
-    removeColumnsInRow(row, idsOfColumnsToRemove),
-  );
+  newData.contents = newData.contents.map((row) => removeColumnsInRow(row, idsOfColumnsToRemove));
   return newData;
 }

@@ -15,14 +15,7 @@ export type BaseModalProps = {
 };
 
 const Modal = (props: Props) => {
-  const {
-    title = "",
-    children,
-    applyText = "Apply",
-    onApply,
-    onClose,
-    isValid = true,
-  } = props;
+  const { title = "", children, applyText = "Apply", onApply, onClose, isValid = true } = props;
   return (
     <div className="modal" style={{ display: "block" }}>
       <div className={styles.container}>
@@ -36,11 +29,7 @@ const Modal = (props: Props) => {
             <button className="btn btn-secondary" onClick={() => onClose()}>
               Close
             </button>
-            <button
-              className="btn btn-primary"
-              onClick={onApply}
-              disabled={!isValid}
-            >
+            <button className="btn btn-primary" onClick={onApply} disabled={!isValid}>
               {applyText}
             </button>
           </div>

@@ -18,10 +18,7 @@ test("Expect cell value in Table to be", () => {
 });
 
 test("Expect cell value in row to be", () => {
-  const cellValue = accessHelpers.getCellValueByColumnID(
-    testTable.contents[1],
-    "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
-  );
+  const cellValue = accessHelpers.getCellValueByColumnID(testTable.contents[1], "95a026a0-69c3-445d-8ad8-93af7e24ec7d");
   expect(cellValue).toBe("2021-11-30T22:47:21.910Z");
 });
 
@@ -46,27 +43,16 @@ test("Expect column names to be", () => {
 });
 
 test("Expect unique values in column to be", () => {
-  const uniques = getUniqueValuesInColumn(
-    testTable,
-    "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
-  );
+  const uniques = getUniqueValuesInColumn(testTable, "95a026a0-69c3-445d-8ad8-93af7e24ec7d");
   expect(uniques.length).toBe(13);
 });
 
 test("Expect column index to be", () => {
-  expect(
-    getColumnIndex(testTable, "95a026a0-69c3-445d-8ad8-93af7e24ec7d"),
-  ).toBe(2);
+  expect(getColumnIndex(testTable, "95a026a0-69c3-445d-8ad8-93af7e24ec7d")).toBe(2);
 });
 
 test("Expect count occurrences to be", () => {
-  expect(
-    countOccurrences(
-      testTable,
-      "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
-      "22:47",
-    ),
-  ).toBe(9);
+  expect(countOccurrences(testTable, "95a026a0-69c3-445d-8ad8-93af7e24ec7d", "22:47")).toBe(9);
 });
 
 test("Get row with matching value in column to be (1)", () => {
@@ -79,10 +65,6 @@ test("Get row with matching value in column to be (1)", () => {
 });
 
 test("Get row with matching value in column to be (2)", () => {
-  const row = getRowWithMatchingValueInColumn(
-    testTable,
-    "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
-    "22:4930:27.750Z",
-  );
+  const row = getRowWithMatchingValueInColumn(testTable, "95a026a0-69c3-445d-8ad8-93af7e24ec7d", "22:4930:27.750Z");
   expect(row).toBeUndefined();
 });

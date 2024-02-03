@@ -1,20 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
 import { getCellValueByColumnID, getColumns } from "modules/access-helpers";
-import {
-  addColumn,
-  EGeneratorTypes,
-} from "modules/column-generation/column-generator";
+import { addColumn, EGeneratorTypes } from "modules/column-generation/column-generator";
 import testTable from "./testTable";
 import testTable2 from "./testTable2";
 
 test("Add blank column", () => {
-  const newTable = addColumn(
-    testTable,
-    "test",
-    EGeneratorTypes.blank,
-    undefined,
-  );
+  const newTable = addColumn(testTable, "test", EGeneratorTypes.blank, undefined);
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
@@ -23,19 +15,12 @@ test("Add blank column", () => {
 });
 
 test("Add static column", () => {
-  const newTable = addColumn(
-    testTable,
-    "testStatic",
-    EGeneratorTypes.statically,
-    "abc123",
-  );
+  const newTable = addColumn(testTable, "testStatic", EGeneratorTypes.statically, "abc123");
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
   expect(lastColumn?.label).toBe("testStatic");
-  expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe(
-    "abc123",
-  );
+  expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe("abc123");
 });
 
 test("Add duplicated column", () => {
@@ -49,36 +34,19 @@ test("Add duplicated column", () => {
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
   expect(lastColumn?.label).toBe("testDuplicate");
-  expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe(
-    "2021-11-30T22:47:16.830Z",
-  );
-  expect(getCellValueByColumnID(newTable.contents[1], lastColumn?.id)).toBe(
-    "2021-11-30T22:47:21.910Z",
-  );
+  expect(getCellValueByColumnID(newTable.contents[0], lastColumn?.id)).toBe("2021-11-30T22:47:16.830Z");
+  expect(getCellValueByColumnID(newTable.contents[1], lastColumn?.id)).toBe("2021-11-30T22:47:21.910Z");
 });
 
 test("Add pool column", () => {
-  const newTable = addColumn(testTable, "testPool", EGeneratorTypes.pool, [
-    "a",
-    "b",
-    "c",
-  ]);
+  const newTable = addColumn(testTable, "testPool", EGeneratorTypes.pool, ["a", "b", "c"]);
 
   const columns = getColumns(newTable);
   const lastColumn = columns[columns.length - 1];
   expect(lastColumn?.label).toBe("testPool");
-  const firstValue = getCellValueByColumnID(
-    newTable.contents[0],
-    lastColumn?.id,
-  );
-  const secondValue = getCellValueByColumnID(
-    newTable.contents[1],
-    lastColumn?.id,
-  );
-  const thirdValue = getCellValueByColumnID(
-    newTable.contents[2],
-    lastColumn?.id,
-  );
+  const firstValue = getCellValueByColumnID(newTable.contents[0], lastColumn?.id);
+  const secondValue = getCellValueByColumnID(newTable.contents[1], lastColumn?.id);
+  const thirdValue = getCellValueByColumnID(newTable.contents[2], lastColumn?.id);
 
   expect(firstValue).toMatch(/[abc]/);
 

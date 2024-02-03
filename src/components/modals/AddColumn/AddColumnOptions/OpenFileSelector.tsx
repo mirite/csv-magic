@@ -11,15 +11,11 @@ const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
   const fileContext = useFileStore();
   const { files } = fileContext;
 
-  const cleanedFiles = files.filter(
-    (file) => file.fileName?.trim() && file.id !== props.currentFile?.id,
-  );
+  const cleanedFiles = files.filter((file) => file.fileName?.trim() && file.id !== props.currentFile?.id);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const fileID = Number.parseInt(e.currentTarget.value);
-    const file = cleanedFiles.find(
-      (currentFileInLoop) => currentFileInLoop.id === fileID,
-    );
+    const file = cleanedFiles.find((currentFileInLoop) => currentFileInLoop.id === fileID);
     if (!file) return;
     props.onChange(file);
   };

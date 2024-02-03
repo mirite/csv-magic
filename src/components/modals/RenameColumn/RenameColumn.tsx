@@ -39,13 +39,7 @@ const RenameColumnModal = (props: IProps) => {
         <div className={styles.container}>
           <div className={styles.group}>
             <label htmlFor={id}>New Name:</label>
-            <input
-              id={id}
-              className={styles.input}
-              type="text"
-              value={newName}
-              onChange={handleNewNameChange}
-            />
+            <input id={id} className={styles.input} type="text" value={newName} onChange={handleNewNameChange} />
           </div>
         </div>
       </div>

@@ -32,16 +32,13 @@ function Editor() {
   const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
   const [activeCell, setActiveCell] = useState(table.firstCellId);
 
-  const handleTableClick = useCallback(
-    (e: React.MouseEvent<HTMLTableSectionElement>) => {
-      const { target } = e;
-      const { dataset } = target as HTMLElement;
-      if (dataset && dataset.id) {
-        setActiveCell(dataset.id);
-      }
-    },
-    [],
-  );
+  const handleTableClick = useCallback((e: React.MouseEvent<HTMLTableSectionElement>) => {
+    const { target } = e;
+    const { dataset } = target as HTMLElement;
+    if (dataset && dataset.id) {
+      setActiveCell(dataset.id);
+    }
+  }, []);
 
   const handleSort = (columnID: number) => {
     const newSorts = Sorting.setSort(activeSorts, columnID);

@@ -83,15 +83,11 @@ export function registerColumnInTable(table: Table, label: string) {
  * @param fileName
  * @param fileText
  */
-export default async function (
-  fileName: string,
-  fileText: string,
-): Promise<File> {
+export default async function (fileName: string, fileText: string): Promise<File> {
   const source = await loadFile(fileText);
   const data = convertToTable(source);
   const id = createID("file");
-  const prettyName =
-    fileName.length > 20 ? generatePrettyName(fileName) : fileName;
+  const prettyName = fileName.length > 20 ? generatePrettyName(fileName) : fileName;
   return {
     fileName,
     table: data,
@@ -107,7 +103,5 @@ export default async function (
  * @param fileName
  */
 function generatePrettyName(fileName: string) {
-  return (
-    fileName.substring(0, 10) + "~" + fileName.substring(fileName.length - 8)
-  );
+  return fileName.substring(0, 10) + "~" + fileName.substring(fileName.length - 8);
 }

@@ -32,11 +32,7 @@ function Row(props: IProps) {
       <RowHeading onAction={(action) => onAction(data, action)} />
       {data.contents.map((cell) =>
         activeCell === cell.id ? (
-          <ActiveCell
-            key={cell.id}
-            onChange={(newValue) => onCellChange(cell, newValue)}
-            {...cell}
-          />
+          <ActiveCell key={cell.id} onChange={(newValue) => onCellChange(cell, newValue)} {...cell} />
         ) : (
           <InactiveCell key={cell.id} {...cell} />
         ),

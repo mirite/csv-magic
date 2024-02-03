@@ -34,12 +34,7 @@ const ActiveCell = (props: Props) => {
 
   return (
     <CellComponent {...props}>
-      <textarea
-        className={styles.input}
-        onChange={handleChange}
-        rows={rowCount}
-        value={debouncedValue}
-      />
+      <textarea className={styles.input} onChange={handleChange} rows={rowCount} value={debouncedValue} />
     </CellComponent>
   );
 };

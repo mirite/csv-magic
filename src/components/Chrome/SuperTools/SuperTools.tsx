@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMinusSquare,
-  faPlusSquare,
-  faRandom,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMinusSquare, faPlusSquare, faRandom } from "@fortawesome/free-solid-svg-icons";
 import styles from "./SuperTools.module.css";
 import { ModalContext } from "../../Editor/Editor";
 import RemoveColumns from "../../modals/RemoveColumns/RemoveColumns";
@@ -17,9 +13,7 @@ const SuperTools = () => {
     <div>
       <button
         className={styles.remove}
-        onClick={() =>
-          setActiveModal(<RemoveColumns onClose={onClose} table={table} />)
-        }
+        onClick={() => setActiveModal(<RemoveColumns onClose={onClose} table={table} />)}
         title="Remove Columns"
       >
         <FontAwesomeIcon icon={faMinusSquare} />
@@ -27,9 +21,7 @@ const SuperTools = () => {
       </button>
       <button
         className={styles.add}
-        onClick={() =>
-          setActiveModal(<AddColumn onClose={onClose} table={table} />)
-        }
+        onClick={() => setActiveModal(<AddColumn onClose={onClose} table={table} />)}
         title="Add Column"
       >
         <FontAwesomeIcon icon={faPlusSquare} />
@@ -37,9 +29,7 @@ const SuperTools = () => {
       </button>
       <button
         className={styles.add}
-        onClick={() =>
-          setActiveModal(<ReorderColumns onClose={onClose} table={table} />)
-        }
+        onClick={() => setActiveModal(<ReorderColumns onClose={onClose} table={table} />)}
         title="Reorder Columns"
       >
         <FontAwesomeIcon icon={faRandom} />

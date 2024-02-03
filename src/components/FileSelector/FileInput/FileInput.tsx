@@ -12,13 +12,7 @@ const FileInput = (props: FileInputProps) => {
       <label htmlFor={id} className="form-label">
         File:
       </label>
-      <input
-        id={id}
-        className="form-control"
-        accept=".csv"
-        onChange={(e) => onAttachFile(e)}
-        type="file"
-      />
+      <input id={id} className="form-control" accept=".csv" onChange={(e) => onAttachFile(e)} type="file" />
     </div>
   );
 };

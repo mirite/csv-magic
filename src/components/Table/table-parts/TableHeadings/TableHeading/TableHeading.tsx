@@ -1,13 +1,6 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowsAltV,
-  faArrowUp,
-  faArrowDown,
-  faFilter,
-  faEdit,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowsAltV, faArrowUp, faArrowDown, faFilter, faEdit, faSearch } from "@fortawesome/free-solid-svg-icons";
 import styles from "./TableHeading.module.css";
 import { Column, Sorts } from "types";
 import RenameColumnModal from "../../../../modals/RenameColumn/RenameColumn";
@@ -41,54 +34,26 @@ const TableHeading = (props: HeadingsProps) => {
           <FontAwesomeIcon
             className={styles.editIcon}
             icon={faEdit}
-            onClick={() =>
-              setActiveModal(
-                <RenameColumnModal
-                  column={column}
-                  onClose={onClose}
-                  table={table}
-                />,
-              )
-            }
+            onClick={() => setActiveModal(<RenameColumnModal column={column} onClose={onClose} table={table} />)}
             title="Rename Column"
           />
         </div>
         <div className={styles.actions}>
           <button
             className={styles.button}
-            onClick={() =>
-              setActiveModal(
-                <FindAndReplaceModal
-                  column={column}
-                  table={table}
-                  onClose={onClose}
-                />,
-              )
-            }
+            onClick={() => setActiveModal(<FindAndReplaceModal column={column} table={table} onClose={onClose} />)}
             title="Find and Replace in Column"
           >
             <FontAwesomeIcon icon={faSearch} />
           </button>
           <button
             className={styles.button}
-            onClick={() =>
-              setActiveModal(
-                <FiltersModal
-                  column={column}
-                  table={table}
-                  onClose={onClose}
-                />,
-              )
-            }
+            onClick={() => setActiveModal(<FiltersModal column={column} table={table} onClose={onClose} />)}
             title="Filter Column"
           >
             <FontAwesomeIcon icon={faFilter} />
           </button>
-          <button
-            className={styles.button}
-            onClick={() => props.onSort()}
-            title="Sort on Column"
-          >
+          <button className={styles.button} onClick={() => props.onSort()} title="Sort on Column">
             <FontAwesomeIcon icon={sortStateIcon} />
           </button>
         </div>

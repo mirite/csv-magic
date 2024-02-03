@@ -11,9 +11,7 @@ function applyFilters(data: Table, activeFilter: Filter) {
   const newData = cloneDeep(data);
 
   newData.contents = newData.contents.filter((row) => {
-    return activeFilter.values.includes(
-      getCellValueByColumnID(row, activeFilter.column.id),
-    );
+    return activeFilter.values.includes(getCellValueByColumnID(row, activeFilter.column.id));
   });
 
   return newData;

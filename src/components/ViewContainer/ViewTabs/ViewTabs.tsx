@@ -28,13 +28,7 @@ const ViewTabs = () => {
         />
       ))}
       <ViewTab
-        label={
-          files.length > 0 ? (
-            <FontAwesomeIcon icon={faPlusSquare} />
-          ) : (
-            "CSV Magic"
-          )
-        }
+        label={files.length > 0 ? <FontAwesomeIcon icon={faPlusSquare} /> : "CSV Magic"}
         onClick={() => handleTabClick(-1)}
         onClose={() => handleTabClose(-1)}
         active={-1 === currentIndex}

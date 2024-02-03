@@ -17,12 +17,7 @@ const LookupOptions = (props: LookupOptionsProps) => {
   const activeFile = useFileStore();
   useEffect(() => {
     const foreignTable = otherFile?.table;
-    if (
-      !foreignTable ||
-      !sourceMatchKey ||
-      !foreignMatchKey ||
-      !foreignImportKey
-    ) {
+    if (!foreignTable || !sourceMatchKey || !foreignMatchKey || !foreignImportKey) {
       return;
     }
     const mappedColumn: MappedColumn = {
@@ -59,10 +54,7 @@ const LookupOptions = (props: LookupOptionsProps) => {
   };
   return (
     <div>
-      <OpenFileSelector
-        onChange={(e: File) => setOtherFile(e)}
-        currentFile={currentFile}
-      />
+      <OpenFileSelector onChange={(e: File) => setOtherFile(e)} currentFile={currentFile} />
       <KeyInFileSelector
         table={currentFile.table}
         label="Key in this table to match on:"

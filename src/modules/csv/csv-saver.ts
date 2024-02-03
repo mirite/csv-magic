@@ -26,10 +26,7 @@ function convertToRawTable(data: Table) {
  */
 function download(filename: string, text: string): void {
   const element = document.createElement("a");
-  element.setAttribute(
-    "href",
-    "data:text/plain;charset=utf-8," + encodeURIComponent(text),
-  );
+  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
   element.setAttribute("download", filename);
 
   element.style.display = "none";
@@ -85,14 +82,8 @@ const processors = {
   sql: prepareForSQL,
 };
 
-export default (
-  data: Table,
-  fileType: supportedFileTypes,
-  fileName?: string,
-) => {
-  const name = fileName
-    ? fileName + "." + fileType
-    : `csv_magic_${Date.now()}.csv`;
+export default (data: Table, fileType: supportedFileTypes, fileName?: string) => {
+  const name = fileName ? fileName + "." + fileType : `csv_magic_${Date.now()}.csv`;
   const rawData = convertToRawTable(data);
   const outputData = processors[fileType](rawData);
   download(name, outputData);

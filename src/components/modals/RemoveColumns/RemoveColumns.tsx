@@ -9,9 +9,7 @@ import { removeColumns } from "modules/editing";
 const RemoveColumnsModal = (props: BaseModalProps) => {
   const { table, onClose } = props;
   const columns = getColumns(table);
-  const [columnsState, setColumnsState] = useState<Array<[Column, boolean]>>(
-    columns.map((label) => [label, false]),
-  );
+  const [columnsState, setColumnsState] = useState<Array<[Column, boolean]>>(columns.map((label) => [label, false]));
 
   const handleChange = (column: Column, status: boolean): void => {
     const newColumns = [...columnsState];
@@ -47,9 +45,7 @@ const RemoveColumnsModal = (props: BaseModalProps) => {
           <ColumnValue
             key={pair[0].id}
             value={pair[0]}
-            onChange={(value: Column, status: boolean) =>
-              handleChange(value, status)
-            }
+            onChange={(value: Column, status: boolean) => handleChange(value, status)}
           />
         ))}
       </ul>

@@ -27,18 +27,10 @@ const UndoRedo: FunctionComponent<UndoRedoProps> = (props) => {
 
   return (
     <div>
-      <button
-        className={styles.button}
-        disabled={isUndoDisabled()}
-        onClick={() => timeTravel(1)}
-      >
+      <button className={styles.button} disabled={isUndoDisabled()} onClick={() => timeTravel(1)}>
         <FontAwesomeIcon icon={faUndo} />
       </button>
-      <button
-        className={styles.button}
-        disabled={isRedoDisabled()}
-        onClick={() => timeTravel(-1)}
-      >
+      <button className={styles.button} disabled={isRedoDisabled()} onClick={() => timeTravel(-1)}>
         <FontAwesomeIcon icon={faRedo} />
       </button>
     </div>

@@ -20,13 +20,9 @@ const FiltersModal = (props: IProps) => {
     const newFilterList: Filter = { column, values: [] };
 
     if (!newStatus) {
-      newFilterList.values = oldFilterList.filter(
-        (existingValue) => existingValue !== valueToToggle,
-      );
+      newFilterList.values = oldFilterList.filter((existingValue) => existingValue !== valueToToggle);
     } else {
-      const existingFilter = oldFilterList.find(
-        (existingValue) => existingValue === valueToToggle,
-      );
+      const existingFilter = oldFilterList.find((existingValue) => existingValue === valueToToggle);
 
       if (existingFilter) {
         return;
@@ -47,9 +43,7 @@ const FiltersModal = (props: IProps) => {
     const { table, column } = props;
     const allValues = getUniqueValuesInColumn(table, column.id);
     const oldActiveValues = filterList.values;
-    const values = allValues
-      .map((item) => item[0])
-      .filter((item) => !oldActiveValues.includes(item));
+    const values = allValues.map((item) => item[0]).filter((item) => !oldActiveValues.includes(item));
     const newFilterList: Filter = { column, values };
     setFilterList(newFilterList);
   };
@@ -71,9 +65,7 @@ const FiltersModal = (props: IProps) => {
             value={pair[0]}
             count={pair[1]}
             checked={filterList.values.includes(pair[0])}
-            onChange={(value: string, status: boolean) =>
-              handleChange(value, status)
-            }
+            onChange={(value: string, status: boolean) => handleChange(value, status)}
           />
         ))}
       </ul>

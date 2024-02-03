@@ -26,9 +26,7 @@ export function addColumn<T>(
   for (const row of newData.contents) {
     const cellValue = strategy.generate(row, methodParameters);
     if (!row.id) {
-      throw new Error(
-        "The row in which a column is being added does not have an id",
-      );
+      throw new Error("The row in which a column is being added does not have an id");
     }
     const newCell: Cell = {
       id: createCellID(row.id, newColumnId),

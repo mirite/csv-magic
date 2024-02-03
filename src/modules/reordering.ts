@@ -5,10 +5,7 @@ import { Cell, Column, Row, Table } from "types";
  * @param  table          The Table to reorder the columns in.
  * @param  newColumnOrder An array of the ids of the columns in their new order.
  */
-export function reorderColumns(
-  table: Table,
-  newColumnOrder: Array<number>,
-): Table {
+export function reorderColumns(table: Table, newColumnOrder: Array<number>): Table {
   const reorderedTable: Table = {
     columns: [],
     contents: [],
@@ -25,10 +22,7 @@ export function reorderColumns(
  * @param columns
  * @param newColumnOrder
  */
-function createNewColumnField(
-  columns: Column[],
-  newColumnOrder: number[],
-): Column[] {
+function createNewColumnField(columns: Column[], newColumnOrder: number[]): Column[] {
   const newColumns: Column[] = [];
   let position = 0;
   for (const id of newColumnOrder) {
@@ -65,9 +59,7 @@ function createNewRow(row: Row, newColumnOrder: number[]): Row {
   };
 
   for (const columnID of newColumnOrder) {
-    const existingCell: Cell | undefined = row.contents.find(
-      (c) => c.columnID === columnID,
-    );
+    const existingCell: Cell | undefined = row.contents.find((c) => c.columnID === columnID);
     if (!existingCell) {
       throw new Error("Column ID not found in row");
     }

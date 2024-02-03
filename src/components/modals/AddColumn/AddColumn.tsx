@@ -8,13 +8,7 @@ import PoolOptions from "./AddColumnOptions/options/PoolOptions";
 import StaticOptions from "./AddColumnOptions/options/StaticOptions";
 import DuplicateOptions from "./AddColumnOptions/options/DuplicateOptions";
 import { addColumn } from "modules/column-generation/column-generator";
-import {
-  Blank,
-  Duplicate,
-  Lookup,
-  Pool,
-  Statically,
-} from "modules/column-generation/column-generators";
+import { Blank, Duplicate, Lookup, Pool, Statically } from "modules/column-generation/column-generators";
 import { GenerateColumnStrategy } from "../../../modules/column-generation/column-generators/GenerateColumnStrategy";
 
 const columnTypeRadios = {
@@ -36,8 +30,7 @@ const columnTypeRadios = {
   },
   Lookup: {
     label: "Lookup",
-    description:
-      "A column filled with data from matches in another open table. Basically a portal.",
+    description: "A column filled with data from matches in another open table. Basically a portal.",
     type: Lookup,
     OptionsComponent: (setParams: (value: MappedColumn) => void) => (
       <LookupOptions onChange={(value: MappedColumn) => setParams(value)} />
@@ -69,9 +62,9 @@ const AddColumnModal = (props: BaseModalProps) => {
   const { table, onClose } = props;
   const [columnName, setColumnName] = useState<string>("");
   const [columnType, setColumnType] = useState<ColumnType>("Blank");
-  const [columnParameters, setColumnParameters] = useState<
-    undefined | string | string[] | MappedColumn | number
-  >(undefined);
+  const [columnParameters, setColumnParameters] = useState<undefined | string | string[] | MappedColumn | number>(
+    undefined,
+  );
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -87,9 +80,7 @@ const AddColumnModal = (props: BaseModalProps) => {
     const newTable = addColumn<typeof columnParameters>(
       table,
       columnName,
-      columnTypeRadios[columnType].type as GenerateColumnStrategy<
-        typeof columnParameters
-      >,
+      columnTypeRadios[columnType].type as GenerateColumnStrategy<typeof columnParameters>,
       columnParameters,
     );
     onClose(newTable);

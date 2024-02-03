@@ -38,16 +38,10 @@ function applySorting(data: Table, sorts: Sorts) {
   sorts.forEach((sort) => {
     const [key, ascending] = sort;
     newData.contents = newData.contents.sort((row1, row2) => {
-      if (
-        getCellValueByColumnID(row1, key).toUpperCase() >
-        getCellValueByColumnID(row2, key).toUpperCase()
-      ) {
+      if (getCellValueByColumnID(row1, key).toUpperCase() > getCellValueByColumnID(row2, key).toUpperCase()) {
         return ascending ? 1 : -1;
       }
-      if (
-        getCellValueByColumnID(row1, key).toUpperCase() <
-        getCellValueByColumnID(row2, key).toUpperCase()
-      ) {
+      if (getCellValueByColumnID(row1, key).toUpperCase() < getCellValueByColumnID(row2, key).toUpperCase()) {
         return ascending ? -1 : 1;
       }
       return 0;

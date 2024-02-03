@@ -69,16 +69,11 @@ export function getColumns(table: Table): Array<Column> {
  * @param  columnId The id of the column to find values in.
  * @returns An array of tuples with the unique value and the count of how many times it appears.
  */
-export function getUniqueValuesInColumn(
-  table: Table,
-  columnId: number,
-): Array<[string, number]> {
+export function getUniqueValuesInColumn(table: Table, columnId: number): Array<[string, number]> {
   const values: Array<[string, number]> = [];
   for (const row of table.contents) {
     const cellValue = getCellValueByColumnID(row, columnId);
-    const existingRecord = values.find(
-      (valuePair) => valuePair[0] === cellValue,
-    );
+    const existingRecord = values.find((valuePair) => valuePair[0] === cellValue);
 
     if (existingRecord) {
       existingRecord[1]++;
@@ -125,11 +120,7 @@ export function getColumnId(data: Table, index: number) {
  * @param columnID
  * @param needle
  */
-export function countOccurrences(
-  data: Table,
-  columnID: number,
-  needle: string,
-): number {
+export function countOccurrences(data: Table, columnID: number, needle: string): number {
   const columnIndex = getColumnIndex(data, columnID);
   let count = 0;
   for (const row of data.contents) {
@@ -146,11 +137,7 @@ export function countOccurrences(
  * @param columnId
  * @param valueToFind
  */
-export function getRowWithMatchingValueInColumn(
-  table: Table,
-  columnId: number,
-  valueToFind: string,
-): Row | undefined {
+export function getRowWithMatchingValueInColumn(table: Table, columnId: number, valueToFind: string): Row | undefined {
   const rows = table.contents;
   for (const row of rows) {
     const cell = getCellValueByColumnID(row, columnId);

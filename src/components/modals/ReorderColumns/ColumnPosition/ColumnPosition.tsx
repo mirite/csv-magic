@@ -1,11 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowUp,
-  faArrowDown,
-  faArrowCircleDown,
-  faArrowCircleUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp, faArrowDown, faArrowCircleDown, faArrowCircleUp } from "@fortawesome/free-solid-svg-icons";
 import { Column } from "types";
 import styles from "components/modals/ReorderColumns/ReorderColumnsModal.module.css";
 

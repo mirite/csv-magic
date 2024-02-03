@@ -6,11 +6,7 @@ import { Column } from "types";
 import testTable from "./testTable";
 
 test("Rename columns", () => {
-  const newTable = renameColumn(
-    testTable,
-    "911fd1c0-516d-44b0-b8fd-abeaf5344648",
-    "blah",
-  );
+  const newTable = renameColumn(testTable, "911fd1c0-516d-44b0-b8fd-abeaf5344648", "blah");
   const columnNames = getColumnNames(newTable);
   expect(columnNames[1]).toBe("blah");
 });
@@ -32,7 +28,5 @@ test("Remove Columns", () => {
   expect(newTable.columns.length).toBe(12);
   expect(newTable.columns[1].id).toBe("1bd90560-5142-4d62-a245-36e0003702ff");
   expect(newTable.contents[0].contents.length).toBe(12);
-  expect(newTable.contents[0].contents[1].columnID).toBe(
-    "1bd90560-5142-4d62-a245-36e0003702ff",
-  );
+  expect(newTable.contents[0].contents[1].columnID).toBe("1bd90560-5142-4d62-a245-36e0003702ff");
 });

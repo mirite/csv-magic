@@ -36,9 +36,7 @@ interface IProps {
 function ViewTab(props: IProps) {
   const { active, onClick, onClose, home, label } = props;
 
-  const titleClass =
-    (home ? styles.homeButton : styles.titleButton) +
-    (active ? " " + styles.active : "");
+  const titleClass = (home ? styles.homeButton : styles.titleButton) + (active ? " " + styles.active : "");
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -47,11 +45,7 @@ function ViewTab(props: IProps) {
 
   return (
     <li className={styles.navItem}>
-      <button
-        className={titleClass}
-        aria-current="page"
-        onClick={(e) => handleClick(e)}
-      >
+      <button className={titleClass} aria-current="page" onClick={(e) => handleClick(e)}>
         {label}
       </button>
       {home ? "" : <CloseButton active={active} onClose={onClose} />}

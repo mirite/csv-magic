@@ -22,12 +22,7 @@ const SubmitButton: FunctionComponent<SubmitButtonProps> = (props) => {
   const isDisabled = processing || !fileAttached;
 
   return (
-    <button
-      className={styles.button}
-      type="submit"
-      aria-disabled={isDisabled}
-      disabled={isDisabled}
-    >
+    <button className={styles.button} type="submit" aria-disabled={isDisabled} disabled={isDisabled}>
       {getText()}
     </button>
   );

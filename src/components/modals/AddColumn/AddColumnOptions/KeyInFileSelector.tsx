@@ -8,9 +8,7 @@ interface KeyInFileSelectorProps {
   onChange: (value: number) => void;
 }
 
-const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
-  props,
-) => {
+const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (props) => {
   if (!props.table) {
     return <p>No Keys Found In File</p>;
   }
@@ -19,12 +17,7 @@ const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
   return (
     <div>
       <label htmlFor={id}>{props.label}</label>
-      <select
-        id={id}
-        onChange={(event) =>
-          props.onChange(Number.parseInt(event.currentTarget.value))
-        }
-      >
+      <select id={id} onChange={(event) => props.onChange(Number.parseInt(event.currentTarget.value))}>
         <option value="">Please select a key</option>
         {columns.map((key) => (
           <option key={key.id} value={key.id}>

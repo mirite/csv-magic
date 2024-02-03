@@ -11,12 +11,7 @@ const StaticOptions = (props: StaticOptionsProps) => {
       <label htmlFor="static-option" className={styles.label}>
         Static Value:
       </label>
-      <input
-        type="text"
-        className={styles.input}
-        id="static-option"
-        onChange={(e) => props.onChange(e.target.value)}
-      />
+      <input type="text" className={styles.input} id="static-option" onChange={(e) => props.onChange(e.target.value)} />
     </div>
   );
 };

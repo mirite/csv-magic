@@ -13,29 +13,20 @@ const FindAndReplaceModal = (props: IProps) => {
   const { column, table, onClose } = props;
   const [findValue, setFindValue] = useState("");
   const [replaceValue, setReplaceValue] = useState("");
-  const [testResult, setTestResult] = useState(
-    "Test to see how many rows this will impact.",
-  );
+  const [testResult, setTestResult] = useState("Test to see how many rows this will impact.");
 
   const handleFindChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     setFindValue(value);
   };
 
-  const handleReplaceChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
+  const handleReplaceChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     setReplaceValue(value);
   };
 
   const handleApply = (): void => {
-    const newTable = findAndReplaceInColumn(
-      table,
-      column,
-      findValue,
-      replaceValue,
-    );
+    const newTable = findAndReplaceInColumn(table, column, findValue, replaceValue);
     onClose(newTable);
   };
 
@@ -68,13 +59,7 @@ const FindAndReplaceModal = (props: IProps) => {
         <div className={styles.container}>
           <div className={styles.group}>
             <label htmlFor="find-input">Find:</label>
-            <input
-              id="find-input"
-              className={styles.input}
-              type="text"
-              value={findValue}
-              onChange={handleFindChange}
-            />
+            <input id="find-input" className={styles.input} type="text" value={findValue} onChange={handleFindChange} />
           </div>
 
           <div className={styles.group}>
@@ -92,12 +77,7 @@ const FindAndReplaceModal = (props: IProps) => {
           <button className={styles.button} onClick={testQuery}>
             Test
           </button>
-          <input
-            type="text"
-            readOnly
-            className={styles.output}
-            value={testResult}
-          />
+          <input type="text" readOnly className={styles.output} value={testResult} />
         </div>
       </div>
     </Modal>

@@ -20,18 +20,14 @@ const TableComponent = (props: IProps) => {
   const currentFile = useFileStore().currentFile();
   if (!currentFile) return <>No File Loaded</>;
   const { table: data, activeSorts } = currentFile;
-  const { onSort, onRowAction, onTableChange, activeCell, onTableBodyClick } =
-    props;
+  const { onSort, onRowAction, onTableChange, activeCell, onTableBodyClick } = props;
 
-  const handleCellChange = useCallback(
-    (changedCell: Cell, newValue: string) => {
-      const newCell = { ...changedCell };
-      newCell.value = newValue;
-      const newData = updateCell(data, newCell);
-      onTableChange(newData);
-    },
-    [],
-  );
+  const handleCellChange = useCallback((changedCell: Cell, newValue: string) => {
+    const newCell = { ...changedCell };
+    newCell.value = newValue;
+    const newData = updateCell(data, newCell);
+    onTableChange(newData);
+  }, []);
 
   const columns = getColumns(data);
   return (

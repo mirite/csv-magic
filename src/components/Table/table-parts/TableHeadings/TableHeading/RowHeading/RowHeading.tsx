@@ -14,10 +14,7 @@ const RowHeading: FunctionComponent<RowHeadingProps> = (props) => {
         <button className={styles.button} onClick={() => onAction("duplicate")}>
           Duplicate
         </button>
-        <button
-          className={styles.buttonDanger}
-          onClick={() => onAction("delete")}
-        >
+        <button className={styles.buttonDanger} onClick={() => onAction("delete")}>
           Delete
         </button>
       </div>

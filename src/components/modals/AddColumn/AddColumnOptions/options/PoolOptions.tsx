@@ -20,12 +20,7 @@ const PoolOptions = (props: PoolOptionsProps) => {
         <label htmlFor={id} className={styles.label}>
           Pool Values (separated by commas):
         </label>
-        <input
-          type="text"
-          className={styles.input}
-          id={id}
-          onChange={(e) => splitValues(e.target.value)}
-        />
+        <input type="text" className={styles.input} id={id} onChange={(e) => splitValues(e.target.value)} />
       </div>
       <div>
         <h4>Values in Pool:</h4>
