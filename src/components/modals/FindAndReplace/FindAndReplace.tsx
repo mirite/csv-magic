@@ -90,7 +90,8 @@ const FindAndReplaceModal = (props: IProps) => {
           </div>
         </div>
         <div className={styles.tester}>
-          <button className={styles.button} onClick={testQuery}>
+          type={"button"}
+          <button className={styles.button} type={"button"} onClick={testQuery}>
             Test
           </button>
           <input

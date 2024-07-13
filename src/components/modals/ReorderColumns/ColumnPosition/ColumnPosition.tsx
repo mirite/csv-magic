@@ -34,6 +34,7 @@ const ColumnPosition: FunctionComponent<ColumnPositionProps> = (props) => {
     <React.Fragment>
       <div className={styles.label}>{getLetterEquivalent(position)}</div>
       <button
+          type={"button"}
         className={styles.button}
         onClick={() => {
           props.onMove(toEnd);
@@ -43,6 +44,8 @@ const ColumnPosition: FunctionComponent<ColumnPositionProps> = (props) => {
         <FontAwesomeIcon icon={faArrowCircleDown} />
       </button>
       <button
+          type={"button"}
+
         className={styles.button}
         onClick={() => {
           props.onMove(1);
@@ -53,6 +56,8 @@ const ColumnPosition: FunctionComponent<ColumnPositionProps> = (props) => {
       </button>
       <div className={styles.label}>{label}</div>
       <button
+          type={"button"}
+
         className={styles.button}
         onClick={() => {
           props.onMove(-1);
@@ -62,6 +67,8 @@ const ColumnPosition: FunctionComponent<ColumnPositionProps> = (props) => {
         <FontAwesomeIcon icon={faArrowUp} />
       </button>
       <button
+          type={"button"}
+
         className={styles.button}
         onClick={() => {
           props.onMove(toStart);

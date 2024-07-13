@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import React, { useState } from "react";
 import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
@@ -11,7 +12,7 @@ interface IProps extends BaseModalProps {
   column: Column;
 }
 
-const FiltersModal = (props: IProps) => {
+const FiltersModal = (props: IProps): ReactElement => {
   const { column, onClose, table } = props;
   const [filterList, setFilterList] = useState<Filter>({ column, values: [] });
 
@@ -77,7 +78,11 @@ const FiltersModal = (props: IProps) => {
           />
         ))}
       </ul>
-      <button onClick={invertSelection} className={styles.button}>
+      <button
+        type={"button"}
+        onClick={invertSelection}
+        className={styles.button}
+      >
         Invert Selection
       </button>
     </Modal>

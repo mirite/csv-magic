@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useState } from "react";
+import React, { createContext, type ReactElement, useCallback, useState } from 'react';
 import Chrome from "../Chrome/Chrome";
 import TableComponent from "../Table/TableComponent";
 import Sorting from "modules/sorting";
@@ -26,8 +26,9 @@ export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
  */
 function Editor():ReactElement {
   const { currentFile, updateCurrentFile } = useFileStore();
-  const file = currentFile();
-  if (!file) return <>No File Loaded</>;
+  const file = currentFile()!; //Main makes sure this is not null before calling Editor.
+
+  const { table, history, activeSorts } = file;
 
   const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
   const [activeCell, setActiveCell] = useState(table.firstCellId);
@@ -70,6 +71,7 @@ function Editor():ReactElement {
 
   const modalContext = { setActiveModal, onClose: handleModalClose, table };
   ModalContext = createContext<ModalContextType>(modalContext);
+
   return (
     <ModalContext.Provider value={modalContext}>
       <Chrome onTableChange={(e: Table) => setCoreState(e)} />

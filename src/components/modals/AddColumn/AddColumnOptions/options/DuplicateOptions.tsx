@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import React, { useEffect, useState } from "react";
 import KeyInFileSelector from "../KeyInFileSelector";
 import { useFileStore } from "modules/useFileStore";
@@ -6,7 +7,8 @@ interface LookupOptionsProps {
   onChange: (e: number) => void;
 }
 
-const DuplicateOptions = (props: LookupOptionsProps) => {
+const DuplicateOptions = (props: LookupOptionsProps): ReactElement => {
+  const { onChange } = props;
   const [columnIDToDuplicate, setColumnIDToDuplicate] = useState<number>();
 
   const activeFile = useFileStore();
@@ -16,8 +18,8 @@ const DuplicateOptions = (props: LookupOptionsProps) => {
       return;
     }
 
-    props.onChange(columnIDToDuplicate);
-  }, [columnIDToDuplicate]);
+    onChange(columnIDToDuplicate);
+  }, [columnIDToDuplicate, onChange]);
 
   if (!currentFile?.table) {
     return <p>No file active</p>;
