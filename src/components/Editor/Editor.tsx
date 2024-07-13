@@ -1,4 +1,9 @@
-import React, { createContext, type ReactElement, useCallback, useState } from 'react';
+import React, {
+  createContext,
+  type ReactElement,
+  useCallback,
+  useState,
+} from "react";
 import Chrome from "../Chrome/Chrome";
 import TableComponent from "../Table/TableComponent";
 import Sorting from "modules/sorting";
@@ -24,7 +29,7 @@ export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 /**
  *
  */
-function Editor():ReactElement {
+function Editor(): ReactElement {
   const { currentFile, updateCurrentFile } = useFileStore();
   const file = currentFile()!; //Main makes sure this is not null before calling Editor.
 
@@ -67,7 +72,6 @@ function Editor():ReactElement {
     const newHistory = [...history, table];
     updateCurrentFile(newTable, newSorts || activeSorts, newHistory);
   };
-
 
   const modalContext = { setActiveModal, onClose: handleModalClose, table };
   ModalContext = createContext<ModalContextType>(modalContext);
