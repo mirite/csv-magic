@@ -1,4 +1,4 @@
-import { GenerateColumnStrategy } from "./GenerateColumnStrategy";
+import type { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 
 let generator: ReturnType<typeof poolValuesGenerator>;
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { File, MappedColumn } from "types";
+import type { File, MappedColumn } from "types";
 import KeyInFileSelector from "../KeyInFileSelector";
 import OpenFileSelector from "../OpenFileSelector";
 import { useFileStore } from "modules/useFileStore";

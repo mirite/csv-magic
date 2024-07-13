@@ -1,9 +1,10 @@
 import React from "react";
 import ActiveCell from "../Cell/ActiveCell/ActiveCell";
-import { Cell, Row } from "types";
+import type { Cell } from "types";
+import { Row } from "types";
 import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading";
 import InactiveCell from "../Cell/InactiveCell";
-import { RowAction } from "../../../Editor/Editor";
+import type { RowAction } from "../../../Editor/Editor";
 
 interface IProps extends Row {
   /**

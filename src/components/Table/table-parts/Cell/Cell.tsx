@@ -1,4 +1,5 @@
-import React, { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
+import React from "react";
 import styles from "./Cell.module.css";
 import { Cell } from "types";
 

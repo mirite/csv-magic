@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Modal, { BaseModalProps } from "../BaseModal/Modal";
-import { Column } from "types";
+import type { BaseModalProps } from "../BaseModal/Modal";
+import Modal from "../BaseModal/Modal";
+import type { Column } from "types";
 import styles from "./RemoveColumnsModal.module.css";
 import { getColumns } from "modules/access-helpers";
 import ColumnValue from "./ColumnValue/ColumnValue";

@@ -1,7 +1,7 @@
 import { registerColumnInTable } from "../csv/csv-loader";
 import { cloneDeep, createCellID } from "../tools";
-import { Cell, Table } from "types";
-import { GenerateColumnStrategy } from "./column-generators/GenerateColumnStrategy";
+import type { Cell, Table } from "types";
+import type { GenerateColumnStrategy } from "./column-generators/GenerateColumnStrategy";
 
 /**
  * Adds a new column to a Table and fills it with values using the method and parameters provided.

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Modal, { BaseModalProps } from "../BaseModal/Modal";
+import type { BaseModalProps } from "../BaseModal/Modal";
+import Modal from "../BaseModal/Modal";
 import FilterValue from "./FilterValue/FilterValue";
 import { getUniqueValuesInColumn } from "modules/access-helpers";
-import { Column, Filter } from "types";
+import type { Column, Filter } from "types";
 import styles from "./Filters.module.css";
 import Filtering from "modules/filtering";
 

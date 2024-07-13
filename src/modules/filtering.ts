@@ -1,4 +1,4 @@
-import { Filter, Table } from "types";
+import type { Filter, Table } from "types";
 import { getCellValueByColumnID } from "./access-helpers";
 import { cloneDeep } from "./tools";
 

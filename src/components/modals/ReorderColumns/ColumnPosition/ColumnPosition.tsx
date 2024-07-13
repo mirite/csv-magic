@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from "react";
+import type { FunctionComponent } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUp,
@@ -6,7 +7,7 @@ import {
   faArrowCircleDown,
   faArrowCircleUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { Column } from "types";
+import type { Column } from "types";
 import styles from "components/modals/ReorderColumns/ReorderColumnsModal.module.css";
 
 interface ColumnPositionProps {

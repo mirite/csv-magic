@@ -1,5 +1,5 @@
 import { getCellValueByColumnID } from "./access-helpers";
-import { Sorts, Table } from "types";
+import type { Sorts, Table } from "types";
 import { cloneDeep } from "./tools";
 
 /**

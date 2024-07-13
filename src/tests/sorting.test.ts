@@ -1,8 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
 import Sorting from "modules/sorting";
-import { Sorts } from "types";
+import type { Sorts } from "types";
 import testTable from "./testTable";
+
 test("Set sorts", () => {
   const sorts: Sorts = [];
   const newSorts = Sorting.setSort(

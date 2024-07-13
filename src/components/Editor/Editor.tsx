@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useState } from "react";
 import Chrome from "../Chrome/Chrome";
 import TableComponent from "../Table/TableComponent";
 import Sorting from "modules/sorting";
-import { Modal, Row, Sorts, Table } from "types";
+import type { Modal, Row, Sorts, Table } from "types";
 
 import { deleteRow, duplicateRow } from "modules/row-actions";
 import { useFileStore } from "modules/useFileStore";

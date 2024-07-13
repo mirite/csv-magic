@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Modal, { BaseModalProps } from "../BaseModal/Modal";
-import { MappedColumn } from "types";
+import type { BaseModalProps } from "../BaseModal/Modal";
+import Modal from "../BaseModal/Modal";
+import type { MappedColumn } from "types";
 import styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./AddColumnOptions/ColumnType";
 import LookupOptions from "./AddColumnOptions/options/LookupOptions";
@@ -15,7 +16,7 @@ import {
   Pool,
   Statically,
 } from "modules/column-generation/column-generators";
-import { GenerateColumnStrategy } from "../../../modules/column-generation/column-generators/GenerateColumnStrategy";
+import type { GenerateColumnStrategy } from "../../../modules/column-generation/column-generators/GenerateColumnStrategy";
 
 const columnTypeRadios = {
   Blank: {

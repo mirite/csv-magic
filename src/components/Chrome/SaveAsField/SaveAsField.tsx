@@ -1,6 +1,8 @@
-import React, { FormEvent, FunctionComponent, useState } from "react";
-import { Table } from "types";
-import CSVSaver, { supportedFileTypes } from "modules/csv/csv-saver";
+import type { FormEvent, FunctionComponent } from "react";
+import React, { useState } from "react";
+import type { Table } from "types";
+import type { supportedFileTypes } from "modules/csv/csv-saver";
+import CSVSaver from "modules/csv/csv-saver";
 import styles from "./SaveAsField.module.css";
 
 interface SaveAsFieldProps {

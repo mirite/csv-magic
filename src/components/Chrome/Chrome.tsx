@@ -3,7 +3,7 @@ import SaveAsField from "./SaveAsField/SaveAsField";
 import UndoRedo from "./UndoRedo/UndoRedo";
 import styles from "./Chrome.module.css";
 import SuperTools from "./SuperTools/SuperTools";
-import { Table } from "types";
+import type { Table } from "types";
 import { useFileStore } from "modules/useFileStore";
 
 interface ChromeProps {

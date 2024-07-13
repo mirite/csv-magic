@@ -1,5 +1,5 @@
 import csv from "csvtojson";
-import { Table, Row, File, RawRow, RawTable } from "types";
+import type { Table, Row, File, RawRow, RawTable } from "types";
 import { getColumnId } from "../access-helpers";
 import { createCellID, createID } from "../tools";
 

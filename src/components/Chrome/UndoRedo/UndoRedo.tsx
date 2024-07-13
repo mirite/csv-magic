@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useState } from "react";
+import type { FunctionComponent } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo, faUndo } from "@fortawesome/free-solid-svg-icons";
-import { FileHistory, Table } from "types";
+import type { FileHistory, Table } from "types";
 import styles from "./UndoRedo.module.css";
 
 interface UndoRedoProps {

@@ -1,4 +1,5 @@
-import React, { FunctionComponent, useId } from "react";
+import type { FunctionComponent } from "react";
+import React, { useId } from "react";
 
 interface ColumnTypeRadioProps {
   label: string;

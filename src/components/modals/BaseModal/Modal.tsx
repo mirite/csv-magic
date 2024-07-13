@@ -1,6 +1,7 @@
-import React, { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
+import React from "react";
 import styles from "./Modal.module.css";
-import { Table } from "types";
+import type { Table } from "types";
 
 interface Props extends BaseModalProps, PropsWithChildren {
   title?: string;

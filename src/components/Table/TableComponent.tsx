@@ -2,10 +2,10 @@ import React, { useCallback } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import RowComponent from "./table-parts/Row/Row";
 import { updateCell } from "modules/editing";
-import { Cell, Row, Table } from "types";
+import type { Cell, Row, Table } from "types";
 import styles from "components/Table/Table.module.css";
 import { useFileStore } from "../../modules/useFileStore";
-import { RowAction } from "../Editor/Editor";
+import type { RowAction } from "../Editor/Editor";
 
 interface IProps {
   onSort: (columnID: number) => void;

@@ -1,5 +1,5 @@
-import { GenerateColumnStrategy } from "./GenerateColumnStrategy";
-import { Row } from "types";
+import type { GenerateColumnStrategy } from "./GenerateColumnStrategy";
+import type { Row } from "types";
 import { getCellValueByColumnID } from "../../access-helpers";
 
 export const Duplicate: GenerateColumnStrategy<number> = {

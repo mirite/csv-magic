@@ -1,6 +1,7 @@
 import { getColumns } from "modules/access-helpers";
-import React, { FunctionComponent, useId } from "react";
-import { Table } from "types";
+import type { FunctionComponent } from "react";
+import React, { useId } from "react";
+import type { Table } from "types";
 
 interface KeyInFileSelectorProps {
   table: Table;

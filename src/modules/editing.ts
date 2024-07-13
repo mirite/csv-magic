@@ -1,5 +1,5 @@
 import { getCellByID, getColumnIndex } from "./access-helpers";
-import { Cell, Column, Row, Table } from "types";
+import type { Cell, Column, Row, Table } from "types";
 import { cloneDeep } from "./tools";
 
 /**

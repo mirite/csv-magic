@@ -1,7 +1,8 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
+import React, { useEffect, useState } from "react";
 import CellComponent from "../Cell";
 import styles from "components/Table/table-parts/Cell/Cell.module.css";
-import { Cell } from "types";
+import type { Cell } from "types";
 
 interface Props extends Cell {
   onChange: (newValue: string) => void;

@@ -11,6 +11,7 @@
     "url": "git+https://github.com/mirite/csv-magic.git"
   },
   "private": true,
+  "type": "module",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
@@ -27,7 +28,7 @@
     "build": "webpack --mode=production",
     "dev": "npx webpack-dev-server --config webpack.config.mjs --mode=development",
     "test": "jest",
-    "lint": "yarn eslint \"**/*.ts*\" --fix  --ignore-path .gitignore; yarn stylelint **/*.*css --fix --ignore-path .gitignore",
+    "lint": "eslint --fix ; stylelint **/*.*css --fix --ignore-path .gitignore",
     "format": "prettier . --write --ignore-path .gitignore"
   },
   "browserslist": {
@@ -43,6 +44,8 @@
     ]
   },
   "devDependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@eslint/js": "^9.7.0",
     "@playwright/test": "^1.45.1",
     "@types/jest": "^29.5.12",
     "@types/json2csv": "^5.0.7",
@@ -53,11 +56,13 @@
     "@typescript-eslint/parser": "^7.16.0",
     "autoprefixer": "^10.4.19",
     "css-loader": "^7.1.2",
-    "eslint": "^8.57.0",
+    "eslint": "^9.7.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^48.7.0",
     "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-webpack-plugin": "^4.2.0",
+    "globals": "^15.8.0",
     "html-webpack-plugin": "^5.6.0",
     "jest": "^29.7.0",
     "postcss": "^8.4.39",
@@ -72,6 +77,7 @@
     "stylelint-prettier": "^5.0.0",
     "ts-jest": "^29.2.2",
     "ts-loader": "^9.5.1",
+    "typescript-eslint": "^7.16.0",
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"

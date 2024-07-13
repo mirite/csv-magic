@@ -9,11 +9,12 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./TableHeading.module.css";
-import { Column, Sorts } from "types";
+import type { Column, Sorts } from "types";
 import RenameColumnModal from "../../../../modals/RenameColumn/RenameColumn";
 import { ModalContext } from "../../../../Editor/Editor";
 import FindAndReplaceModal from "../../../../modals/FindAndReplace/FindAndReplace";
 import FiltersModal from "../../../../modals/Filters/Filters";
+
 interface HeadingsProps {
   column: Column;
   onSort: () => void;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Cell } from "types";
+import type { Cell } from "types";
 import CellComponent from "./Cell";
 
 const InactiveCell = (props: Cell) => {

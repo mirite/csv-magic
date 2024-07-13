@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Modal, { BaseModalProps } from "../BaseModal/Modal";
-import { Column } from "types";
+import type { BaseModalProps } from "../BaseModal/Modal";
+import Modal from "../BaseModal/Modal";
+import type { Column } from "types";
 import styles from "./FindAndReplaceModal.module.css";
 import { countOccurrences } from "modules/access-helpers";
 import { findAndReplaceInColumn } from "modules/editing";

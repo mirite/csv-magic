@@ -1,4 +1,4 @@
-import { Cell, Column, Row, Table } from "types";
+import type { Cell, Column, Row, Table } from "types";
 
 /**
  * Rearranges the columns in a Table.

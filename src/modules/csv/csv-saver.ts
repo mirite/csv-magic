@@ -1,5 +1,5 @@
 import { Parser } from "@json2csv/plainjs";
-import { RawRow, RawTable, Table } from "types";
+import type { RawRow, RawTable, Table } from "types";
 import { getColumnNameByID } from "../access-helpers";
 
 /**

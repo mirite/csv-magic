@@ -1,4 +1,4 @@
-import { Row } from "types";
+import type { Row } from "types";
 
 export type GenerateColumnStrategy<T> = {
   init?: (params: T) => void;

@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from "react";
+import type { FunctionComponent } from "react";
+import React from "react";
 import styles from "../TableHeading.module.css";
-import { RowAction } from "../../../../../Editor/Editor";
+import type { RowAction } from "../../../../../Editor/Editor";
 
 interface RowHeadingProps {
   onAction: (actionName: RowAction) => void;

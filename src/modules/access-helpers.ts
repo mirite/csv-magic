@@ -1,4 +1,4 @@
-import { Cell, Column, Row, Table } from "types";
+import type { Cell, Column, Row, Table } from "types";
 
 /**
  * Takes a row and returns the value at the specified key.

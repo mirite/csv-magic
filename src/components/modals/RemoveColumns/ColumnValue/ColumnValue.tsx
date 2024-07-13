@@ -1,5 +1,6 @@
-import React, { ChangeEvent, FunctionComponent, useState } from "react";
-import { Column } from "types";
+import type { ChangeEvent, FunctionComponent } from "react";
+import React, { useState } from "react";
+import type { Column } from "types";
 
 interface ColumnValueProps {
   value: Column;

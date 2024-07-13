@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { File, FileHistory, Sorts, Table } from "../types";
+import type { File, FileHistory, Sorts, Table } from "../types";
 
 export interface FileStoreState {
   currentIndex: number;

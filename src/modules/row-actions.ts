@@ -1,5 +1,5 @@
 import { cloneDeep, createID } from "./tools";
-import { Row, Table } from "types";
+import type { Row, Table } from "types";
 
 /**
  *
