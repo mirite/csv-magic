@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,7 +22,7 @@ interface HeadingsProps {
   activeSorts: Sorts;
 }
 
-const TableHeading = (props: HeadingsProps) => {
+const TableHeading = (props: HeadingsProps): ReactElement => {
   const { column } = props;
   const { setActiveModal, table, onClose } = useContext(ModalContext);
   const getSortStateIcon = () => {
@@ -57,6 +58,7 @@ const TableHeading = (props: HeadingsProps) => {
         </div>
         <div className={styles.actions}>
           <button
+            type={"button"}
             className={styles.button}
             onClick={() =>
               setActiveModal(
@@ -73,6 +75,7 @@ const TableHeading = (props: HeadingsProps) => {
           </button>
           <button
             className={styles.button}
+            type={"button"}
             onClick={() =>
               setActiveModal(
                 <FiltersModal
@@ -87,6 +90,7 @@ const TableHeading = (props: HeadingsProps) => {
             <FontAwesomeIcon icon={faFilter} />
           </button>
           <button
+            type={"button"}
             className={styles.button}
             onClick={() => props.onSort()}
             title="Sort on Column"

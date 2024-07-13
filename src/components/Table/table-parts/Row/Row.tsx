@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import React from "react";
 import ActiveCell from "../Cell/ActiveCell/ActiveCell";
 import type { Cell } from "types";
@@ -24,7 +25,7 @@ interface IProps extends Row {
  * Displays a row of cells within a Table.
  * @param props
  */
-function Row(props: IProps) {
+function Row(props: IProps): ReactElement {
   const { contents: cells, activeCell, onCellChange, onAction } = props;
   return (
     <tr>

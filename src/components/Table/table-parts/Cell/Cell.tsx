@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactElement } from "react";
 import React from "react";
 import styles from "./Cell.module.css";
 import { Cell } from "types";
@@ -9,7 +9,7 @@ type IProps = PropsWithChildren & Cell;
  * A single cell within a Table.
  * @param props
  */
-const Cell = (props: IProps) => {
+const Cell = (props: IProps): ReactElement => {
   const { children, id } = props;
 
   return (

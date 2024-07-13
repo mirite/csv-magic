@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import React, { useCallback } from "react";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 import RowComponent from "./table-parts/Row/Row";
@@ -15,9 +16,11 @@ interface IProps {
   activeCell?: string;
 }
 
-const TableComponent = (props: IProps) => {
+const TableComponent = (props: IProps): ReactElement => {
   const { onSort, onRowAction, onTableChange, activeCell, onTableBodyClick } =
     props;
+  const currentFile = useFileStore().currentFile()!;
+  const { table: data, activeSorts } = currentFile;
 
   const handleCellChange = useCallback(
     (changedCell: Cell, newValue: string) => {
@@ -26,11 +29,8 @@ const TableComponent = (props: IProps) => {
       const newData = updateCell(data, newCell);
       onTableChange(newData);
     },
-    [],
+    [onTableChange, data],
   );
-  const currentFile = useFileStore().currentFile();
-  if (!currentFile) return <>No File Loaded</>;
-  const { table: data, activeSorts } = currentFile;
 
   return (
     <div className={styles.container}>

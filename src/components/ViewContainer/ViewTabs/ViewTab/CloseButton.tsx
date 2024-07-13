@@ -1,4 +1,5 @@
 import styles from "./ViewTab.module.css";
+import type { ReactElement } from "react";
 import React from "react";
 
 /**
@@ -7,11 +8,14 @@ import React from "react";
  * @param props.active
  * @param props.onClose
  */
-function CloseButton(props: { active: boolean; onClose: () => void }) {
+function CloseButton(props: {
+  active: boolean;
+  onClose: () => void;
+}): ReactElement {
   const { active, onClose } = props;
   const closeClass = styles.closeButton + (active ? " " + styles.active : "");
   return (
-    <button className={closeClass} onClick={() => onClose()}>
+    <button type={"button"} className={closeClass} onClick={() => onClose()}>
       X
     </button>
   );
