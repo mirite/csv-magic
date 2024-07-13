@@ -13,13 +13,12 @@ const FileSelector = () => {
   const [fileAttached, setFileAttached] = useState<boolean>(false);
 
   const handleAttachFile = async (e: React.FormEvent<HTMLInputElement>) => {
-    const { files } = e.currentTarget;
-    const file = files?.item(0);
+    const { files:attachedFiles } = e.currentTarget;
+    const file = attachedFiles?.item(0);
     if (file) {
       const fileText = await file.text();
-      const fileName = file.name;
       setFileTextContent(fileText);
-      setFileName(fileName);
+      setFileName(file.name);
       setFileAttached(true);
     }
   };

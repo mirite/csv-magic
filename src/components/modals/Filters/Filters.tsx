@@ -45,7 +45,6 @@ const FiltersModal = (props: IProps) => {
   };
 
   const invertSelection = (): void => {
-    const { table, column } = props;
     const allValues = getUniqueValuesInColumn(table, column.id);
     const oldActiveValues = filterList.values;
     const values = allValues

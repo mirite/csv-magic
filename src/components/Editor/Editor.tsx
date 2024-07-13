@@ -24,11 +24,11 @@ export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 /**
  *
  */
-function Editor() {
+function Editor():ReactElement {
   const { currentFile, updateCurrentFile } = useFileStore();
   const file = currentFile();
   if (!file) return <>No File Loaded</>;
-  const { table, activeSorts, history } = file;
+
   const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
   const [activeCell, setActiveCell] = useState(table.firstCellId);
 
@@ -66,6 +66,7 @@ function Editor() {
     const newHistory = [...history, table];
     updateCurrentFile(newTable, newSorts || activeSorts, newHistory);
   };
+
 
   const modalContext = { setActiveModal, onClose: handleModalClose, table };
   ModalContext = createContext<ModalContextType>(modalContext);

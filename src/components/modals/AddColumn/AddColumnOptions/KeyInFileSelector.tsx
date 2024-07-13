@@ -12,11 +12,11 @@ interface KeyInFileSelectorProps {
 const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
   props,
 ) => {
+  const id = useId();
   if (!props.table) {
     return <p>No Keys Found In File</p>;
   }
   const columns = getColumns(props.table);
-  const id = useId();
   return (
     <div>
       <label htmlFor={id}>{props.label}</label>

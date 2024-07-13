@@ -26,7 +26,7 @@
   },
   "scripts": {
     "build": "webpack --mode=production",
-    "dev": "npx webpack-dev-server --config webpack.config.mjs --mode=development",
+    "dev": "npx webpack-dev-server --config webpack.config.js --mode=development",
     "test": "jest",
     "lint": "eslint --fix ; stylelint **/*.*css --fix --ignore-path .gitignore",
     "format": "prettier . --write --ignore-path .gitignore"

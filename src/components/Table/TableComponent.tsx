@@ -16,9 +16,6 @@ interface IProps {
 }
 
 const TableComponent = (props: IProps) => {
-  const currentFile = useFileStore().currentFile();
-  if (!currentFile) return <>No File Loaded</>;
-  const { table: data, activeSorts } = currentFile;
   const { onSort, onRowAction, onTableChange, activeCell, onTableBodyClick } =
     props;
 
@@ -31,6 +28,9 @@ const TableComponent = (props: IProps) => {
     },
     [],
   );
+  const currentFile = useFileStore().currentFile();
+  if (!currentFile) return <>No File Loaded</>;
+  const { table: data, activeSorts } = currentFile;
 
   return (
     <div className={styles.container}>
