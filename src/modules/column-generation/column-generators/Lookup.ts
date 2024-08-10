@@ -1,26 +1,28 @@
-import type { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 import type { MappedColumn, Row } from "types";
+
 import {
-  getCellValueByColumnID,
-  getRowWithMatchingValueInColumn,
+	getCellValueByColumnID,
+	getRowWithMatchingValueInColumn,
 } from "../../access-helpers";
 
+import type { GenerateColumnStrategy } from "./GenerateColumnStrategy";
+
 export const Lookup: GenerateColumnStrategy<MappedColumn> = {
-  generate: (row: Row, mappedGenerator: MappedColumn) => {
-    const { foreignTable, sourceMatchID, foreignMatchID, foreignImportID } =
-      mappedGenerator;
+	generate: (row: Row, mappedGenerator: MappedColumn) => {
+		const { foreignTable, sourceMatchID, foreignMatchID, foreignImportID } =
+			mappedGenerator;
 
-    const localValue = getCellValueByColumnID(row as Row, sourceMatchID);
+		const localValue = getCellValueByColumnID(row as Row, sourceMatchID);
 
-    const remoteRow = getRowWithMatchingValueInColumn(
-      foreignTable,
-      foreignMatchID,
-      localValue,
-    );
+		const remoteRow = getRowWithMatchingValueInColumn(
+			foreignTable,
+			foreignMatchID,
+			localValue,
+		);
 
-    if (remoteRow) {
-      return getCellValueByColumnID(remoteRow, foreignImportID);
-    }
-    return "";
-  },
+		if (remoteRow) {
+			return getCellValueByColumnID(remoteRow, foreignImportID);
+		}
+		return "";
+	},
 };

@@ -1,39 +1,39 @@
 .header {
-  text-align: center;
-  color: #111;
-  background:
-    radial-gradient(
-      circle at 100% 50%,
-      transparent 20%,
-      rgb(255 255 255 / 30%) 21%,
-      rgb(255 255 255 / 30%) 34%,
-      transparent 35%,
-      transparent
-    ),
-    radial-gradient(
-        circle at 0% 50%,
-        transparent 20%,
-        rgb(255 255 255 / 30%) 21%,
-        rgb(255 255 255 / 30%) 34%,
-        transparent 35%,
-        transparent
-      )
-      0 -50px;
-  background-color: slategray;
-  background-size: 75px 100px;
-  box-shadow: 0 0 50px 0 rgb(0 0 0 / 20%);
+	text-align: center;
+	color: #111;
+	background:
+		radial-gradient(
+			circle at 100% 50%,
+			transparent 20%,
+			rgb(255 255 255 / 30%) 21%,
+			rgb(255 255 255 / 30%) 34%,
+			transparent 35%,
+			transparent
+		),
+		radial-gradient(
+				circle at 0% 50%,
+				transparent 20%,
+				rgb(255 255 255 / 30%) 21%,
+				rgb(255 255 255 / 30%) 34%,
+				transparent 35%,
+				transparent
+			)
+			0 -50px;
+	background-color: slategray;
+	background-size: 75px 100px;
+	box-shadow: 0 0 50px 0 rgb(0 0 0 / 20%);
 }
 
 .header h1 {
-  font-weight: bold;
-  letter-spacing: 0.1em;
+	font-weight: bold;
+	letter-spacing: 0.1em;
 }
 
 .main {
-  padding: 1rem;
-  text-align: center;
+	padding: 1rem;
+	text-align: center;
 }
 
 .footer {
-  text-align: center;
+	text-align: center;
 }

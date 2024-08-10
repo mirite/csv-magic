@@ -1,3 +1,3 @@
 .submitButtonContainer {
-  composes: mb-3 text-end from "../../../node_modules/bootstrap/dist/css/bootstrap.css";
+	composes: mb-3 text-end from "../../../node_modules/bootstrap/dist/css/bootstrap.css";
 }
