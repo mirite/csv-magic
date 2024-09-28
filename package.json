@@ -1,5 +1,5 @@
 {
-	"name": "csv-magic",
+	"name": "@mirite/csv-magic",
 	"version": "1.10.0",
 	"author": {
 		"name": "Jesse Conner",
@@ -22,7 +22,7 @@
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"typescript": "^5.6.2",
-		"zustand": "^4.5.5"
+		"zustand": "^5.0.0-rc.2"
 	},
 	"scripts": {
 		"build": "webpack --mode=production",
