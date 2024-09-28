@@ -3,7 +3,7 @@ import { useFileStore } from "modules/useFileStore";
 import React, { useState } from "react";
 
 import FileInput from "./FileInput/FileInput";
-import styles from "./FileSelector.module.css";
+import * as styles from "./FileSelector.module.css";
 import SubmitButton from "./SubmitButton/SubmitButton";
 
 const FileSelector = () => {

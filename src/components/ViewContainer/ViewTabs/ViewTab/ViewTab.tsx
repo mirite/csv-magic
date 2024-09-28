@@ -2,7 +2,7 @@ import type { ReactElement, ReactNode } from "react";
 import React from "react";
 
 import CloseButton from "./CloseButton";
-import styles from "./ViewTab.module.css";
+import * as styles from "./ViewTab.module.css";
 
 interface IProps {
 	/** The label or name to display on the tab. */

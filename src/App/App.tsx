@@ -1,8 +1,9 @@
+import type { ReactElement } from "react";
 import React, { Suspense } from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "../index.scss";
-import styles from "./App.module.css";
+import * as styles from "./App.module.css";
 
 const ViewContainer = React.lazy(
 	() =>
@@ -11,9 +12,9 @@ const ViewContainer = React.lazy(
 		),
 );
 
-function App() {
+function App(): ReactElement {
 	return (
-		<div className={styles.App}>
+		<div>
 			<header className={styles.header}>
 				<h1>🪄CSV Magic🪄</h1>
 			</header>
