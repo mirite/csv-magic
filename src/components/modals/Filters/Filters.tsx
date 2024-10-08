@@ -7,7 +7,7 @@ import type { Column, Filter } from "types";
 import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
 
-import styles from "./Filters.module.css";
+import * as styles from "./Filters.module.css";
 import FilterValue from "./FilterValue/FilterValue";
 
 interface IProps extends BaseModalProps {

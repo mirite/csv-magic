@@ -13,7 +13,7 @@ import type { GenerateColumnStrategy } from "../../../modules/column-generation/
 import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
 
-import styles from "./AddColumn.module.css";
+import * as styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./AddColumnOptions/ColumnType";
 import DuplicateOptions from "./AddColumnOptions/options/DuplicateOptions";
 import LookupOptions from "./AddColumnOptions/options/LookupOptions";

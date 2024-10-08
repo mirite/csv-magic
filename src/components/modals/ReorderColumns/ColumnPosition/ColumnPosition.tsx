@@ -5,7 +5,7 @@ import {
 	faArrowCircleUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "components/modals/ReorderColumns/ReorderColumnsModal.module.css";
+import * as styles from "components/modals/ReorderColumns/ReorderColumnsModal.module.css";
 import type { FunctionComponent } from "react";
 import React from "react";
 import type { Column } from "types";

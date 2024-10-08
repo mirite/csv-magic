@@ -1,4 +1,4 @@
-import csv from "csvtojson";
+import { parseString } from "@mirite/csv-json-parser";
 import type { Table, Row, File, RawRow, RawTable } from "types";
 
 import { getColumnId } from "../access-helpers";
@@ -12,7 +12,12 @@ import { createCellID, createID } from "../tools";
  * @returns The raw Table from the file.
  */
 async function loadFile(content: string): Promise<RawTable> {
-	return csv().fromString(content);
+	const result = await parseString<RawTable>(content);
+	if (result) {
+		return result;
+	}
+	return [];
+	// return JSON.parse(parseString(content));
 }
 
 /**

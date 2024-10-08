@@ -8,7 +8,7 @@ import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
 
 import ColumnPosition from "./ColumnPosition/ColumnPosition";
-import styles from "./ReorderColumnsModal.module.css";
+import * as styles from "./ReorderColumnsModal.module.css";
 
 const ReorderColumnsModal = (props: BaseModalProps) => {
 	const { table } = props;

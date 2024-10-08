@@ -6,7 +6,7 @@ import type { Column } from "types";
 import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
 
-import styles from "./FindAndReplaceModal.module.css";
+import * as styles from "./FindAndReplaceModal.module.css";
 
 interface IProps extends BaseModalProps {
 	column: Column;

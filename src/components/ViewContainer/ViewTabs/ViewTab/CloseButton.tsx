@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import React from "react";
 
-import styles from "./ViewTab.module.css";
+import * as styles from "./ViewTab.module.css";
 
 /**
  * @param props

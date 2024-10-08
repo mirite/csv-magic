@@ -2,7 +2,7 @@ import type { PropsWithChildren, ReactElement } from "react";
 import React from "react";
 import type { Table } from "types";
 
-import styles from "./Modal.module.css";
+import * as styles from "./Modal.module.css";
 
 interface Props extends BaseModalProps, PropsWithChildren {
 	title?: string;

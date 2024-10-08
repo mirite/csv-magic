@@ -7,7 +7,7 @@ import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
 
 import ColumnValue from "./ColumnValue/ColumnValue";
-import styles from "./RemoveColumnsModal.module.css";
+import * as styles from "./RemoveColumnsModal.module.css";
 
 const RemoveColumnsModal = (props: BaseModalProps) => {
 	const { table, onClose } = props;

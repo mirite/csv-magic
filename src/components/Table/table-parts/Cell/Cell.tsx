@@ -2,7 +2,7 @@ import type { PropsWithChildren, ReactElement } from "react";
 import React from "react";
 import { Cell } from "types";
 
-import styles from "./Cell.module.css";
+import * as styles from "./Cell.module.css";
 
 type IProps = PropsWithChildren & Cell;
 

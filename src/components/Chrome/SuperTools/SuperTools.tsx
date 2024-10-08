@@ -11,7 +11,7 @@ import AddColumn from "../../modals/AddColumn/AddColumn";
 import RemoveColumns from "../../modals/RemoveColumns/RemoveColumns";
 import ReorderColumns from "../../modals/ReorderColumns/ReorderColumns";
 
-import styles from "./SuperTools.module.css";
+import * as styles from "./SuperTools.module.css";
 
 const SuperTools = () => {
 	const { setActiveModal, onClose, table } = useContext(ModalContext);

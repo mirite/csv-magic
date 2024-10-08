@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "../AddColumnOptions.module.css";
+import * as styles from "../AddColumnOptions.module.css";
 
 interface StaticOptionsProps {
 	onChange: (e: string) => void;

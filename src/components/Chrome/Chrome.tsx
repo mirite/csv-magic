@@ -2,7 +2,7 @@ import { useFileStore } from "modules/useFileStore";
 import React from "react";
 import type { Table } from "types";
 
-import styles from "./Chrome.module.css";
+import * as styles from "./Chrome.module.css";
 import SaveAsField from "./SaveAsField/SaveAsField";
 import SuperTools from "./SuperTools/SuperTools";
 import UndoRedo from "./UndoRedo/UndoRedo";
