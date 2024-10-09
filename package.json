@@ -75,8 +75,5 @@
 		"webpack-dev-server": "^5.1.0"
 	},
 	"license": "GPL-3.0-or-later",
-	"packageManager": "yarn@4.5.0",
-	"resolutions": {
-		"@mirite/csv-json-parser": "portal:/home/jesse/csv-json-parser"
-	}
+	"packageManager": "yarn@4.5.0"
 }

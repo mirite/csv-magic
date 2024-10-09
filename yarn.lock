@@ -993,13 +993,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mirite/csv-json-parser@portal:/home/jesse/csv-json-parser::locator=%40mirite%2Fcsv-magic%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@mirite/csv-json-parser@portal:/home/jesse/csv-json-parser::locator=%40mirite%2Fcsv-magic%40workspace%3A."
-  dependencies:
-    typescript: "npm:^5.6.3"
+"@mirite/csv-json-parser@npm:*":
+  version: 0.1.0
+  resolution: "@mirite/csv-json-parser@npm:0.1.0"
+  checksum: 10/7513d8ac26f10790f17ccb50a5386dd0480f6b62d53f03fb1549999d161905384af7779e0e518acd86a704c47dc5b594b91cf087ea2f746939efac7ab65ec00c
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "@mirite/csv-magic@workspace:.":
   version: 0.0.0-use.local
