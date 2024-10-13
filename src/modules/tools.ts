@@ -1,6 +1,7 @@
 /**
  * Clone an object
  *
+ * @template T The type of the object
  * @param data The object to clone
  * @returns A clone of the object
  */

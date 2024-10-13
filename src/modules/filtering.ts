@@ -4,10 +4,13 @@ import { getCellValueByColumnID } from "./access-helpers";
 import { cloneDeep } from "./tools";
 
 /**
- * @param data
- * @param activeFilter
+ * Applies a filter to a Table.
+ *
+ * @param data The Table to filter.
+ * @param activeFilter The filter to apply.
+ * @returns A new Table with the filter applied.
  */
-function applyFilters(data: Table, activeFilter: Filter) {
+function applyFilters(data: Table, activeFilter: Filter): Table {
 	const newData = cloneDeep(data);
 
 	newData.contents = newData.contents.filter((row) => {

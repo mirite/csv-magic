@@ -26,6 +26,7 @@ export function updateCell(data: Table, cell: Cell): Table {
  * @param columnId The name of the column to change.
  * @param newColumnName What to change the name to.
  * @returns A new Table with the column renamed.
+ * @throws Error If the column ID is not found.
  */
 export function renameColumn(
 	data: Table,
@@ -48,6 +49,7 @@ export function renameColumn(
  * @param column The name of the column to find and replace in.
  * @param toFind The string value to search for.
  * @param toReplaceWith The string value to replace with.
+ * @returns A new Table with the values replaced.
  */
 export function findAndReplaceInColumn(
 	data: Table,
@@ -66,8 +68,11 @@ export function findAndReplaceInColumn(
 }
 
 /**
- * @param row
- * @param columnIdsToRemove
+ * Removes specified columns from a row.
+ *
+ * @param row The row to remove columns from.
+ * @param columnIdsToRemove The IDs of the columns to remove.
+ * @returns A new row with the columns removed.
  */
 function removeColumnsInRow(row: Row, columnIdsToRemove: number[]): Row {
 	const remainingCells = row.contents.filter(

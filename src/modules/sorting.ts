@@ -11,7 +11,7 @@ import { cloneDeep } from "./tools";
  * @param columnID The key to change the sort status on.
  * @returns The new sorts array with the sort applied.
  */
-function setSort(sorts: Sorts, columnID: number) {
+function setSort(sorts: Sorts, columnID: number): Sorts {
 	let newSorts = cloneDeep(sorts);
 	/** The existing sort (if any) on the key. */
 	const match = newSorts.find((e) => e[0] === columnID);
@@ -35,7 +35,7 @@ function setSort(sorts: Sorts, columnID: number) {
  * @param sorts An array of the active sorts.
  * @returns The Table after all sorts have been applied.
  */
-function applySorting(data: Table, sorts: Sorts) {
+function applySorting(data: Table, sorts: Sorts): Table {
 	const newData = cloneDeep(data);
 	sorts.forEach((sort) => {
 		const [key, ascending] = sort;

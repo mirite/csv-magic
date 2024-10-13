@@ -21,6 +21,7 @@ export function getCellValueByColumnID(row: Row, columnId: number): string {
  * @param table The Table tto to search in.
  * @param id The ID of the cell to find.
  * @returns The cell at the specified id.
+ * @throws Error If the cell ID is not found.
  */
 export function getCellByID(table: Table, id: string): Cell | undefined {
 	const ids = id.split(",");
@@ -107,9 +108,12 @@ export function getColumnIndex(data: Table, columnId: number): number {
 }
 
 /**
- * @param data
- * @param columnID
- * @param needle
+ * Counts the number of occurrences of a string in a column.
+ *
+ * @param data The Table to search in.
+ * @param columnID The id of the column to search in.
+ * @param needle The string to search for.
+ * @returns The number of times the string was found.
  */
 export function countOccurrences(
 	data: Table,
@@ -127,9 +131,14 @@ export function countOccurrences(
 }
 
 /**
- * @param table
- * @param columnId
- * @param valueToFind
+ * Finds the first row that contains a cell with the specified value in the
+ * given column.
+ *
+ * @param table The table to search in.
+ * @param columnId The column to search in.
+ * @param valueToFind The value to search for.
+ * @returns The first row that contains the value in the column, or undefined if
+ *   not found.
  */
 export function getRowWithMatchingValueInColumn(
 	table: Table,
