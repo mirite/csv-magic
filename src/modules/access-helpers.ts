@@ -1,4 +1,4 @@
-import type { Cell, Column, Row, Table } from "types";
+import type { Cell, Row, Table } from "types";
 
 /**
  * Takes a row and returns the value at the specified key.
@@ -35,8 +35,12 @@ export function getCellByID(table: Table, id: string): Cell | undefined {
 }
 
 /**
- * @param table
- * @param id
+ * Gets the column name by the column ID.
+ *
+ * @param table The Table to search in.
+ * @param id The ID of the column to find.
+ * @returns The name of the column.
+ * @throws Error If the column ID isn't found.
  */
 export function getColumnNameByID(table: Table, id: number): string {
 	const value = table.columns.find((c) => c.id === id)?.label;
@@ -53,17 +57,7 @@ export function getColumnNameByID(table: Table, id: number): string {
  * @returns An array of strings that represent the column names.
  */
 export function getColumnNames(table: Table): Array<string> {
-	return getColumns(table).map((columnPair) => columnPair.label);
-}
-
-/**
- * Gets a list of the columns within a Table.
- *
- * @param table The Table to find the columns of.
- * @returns An array of columns with their indexes.
- */
-export function getColumns(table: Table): Array<Column> {
-	return table.columns;
+	return table.columns.map((columnPair) => columnPair.label);
 }
 
 /**
@@ -110,22 +104,6 @@ export function getColumnIndex(data: Table, columnId: number): number {
 		return column.position;
 	}
 	return -1;
-}
-
-/**
- * Returns the index within a row that corresponds to the column name provided.
- *
- * @param data The Table to search in.
- * @param index The name position index of the column to find.
- * @returns The id of the column.
- */
-export function getColumnId(data: Table, index: number) {
-	const { columns } = data;
-	const column = columns.find((c) => c.position === index);
-	if (!column) {
-		throw new Error("No column found at position " + index);
-	}
-	return column.id;
 }
 
 /**
