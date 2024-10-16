@@ -6,6 +6,7 @@ import {
 	Pool,
 	Statically,
 } from "modules/column-generation/column-generators";
+import type { ReactElement } from "react";
 import React, { useState } from "react";
 import type { MappedColumn } from "types";
 
@@ -68,7 +69,7 @@ const columnTypeRadios = {
 type ColumnDefinitions = typeof columnTypeRadios;
 type ColumnType = keyof ColumnDefinitions;
 
-const AddColumnModal = (props: BaseModalProps) => {
+const AddColumnModal = (props: BaseModalProps): ReactElement => {
 	const { table, onClose } = props;
 	const [columnName, setColumnName] = useState<string>("");
 	const [columnType, setColumnType] = useState<ColumnType>("Blank");

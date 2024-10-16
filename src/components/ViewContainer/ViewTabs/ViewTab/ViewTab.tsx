@@ -24,7 +24,8 @@ interface IProps {
 /**
  * A tab in the app representing an open file.
  *
- * @param props
+ * @param props The properties of the tab.
+ * @returns The view tab component.
  */
 function ViewTab(props: IProps): ReactElement {
 	const { active, onClick, onClose, home, label } = props;

@@ -12,7 +12,8 @@ interface Props extends Cell {
  * A Table cell that is currently selected. This changes the text label into an
  * input for editing.
  *
- * @param props
+ * @param props The properties of the cell.
+ * @returns The active cell component.
  */
 const ActiveCell = (props: Props): ReactElement => {
 	const { value, onChange } = props;

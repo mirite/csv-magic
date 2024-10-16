@@ -21,7 +21,8 @@ interface IProps extends Row {
 /**
  * Displays a row of cells within a Table.
  *
- * @param props
+ * @param props The properties of the row.
+ * @returns The row component.
  */
 function Row(props: IProps): ReactElement {
 	const { contents: cells, activeCell, onCellChange, onAction } = props;

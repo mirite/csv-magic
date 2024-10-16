@@ -12,7 +12,7 @@ export const Lookup: GenerateColumnStrategy<MappedColumn> = {
 		const { foreignTable, sourceMatchID, foreignMatchID, foreignImportID } =
 			mappedGenerator;
 
-		const localValue = getCellValueByColumnID(row as Row, sourceMatchID);
+		const localValue = getCellValueByColumnID(row, sourceMatchID);
 
 		const remoteRow = getRowWithMatchingValueInColumn(
 			foreignTable,

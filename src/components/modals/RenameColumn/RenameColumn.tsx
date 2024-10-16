@@ -1,4 +1,5 @@
 import { renameColumn } from "modules/editing";
+import type { ReactElement } from "react";
 import React, { useId, useState } from "react";
 import type { Column } from "types";
 
@@ -11,7 +12,7 @@ interface IProps extends BaseModalProps {
 	column: Column;
 }
 
-const RenameColumnModal = (props: IProps) => {
+const RenameColumnModal = (props: IProps): ReactElement => {
 	const { column, table, onClose } = props;
 	const [newName, setNewName] = useState<string>("");
 

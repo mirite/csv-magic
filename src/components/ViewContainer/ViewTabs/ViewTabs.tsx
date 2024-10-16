@@ -1,12 +1,13 @@
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ReactElement } from "react";
 import React from "react";
 
 import { useFileStore } from "../../../modules/useFileStore";
 
 import ViewTab from "./ViewTab/ViewTab";
 
-const ViewTabs = () => {
+const ViewTabs = (): ReactElement => {
 	const { setCurrentIndex, removeFile, files, currentIndex } = useFileStore();
 
 	const handleTabClick = (index: number) => {

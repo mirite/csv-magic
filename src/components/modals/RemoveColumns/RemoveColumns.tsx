@@ -1,5 +1,5 @@
-import { getColumns } from "modules/access-helpers";
 import { removeColumns } from "modules/editing";
+import type { ReactElement } from "react";
 import React, { useState } from "react";
 import type { Column } from "types";
 
@@ -9,9 +9,9 @@ import Modal from "../BaseModal/Modal";
 import ColumnValue from "./ColumnValue/ColumnValue";
 import * as styles from "./RemoveColumnsModal.module.css";
 
-const RemoveColumnsModal = (props: BaseModalProps) => {
+const RemoveColumnsModal = (props: BaseModalProps): ReactElement => {
 	const { table, onClose } = props;
-	const columns = getColumns(table);
+	const columns = table.columns;
 	const [columnsState, setColumnsState] = useState<Array<[Column, boolean]>>(
 		columns.map((label) => [label, false]),
 	);

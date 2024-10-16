@@ -9,7 +9,8 @@ type IProps = PropsWithChildren & Cell;
 /**
  * A single cell within a Table.
  *
- * @param props
+ * @param props The properties of the cell.
+ * @returns The cell component.
  */
 const Cell = (props: IProps): ReactElement => {
 	const { children, id } = props;

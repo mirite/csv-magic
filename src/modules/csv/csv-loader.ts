@@ -85,8 +85,11 @@ export function registerColumnInTable(table: Table, label: string): number {
 }
 
 /**
- * @param fileName
- * @param fileText
+ * Converts the text content of a CSV file into a File object.
+ *
+ * @param fileName The name of the file.
+ * @param fileText The text content of the file.
+ * @returns The File object.
  */
 export default async function (
 	fileName: string,
@@ -108,7 +111,12 @@ export default async function (
 	};
 }
 
-/** @param fileName */
+/**
+ * Generates a pretty name for a file.
+ *
+ * @param fileName The name of the file.
+ * @returns The pretty name.
+ */
 function generatePrettyName(fileName: string) {
 	return (
 		fileName.substring(0, 10) + "~" + fileName.substring(fileName.length - 8)

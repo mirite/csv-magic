@@ -3,15 +3,18 @@ import React from "react";
 
 import * as styles from "./ViewTab.module.css";
 
-/**
- * @param props
- * @param props.active
- * @param props.onClose
- */
-function CloseButton(props: {
+type Props = {
 	active: boolean;
 	onClose: () => void;
-}): ReactElement {
+};
+
+/**
+ * A close button for a tab.
+ *
+ * @param props The properties of the close button.
+ * @returns The close button component.
+ */
+function CloseButton(props: Props): ReactElement {
 	const { active, onClose } = props;
 	const closeClass = styles.closeButton + (active ? " " + styles.active : "");
 	return (

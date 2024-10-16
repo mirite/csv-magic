@@ -3,8 +3,13 @@ import type { RawRow, RawTable, Table } from "types";
 
 import { getColumnNameByID } from "../access-helpers";
 
-/** @param data */
-function convertToRawTable(data: Table) {
+/**
+ * Converts a Table object to a RawTable object for writing to a file.
+ *
+ * @param data The Table to convert.
+ * @returns The RawTable object.
+ */
+function convertToRawTable(data: Table): RawTable {
 	const rawTable: RawTable = [];
 	for (const row of data.contents) {
 		const rawRow: RawRow = {};
@@ -18,8 +23,10 @@ function convertToRawTable(data: Table) {
 }
 
 /**
- * @param filename
- * @param text
+ * Trigger a download of a file.
+ *
+ * @param filename The name of the file to download.
+ * @param text The contents of the file.
  */
 function download(filename: string, text: string): void {
 	const element = document.createElement("a");
@@ -39,17 +46,32 @@ function download(filename: string, text: string): void {
 
 export type supportedFileTypes = "json" | "sql" | "csv";
 
-/** @param rawData */
+/**
+ * Convert the data to CSV format.
+ *
+ * @param rawData The data to convert.
+ * @returns The data in CSV format.
+ */
 function prepareForCSV(rawData: RawTable): string {
 	const parser = new Parser();
 	return parser.parse(rawData);
 }
-/** @param rawData */
+/**
+ * Convert the data to JSON format.
+ *
+ * @param rawData The data to convert.
+ * @returns The data in JSON format.
+ */
 function prepareForJSON(rawData: RawTable): string {
 	return JSON.stringify(rawData);
 }
 
-/** @param rawData */
+/**
+ * Convert the data to SQL format.
+ *
+ * @param rawData The data to convert.
+ * @returns The data in SQL format.
+ */
 function prepareForSQL(rawData: RawTable): string {
 	let output = "";
 	for (const row of rawData) {
@@ -77,7 +99,7 @@ export default (
 	data: Table,
 	fileType: supportedFileTypes,
 	fileName?: string,
-) => {
+): void => {
 	const name = fileName
 		? fileName + "." + fileType
 		: `csv_magic_${Date.now()}.csv`;

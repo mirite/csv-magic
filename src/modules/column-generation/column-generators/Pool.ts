@@ -15,7 +15,8 @@ export const Pool: GenerateColumnStrategy<string[]> = {
  * Generator to evenly assign values from the pool of strings provided. Starts
  * at a random index and loops from there.
  *
- * @param poolValues
+ * @param poolValues The pool of strings to cycle through.
+ * @yields The next string in the pool.
  * @returns The next string in the pool.
  */
 function* poolValuesGenerator(poolValues: string[]) {

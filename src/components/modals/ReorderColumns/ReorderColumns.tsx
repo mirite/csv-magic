@@ -1,6 +1,5 @@
-import { getColumns } from "modules/access-helpers";
 import { reorderColumns } from "modules/reordering";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactElement } from "react";
 import React, { useState } from "react";
 import type { Column } from "types";
 
@@ -10,9 +9,9 @@ import Modal from "../BaseModal/Modal";
 import ColumnPosition from "./ColumnPosition/ColumnPosition";
 import * as styles from "./ReorderColumnsModal.module.css";
 
-const ReorderColumnsModal = (props: BaseModalProps) => {
+const ReorderColumnsModal = (props: BaseModalProps): ReactElement => {
 	const { table } = props;
-	const originalColumns = getColumns(table);
+	const originalColumns = table.columns;
 	const [columns, setColumns] = useState<Column[]>(originalColumns);
 
 	const handleChange = (initialIndex: number, distance: number) => {

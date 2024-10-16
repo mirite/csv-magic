@@ -1,5 +1,6 @@
 import { countOccurrences } from "modules/access-helpers";
 import { findAndReplaceInColumn } from "modules/editing";
+import type { ReactElement } from "react";
 import React, { useState } from "react";
 import type { Column } from "types";
 
@@ -12,7 +13,7 @@ interface IProps extends BaseModalProps {
 	column: Column;
 }
 
-const FindAndReplaceModal = (props: IProps) => {
+const FindAndReplaceModal = (props: IProps): ReactElement => {
 	const { column, table, onClose } = props;
 	const [findValue, setFindValue] = useState("");
 	const [replaceValue, setReplaceValue] = useState("");

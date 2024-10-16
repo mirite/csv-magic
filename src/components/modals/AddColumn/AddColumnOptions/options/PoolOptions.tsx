@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import React, { useId, useState } from "react";
 
 import * as styles from "../AddColumnOptions.module.css";
@@ -6,7 +7,7 @@ interface PoolOptionsProps {
 	onChange: (e: string[]) => void;
 }
 
-const PoolOptions = (props: PoolOptionsProps) => {
+const PoolOptions = (props: PoolOptionsProps): ReactElement => {
 	const id = useId();
 	const [valueList, setValueList] = useState<string[]>([]);
 	const splitValues = (values: string) => {
