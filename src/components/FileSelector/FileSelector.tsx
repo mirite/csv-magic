@@ -1,12 +1,13 @@
 import CSVLoader from "modules/csv/csv-loader";
 import { useFileStore } from "modules/useFileStore";
+import type { ReactElement } from "react";
 import React, { useState } from "react";
 
 import FileInput from "./FileInput/FileInput";
 import * as styles from "./FileSelector.module.css";
 import SubmitButton from "./SubmitButton/SubmitButton";
 
-const FileSelector = () => {
+const FileSelector = (): ReactElement => {
 	const { addFile, setCurrentIndex, files } = useFileStore();
 	const [processing, setProcessing] = useState<boolean>(false);
 	const [fileTextContent, setFileTextContent] = useState<string>("");

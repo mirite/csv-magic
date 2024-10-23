@@ -4,7 +4,7 @@ import type { FunctionComponent } from "react";
 import React, { useState } from "react";
 import type { FileHistory, Table } from "types";
 
-import styles from "./UndoRedo.module.css";
+import * as styles from "./UndoRedo.module.css";
 
 interface UndoRedoProps {
 	history: FileHistory;
@@ -12,33 +12,28 @@ interface UndoRedoProps {
 }
 
 const UndoRedo: FunctionComponent<UndoRedoProps> = (props) => {
+	const { history, onTableChange } = props;
 	const [historyIndex, setHistoryIndex] = useState(0);
-
-	const isUndoDisabled = () => {
-		return historyIndex === props.history.length;
-	};
-
-	const isRedoDisabled = () => {
-		return historyIndex === 0;
-	};
 
 	const timeTravel = (movement: number) => {
 		setHistoryIndex(historyIndex + movement);
-		props.onTableChange(props.history[historyIndex]);
+		onTableChange(history[historyIndex]);
 	};
 
 	return (
 		<div>
 			<button
 				className={styles.button}
-				disabled={isUndoDisabled()}
+				disabled={historyIndex === history.length}
 				onClick={() => timeTravel(1)}
+				type={"button"}
 			>
 				<FontAwesomeIcon icon={faUndo} />
 			</button>
 			<button
 				className={styles.button}
-				disabled={isRedoDisabled()}
+				type={"button"}
+				disabled={historyIndex === 0}
 				onClick={() => timeTravel(-1)}
 			>
 				<FontAwesomeIcon icon={faRedo} />

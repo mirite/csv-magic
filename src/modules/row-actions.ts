@@ -3,8 +3,11 @@ import type { Row, Table } from "types";
 import { cloneDeep, createID } from "./tools";
 
 /**
- * @param data
- * @param row
+ * Deletes a row from a Table.
+ *
+ * @param data The Table to delete the row from.
+ * @param row The row to delete.
+ * @returns A new Table with the row removed.
  */
 export function deleteRow(data: Table, row: Row): Table {
 	const newData = cloneDeep(data);
@@ -15,8 +18,11 @@ export function deleteRow(data: Table, row: Row): Table {
 }
 
 /**
- * @param data
- * @param row
+ * Duplicates a row in a Table.
+ *
+ * @param data The Table to duplicate the row in.
+ * @param row The row to duplicate.
+ * @returns A new Table with the row duplicated.
  */
 export function duplicateRow(data: Table, row: Row): Table {
 	const newData = cloneDeep(data);

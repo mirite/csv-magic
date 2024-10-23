@@ -5,6 +5,7 @@ import type { Cell, Column, Row, Table } from "types";
  *
  * @param table The Table to reorder the columns in.
  * @param newColumnOrder An array of the ids of the columns in their new order.
+ * @returns A new Table with the columns reordered.
  */
 export function reorderColumns(
 	table: Table,
@@ -22,8 +23,12 @@ export function reorderColumns(
 }
 
 /**
- * @param columns
- * @param newColumnOrder
+ * Rearranges the columns in a Table.
+ *
+ * @param columns The columns to reorder.
+ * @param newColumnOrder An array of the ids of the columns in their new order.
+ * @returns A new array of columns with the columns reordered.
+ * @throws Error If a column ID is not found in the Table.
  */
 function createNewColumnField(
 	columns: Column[],
@@ -44,16 +49,23 @@ function createNewColumnField(
 }
 
 /**
- * @param rows
- * @param newColumnOrder
+ * Rearranges the columns in the rows of a Table.
+ *
+ * @param rows The rows to reorder.
+ * @param newColumnOrder An array of the ids of the columns in their new order.
+ * @returns A new array of rows with the columns reordered.
  */
 function createNewRows(rows: Row[], newColumnOrder: number[]): Row[] {
 	return rows.map((row) => createNewRow(row, newColumnOrder));
 }
 
 /**
- * @param row
- * @param newColumnOrder
+ * Rearranges the columns in a row.
+ *
+ * @param row The row to reorder.
+ * @param newColumnOrder An array of the ids of the columns in their new order.
+ * @returns A new row with the columns reordered.
+ * @throws Error If a column ID is not found in the row.
  */
 function createNewRow(row: Row, newColumnOrder: number[]): Row {
 	const newRow: Row = {

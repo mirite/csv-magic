@@ -1,7 +1,6 @@
-import csv from "csvtojson";
-import type { Table, Row, File, RawRow, RawTable } from "types";
+import { parseString } from "@mirite/csv-json-parser";
+import type { File, RawTable, Row, Table } from "types";
 
-import { getColumnId } from "../access-helpers";
 import { createCellID, createID } from "../tools";
 
 /**
@@ -12,7 +11,12 @@ import { createCellID, createID } from "../tools";
  * @returns The raw Table from the file.
  */
 async function loadFile(content: string): Promise<RawTable> {
-	return csv().fromString(content);
+	const result = await parseString<RawTable>(content);
+	if (result) {
+		return result;
+	}
+	return [];
+	// return JSON.parse(parseString(content));
 }
 
 /**
@@ -27,42 +31,49 @@ function convertToTable(raw: RawTable): Table {
 	/** The Table being created from the raw data. */
 	const newTable: Table = { contents: [], columns: [] };
 
-	raw.forEach((rawRow: RawRow, rowIndex) => {
+	if (raw.length > 0) {
+		for (const label in raw[0]) {
+			registerColumnInTable(newTable, label);
+		}
+	}
+	for (let rowIndex = 0; rowIndex < raw.length; rowIndex++) {
 		/** A new row within the output Table. */
 		const newRow: Row = { contents: [], originalIndex: rowIndex };
 
 		/** Counter to make cell ids somewhat predictable. */
-		let columnPosition = 0;
+
 		newRow.id = createID("row");
-		for (const [label, rawValue] of Object.entries(rawRow)) {
-			let columnId: number;
-			if (rowIndex === 0) {
-				columnId = registerColumnInTable(newTable, label);
-			} else {
-				columnId = getColumnId(newTable, columnPosition);
-			}
+		for (
+			let columnPosition = 0;
+			columnPosition < newTable.columns.length;
+			columnPosition++
+		) {
+			const column = newTable.columns[columnPosition];
+			const value = raw[rowIndex][column.label];
+
 			/** Give each cell a unique ID for finding it later on. */
-			const id = createCellID(newRow.id, columnId);
-			const value = String(rawValue); //csv2json will pop out an object instead of a string some times, so this is to force the cell value to be a string.
+			const id = createCellID(newRow.id, column.id);
 
 			//If the Table doesn't have an active cell yet, indicate that this cell is the first in the Table.
 			if (!newTable.firstCellId) {
 				newTable.firstCellId = id;
 			}
-			newRow.contents.push({ id, value, columnID: columnId });
-			columnPosition++;
+			newRow.contents.push({ id, value, columnID: column.id });
 		}
 		newTable.contents.push(newRow);
-	});
+	}
 
 	return newTable;
 }
 
 /**
- * @param table
- * @param label
+ * Adds a column to the table.
+ *
+ * @param table The table to add the column to.
+ * @param label The label of the column.
+ * @returns The id of the column.
  */
-export function registerColumnInTable(table: Table, label: string) {
+export function registerColumnInTable(table: Table, label: string): number {
 	const position = table.columns.length;
 	const id = createID("column");
 	table.columns.push({
@@ -74,8 +85,11 @@ export function registerColumnInTable(table: Table, label: string) {
 }
 
 /**
- * @param fileName
- * @param fileText
+ * Converts the text content of a CSV file into a File object.
+ *
+ * @param fileName The name of the file.
+ * @param fileText The text content of the file.
+ * @returns The File object.
  */
 export default async function (
 	fileName: string,
@@ -96,7 +110,13 @@ export default async function (
 		prettyName,
 	};
 }
-/** @param fileName */
+
+/**
+ * Generates a pretty name for a file.
+ *
+ * @param fileName The name of the file.
+ * @returns The pretty name.
+ */
 function generatePrettyName(fileName: string) {
 	return (
 		fileName.substring(0, 10) + "~" + fileName.substring(fileName.length - 8)

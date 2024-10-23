@@ -1,4 +1,4 @@
-import styles from "components/Table/Table.module.css";
+import * as styles from "components/Table/Table.module.css";
 import { updateCell } from "modules/editing";
 import type { ReactElement } from "react";
 import React, { useCallback } from "react";

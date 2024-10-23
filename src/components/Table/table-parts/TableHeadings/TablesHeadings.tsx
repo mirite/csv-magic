@@ -1,4 +1,4 @@
-import { getColumns } from "modules/access-helpers";
+import type { ReactElement } from "react";
 import React from "react";
 import type { Sorts, Table } from "types";
 
@@ -13,14 +13,14 @@ interface TableHeadingsProps {
 	activeSorts: Sorts;
 }
 
-const TableHeadings = (props: TableHeadingsProps) => {
+const TableHeadings = (props: TableHeadingsProps): ReactElement => {
 	const { activeSorts, table, onSort, TablePart } = props;
 
 	return (
 		<TablePart>
 			<tr>
 				<th />
-				{getColumns(table).map((column) => (
+				{table.columns.map((column) => (
 					<TableHeading
 						key={column.id}
 						column={column}

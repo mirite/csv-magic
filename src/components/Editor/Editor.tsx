@@ -26,6 +26,11 @@ const rowActions = {
 export type RowAction = keyof typeof rowActions;
 export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
+/**
+ * The main editor component. Contains the table and the chrome.
+ *
+ * @returns The editor component.
+ */
 function Editor(): ReactElement {
 	const { currentFile, updateCurrentFile } = useFileStore();
 	const file = currentFile()!; //Main makes sure this is not null before calling Editor.

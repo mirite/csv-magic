@@ -16,7 +16,7 @@ import FiltersModal from "../../../../modals/Filters/Filters";
 import FindAndReplaceModal from "../../../../modals/FindAndReplace/FindAndReplace";
 import RenameColumnModal from "../../../../modals/RenameColumn/RenameColumn";
 
-import styles from "./TableHeading.module.css";
+import * as styles from "./TableHeading.module.css";
 
 interface HeadingsProps {
 	column: Column;

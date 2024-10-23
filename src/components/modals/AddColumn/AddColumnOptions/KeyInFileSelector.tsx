@@ -1,4 +1,3 @@
-import { getColumns } from "modules/access-helpers";
 import type { FunctionComponent } from "react";
 import React, { useId } from "react";
 import type { Table } from "types";
@@ -12,18 +11,20 @@ interface KeyInFileSelectorProps {
 const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
 	props,
 ) => {
+	const { table, label, onChange } = props;
+	const columns = table.columns;
 	const id = useId();
 	if (!props.table) {
 		return <p>No Keys Found In File</p>;
 	}
-	const columns = getColumns(props.table);
+
 	return (
 		<div>
-			<label htmlFor={id}>{props.label}</label>
+			<label htmlFor={id}>{label}</label>
 			<select
 				id={id}
 				onChange={(event) =>
-					props.onChange(Number.parseInt(event.currentTarget.value))
+					onChange(Number.parseInt(event.currentTarget.value))
 				}
 			>
 				<option value="">Please select a key</option>

@@ -12,6 +12,11 @@ const ViewContainer = React.lazy(
 		),
 );
 
+/**
+ * The main application component.
+ *
+ * @returns The main application component.
+ */
 function App(): ReactElement {
 	return (
 		<div>
