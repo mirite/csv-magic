@@ -1,5 +1,4 @@
 .git
-dist
 .idea
 .yarn
 node_modules

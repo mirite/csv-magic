@@ -1,7 +1,7 @@
 #!/bin/bash
 yarn install
 yarn build
-tar -cvf ./deploy.tar --exclude='*.map' --exclude='.yarn' --exclude='e2e' --exclude='playwright' --exclude='playwright-report' --exclude='tests' --exclude='test-results' --exclude='node_modules' ./*
+tar -cvf ./deploy.tar --exclude='*.map' --exclude='.yarn' --exclude='src' --exclude='e2e' --exclude='playwright' --exclude='playwright-report' --exclude='tests' --exclude='test-results' --exclude='node_modules' ./*
 
 # Verify the tarball
 if tar -tf ./deploy.tar > /dev/null; then
