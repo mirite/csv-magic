@@ -4,7 +4,7 @@ CSV Magic is a spreadsheet editor that allows for sorting, filtering, and other 
 
 ## Instructions:
 
-- To start development server: yarn run start
+- To start development server: yarn run dev
 - To build project: yarn run build
 
-You can see this project in action on [https://csvmagic.cloud](https://csvmagic.cloud)
+You can see this project in action on [https://csvmagic.app.jesseconner.ca](https://csvmagic.app.jesseconner.ca)
