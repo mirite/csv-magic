@@ -2,7 +2,6 @@ import path from "path";
 
 import autoprefixer from "autoprefixer";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import precss from "precss";
 
 const __dirname = path.resolve();
 export default {
@@ -27,8 +26,8 @@ export default {
 						loader: "postcss-loader",
 						options: {
 							postcssOptions: {
-								plugins: function () {
-									return [precss, autoprefixer];
+								plugins: function() {
+									return [autoprefixer];
 								},
 							},
 						},
@@ -48,8 +47,8 @@ export default {
 						loader: "postcss-loader",
 						options: {
 							postcssOptions: {
-								plugins: function () {
-									return ["precss", autoprefixer];
+								plugins: function() {
+									return [autoprefixer];
 								},
 							},
 						},
