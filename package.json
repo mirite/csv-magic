@@ -45,11 +45,11 @@
 		]
 	},
 	"devDependencies": {
-		"@mirite/eslint-config-mirite": "^0.1.0",
+		"@mirite/eslint-config-mirite": "^0.1.1",
 		"@playwright/test": "^1.49.1",
 		"@types/jest": "^29.5.14",
 		"@types/json2csv": "^5.0.7",
-		"@types/node": "^22.10.2",
+		"@types/node": "^22.10.3",
 		"@types/react": "^19.0.2",
 		"@types/react-dom": "^19.0.2",
 		"autoprefixer": "^10.4.20",
@@ -70,9 +70,9 @@
 		"ts-jest": "^29.2.5",
 		"ts-loader": "^9.5.1",
 		"webpack": "^5.97.1",
-		"webpack-cli": "^5.1.4",
+		"webpack-cli": "^6.0.1",
 		"webpack-dev-server": "^5.2.0"
 	},
 	"license": "GPL-3.0-or-later",
-	"packageManager": "yarn@4.5.3"
+	"packageManager": "yarn@4.6.0"
 }
