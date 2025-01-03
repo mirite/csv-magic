@@ -45,11 +45,11 @@
 		]
 	},
 	"devDependencies": {
-		"@mirite/eslint-config-mirite": "^0.1.1",
+		"@mirite/eslint-config-mirite": "^0.2.0",
 		"@playwright/test": "^1.49.1",
 		"@types/jest": "^29.5.14",
 		"@types/json2csv": "^5.0.7",
-		"@types/node": "^22.10.3",
+		"@types/node": "^22.10.4",
 		"@types/react": "^19.0.2",
 		"@types/react-dom": "^19.0.2",
 		"autoprefixer": "^10.4.20",

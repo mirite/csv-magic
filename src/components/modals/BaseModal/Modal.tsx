@@ -35,7 +35,7 @@ const Modal = (props: Props): ReactElement => {
 							type={"button"}
 							className="btn-close"
 							onClick={() => onClose()}
-						></button>
+						 />
 					</div>
 					<div className="modal-body">{children}</div>
 					<div className="modal-footer">
