@@ -1,6 +1,7 @@
-import { removeColumns } from "modules/editing";
 import type { ReactElement } from "react";
 import React, { useState } from "react";
+
+import { removeColumns } from "modules/editing";
 import type { Column } from "types";
 
 import type { BaseModalProps } from "../BaseModal/Modal";

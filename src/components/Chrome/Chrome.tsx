@@ -1,6 +1,7 @@
-import { useFileStore } from "modules/useFileStore";
 import type { ReactElement } from "react";
 import React from "react";
+
+import { useFileStore } from "modules/useFileStore";
 import type { Table } from "types";
 
 import * as styles from "./Chrome.module.css";

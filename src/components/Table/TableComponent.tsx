@@ -1,7 +1,8 @@
-import * as styles from "components/Table/Table.module.css";
-import { updateCell } from "modules/editing";
 import type { ReactElement } from "react";
 import React, { useCallback } from "react";
+
+import * as styles from "components/Table/Table.module.css";
+import { updateCell } from "modules/editing";
 import type { Cell, Row, Table } from "types";
 
 import { useFileStore } from "../../modules/useFileStore";

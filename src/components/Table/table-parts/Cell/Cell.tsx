@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactElement } from "react";
 import React from "react";
+
 import { Cell } from "types";
 
 import * as styles from "./Cell.module.css";

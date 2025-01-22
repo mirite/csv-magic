@@ -1,6 +1,7 @@
-import * as styles from "components/Table/table-parts/Cell/Cell.module.css";
 import type { ChangeEvent, ReactElement } from "react";
 import React, { useState } from "react";
+
+import * as styles from "components/Table/table-parts/Cell/Cell.module.css";
 import type { Cell } from "types";
 
 import CellComponent from "../Cell";

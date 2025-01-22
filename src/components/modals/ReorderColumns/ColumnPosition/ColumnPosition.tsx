@@ -5,9 +5,10 @@ import {
 	faArrowCircleUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as styles from "components/modals/ReorderColumns/ReorderColumnsModal.module.css";
 import type { FunctionComponent } from "react";
 import React from "react";
+
+import * as styles from "components/modals/ReorderColumns/ReorderColumnsModal.module.css";
 import type { Column } from "types";
 
 interface ColumnPositionProps {

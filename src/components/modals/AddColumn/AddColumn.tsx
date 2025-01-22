@@ -1,3 +1,6 @@
+import type { ReactElement } from "react";
+import React, { useState } from "react";
+
 import { addColumn } from "modules/column-generation/column-generator";
 import {
 	Blank,
@@ -6,8 +9,6 @@ import {
 	Pool,
 	Statically,
 } from "modules/column-generation/column-generators";
-import type { ReactElement } from "react";
-import React, { useState } from "react";
 import type { MappedColumn } from "types";
 
 import type { GenerateColumnStrategy } from "../../../modules/column-generation/column-generators/GenerateColumnStrategy";

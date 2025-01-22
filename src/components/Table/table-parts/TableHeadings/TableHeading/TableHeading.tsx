@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import type { ReactElement } from "react";
+
 import type { Column, Sorts } from "types";
 
 import { ModalContext } from "../../../../Editor/Editor";

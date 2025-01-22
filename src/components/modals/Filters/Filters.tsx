@@ -1,7 +1,8 @@
-import { getUniqueValuesInColumn } from "modules/access-helpers";
-import Filtering from "modules/filtering";
 import type { ReactElement } from "react";
 import React, { useState } from "react";
+
+import { getUniqueValuesInColumn } from "modules/access-helpers";
+import Filtering from "modules/filtering";
 import type { Column, Filter } from "types";
 
 import type { BaseModalProps } from "../BaseModal/Modal";
