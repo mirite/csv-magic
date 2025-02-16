@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactElement } from "react";
 import React from "react";
+
 import type { Table } from "types";
 
 import * as styles from "./Modal.module.css";
@@ -35,7 +36,7 @@ const Modal = (props: Props): ReactElement => {
 							type={"button"}
 							className="btn-close"
 							onClick={() => onClose()}
-						 />
+						/>
 					</div>
 					<div className="modal-body">{children}</div>
 					<div className="modal-footer">

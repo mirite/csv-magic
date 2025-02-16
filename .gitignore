@@ -24,14 +24,10 @@ yarn-error.log*
 dist
 
 .yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
 .pnp.*
 *.log
 /test-results/
 /playwright-report/
 /playwright/.cache/
+.eslintcache
 *.tar
