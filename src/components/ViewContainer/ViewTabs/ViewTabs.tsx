@@ -4,7 +4,6 @@ import type { ReactElement } from "react";
 import React from "react";
 
 import { useFileStore } from "../../../modules/useFileStore";
-
 import ViewTab from "./ViewTab/ViewTab";
 
 const ViewTabs = (): ReactElement => {

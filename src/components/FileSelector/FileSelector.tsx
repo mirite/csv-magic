@@ -1,8 +1,7 @@
-import type { ReactElement } from "react";
-import React, { useState } from "react";
-
 import CSVLoader from "modules/csv/csv-loader";
 import { useFileStore } from "modules/useFileStore";
+import type { ReactElement } from "react";
+import React, { useState } from "react";
 
 import FileInput from "./FileInput/FileInput";
 import * as styles from "./FileSelector.module.css";

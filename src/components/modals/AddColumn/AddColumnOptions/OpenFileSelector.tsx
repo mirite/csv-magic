@@ -1,7 +1,6 @@
+import { useFileStore } from "modules/useFileStore";
 import type { FunctionComponent } from "react";
 import React from "react";
-
-import { useFileStore } from "modules/useFileStore";
 import type { File } from "types";
 
 interface OpenFileSelectorProps {

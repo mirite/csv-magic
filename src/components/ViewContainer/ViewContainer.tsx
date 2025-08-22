@@ -2,7 +2,6 @@ import type { ReactElement } from "react";
 import React from "react";
 
 import MainView from "../MainView/MainView";
-
 import ViewTabs from "./ViewTabs/ViewTabs";
 
 /**

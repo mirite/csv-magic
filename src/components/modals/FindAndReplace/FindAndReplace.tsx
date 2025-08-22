@@ -1,13 +1,11 @@
-import type { ReactElement } from "react";
-import React, { useState } from "react";
-
 import { countOccurrences } from "modules/access-helpers";
 import { findAndReplaceInColumn } from "modules/editing";
+import type { ReactElement } from "react";
+import React, { useState } from "react";
 import type { Column } from "types";
 
 import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
-
 import * as styles from "./FindAndReplaceModal.module.css";
 
 interface IProps extends BaseModalProps {

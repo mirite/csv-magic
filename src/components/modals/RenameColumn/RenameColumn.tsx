@@ -1,12 +1,10 @@
+import { renameColumn } from "modules/editing";
 import type { ReactElement } from "react";
 import React, { useId, useState } from "react";
-
-import { renameColumn } from "modules/editing";
 import type { Column } from "types";
 
 import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
-
 import * as styles from "./RenameColumn.module.css";
 
 interface IProps extends BaseModalProps {

@@ -1,12 +1,10 @@
+import { reorderColumns } from "modules/reordering";
 import type { ComponentProps, ReactElement } from "react";
 import React, { useState } from "react";
-
-import { reorderColumns } from "modules/reordering";
 import type { Column } from "types";
 
 import type { BaseModalProps } from "../BaseModal/Modal";
 import Modal from "../BaseModal/Modal";
-
 import ColumnPosition from "./ColumnPosition/ColumnPosition";
 import * as styles from "./ReorderColumnsModal.module.css";
 

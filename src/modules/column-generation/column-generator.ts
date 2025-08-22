@@ -2,7 +2,6 @@ import type { Cell, Table } from "types";
 
 import { registerColumnInTable } from "../csv/csv-loader";
 import { cloneDeep, createCellID } from "../tools";
-
 import type { GenerateColumnStrategy } from "./column-generators/GenerateColumnStrategy";
 
 /**

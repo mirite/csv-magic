@@ -1,6 +1,5 @@
 import type { ReactElement } from "react";
 import React from "react";
-
 import type { Sorts, Table } from "types";
 
 import TableHeading from "./TableHeading/TableHeading";

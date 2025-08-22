@@ -1,13 +1,11 @@
-import type { ReactElement } from "react";
-import React, { useCallback } from "react";
-
 import * as styles from "components/Table/Table.module.css";
 import { updateCell } from "modules/editing";
+import type { ReactElement } from "react";
+import React, { useCallback } from "react";
 import type { Cell, Row, Table } from "types";
 
 import { useFileStore } from "../../modules/useFileStore";
 import type { RowAction } from "../Editor/Editor";
-
 import RowComponent from "./table-parts/Row/Row";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 

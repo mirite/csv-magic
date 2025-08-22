@@ -1,11 +1,9 @@
-import React, { type ReactElement, useCallback, useState } from "react";
-
+import { useFileStore } from "modules/useFileStore";
+import React, { useCallback, useState, type ReactElement } from "react";
 import type { Modal, Table } from "types";
 
 import Chrome from "../Chrome/Chrome";
 import TableComponent from "../Table/TableComponent";
-
-import { useFileStore } from "modules/useFileStore";
 
 /**
  * The main editor component. Contains the table and the chrome.

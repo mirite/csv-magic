@@ -11,7 +11,6 @@ import { ModalContext } from "../../Editor/Editor";
 import AddColumn from "../../modals/AddColumn/AddColumn";
 import RemoveColumns from "../../modals/RemoveColumns/RemoveColumns";
 import ReorderColumns from "../../modals/ReorderColumns/ReorderColumns";
-
 import * as styles from "./SuperTools.module.css";
 
 const SuperTools = (): ReactElement => {

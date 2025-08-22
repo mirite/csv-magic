@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "../index.scss";
+
 import * as styles from "./App.module.css";
 
 const ViewContainer = React.lazy(

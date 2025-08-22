@@ -1,7 +1,6 @@
+import { useFileStore } from "modules/useFileStore";
 import type { ReactElement } from "react";
 import React, { useEffect, useState } from "react";
-
-import { useFileStore } from "modules/useFileStore";
 
 import KeyInFileSelector from "../KeyInFileSelector";
 

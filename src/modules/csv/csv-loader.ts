@@ -1,5 +1,4 @@
 import { parseString } from "@mirite/csv-json-parser";
-
 import type { File, RawTable, Row, Table } from "types";
 
 import { createCellID, createID } from "../tools";

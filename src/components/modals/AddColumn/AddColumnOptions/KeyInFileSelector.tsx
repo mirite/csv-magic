@@ -1,6 +1,5 @@
 import type { FunctionComponent } from "react";
 import React, { useId } from "react";
-
 import type { Table } from "types";
 
 interface KeyInFileSelectorProps {

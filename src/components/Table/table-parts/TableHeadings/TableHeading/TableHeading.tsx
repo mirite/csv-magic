@@ -1,22 +1,20 @@
 import {
+	faArrowDown,
 	faArrowsAltV,
 	faArrowUp,
-	faArrowDown,
-	faFilter,
 	faEdit,
+	faFilter,
 	faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import type { ReactElement } from "react";
-
 import type { Column, Sorts } from "types";
 
 import { ModalContext } from "../../../../Editor/Editor";
 import FiltersModal from "../../../../modals/Filters/Filters";
 import FindAndReplaceModal from "../../../../modals/FindAndReplace/FindAndReplace";
 import RenameColumnModal from "../../../../modals/RenameColumn/RenameColumn";
-
 import * as styles from "./TableHeading.module.css";
 
 interface HeadingsProps {

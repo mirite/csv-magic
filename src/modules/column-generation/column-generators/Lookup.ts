@@ -4,7 +4,6 @@ import {
 	getCellValueByColumnID,
 	getRowWithMatchingValueInColumn,
 } from "../../access-helpers";
-
 import type { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 
 export const Lookup: GenerateColumnStrategy<MappedColumn> = {

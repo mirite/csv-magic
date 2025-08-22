@@ -1,8 +1,9 @@
+import { deleteRow, duplicateRow } from "modules/row-actions";
+import Sorting from "modules/sorting";
 import { create } from "zustand";
 
-import type { File, FileHistory, Sorts, Table, Row } from "../types";
-import Sorting from "modules/sorting";
-import { deleteRow, duplicateRow } from "modules/row-actions";
+import type { File, FileHistory, Row, Sorts, Table } from "../types";
+
 export interface FileStoreState {
 	currentIndex: number;
 	files: File[];
