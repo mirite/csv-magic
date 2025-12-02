@@ -13,9 +13,9 @@ import Chrome from "../Chrome/Chrome";
 import TableComponent from "../Table/TableComponent";
 
 export type ModalContextType = {
+	onClose: (changedTable?: Table) => void;
 	setActiveModal: (modal: Modal) => void;
 	table: Table;
-	onClose: (changedTable?: Table) => void;
 };
 
 const rowActions = {
@@ -35,9 +35,9 @@ function Editor(): ReactElement {
 	const { currentFile, updateCurrentFile } = useFileStore();
 	const file = currentFile()!; //Main makes sure this is not null before calling Editor.
 
-	const { table, history, activeSorts } = file;
+	const { activeSorts, history, table } = file;
 
-	const [activeModal, setActiveModal] = useState<undefined | Modal>(undefined);
+	const [activeModal, setActiveModal] = useState<Modal | undefined>(undefined);
 	const [activeCell, setActiveCell] = useState(table.firstCellId);
 
 	const handleTableClick = useCallback(
@@ -75,18 +75,18 @@ function Editor(): ReactElement {
 		updateCurrentFile(newTable, newSorts || activeSorts, newHistory);
 	};
 
-	const modalContext = { setActiveModal, onClose: handleModalClose, table };
+	const modalContext = { onClose: handleModalClose, setActiveModal, table };
 	ModalContext = createContext<ModalContextType>(modalContext);
 
 	return (
 		<ModalContext.Provider value={modalContext}>
 			<Chrome onTableChange={(e: Table) => setCoreState(e)} />
 			<TableComponent
-				onSort={(e) => handleSort(e)}
-				onTableChange={(e: Table) => setCoreState(e)}
-				onRowAction={(action, row) => handleRowAction(action, row)}
 				activeCell={activeCell}
+				onRowAction={(action, row) => handleRowAction(action, row)}
+				onSort={(e) => handleSort(e)}
 				onTableBodyClick={handleTableClick}
+				onTableChange={(e: Table) => setCoreState(e)}
 			/>
 			{activeModal}
 		</ModalContext.Provider>

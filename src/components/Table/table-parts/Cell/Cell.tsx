@@ -4,7 +4,7 @@ import { Cell } from "types";
 
 import * as styles from "./Cell.module.css";
 
-type IProps = PropsWithChildren & Cell;
+type IProps = Cell & PropsWithChildren;
 
 /**
  * A single cell within a Table.

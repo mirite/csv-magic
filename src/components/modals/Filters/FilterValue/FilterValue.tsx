@@ -2,14 +2,14 @@ import type { ChangeEvent, FunctionComponent } from "react";
 import React from "react";
 
 interface FilterValueProps {
-	value: string;
+	checked: boolean;
 	count: number;
 	onChange: (value: string, state: boolean) => void;
-	checked: boolean;
+	value: string;
 }
 
 const FilterValue: FunctionComponent<FilterValueProps> = (props) => {
-	const { value, count, onChange: onToggle, checked } = props;
+	const { checked, count, onChange: onToggle, value } = props;
 
 	const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
 		const { checked: newValue } = e.currentTarget;
@@ -19,7 +19,7 @@ const FilterValue: FunctionComponent<FilterValueProps> = (props) => {
 	return (
 		<li>
 			<label>
-				<input type="checkbox" checked={checked} onChange={handleToggle} />
+				<input checked={checked} onChange={handleToggle} type="checkbox" />
 				{value} ({count})
 			</label>
 		</li>

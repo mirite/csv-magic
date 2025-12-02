@@ -19,14 +19,14 @@ import RenameColumnModal from "../../../../modals/RenameColumn/RenameColumn";
 import * as styles from "./TableHeading.module.css";
 
 interface HeadingsProps {
+	activeSorts: Sorts;
 	column: Column;
 	onSort: () => void;
-	activeSorts: Sorts;
 }
 
 const TableHeading = (props: HeadingsProps): ReactElement => {
 	const { column } = props;
-	const { setActiveModal, table, onClose } = useContext(ModalContext);
+	const { onClose, setActiveModal, table } = useContext(ModalContext);
 	const getSortStateIcon = () => {
 		const sort = props.activeSorts.find((e) => e[0] === column.id);
 		if (!sort) {
@@ -39,7 +39,7 @@ const TableHeading = (props: HeadingsProps): ReactElement => {
 	};
 
 	return (
-		<th scope="col" className={styles.cell} key={column.id}>
+		<th className={styles.cell} key={column.id} scope="col">
 			<div className={styles.container}>
 				<div>
 					<span className={styles.label}>{column.label}</span>
@@ -60,42 +60,42 @@ const TableHeading = (props: HeadingsProps): ReactElement => {
 				</div>
 				<div className={styles.actions}>
 					<button
-						type={"button"}
 						className={styles.button}
 						onClick={() =>
 							setActiveModal(
 								<FindAndReplaceModal
 									column={column}
-									table={table}
 									onClose={onClose}
+									table={table}
 								/>,
 							)
 						}
 						title="Find and Replace in Column"
+						type={"button"}
 					>
 						<FontAwesomeIcon icon={faSearch} />
 					</button>
 					<button
 						className={styles.button}
-						type={"button"}
 						onClick={() =>
 							setActiveModal(
 								<FiltersModal
 									column={column}
-									table={table}
 									onClose={onClose}
+									table={table}
 								/>,
 							)
 						}
 						title="Filter Column"
+						type={"button"}
 					>
 						<FontAwesomeIcon icon={faFilter} />
 					</button>
 					<button
-						type={"button"}
 						className={styles.button}
 						onClick={() => props.onSort()}
 						title="Sort on Column"
+						type={"button"}
 					>
 						<FontAwesomeIcon icon={getSortStateIcon()} />
 					</button>

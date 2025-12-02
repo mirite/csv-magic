@@ -37,8 +37,8 @@ function App(): ReactElement {
 				<p>
 					<a
 						href="https://github.com/mirite/csv-magic"
-						target="_blank"
 						rel="noreferrer"
+						target="_blank"
 					>
 						View On GitHub
 					</a>
@@ -49,7 +49,7 @@ function App(): ReactElement {
 			</main>
 			<footer className={styles.footer}>
 				Copyright &copy; {new Date().getFullYear()}{" "}
-				<a href="https://jesseconner.ca" target="_blank" rel="noreferrer">
+				<a href="https://jesseconner.ca" rel="noreferrer" target="_blank">
 					Jesse Conner
 				</a>
 			</footer>

@@ -4,31 +4,6 @@ import { getCellValueByColumnID } from "./access-helpers";
 import { cloneDeep } from "./tools";
 
 /**
- * Either adds a sort on the provided key, or toggles direction, removes the
- * sort if it was already toggled.
- *
- * @param sorts The currently active sorts
- * @param columnID The key to change the sort status on.
- * @returns The new sorts array with the sort applied.
- */
-function setSort(sorts: Sorts, columnID: number): Sorts {
-	let newSorts = cloneDeep(sorts);
-	/** The existing sort (if any) on the key. */
-	const match = newSorts.find((e) => e[0] === columnID);
-	if (match) {
-		if (match[1]) {
-			match[1] = false;
-		} else {
-			newSorts = newSorts.filter((e) => e[0] !== columnID);
-		}
-	} else {
-		newSorts.push([columnID, true]);
-	}
-
-	return newSorts;
-}
-
-/**
  * Applies an array of sorts to a Table.
  *
  * @param data The Table to sort.
@@ -59,7 +34,32 @@ function applySorting(data: Table, sorts: Sorts): Table {
 	return newData;
 }
 
+/**
+ * Either adds a sort on the provided key, or toggles direction, removes the
+ * sort if it was already toggled.
+ *
+ * @param sorts The currently active sorts
+ * @param columnID The key to change the sort status on.
+ * @returns The new sorts array with the sort applied.
+ */
+function setSort(sorts: Sorts, columnID: number): Sorts {
+	let newSorts = cloneDeep(sorts);
+	/** The existing sort (if any) on the key. */
+	const match = newSorts.find((e) => e[0] === columnID);
+	if (match) {
+		if (match[1]) {
+			match[1] = false;
+		} else {
+			newSorts = newSorts.filter((e) => e[0] !== columnID);
+		}
+	} else {
+		newSorts.push([columnID, true]);
+	}
+
+	return newSorts;
+}
+
 export default {
-	setSort,
 	applySorting,
+	setSort,
 };

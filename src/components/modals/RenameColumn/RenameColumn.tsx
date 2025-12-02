@@ -13,7 +13,7 @@ interface IProps extends BaseModalProps {
 }
 
 const RenameColumnModal = (props: IProps): ReactElement => {
-	const { column, table, onClose } = props;
+	const { column, onClose, table } = props;
 	const [newName, setNewName] = useState<string>("");
 
 	const handleNewNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +29,10 @@ const RenameColumnModal = (props: IProps): ReactElement => {
 	const id = useId();
 
 	const options: React.ComponentProps<typeof Modal> = {
-		title: "Rename Column",
 		applyText: "Rename",
-		onApply: handleApply,
 		isValid: newName.trim() !== "",
+		onApply: handleApply,
+		title: "Rename Column",
 		...props,
 	};
 
@@ -44,11 +44,11 @@ const RenameColumnModal = (props: IProps): ReactElement => {
 					<div className={styles.group}>
 						<label htmlFor={id}>New Name:</label>
 						<input
-							id={id}
 							className={styles.input}
+							id={id}
+							onChange={handleNewNameChange}
 							type="text"
 							value={newName}
-							onChange={handleNewNameChange}
 						/>
 					</div>
 				</div>

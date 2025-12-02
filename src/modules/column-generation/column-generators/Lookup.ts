@@ -9,7 +9,7 @@ import type { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 
 export const Lookup: GenerateColumnStrategy<MappedColumn> = {
 	generate: (row: Row, mappedGenerator: MappedColumn) => {
-		const { foreignTable, sourceMatchID, foreignMatchID, foreignImportID } =
+		const { foreignImportID, foreignMatchID, foreignTable, sourceMatchID } =
 			mappedGenerator;
 
 		const localValue = getCellValueByColumnID(row, sourceMatchID);

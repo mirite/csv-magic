@@ -1,18 +1,26 @@
 import type { Cell, Row, Table } from "types";
 
 /**
- * Takes a row and returns the value at the specified key.
+ * Counts the number of occurrences of a string in a column.
  *
- * @param row The row to search for the cell in,
- * @param columnId The key of the value to find.
- * @returns The value at the specified key. Blank if the key was not present.
+ * @param data The Table to search in.
+ * @param columnID The id of the column to search in.
+ * @param needle The string to search for.
+ * @returns The number of times the string was found.
  */
-export function getCellValueByColumnID(row: Row, columnId: number): string {
-	const foundCell = row.contents.find((cell) => cell.columnID === columnId);
-	if (foundCell) {
-		return foundCell.value;
+export function countOccurrences(
+	data: Table,
+	columnID: number,
+	needle: string,
+): number {
+	const columnIndex = getColumnIndex(data, columnID);
+	let count = 0;
+	for (const row of data.contents) {
+		if (row.contents[columnIndex].value.includes(needle)) {
+			count++;
+		}
 	}
-	return "";
+	return count;
 }
 
 /**
@@ -33,6 +41,38 @@ export function getCellByID(table: Table, id: string): Cell | undefined {
 	const cellIndex = getColumnIndex(table, columnId);
 	const foundRow = table.contents.find((row) => row.id === rowId);
 	return foundRow?.contents[cellIndex];
+}
+
+/**
+ * Takes a row and returns the value at the specified key.
+ *
+ * @param row The row to search for the cell in,
+ * @param columnId The key of the value to find.
+ * @returns The value at the specified key. Blank if the key was not present.
+ */
+export function getCellValueByColumnID(row: Row, columnId: number): string {
+	const foundCell = row.contents.find((cell) => cell.columnID === columnId);
+	if (foundCell) {
+		return foundCell.value;
+	}
+	return "";
+}
+
+/**
+ * Returns the index within a row that corresponds to the column name provided.
+ *
+ * @param data The Table to search in.
+ * @param columnId The id of the column to find.
+ * @returns The 0-based index within a row that corresponds to the column name,
+ *   -1 if the column was not found.
+ */
+export function getColumnIndex(data: Table, columnId: number): number {
+	const { columns } = data;
+	const column = columns.find((c) => c.id === columnId);
+	if (column) {
+		return column.position;
+	}
+	return -1;
 }
 
 /**
@@ -62,6 +102,31 @@ export function getColumnNames(table: Table): Array<string> {
 }
 
 /**
+ * Finds the first row that contains a cell with the specified value in the
+ * given column.
+ *
+ * @param table The table to search in.
+ * @param columnId The column to search in.
+ * @param valueToFind The value to search for.
+ * @returns The first row that contains the value in the column, or undefined if
+ *   not found.
+ */
+export function getRowWithMatchingValueInColumn(
+	table: Table,
+	columnId: number,
+	valueToFind: string,
+): Row | undefined {
+	const rows = table.contents;
+	for (const row of rows) {
+		const cell = getCellValueByColumnID(row, columnId);
+		if (cell === valueToFind) {
+			return row;
+		}
+	}
+	return undefined;
+}
+
+/**
  * Returns an array of tuples with the unique values in a columns and the count
  * of how many times they appeared.
  *
@@ -88,69 +153,4 @@ export function getUniqueValuesInColumn(
 		}
 	}
 	return values;
-}
-
-/**
- * Returns the index within a row that corresponds to the column name provided.
- *
- * @param data The Table to search in.
- * @param columnId The id of the column to find.
- * @returns The 0-based index within a row that corresponds to the column name,
- *   -1 if the column was not found.
- */
-export function getColumnIndex(data: Table, columnId: number): number {
-	const { columns } = data;
-	const column = columns.find((c) => c.id === columnId);
-	if (column) {
-		return column.position;
-	}
-	return -1;
-}
-
-/**
- * Counts the number of occurrences of a string in a column.
- *
- * @param data The Table to search in.
- * @param columnID The id of the column to search in.
- * @param needle The string to search for.
- * @returns The number of times the string was found.
- */
-export function countOccurrences(
-	data: Table,
-	columnID: number,
-	needle: string,
-): number {
-	const columnIndex = getColumnIndex(data, columnID);
-	let count = 0;
-	for (const row of data.contents) {
-		if (row.contents[columnIndex].value.includes(needle)) {
-			count++;
-		}
-	}
-	return count;
-}
-
-/**
- * Finds the first row that contains a cell with the specified value in the
- * given column.
- *
- * @param table The table to search in.
- * @param columnId The column to search in.
- * @param valueToFind The value to search for.
- * @returns The first row that contains the value in the column, or undefined if
- *   not found.
- */
-export function getRowWithMatchingValueInColumn(
-	table: Table,
-	columnId: number,
-	valueToFind: string,
-): Row | undefined {
-	const rows = table.contents;
-	for (const row of rows) {
-		const cell = getCellValueByColumnID(row, columnId);
-		if (cell === valueToFind) {
-			return row;
-		}
-	}
-	return undefined;
 }

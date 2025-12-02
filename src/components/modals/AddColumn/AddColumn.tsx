@@ -23,46 +23,46 @@ import StaticOptions from "./AddColumnOptions/options/StaticOptions";
 
 const columnTypeRadios = {
 	Blank: {
-		label: "Blank",
-		description: "An empty column, nothing magical here.",
-		type: Blank,
-		OptionsComponent: () => <span>There are no options for blank.</span>,
 		default: true,
-	},
-	Static: {
-		label: "Static",
-		description:
-			"A column filled with a set value, It could be blank if you are really opposed to using the blank option.",
-		type: Statically,
-		OptionsComponent: (setParams: (value: string) => void) => (
-			<StaticOptions onChange={(value: string) => setParams(value)} />
-		),
-	},
-	Lookup: {
-		label: "Lookup",
-		description:
-			"A column filled with data from matches in another open table. Basically a portal.",
-		type: Lookup,
-		OptionsComponent: (setParams: (value: MappedColumn) => void) => (
-			<LookupOptions onChange={(value: MappedColumn) => setParams(value)} />
-		),
-	},
-	Pool: {
-		label: "Pool",
-		description:
-			"A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want).",
-		type: Pool,
-		OptionsComponent: (setParams: (value: string[]) => void) => (
-			<PoolOptions onChange={(values: string[]) => setParams(values)} />
-		),
+		description: "An empty column, nothing magical here.",
+		label: "Blank",
+		OptionsComponent: () => <span>There are no options for blank.</span>,
+		type: Blank,
 	},
 	Duplicate: {
-		label: "Duplicate",
 		description: "A column that is an exact clone of a column in this table.",
-		type: Duplicate,
+		label: "Duplicate",
 		OptionsComponent: (setParams: (value: number) => void) => (
 			<DuplicateOptions onChange={(value) => setParams(value)} />
 		),
+		type: Duplicate,
+	},
+	Lookup: {
+		description:
+			"A column filled with data from matches in another open table. Basically a portal.",
+		label: "Lookup",
+		OptionsComponent: (setParams: (value: MappedColumn) => void) => (
+			<LookupOptions onChange={(value: MappedColumn) => setParams(value)} />
+		),
+		type: Lookup,
+	},
+	Pool: {
+		description:
+			"A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want).",
+		label: "Pool",
+		OptionsComponent: (setParams: (value: string[]) => void) => (
+			<PoolOptions onChange={(values: string[]) => setParams(values)} />
+		),
+		type: Pool,
+	},
+	Static: {
+		description:
+			"A column filled with a set value, It could be blank if you are really opposed to using the blank option.",
+		label: "Static",
+		OptionsComponent: (setParams: (value: string) => void) => (
+			<StaticOptions onChange={(value: string) => setParams(value)} />
+		),
+		type: Statically,
 	},
 } as const;
 
@@ -70,11 +70,11 @@ type ColumnDefinitions = typeof columnTypeRadios;
 type ColumnType = keyof ColumnDefinitions;
 
 const AddColumnModal = (props: BaseModalProps): ReactElement => {
-	const { table, onClose } = props;
+	const { onClose, table } = props;
 	const [columnName, setColumnName] = useState<string>("");
 	const [columnType, setColumnType] = useState<ColumnType>("Blank");
 	const [columnParameters, setColumnParameters] = useState<
-		undefined | string | string[] | MappedColumn | number
+		MappedColumn | number | string | string[] | undefined
 	>(undefined);
 
 	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,10 +100,10 @@ const AddColumnModal = (props: BaseModalProps): ReactElement => {
 	};
 
 	const options: React.ComponentProps<typeof Modal> = {
-		title: "Add Column",
 		applyText: "Add Column",
-		onApply: handleApply,
 		isValid: !!((columnParameters || columnType === "Blank") && columnName),
+		onApply: handleApply,
+		title: "Add Column",
 		...props,
 	};
 
@@ -116,22 +116,22 @@ const AddColumnModal = (props: BaseModalProps): ReactElement => {
 							<h3>Column Name:</h3>
 						</label>
 						<input
-							id="name-input"
 							className={styles.input}
+							id="name-input"
+							onChange={handleNameChange}
 							type="text"
 							value={columnName}
-							onChange={handleNameChange}
 						/>
 					</div>
 					<div className={styles.group}>
 						<h3>Column Type:</h3>
 						{Object.entries(columnTypeRadios).map(([key, value]) => (
 							<ColumnTypeRadio
+								default={!("default" in value) || value.default}
+								description={value.description}
 								key={key}
 								label={value.label}
-								description={value.description}
 								onChange={() => handleTypeChange(key as ColumnType)}
-								default={!("default" in value) || value.default}
 							/>
 						))}
 					</div>

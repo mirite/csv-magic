@@ -7,14 +7,14 @@ import TableHeading from "./TableHeading/TableHeading";
 import IntrinsicElements = React.JSX.IntrinsicElements;
 
 interface TableHeadingsProps {
-	TablePart: keyof IntrinsicElements;
-	table: Table;
-	onSort: (columnID: number) => void;
 	activeSorts: Sorts;
+	onSort: (columnID: number) => void;
+	table: Table;
+	TablePart: keyof IntrinsicElements;
 }
 
 const TableHeadings = (props: TableHeadingsProps): ReactElement => {
-	const { activeSorts, table, onSort, TablePart } = props;
+	const { activeSorts, onSort, table, TablePart } = props;
 
 	return (
 		<TablePart>
@@ -22,9 +22,9 @@ const TableHeadings = (props: TableHeadingsProps): ReactElement => {
 				<th />
 				{table.columns.map((column) => (
 					<TableHeading
-						key={column.id}
-						column={column}
 						activeSorts={activeSorts}
+						column={column}
+						key={column.id}
 						onSort={() => onSort(column.id)}
 					/>
 				))}

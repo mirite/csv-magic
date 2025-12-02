@@ -10,14 +10,14 @@ interface StaticOptionsProps {
 const StaticOptions = (props: StaticOptionsProps): ReactElement => {
 	return (
 		<div>
-			<label htmlFor="static-option" className={styles.label}>
+			<label className={styles.label} htmlFor="static-option">
 				Static Value:
 			</label>
 			<input
-				type="text"
 				className={styles.input}
 				id="static-option"
 				onChange={(e) => props.onChange(e.target.value)}
+				type="text"
 			/>
 		</div>
 	);

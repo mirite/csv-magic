@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import type { Column } from "types";
 
 interface ColumnValueProps {
-	value: Column;
 	onChange: (value: Column, state: boolean) => void;
+	value: Column;
 }
 
 const ColumnValue: FunctionComponent<ColumnValueProps> = (props) => {
-	const { value, onChange: onToggle } = props;
+	const { onChange: onToggle, value } = props;
 	const [status, setStatus] = useState(false);
 	const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
 		const { checked } = e.currentTarget;
@@ -19,7 +19,7 @@ const ColumnValue: FunctionComponent<ColumnValueProps> = (props) => {
 	return (
 		<li>
 			<label>
-				<input type="checkbox" checked={status} onChange={handleToggle} />
+				<input checked={status} onChange={handleToggle} type="checkbox" />
 				{value.label}
 			</label>
 		</li>

@@ -3,15 +3,15 @@ import React, { useId } from "react";
 import type { Table } from "types";
 
 interface KeyInFileSelectorProps {
-	table: Table;
 	label: string;
 	onChange: (value: number) => void;
+	table: Table;
 }
 
 const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
 	props,
 ) => {
-	const { table, label, onChange } = props;
+	const { label, onChange, table } = props;
 	const columns = table.columns;
 	const id = useId();
 	if (!props.table) {

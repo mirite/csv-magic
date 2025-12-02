@@ -10,10 +10,10 @@ export default {
 	},
 	module: {
 		rules: [
-			{ test: /\.tsx?$/, loader: "ts-loader" },
+			{ loader: "ts-loader", test: /\.tsx?$/ },
 			{
-				test: /\.s?css$/,
 				exclude: /node_modules/,
+				test: /\.s?css$/,
 				use: [
 					{ loader: "style-loader" },
 					{
@@ -36,8 +36,8 @@ export default {
 				],
 			},
 			{
-				test: /\.s?css$/,
 				include: /node_modules/,
+				test: /\.s?css$/,
 				use: [
 					{ loader: "style-loader" },
 					{
@@ -58,15 +58,6 @@ export default {
 			},
 		],
 	},
-	resolve: {
-		extensions: [".tsx", ".ts", ".js", ".css", ".scss"],
-		alias: {
-			styles: path.join(__dirname, "src/styles"),
-			modules: path.join(__dirname, "src/modules"),
-			components: path.join(__dirname, "src/components"),
-			types: path.join(__dirname, "src/types"),
-		},
-	},
 	output: {
 		filename: "[name].[contenthash].js",
 		path: path.join(__dirname, "dist"),
@@ -76,4 +67,13 @@ export default {
 			template: "public/index.html",
 		}),
 	],
+	resolve: {
+		alias: {
+			components: path.join(__dirname, "src/components"),
+			modules: path.join(__dirname, "src/modules"),
+			styles: path.join(__dirname, "src/styles"),
+			types: path.join(__dirname, "src/types"),
+		},
+		extensions: [".tsx", ".ts", ".js", ".css", ".scss"],
+	},
 };

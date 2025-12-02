@@ -11,18 +11,18 @@ import RowComponent from "./table-parts/Row/Row";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings";
 
 interface IProps {
-	onSort: (columnID: number) => void;
-	onTableChange: (t: Table) => void;
-	onTableBodyClick: (e: React.MouseEvent<HTMLTableSectionElement>) => void;
-	onRowAction: (action: RowAction, row: Row) => void;
 	activeCell?: string;
+	onRowAction: (action: RowAction, row: Row) => void;
+	onSort: (columnID: number) => void;
+	onTableBodyClick: (e: React.MouseEvent<HTMLTableSectionElement>) => void;
+	onTableChange: (t: Table) => void;
 }
 
 const TableComponent = (props: IProps): ReactElement => {
-	const { onSort, onRowAction, onTableChange, activeCell, onTableBodyClick } =
+	const { activeCell, onRowAction, onSort, onTableBodyClick, onTableChange } =
 		props;
 	const currentFile = useFileStore().currentFile()!;
-	const { table: data, activeSorts } = currentFile;
+	const { activeSorts, table: data } = currentFile;
 
 	const handleCellChange = useCallback(
 		(changedCell: Cell, newValue: string) => {
@@ -38,10 +38,10 @@ const TableComponent = (props: IProps): ReactElement => {
 		<div className={styles.container}>
 			<table>
 				<TableHeadings
-					TablePart="thead"
-					table={data}
 					activeSorts={activeSorts}
 					onSort={(columnID) => onSort(columnID)}
+					table={data}
+					TablePart="thead"
 				/>
 				<tbody onClick={onTableBodyClick}>
 					{data.contents.map((row) => (
@@ -49,16 +49,16 @@ const TableComponent = (props: IProps): ReactElement => {
 							key={row.id}
 							{...row}
 							activeCell={activeCell}
-							onCellChange={(e, newValue) => handleCellChange(e, newValue)}
 							onAction={(action) => onRowAction(action, row)}
+							onCellChange={(e, newValue) => handleCellChange(e, newValue)}
 						/>
 					))}
 				</tbody>
 				<TableHeadings
-					TablePart="tfoot"
-					table={data}
 					activeSorts={activeSorts}
 					onSort={(columnID) => onSort(columnID)}
+					table={data}
+					TablePart="tfoot"
 				/>
 			</table>
 		</div>

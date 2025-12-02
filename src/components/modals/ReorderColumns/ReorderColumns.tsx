@@ -30,9 +30,9 @@ const ReorderColumnsModal = (props: BaseModalProps): ReactElement => {
 	};
 
 	const options: ComponentProps<typeof Modal> = {
-		title: "Reorder Columns",
 		applyText: "Reorder Columns",
 		onApply: handleApply,
+		title: "Reorder Columns",
 		...props,
 	};
 
@@ -42,10 +42,10 @@ const ReorderColumnsModal = (props: BaseModalProps): ReactElement => {
 				{columns.map((column, index) => (
 					<ColumnPosition
 						key={column.id}
-						value={column}
 						onMove={(distance: number) => handleChange(index, distance)}
-						toStart={-1 * index}
 						toEnd={columns.length - 1 - index}
+						toStart={-1 * index}
+						value={column}
 					/>
 				))}
 			</div>

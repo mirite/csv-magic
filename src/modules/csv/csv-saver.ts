@@ -3,6 +3,8 @@ import type { RawRow, RawTable, Table } from "types";
 
 import { getColumnNameByID } from "../access-helpers";
 
+export type supportedFileTypes = "csv" | "json" | "sql";
+
 /**
  * Converts a Table object to a RawTable object for writing to a file.
  *
@@ -43,8 +45,6 @@ function download(filename: string, text: string): void {
 
 	document.body.removeChild(element);
 }
-
-export type supportedFileTypes = "json" | "sql" | "csv";
 
 /**
  * Convert the data to CSV format.

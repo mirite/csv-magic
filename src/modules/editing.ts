@@ -4,18 +4,48 @@ import { getCellByID, getColumnIndex } from "./access-helpers";
 import { cloneDeep } from "./tools";
 
 /**
- * Updates a cell within a Table.
+ * Finds a string within a column and replaces it with the new value.
  *
- * @param data The Table to update the cell in.
- * @param cell The new version of the cell to add to the Table.
- * @returns A new Table with the cell changed.
+ * @param data The Table to find and replace in.
+ * @param column The name of the column to find and replace in.
+ * @param toFind The string value to search for.
+ * @param toReplaceWith The string value to replace with.
+ * @returns A new Table with the values replaced.
  */
-export function updateCell(data: Table, cell: Cell): Table {
+export function findAndReplaceInColumn(
+	data: Table,
+	column: Column,
+	toFind: string,
+	toReplaceWith: string,
+): Table {
 	const newData = cloneDeep(data);
-	const cellToUpdate = getCellByID(newData, cell.id);
-	if (cellToUpdate) {
-		cellToUpdate.value = cell.value;
+	const columnIndex = getColumnIndex(newData, column.id);
+
+	for (const row of newData.contents) {
+		const cell = row.contents[columnIndex];
+		cell.value = cell.value.replace(toFind, toReplaceWith);
 	}
+	return newData;
+}
+
+/**
+ * Removes columns from the Table.
+ *
+ * @param data The Table to rename the column in.
+ * @param columnsToRemove An array of the columns to remove by id.
+ * @returns A new Table with the columns removed.
+ */
+export function removeColumns(data: Table, columnsToRemove: Column[]): Table {
+	const newData = cloneDeep(data);
+	const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
+
+	newData.columns = newData.columns.filter(
+		(c) => !idsOfColumnsToRemove.includes(c.id),
+	);
+
+	newData.contents = newData.contents.map((row) =>
+		removeColumnsInRow(row, idsOfColumnsToRemove),
+	);
 	return newData;
 }
 
@@ -43,30 +73,20 @@ export function renameColumn(
 }
 
 /**
- * Finds a string within a column and replaces it with the new value.
+ * Updates a cell within a Table.
  *
- * @param data The Table to find and replace in.
- * @param column The name of the column to find and replace in.
- * @param toFind The string value to search for.
- * @param toReplaceWith The string value to replace with.
- * @returns A new Table with the values replaced.
+ * @param data The Table to update the cell in.
+ * @param cell The new version of the cell to add to the Table.
+ * @returns A new Table with the cell changed.
  */
-export function findAndReplaceInColumn(
-	data: Table,
-	column: Column,
-	toFind: string,
-	toReplaceWith: string,
-): Table {
+export function updateCell(data: Table, cell: Cell): Table {
 	const newData = cloneDeep(data);
-	const columnIndex = getColumnIndex(newData, column.id);
-
-	for (const row of newData.contents) {
-		const cell = row.contents[columnIndex];
-		cell.value = cell.value.replace(toFind, toReplaceWith);
+	const cellToUpdate = getCellByID(newData, cell.id);
+	if (cellToUpdate) {
+		cellToUpdate.value = cell.value;
 	}
 	return newData;
 }
-
 /**
  * Removes specified columns from a row.
  *
@@ -79,28 +99,8 @@ function removeColumnsInRow(row: Row, columnIdsToRemove: number[]): Row {
 		(cell) => !columnIdsToRemove.includes(cell.columnID),
 	);
 	return {
+		contents: remainingCells,
 		id: row.id,
 		originalIndex: row.originalIndex,
-		contents: remainingCells,
 	};
-}
-/**
- * Removes columns from the Table.
- *
- * @param data The Table to rename the column in.
- * @param columnsToRemove An array of the columns to remove by id.
- * @returns A new Table with the columns removed.
- */
-export function removeColumns(data: Table, columnsToRemove: Column[]): Table {
-	const newData = cloneDeep(data);
-	const idsOfColumnsToRemove = columnsToRemove.map((c) => c.id);
-
-	newData.columns = newData.columns.filter(
-		(c) => !idsOfColumnsToRemove.includes(c.id),
-	);
-
-	newData.contents = newData.contents.map((row) =>
-		removeColumnsInRow(row, idsOfColumnsToRemove),
-	);
-	return newData;
 }

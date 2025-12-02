@@ -58,10 +58,10 @@ const FiltersModal = (props: IProps): ReactElement => {
 	};
 
 	const options: React.ComponentProps<typeof Modal> = {
-		title: "Filter",
 		applyText: "Filter",
-		onApply: handleApply,
 		isValid: filterList.values.length > 0,
+		onApply: handleApply,
+		title: "Filter",
 		...props,
 	};
 
@@ -70,20 +70,20 @@ const FiltersModal = (props: IProps): ReactElement => {
 			<ul className={styles.list}>
 				{getUniqueValuesInColumn(table, column.id).map((pair) => (
 					<FilterValue
-						key={pair[0]}
-						value={pair[0]}
-						count={pair[1]}
 						checked={filterList.values.includes(pair[0])}
+						count={pair[1]}
+						key={pair[0]}
 						onChange={(value: string, status: boolean) =>
 							handleChange(value, status)
 						}
+						value={pair[0]}
 					/>
 				))}
 			</ul>
 			<button
-				type={"button"}
-				onClick={invertSelection}
 				className={styles.button}
+				onClick={invertSelection}
+				type={"button"}
 			>
 				Invert Selection
 			</button>

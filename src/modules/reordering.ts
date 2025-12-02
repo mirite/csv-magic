@@ -42,21 +42,10 @@ function createNewColumnField(
 			throw new Error("Column ID not found in Table");
 		}
 		const { label } = existingColumn;
-		newColumns.push({ position, id, label });
+		newColumns.push({ id, label, position });
 		position++;
 	}
 	return newColumns;
-}
-
-/**
- * Rearranges the columns in the rows of a Table.
- *
- * @param rows The rows to reorder.
- * @param newColumnOrder An array of the ids of the columns in their new order.
- * @returns A new array of rows with the columns reordered.
- */
-function createNewRows(rows: Row[], newColumnOrder: number[]): Row[] {
-	return rows.map((row) => createNewRow(row, newColumnOrder));
 }
 
 /**
@@ -69,9 +58,9 @@ function createNewRows(rows: Row[], newColumnOrder: number[]): Row[] {
  */
 function createNewRow(row: Row, newColumnOrder: number[]): Row {
 	const newRow: Row = {
+		contents: [],
 		id: row.id,
 		originalIndex: row.originalIndex,
-		contents: [],
 	};
 
 	for (const columnID of newColumnOrder) {
@@ -85,4 +74,15 @@ function createNewRow(row: Row, newColumnOrder: number[]): Row {
 		newRow.contents.push({ columnID, id, value });
 	}
 	return newRow;
+}
+
+/**
+ * Rearranges the columns in the rows of a Table.
+ *
+ * @param rows The rows to reorder.
+ * @param newColumnOrder An array of the ids of the columns in their new order.
+ * @returns A new array of rows with the columns reordered.
+ */
+function createNewRows(rows: Row[], newColumnOrder: number[]): Row[] {
+	return rows.map((row) => createNewRow(row, newColumnOrder));
 }

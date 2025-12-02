@@ -100,10 +100,10 @@ test("Add pool column", () => {
 
 test("Add lookup column", () => {
 	const newTable = addColumn(testTable, "testLookup", EGeneratorTypes.lookup, {
+		foreignImportID: "remote-lookup-id",
+		foreignMatchID: "remote-column-id",
 		foreignTable: testTable2,
 		sourceMatchID: "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
-		foreignMatchID: "remote-column-id",
-		foreignImportID: "remote-lookup-id",
 	});
 
 	const columns = getColumns(newTable);

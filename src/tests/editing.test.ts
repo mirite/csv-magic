@@ -19,14 +19,14 @@ test("Rename columns", () => {
 test("Remove Columns", () => {
 	const columnsToRemove: Array<Column> = [
 		{
+			id: "911fd1c0-516d-44b0-b8fd-abeaf5344648",
 			label: "retry",
 			position: 1,
-			id: "911fd1c0-516d-44b0-b8fd-abeaf5344648",
 		},
 		{
+			id: "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
 			label: "createdAt",
 			position: 2,
-			id: "95a026a0-69c3-445d-8ad8-93af7e24ec7d",
 		},
 	];
 	const newTable = removeColumns(testTable, columnsToRemove);

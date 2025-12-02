@@ -10,7 +10,7 @@ import ColumnValue from "./ColumnValue/ColumnValue";
 import * as styles from "./RemoveColumnsModal.module.css";
 
 const RemoveColumnsModal = (props: BaseModalProps): ReactElement => {
-	const { table, onClose } = props;
+	const { onClose, table } = props;
 	const columns = table.columns;
 	const [columnsState, setColumnsState] = useState<Array<[Column, boolean]>>(
 		columns.map((label) => [label, false]),
@@ -36,10 +36,10 @@ const RemoveColumnsModal = (props: BaseModalProps): ReactElement => {
 	};
 
 	const options: React.ComponentProps<typeof Modal> = {
-		title: "Remove Columns",
 		applyText: "Remove Selected Columns",
-		onApply: handleApply,
 		isValid: getColumnsToDelete().length > 0,
+		onApply: handleApply,
+		title: "Remove Columns",
 		...props,
 	};
 
@@ -49,10 +49,10 @@ const RemoveColumnsModal = (props: BaseModalProps): ReactElement => {
 				{columnsState.map((pair) => (
 					<ColumnValue
 						key={pair[0].id}
-						value={pair[0]}
 						onChange={(value: Column, status: boolean) =>
 							handleChange(value, status)
 						}
+						value={pair[0]}
 					/>
 				))}
 			</ul>

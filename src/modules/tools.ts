@@ -21,9 +21,9 @@ export function createCellID(rowID: number, columnID: number): string {
 }
 
 const indices = {
-	row: 0,
 	column: 0,
 	file: 0,
+	row: 0,
 };
 
 /**

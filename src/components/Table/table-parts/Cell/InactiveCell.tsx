@@ -5,7 +5,7 @@ import type { Cell } from "types";
 import CellComponent from "./Cell";
 
 const InactiveCell = (props: Cell): ReactElement => {
-	const { value, id } = props;
+	const { id, value } = props;
 	return (
 		<CellComponent {...props}>
 			<span data-id={id}>{value}</span>

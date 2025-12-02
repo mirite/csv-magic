@@ -18,7 +18,7 @@ function CloseButton(props: Props): ReactElement {
 	const { active, onClose } = props;
 	const closeClass = styles.closeButton + (active ? " " + styles.active : "");
 	return (
-		<button type={"button"} className={closeClass} onClick={() => onClose()}>
+		<button className={closeClass} onClick={() => onClose()} type={"button"}>
 			X
 		</button>
 	);

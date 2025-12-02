@@ -4,19 +4,21 @@ import type { File, RawTable, Row, Table } from "types";
 import { createCellID, createID } from "../tools";
 
 /**
- * Takes the text content of a CSV file and returns the raw Table from it (an
- * array of objects (rows) with keys and values).
+ * Adds a column to the table.
  *
- * @param content The text content of the CSV file.
- * @returns The raw Table from the file.
+ * @param table The table to add the column to.
+ * @param label The label of the column.
+ * @returns The id of the column.
  */
-async function loadFile(content: string): Promise<RawTable> {
-	const result = await parseString<RawTable>(content);
-	if (result) {
-		return result;
-	}
-	return [];
-	// return JSON.parse(parseString(content));
+export function registerColumnInTable(table: Table, label: string): number {
+	const position = table.columns.length;
+	const id = createID("column");
+	table.columns.push({
+		id,
+		label,
+		position,
+	});
+	return id;
 }
 
 /**
@@ -29,7 +31,7 @@ async function loadFile(content: string): Promise<RawTable> {
  */
 function convertToTable(raw: RawTable): Table {
 	/** The Table being created from the raw data. */
-	const newTable: Table = { contents: [], columns: [] };
+	const newTable: Table = { columns: [], contents: [] };
 
 	if (raw.length > 0) {
 		for (const label in raw[0]) {
@@ -58,7 +60,7 @@ function convertToTable(raw: RawTable): Table {
 			if (!newTable.firstCellId) {
 				newTable.firstCellId = id;
 			}
-			newRow.contents.push({ id, value, columnID: column.id });
+			newRow.contents.push({ columnID: column.id, id, value });
 		}
 		newTable.contents.push(newRow);
 	}
@@ -67,21 +69,15 @@ function convertToTable(raw: RawTable): Table {
 }
 
 /**
- * Adds a column to the table.
+ * Generates a pretty name for a file.
  *
- * @param table The table to add the column to.
- * @param label The label of the column.
- * @returns The id of the column.
+ * @param fileName The name of the file.
+ * @returns The pretty name.
  */
-export function registerColumnInTable(table: Table, label: string): number {
-	const position = table.columns.length;
-	const id = createID("column");
-	table.columns.push({
-		label,
-		position,
-		id,
-	});
-	return id;
+function generatePrettyName(fileName: string) {
+	return (
+		fileName.substring(0, 10) + "~" + fileName.substring(fileName.length - 8)
+	);
 }
 
 /**
@@ -101,24 +97,28 @@ export default async function (
 	const prettyName =
 		fileName.length > 20 ? generatePrettyName(fileName) : fileName;
 	return {
-		fileName,
-		table: data,
 		activeSorts: [],
+		fileName,
 		history: [],
 		id,
 		prettyID: id.toString(),
 		prettyName,
+		table: data,
 	};
 }
 
 /**
- * Generates a pretty name for a file.
+ * Takes the text content of a CSV file and returns the raw Table from it (an
+ * array of objects (rows) with keys and values).
  *
- * @param fileName The name of the file.
- * @returns The pretty name.
+ * @param content The text content of the CSV file.
+ * @returns The raw Table from the file.
  */
-function generatePrettyName(fileName: string) {
-	return (
-		fileName.substring(0, 10) + "~" + fileName.substring(fileName.length - 8)
-	);
+async function loadFile(content: string): Promise<RawTable> {
+	const result = await parseString<RawTable>(content);
+	if (result) {
+		return result;
+	}
+	return [];
+	// return JSON.parse(parseString(content));
 }

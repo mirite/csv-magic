@@ -4,12 +4,12 @@ import React from "react";
 import * as styles from "./SubmitButton.module.css";
 
 interface SubmitButtonProps {
-	processing: boolean;
 	fileAttached: boolean;
+	processing: boolean;
 }
 
 const SubmitButton: FunctionComponent<SubmitButtonProps> = (props) => {
-	const { processing, fileAttached } = props;
+	const { fileAttached, processing } = props;
 
 	const getText = () => {
 		if (processing) {
@@ -25,10 +25,10 @@ const SubmitButton: FunctionComponent<SubmitButtonProps> = (props) => {
 
 	return (
 		<button
-			className={styles.button}
-			type="submit"
 			aria-disabled={isDisabled}
+			className={styles.button}
 			disabled={isDisabled}
+			type="submit"
 		>
 			{getText()}
 		</button>

@@ -29,9 +29,9 @@ const DuplicateOptions = (props: LookupOptionsProps): ReactElement => {
 	return (
 		<div>
 			<KeyInFileSelector
-				table={currentFile.table}
 				label="Key in this table to duplicate:"
 				onChange={(key) => setColumnIDToDuplicate(key)}
+				table={currentFile.table}
 			/>
 		</div>
 	);

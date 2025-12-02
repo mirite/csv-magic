@@ -9,13 +9,13 @@ import InactiveCell from "../Cell/InactiveCell";
 import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading";
 
 interface IProps extends Row {
-	/** Handler for when the data in a cell is changed. */
-	onCellChange: (cell: Cell, newValue: string) => void;
-
 	/** The ID of the active cell within the Table (if there is one) */
 	activeCell?: string;
 
 	onAction: (action: RowAction) => void;
+
+	/** Handler for when the data in a cell is changed. */
+	onCellChange: (cell: Cell, newValue: string) => void;
 }
 
 /**
@@ -25,7 +25,7 @@ interface IProps extends Row {
  * @returns The row component.
  */
 function Row(props: IProps): ReactElement {
-	const { contents: cells, activeCell, onCellChange, onAction } = props;
+	const { activeCell, contents: cells, onAction, onCellChange } = props;
 	return (
 		<tr>
 			<RowHeading onAction={(action) => onAction(action)} />

@@ -16,9 +16,9 @@ interface Props extends Cell {
  * @returns The active cell component.
  */
 const ActiveCell = (props: Props): ReactElement => {
-	const { value, onChange } = props;
+	const { onChange, value } = props;
 	const [debouncedValue, setDebouncedValue] = useState(value);
-	const [timeoutId, setTimeoutId] = useState<number | null>(null);
+	const [timeoutId, setTimeoutId] = useState<null | number>(null);
 
 	const rowCount = value.split("\n").length;
 

@@ -23,23 +23,23 @@ const SaveAsField: FunctionComponent<SaveAsFieldProps> = (props) => {
 		<div>
 			<form className={styles.container} onSubmit={(e) => saveTable(e)}>
 				<input
-					type="text"
-					id="input-fileName"
 					className={styles.input}
-					placeholder="File Name"
-					value={fileName}
+					id="input-fileName"
 					onChange={(e) => setFileName(e.target.value)}
+					placeholder="File Name"
+					type="text"
+					value={fileName}
 				/>
 				<select
+					className={styles.input}
 					onChange={(e) => setFileType(e.target.value as supportedFileTypes)}
 					value={fileType}
-					className={styles.input}
 				>
 					<option value="csv">.csv</option>
 					<option value="json">.json</option>
 					<option value="sql">.sql (Experimental)</option>
 				</select>
-				<button type="submit" className={styles.button}>
+				<button className={styles.button} type="submit">
 					Save
 				</button>
 			</form>

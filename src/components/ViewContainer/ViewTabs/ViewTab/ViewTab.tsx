@@ -5,20 +5,20 @@ import CloseButton from "./CloseButton";
 import * as styles from "./ViewTab.module.css";
 
 interface IProps {
-	/** The label or name to display on the tab. */
-	label: string | ReactNode;
-
 	/** True represents that the current tab is active. */
 	active: boolean;
+
+	/** Whether this tab is the home tab. */
+	home: boolean;
+
+	/** The label or name to display on the tab. */
+	label: ReactNode | string;
 
 	/** The event to call when the tab is clicked on. */
 	onClick: () => void;
 
 	/** The event to call when the tabs close button is clicked. */
 	onClose: () => void;
-
-	/** Whether this tab is the home tab. */
-	home: boolean;
 }
 
 /**
@@ -28,7 +28,7 @@ interface IProps {
  * @returns The view tab component.
  */
 function ViewTab(props: IProps): ReactElement {
-	const { active, onClick, onClose, home, label } = props;
+	const { active, home, label, onClick, onClose } = props;
 
 	const titleClass =
 		(home ? styles.homeButton : styles.titleButton) +
@@ -42,10 +42,10 @@ function ViewTab(props: IProps): ReactElement {
 	return (
 		<li className={styles.navItem}>
 			<button
-				className={titleClass}
 				aria-current="page"
-				type={"button"}
+				className={titleClass}
 				onClick={(e) => handleClick(e)}
+				type={"button"}
 			>
 				{label}
 			</button>

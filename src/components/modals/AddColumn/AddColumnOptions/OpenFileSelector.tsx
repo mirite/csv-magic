@@ -4,8 +4,8 @@ import React from "react";
 import type { File } from "types";
 
 interface OpenFileSelectorProps {
-	onChange: (file: File) => void;
 	currentFile?: File;
+	onChange: (file: File) => void;
 }
 
 const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {

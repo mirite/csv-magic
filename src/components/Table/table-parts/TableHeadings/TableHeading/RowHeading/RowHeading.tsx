@@ -13,19 +13,19 @@ const RowHeading: FunctionComponent<RowHeadingProps> = (
 ): ReactElement => {
 	const { onAction } = props;
 	return (
-		<th scope="row" className={styles.cell}>
+		<th className={styles.cell} scope="row">
 			<div className={styles.rowHeading}>
 				<button
 					className={styles.button}
-					type={"button"}
 					onClick={() => onAction("duplicate")}
+					type={"button"}
 				>
 					Duplicate
 				</button>
 				<button
 					className={styles.buttonDanger}
-					type={"button"}
 					onClick={() => onAction("delete")}
+					type={"button"}
 				>
 					Delete
 				</button>

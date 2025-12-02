@@ -8,7 +8,7 @@ import * as styles from "./FileSelector.module.css";
 import SubmitButton from "./SubmitButton/SubmitButton";
 
 const FileSelector = (): ReactElement => {
-	const { addFile, setCurrentIndex, files } = useFileStore();
+	const { addFile, files, setCurrentIndex } = useFileStore();
 	const [processing, setProcessing] = useState<boolean>(false);
 	const [fileTextContent, setFileTextContent] = useState<string>("");
 	const [fileName, setFileName] = useState<string>("");
@@ -43,7 +43,7 @@ const FileSelector = (): ReactElement => {
 			<form onSubmit={process}>
 				<FileInput onAttachFile={handleAttachFile} />
 				<div className={styles.submitButtonContainer}>
-					<SubmitButton processing={processing} fileAttached={fileAttached} />
+					<SubmitButton fileAttached={fileAttached} processing={processing} />
 				</div>
 			</form>
 		</div>

@@ -5,26 +5,26 @@ import type { Table } from "types";
 
 import * as styles from "./Modal.module.css";
 
-interface Props extends BaseModalProps, PropsWithChildren {
-	title?: string;
-	applyText?: string;
-	onApply: () => void;
-	isValid?: boolean;
-}
-
 export type BaseModalProps = {
-	table: Table;
 	onClose: (changedTable?: Table) => void;
+	table: Table;
 };
+
+interface Props extends BaseModalProps, PropsWithChildren {
+	applyText?: string;
+	isValid?: boolean;
+	onApply: () => void;
+	title?: string;
+}
 
 const Modal = (props: Props): ReactElement => {
 	const {
-		title = "",
-		children,
 		applyText = "Apply",
+		children,
+		isValid = true,
 		onApply,
 		onClose,
-		isValid = true,
+		title = "",
 	} = props;
 	return (
 		<div className="modal" style={{ display: "block" }}>
@@ -33,25 +33,25 @@ const Modal = (props: Props): ReactElement => {
 					<div className="modal-header">
 						<h5 className="modal-title">{title}</h5>
 						<button
-							type={"button"}
 							className="btn-close"
 							onClick={() => onClose()}
+							type={"button"}
 						/>
 					</div>
 					<div className="modal-body">{children}</div>
 					<div className="modal-footer">
 						<button
-							type={"button"}
 							className="btn btn-secondary"
 							onClick={() => onClose()}
+							type={"button"}
 						>
 							Close
 						</button>
 						<button
-							type={"button"}
 							className="btn btn-primary"
-							onClick={onApply}
 							disabled={!isValid}
+							onClick={onApply}
+							type={"button"}
 						>
 							{applyText}
 						</button>

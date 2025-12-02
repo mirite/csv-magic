@@ -29,10 +29,10 @@ const LookupOptions = (props: LookupOptionsProps): ReactElement => {
 			return;
 		}
 		const mappedColumn: MappedColumn = {
+			foreignImportID: foreignImportKey,
+			foreignMatchID: foreignMatchKey,
 			foreignTable,
 			sourceMatchID: sourceMatchKey,
-			foreignMatchID: foreignMatchKey,
-			foreignImportID: foreignImportKey,
 		};
 		onChange(mappedColumn);
 	}, [foreignMatchKey, sourceMatchKey, otherFile, foreignImportKey, onChange]);
@@ -48,14 +48,14 @@ const LookupOptions = (props: LookupOptionsProps): ReactElement => {
 		return (
 			<div>
 				<KeyInFileSelector
-					table={otherFile?.table}
 					label="Key in the other table to match on:"
 					onChange={(key) => setForeignMatchKey(key)}
+					table={otherFile?.table}
 				/>
 				<KeyInFileSelector
-					table={otherFile?.table}
 					label="Key in the other table to import:"
 					onChange={(key) => setForeignImportKey(key)}
+					table={otherFile?.table}
 				/>
 			</div>
 		);
@@ -63,13 +63,13 @@ const LookupOptions = (props: LookupOptionsProps): ReactElement => {
 	return (
 		<div>
 			<OpenFileSelector
-				onChange={(e: File) => setOtherFile(e)}
 				currentFile={currentFile}
+				onChange={(e: File) => setOtherFile(e)}
 			/>
 			<KeyInFileSelector
-				table={currentFile.table}
 				label="Key in this table to match on:"
 				onChange={(key) => setSourceMatchKey(key)}
+				table={currentFile.table}
 			/>
 			{otherFileKeySelector()}
 		</div>

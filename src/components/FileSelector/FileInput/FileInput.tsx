@@ -10,13 +10,13 @@ const FileInput = (props: FileInputProps): ReactElement => {
 	const id = useId();
 	return (
 		<div className="mb-3">
-			<label htmlFor={id} className="form-label">
+			<label className="form-label" htmlFor={id}>
 				File:
 			</label>
 			<input
-				id={id}
-				className="form-control"
 				accept=".csv"
+				className="form-control"
+				id={id}
 				onChange={(e) => onAttachFile(e)}
 				type="file"
 			/>

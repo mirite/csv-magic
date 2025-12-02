@@ -37,8 +37,8 @@ export function addColumn<T>(
 			);
 		}
 		const newCell: Cell = {
-			id: createCellID(row.id, newColumnId),
 			columnID: newColumnId,
+			id: createCellID(row.id, newColumnId),
 			value: cellValue,
 		};
 		row.contents.push(newCell);

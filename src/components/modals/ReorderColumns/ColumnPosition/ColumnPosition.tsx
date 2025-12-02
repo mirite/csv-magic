@@ -11,10 +11,10 @@ import React from "react";
 import type { Column } from "types";
 
 interface ColumnPositionProps {
-	value: Column;
 	onMove: (distance: number) => void;
-	toStart: number;
 	toEnd: number;
+	toStart: number;
+	value: Column;
 }
 
 const ColumnPosition: FunctionComponent<ColumnPositionProps> = (props) => {
@@ -27,50 +27,50 @@ const ColumnPosition: FunctionComponent<ColumnPositionProps> = (props) => {
 		return prefix + String.fromCharCode(65 + (index % 26));
 	};
 
-	const { value, toStart, toEnd } = props;
+	const { toEnd, toStart, value } = props;
 	const { label, position } = value;
 
 	return (
 		<React.Fragment>
 			<div className={styles.label}>{getLetterEquivalent(position)}</div>
 			<button
-				type={"button"}
 				className={styles.button}
+				disabled={toEnd === 0}
 				onClick={() => {
 					props.onMove(toEnd);
 				}}
-				disabled={toEnd === 0}
+				type={"button"}
 			>
 				<FontAwesomeIcon icon={faArrowCircleDown} />
 			</button>
 			<button
-				type={"button"}
 				className={styles.button}
+				disabled={toEnd === 0}
 				onClick={() => {
 					props.onMove(1);
 				}}
-				disabled={toEnd === 0}
+				type={"button"}
 			>
 				<FontAwesomeIcon icon={faArrowDown} />
 			</button>
 			<div className={styles.label}>{label}</div>
 			<button
-				type={"button"}
 				className={styles.button}
+				disabled={toStart === 0}
 				onClick={() => {
 					props.onMove(-1);
 				}}
-				disabled={toStart === 0}
+				type={"button"}
 			>
 				<FontAwesomeIcon icon={faArrowUp} />
 			</button>
 			<button
-				type={"button"}
 				className={styles.button}
+				disabled={toStart === 0}
 				onClick={() => {
 					props.onMove(toStart);
 				}}
-				disabled={toStart === 0}
+				type={"button"}
 			>
 				<FontAwesomeIcon icon={faArrowCircleUp} />
 			</button>

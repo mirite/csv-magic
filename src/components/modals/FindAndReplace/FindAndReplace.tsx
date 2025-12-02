@@ -14,7 +14,7 @@ interface IProps extends BaseModalProps {
 }
 
 const FindAndReplaceModal = (props: IProps): ReactElement => {
-	const { column, table, onClose } = props;
+	const { column, onClose, table } = props;
 	const [findValue, setFindValue] = useState("");
 	const [replaceValue, setReplaceValue] = useState("");
 	const [testResult, setTestResult] = useState(
@@ -58,10 +58,10 @@ const FindAndReplaceModal = (props: IProps): ReactElement => {
 	};
 
 	const options: React.ComponentProps<typeof Modal> = {
-		title: "Find and Replace In Column",
 		applyText: "Replace",
-		onApply: handleApply,
 		isValid: findValue !== "",
+		onApply: handleApply,
+		title: "Find and Replace In Column",
 		...props,
 	};
 
@@ -73,34 +73,34 @@ const FindAndReplaceModal = (props: IProps): ReactElement => {
 					<div className={styles.group}>
 						<label htmlFor="find-input">Find:</label>
 						<input
-							id="find-input"
 							className={styles.input}
+							id="find-input"
+							onChange={handleFindChange}
 							type="text"
 							value={findValue}
-							onChange={handleFindChange}
 						/>
 					</div>
 
 					<div className={styles.group}>
 						<label htmlFor="replace-input">Replace:</label>
 						<input
-							id="replace-input"
 							className={styles.input}
+							id="replace-input"
+							onChange={handleReplaceChange}
 							type="text"
 							value={replaceValue}
-							onChange={handleReplaceChange}
 						/>
 					</div>
 				</div>
 				<div className={styles.tester}>
 					type={"button"}
-					<button className={styles.button} type={"button"} onClick={testQuery}>
+					<button className={styles.button} onClick={testQuery} type={"button"}>
 						Test
 					</button>
 					<input
-						type="text"
-						readOnly
 						className={styles.output}
+						readOnly
+						type="text"
 						value={testResult}
 					/>
 				</div>

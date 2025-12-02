@@ -3,11 +3,11 @@ import type { GenerateColumnStrategy } from "./GenerateColumnStrategy";
 let generator: ReturnType<typeof poolValuesGenerator>;
 
 export const Pool: GenerateColumnStrategy<string[]> = {
-	init: (poolValues: string[]) => {
-		generator = poolValuesGenerator(poolValues);
-	},
 	generate: () => {
 		return generator.next().value;
+	},
+	init: (poolValues: string[]) => {
+		generator = poolValuesGenerator(poolValues);
 	},
 };
 
