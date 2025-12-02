@@ -1,8 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-nocheck
 import Sorting from "modules/sorting";
 import type { Sorts } from "types";
-
+import { test, expect } from "vitest";
 import testTable from "./testTable";
 
 test("Set sorts", () => {

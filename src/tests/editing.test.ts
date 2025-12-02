@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-nocheck
+import { test, expect } from "vitest";
 import { getColumnNames } from "modules/access-helpers";
 import { removeColumns, renameColumn } from "modules/editing";
 import type { Column } from "types";

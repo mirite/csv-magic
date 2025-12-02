@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-nocheck
+import { test, expect } from "vitest";
 import { getCellValueByColumnID, getColumns } from "modules/access-helpers";
 import {
 	addColumn,
