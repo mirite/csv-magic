@@ -14,25 +14,26 @@ export default {
 		rules: [
 			{ loader: "ts-loader", test: /\.tsx?$/ },
 			{
-				exclude: /\.module\.s?css$/,
-				test: /\.s?css$/,
-				use: ["style-loader", "css-loader", postcssLoader, "sass-loader"],
+				exclude: /\.module\.css$/,
+				test: /\.css$/,
+				use: ["style-loader", "css-loader", postcssLoader],
 			},
 			{
-				include: /\.module\.s?css$/,
-				test: /\.s?css$/,
+				include: /\.module\.css$/,
+				test: /\.css$/,
 				use: [
 					"style-loader",
 					{
 						loader: "css-loader",
 						options: {
+							esModule: false,
 							modules: {
 								localIdentName: "[name]__[local]--[hash:base64:5]",
+								namedExport: false,
 							},
 						},
 					},
 					postcssLoader,
-					"sass-loader",
 				],
 			},
 		],
@@ -51,6 +52,6 @@ export default {
 			"@": path.join(__dirname, "src"),
 		},
 		extensionAlias: { ".js": [".ts", ".js", ".tsx"] },
-		extensions: [".tsx", ".ts", ".js", ".css", ".scss"],
+		extensions: [".tsx", ".ts", ".js", ".css"],
 	},
 };
