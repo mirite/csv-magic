@@ -1,6 +1,6 @@
-import React, { StrictMode } from "react";
+import { StrictMode } from "react";
 
-import App from "./App/App";
+import App from "./app/App.js";
 
 const container = document.getElementById("root");
 if (!container) {
