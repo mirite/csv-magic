@@ -1,9 +1,11 @@
 import path from "path";
 
-import autoprefixer from "autoprefixer";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
 const __dirname = path.resolve();
+const postcssLoader = {
+	loader: "postcss-loader",
+};
 export default {
 	entry: {
 		app: [path.join(__dirname, "src/index.tsx")],
@@ -12,48 +14,24 @@ export default {
 		rules: [
 			{ loader: "ts-loader", test: /\.tsx?$/ },
 			{
-				exclude: /node_modules/,
+				exclude: /\.module\.s?css$/,
 				test: /\.s?css$/,
-				use: [
-					{ loader: "style-loader" },
-					{
-						loader: "css-loader",
-						options: {
-							modules: true,
-						},
-					},
-					{
-						loader: "postcss-loader",
-						options: {
-							postcssOptions: {
-								plugins: function () {
-									return [autoprefixer];
-								},
-							},
-						},
-					},
-					{ loader: "sass-loader" },
-				],
+				use: ["css-loader", postcssLoader, "sass-loader"],
 			},
 			{
-				include: /node_modules/,
+				include: /\.module\.s?css$/,
 				test: /\.s?css$/,
 				use: [
-					{ loader: "style-loader" },
 					{
 						loader: "css-loader",
-					},
-					{
-						loader: "postcss-loader",
 						options: {
-							postcssOptions: {
-								plugins: function () {
-									return [autoprefixer];
-								},
+							modules: {
+								localIdentName: "[name]__[local]--[hash:base64:5]",
 							},
 						},
 					},
-					{ loader: "sass-loader" },
+					postcssLoader,
+					"sass-loader",
 				],
 			},
 		],
@@ -69,11 +47,9 @@ export default {
 	],
 	resolve: {
 		alias: {
-			components: path.join(__dirname, "src/components"),
-			modules: path.join(__dirname, "src/modules"),
-			styles: path.join(__dirname, "src/styles"),
-			types: path.join(__dirname, "src/types"),
+			"@": path.join(__dirname, "src"),
 		},
+		extensionAlias: { ".js": [".ts", ".js", ".tsx"] },
 		extensions: [".tsx", ".ts", ".js", ".css", ".scss"],
 	},
 };
