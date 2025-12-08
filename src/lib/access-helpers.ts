@@ -29,13 +29,13 @@ export function countOccurrences(
  * @param table The Table tto to search in.
  * @param id The ID of the cell to find.
  * @returns The cell at the specified id.
- * @throws Error If the cell ID is not found.
+ * @throws {Error} If the cell ID is not found.
  */
 export function getCellByID(table: Table, id: string): Cell | undefined {
 	const ids = id.split(",");
 	const rowId = Number.parseInt(ids[0]);
 	const columnId = Number.parseInt(ids[1]);
-	if (!columnId || !rowId) {
+	if (columnId === undefined || rowId === undefined) {
 		throw new Error("Bad Cell Id Provided");
 	}
 	const cellIndex = getColumnIndex(table, columnId);
@@ -81,7 +81,7 @@ export function getColumnIndex(data: Table, columnId: number): number {
  * @param table The Table to search in.
  * @param id The ID of the column to find.
  * @returns The name of the column.
- * @throws Error If the column ID isn't found.
+ * @throws {Error} If the column ID isn't found.
  */
 export function getColumnNameByID(table: Table, id: number): string {
 	const value = table.columns.find((c) => c.id === id)?.label;

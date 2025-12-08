@@ -14,22 +14,22 @@ describe("Column Generation", () => {
 	let testTable: Table;
 	beforeEach(() => {
 		testTable = {
-			columns: [{ id: 1, label: "Existing", position: 0 }],
+			columns: [{ id: 0, label: "Existing", position: 0 }],
 			contents: [
 				{
-					contents: [{ columnID: 1, id: "a", value: "A" }],
+					contents: [{ columnID: 0, id: "a", value: "A" }],
 					id: 1,
 				},
 				{
-					contents: [{ columnID: 1, id: "b", value: "B" }],
+					contents: [{ columnID: 0, id: "b", value: "B" }],
 					id: 2,
 				},
 				{
-					contents: [{ columnID: 1, id: "c", value: "C" }],
+					contents: [{ columnID: 0, id: "c", value: "C" }],
 					id: 3,
 				},
 				{
-					contents: [{ columnID: 1, id: "d", value: "D" }],
+					contents: [{ columnID: 0, id: "d", value: "D" }],
 					id: 4,
 				},
 			],
@@ -109,14 +109,31 @@ describe("Column Generation", () => {
 
 	it("should add lookup column", () => {
 		const testTable2 = {
-			columns: [],
-			contents: [],
+			columns: [
+				{ id: 0, label: "keys", position: 0 },
+				{ id: 1, label: "values", position: 1 },
+			],
+			contents: [
+				{
+					contents: [
+						{
+							columnID: 0,
+							value: "A",
+						},
+						{
+							columnID: 1,
+							value:
+								"https://4263974.app.netsuite.com/app/common/entity/contact.nl?id=13233",
+						},
+					],
+				},
+			],
 		} as Table;
 		const newTable = addColumn(testTable, "testLookup", Lookup, {
 			foreignImportID: 1,
-			foreignMatchID: 2,
+			foreignMatchID: 0,
 			foreignTable: testTable2,
-			sourceMatchID: 1,
+			sourceMatchID: 0,
 		});
 
 		const columns = newTable.columns;

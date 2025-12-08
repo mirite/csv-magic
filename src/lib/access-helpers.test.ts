@@ -32,8 +32,8 @@ describe("Access Helpers", () => {
 			],
 		};
 	});
-	it("should Expect cell value in Table to be", () => {
-		const cell = accessHelpers.getCellByID(testTable, "48d35c3c");
+	it("should be able to get a cell by its ID", () => {
+		const cell = accessHelpers.getCellByID(testTable, "2,0");
 		expect(cell?.value).toBe("2021-11-30T22:47:16.830Z");
 	});
 

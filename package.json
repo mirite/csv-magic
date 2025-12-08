@@ -29,6 +29,7 @@
 		"check": "tsc --noEmit",
 		"dev": "npx webpack-dev-server --config webpack.dev.config.js --mode=development",
 		"test": "vitest run",
+		"test:watch": "vitest",
 		"lint": "eslint --fix ; stylelint **/*.*css --fix --ignore-path .gitignore",
 		"format": "prettier . --write",
 		"prepare": "husky"
