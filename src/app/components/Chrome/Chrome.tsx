@@ -2,7 +2,7 @@ import { useFileStore } from "@/lib/index.js";
 import type { ReactElement } from "react";
 import type { Table } from "@/types.js";
 
-import * as styles from "./Chrome.module.css";
+import styles from "./Chrome.module.css";
 import SaveAsField from "./SaveAsField/SaveAsField.js";
 import SuperTools from "./SuperTools/SuperTools.js";
 import UndoRedo from "./UndoRedo/UndoRedo.js";

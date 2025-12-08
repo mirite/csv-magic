@@ -14,7 +14,7 @@ import type { Column, Sorts } from "@/types.js";
 import { ModalContext } from "../../../../Editor/Editor.js";
 import { modals } from "@/app/components/modals/index.js";
 
-import * as styles from "./TableHeading.module.css";
+import styles from "./TableHeading.module.css";
 
 interface HeadingsProps {
 	activeSorts: Sorts;

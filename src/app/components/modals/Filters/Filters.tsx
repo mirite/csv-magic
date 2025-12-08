@@ -6,7 +6,7 @@ import type { Filter } from "@/types.js";
 import type { ChildModalPropsWithColumn } from "../BaseModal/Modal.js";
 import { Modal } from "../BaseModal/Modal.js";
 
-import * as styles from "./Filters.module.css";
+import styles from "./Filters.module.css";
 import FilterValue from "./FilterValue/FilterValue.js";
 
 export const Filters = (props: ChildModalPropsWithColumn): ReactElement => {

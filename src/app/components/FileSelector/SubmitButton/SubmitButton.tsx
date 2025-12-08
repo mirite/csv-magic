@@ -1,7 +1,7 @@
 import type { FunctionComponent } from "react";
 import React from "react";
 
-import * as styles from "./SubmitButton.module.css";
+import styles from "./SubmitButton.module.css";
 
 interface SubmitButtonProps {
 	fileAttached: boolean;

@@ -96,10 +96,12 @@ const processors = {
 };
 
 /**
+ * Saves a table to a file.
  *
- * @param data
- * @param fileType
- * @param fileName
+ * @param data The table data to save.
+ * @param fileType The type of file to save as.
+ * @param fileName The name of the file to save. If not provided, a default name
+ *   will be used.
  */
 export function CSVSaver(
 	data: Table,

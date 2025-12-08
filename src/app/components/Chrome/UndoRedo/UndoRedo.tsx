@@ -4,7 +4,7 @@ import type { FunctionComponent } from "react";
 import { useState } from "react";
 import type { FileHistory, Table } from "@/types.js";
 
-import * as styles from "./UndoRedo.module.css";
+import styles from "./UndoRedo.module.css";
 
 interface UndoRedoProps {
 	history: FileHistory;

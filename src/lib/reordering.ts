@@ -28,7 +28,7 @@ export function reorderColumns(
  * @param columns The columns to reorder.
  * @param newColumnOrder An array of the ids of the columns in their new order.
  * @returns A new array of columns with the columns reordered.
- * @throws Error If a column ID is not found in the Table.
+ * @throws {Error} If a column ID is not found in the Table.
  */
 function createNewColumnField(
 	columns: Column[],
@@ -54,7 +54,7 @@ function createNewColumnField(
  * @param row The row to reorder.
  * @param newColumnOrder An array of the ids of the columns in their new order.
  * @returns A new row with the columns reordered.
- * @throws Error If a column ID is not found in the row.
+ * @throws {Error} If a column ID is not found in the row.
  */
 function createNewRow(row: Row, newColumnOrder: number[]): Row {
 	const newRow: Row = {

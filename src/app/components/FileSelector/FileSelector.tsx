@@ -1,9 +1,9 @@
 import { useFileStore, CSVLoader } from "@/lib/index.js";
-import type { ReactElement } from "react";
-import React, { useState } from "react";
+import type { FormEvent, ReactElement } from "react";
+import { useState } from "react";
 
 import FileInput from "./FileInput/FileInput.js";
-import * as styles from "./FileSelector.module.css";
+import styles from "./FileSelector.module.css";
 import SubmitButton from "./SubmitButton/SubmitButton.js";
 
 const FileSelector = (): ReactElement => {
@@ -13,7 +13,7 @@ const FileSelector = (): ReactElement => {
 	const [fileName, setFileName] = useState<string>("");
 	const [fileAttached, setFileAttached] = useState<boolean>(false);
 
-	const handleAttachFile = async (e: React.FormEvent<HTMLInputElement>) => {
+	const handleAttachFile = async (e: FormEvent<HTMLInputElement>) => {
 		const { files: attachedFiles } = e.currentTarget;
 		const file = attachedFiles?.item(0);
 		if (file) {
@@ -24,7 +24,7 @@ const FileSelector = (): ReactElement => {
 		}
 	};
 
-	const process = async (e: React.FormEvent): Promise<void> => {
+	const process = async (e: FormEvent): Promise<void> => {
 		e.preventDefault();
 		setProcessing(true);
 		const file = await CSVLoader(fileName, fileTextContent);
@@ -39,8 +39,16 @@ const FileSelector = (): ReactElement => {
 
 	return (
 		<div>
-			<form onSubmit={process}>
-				<FileInput onAttachFile={handleAttachFile} />
+			<form
+				onSubmit={(e) => {
+					void process(e);
+				}}
+			>
+				<FileInput
+					onAttachFile={(e) => {
+						void handleAttachFile(e);
+					}}
+				/>
 				<div className={styles.submitButtonContainer}>
 					<SubmitButton fileAttached={fileAttached} processing={processing} />
 				</div>

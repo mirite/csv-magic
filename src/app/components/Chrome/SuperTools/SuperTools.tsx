@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { ModalContext } from "../../Editor/Editor.js";
 import { modals } from "../../modals/index.js";
 
-import * as styles from "./SuperTools.module.css";
+import styles from "./SuperTools.module.css";
 
 const SuperTools = (): ReactElement => {
 	const { onClose, setActiveModal, table } = useContext(ModalContext);

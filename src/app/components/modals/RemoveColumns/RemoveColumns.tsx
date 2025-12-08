@@ -7,7 +7,7 @@ import type { ChildModalProps } from "../BaseModal/Modal.js";
 import { Modal } from "../BaseModal/Modal.js";
 
 import ColumnValue from "./ColumnValue/ColumnValue.js";
-import * as styles from "./RemoveColumnsModal.module.css";
+import styles from "./RemoveColumnsModal.module.css";
 
 export const RemoveColumns = (props: ChildModalProps): ReactElement => {
 	const { onClose, table } = props;

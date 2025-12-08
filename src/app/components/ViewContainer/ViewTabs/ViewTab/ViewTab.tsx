@@ -1,7 +1,7 @@
 import type { ReactElement, ReactNode } from "react";
 
 import CloseButton from "./CloseButton.js";
-import * as styles from "./ViewTab.module.css";
+import styles from "./ViewTab.module.css";
 
 interface IProps {
 	/** True represents that the current tab is active. */

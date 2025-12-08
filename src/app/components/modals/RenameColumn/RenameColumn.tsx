@@ -5,7 +5,7 @@ import React, { useId, useState } from "react";
 import type { ChildModalPropsWithColumn } from "../BaseModal/Modal.js";
 import { Modal } from "../BaseModal/Modal.js";
 
-import * as styles from "./RenameColumn.module.css";
+import styles from "./RenameColumn.module.css";
 
 export const RenameColumn = (
 	props: ChildModalPropsWithColumn,

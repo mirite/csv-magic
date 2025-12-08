@@ -14,7 +14,7 @@ import type { MappedColumn } from "@/types.js";
 import type { ChildModalProps } from "../BaseModal/Modal.js";
 import { Modal } from "../BaseModal/Modal.js";
 
-import * as styles from "./AddColumn.module.css";
+import styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./AddColumnOptions/ColumnType.js";
 import DuplicateOptions from "./AddColumnOptions/options/DuplicateOptions.js";
 import LookupOptions from "./AddColumnOptions/options/LookupOptions.js";

@@ -3,7 +3,7 @@ import type { FormEvent, FunctionComponent } from "react";
 import React, { useState } from "react";
 import type { Table } from "@/types.js";
 
-import * as styles from "./SaveAsField.module.css";
+import styles from "./SaveAsField.module.css";
 
 interface SaveAsFieldProps {
 	table: Table;

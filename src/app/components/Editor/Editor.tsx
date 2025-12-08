@@ -1,5 +1,11 @@
 import { deleteRow, duplicateRow, Sorting, useFileStore } from "@/lib/index.js";
-import { createContext, type ReactElement, useCallback, useState } from "react";
+import {
+	createContext,
+	type ReactElement,
+	useCallback,
+	useMemo,
+	useState,
+} from "react";
 import type { Modal, Row, Sorts, Table } from "@/types.js";
 
 import Chrome from "../Chrome/Chrome.js";
@@ -17,8 +23,12 @@ const rowActions = {
 };
 
 export type RowAction = keyof typeof rowActions;
-export let ModalContext: ReturnType<typeof createContext<ModalContextType>>;
 
+export const ModalContext = createContext<ModalContextType>({
+	onClose: () => {},
+	setActiveModal: () => {},
+	table: { columns: [], contents: [], firstCellId: "" },
+});
 /**
  * The main editor component. Contains the table and the chrome.
  *
@@ -28,7 +38,7 @@ function Editor(): ReactElement {
 	const { currentFile, updateCurrentFile } = useFileStore();
 	const file = currentFile()!; //Main makes sure this is not null before calling Editor.
 
-	const { activeSorts, history, table } = file;
+	const { table } = file;
 
 	const [activeModal, setActiveModal] = useState<Modal | undefined>(undefined);
 	const [activeCell, setActiveCell] = useState(table.firstCellId);
@@ -44,42 +54,61 @@ function Editor(): ReactElement {
 		[],
 	);
 
-	const handleSort = (columnID: number) => {
-		const newSorts = Sorting.setSort(activeSorts, columnID);
+	const setCoreState = useCallback(
+		(newTable: Table, newSorts?: Sorts) => {
+			const current = currentFile();
+			if (!current) return;
 
-		const newData = Sorting.applySorting(table, newSorts);
-		setCoreState(newData, newSorts);
-	};
+			const { activeSorts: currentSorts, history } = current;
+			const newHistory = [...history, current.table];
 
-	const handleModalClose = (changedTable?: Table) => {
-		if (changedTable) {
-			setCoreState(changedTable);
-		}
-		setActiveModal(undefined);
-	};
+			updateCurrentFile(newTable, newSorts || currentSorts, newHistory);
+		},
+		[currentFile, updateCurrentFile],
+	);
+	const handleSort = useCallback(
+		(columnID: number) => {
+			const current = currentFile();
+			if (!current) return;
 
-	const handleRowAction = (action: RowAction, row: Row) => {
-		const newTable = rowActions[action](table, row);
-		setCoreState(newTable);
-	};
+			const newSorts = Sorting.setSort(current.activeSorts, columnID);
+			const newData = Sorting.applySorting(current.table, newSorts);
 
-	const setCoreState = (newTable: Table, newSorts?: Sorts) => {
-		const newHistory = [...history, table];
-		updateCurrentFile(newTable, newSorts || activeSorts, newHistory);
-	};
+			setCoreState(newData, newSorts);
+		},
+		[currentFile, setCoreState],
+	);
 
-	const modalContext = { onClose: handleModalClose, setActiveModal, table };
-	ModalContext = createContext<ModalContextType>(modalContext);
+	const handleRowAction = useCallback(
+		(action: RowAction, row: Row) => {
+			const current = currentFile();
+			if (!current) return;
+
+			const newTable = rowActions[action](current.table, row);
+			setCoreState(newTable);
+		},
+		[currentFile, setCoreState],
+	);
+
+	const modalContext = useMemo(() => {
+		const handleModalClose = (changedTable?: Table) => {
+			if (changedTable) {
+				setCoreState(changedTable);
+			}
+			setActiveModal(undefined);
+		};
+		return { onClose: handleModalClose, setActiveModal, table };
+	}, [setActiveModal, setCoreState, table]);
 
 	return (
 		<ModalContext.Provider value={modalContext}>
-			<Chrome onTableChange={(e: Table) => setCoreState(e)} />
+			<Chrome onTableChange={setCoreState} />
 			<TableComponent
 				activeCell={activeCell}
-				onRowAction={(action, row) => handleRowAction(action, row)}
-				onSort={(e) => handleSort(e)}
+				onRowAction={handleRowAction}
+				onSort={handleSort}
 				onTableBodyClick={handleTableClick}
-				onTableChange={(e: Table) => setCoreState(e)}
+				onTableChange={setCoreState}
 			/>
 			{activeModal}
 		</ModalContext.Provider>

@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import React from "react";
 
-import * as styles from "./ViewTab.module.css";
+import styles from "./ViewTab.module.css";
 
 type Props = {
 	active: boolean;

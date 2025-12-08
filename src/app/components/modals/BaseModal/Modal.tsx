@@ -2,7 +2,7 @@ import type { PropsWithChildren, ReactElement } from "react";
 
 import type { Column, Table } from "@/types.js";
 
-import * as styles from "./Modal.module.css";
+import styles from "./Modal.module.css";
 
 export type BaseModalProps = PropsWithChildren<{
 	applyText?: string;

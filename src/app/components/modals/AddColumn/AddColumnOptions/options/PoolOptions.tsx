@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import React, { useId, useState } from "react";
 
-import * as styles from "../AddColumnOptions.module.css";
+import styles from "../AddColumnOptions.module.css";
 
 interface PoolOptionsProps {
 	onChange: (e: string[]) => void;

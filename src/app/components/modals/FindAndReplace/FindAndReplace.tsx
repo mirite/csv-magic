@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import type { ChildModalPropsWithColumn } from "../BaseModal/Modal.js";
 import { Modal } from "../BaseModal/Modal.js";
 
-import * as styles from "./FindAndReplaceModal.module.css";
+import styles from "./FindAndReplaceModal.module.css";
 
 export const FindAndReplace = (
 	props: ChildModalPropsWithColumn,

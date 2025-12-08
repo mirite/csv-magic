@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import React from "react";
 
-import * as styles from "../AddColumnOptions.module.css";
+import styles from "../AddColumnOptions.module.css";
 
 interface StaticOptionsProps {
 	onChange: (e: string) => void;

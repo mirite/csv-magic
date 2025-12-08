@@ -55,7 +55,7 @@ export function removeColumns(data: Table, columnsToRemove: Column[]): Table {
  * @param columnId The name of the column to change.
  * @param newColumnName What to change the name to.
  * @returns A new Table with the column renamed.
- * @throws Error If the column ID is not found.
+ * @throws {Error} If the column ID is not found.
  */
 export function renameColumn(
 	data: Table,

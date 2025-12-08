@@ -7,7 +7,7 @@ import type { ChildModalProps } from "../BaseModal/Modal.js";
 import { Modal } from "../BaseModal/Modal.js";
 
 import ColumnPosition from "./ColumnPosition/ColumnPosition.js";
-import * as styles from "./ReorderColumnsModal.module.css";
+import styles from "./ReorderColumnsModal.module.css";
 
 export const ReorderColumns = (props: ChildModalProps): ReactElement => {
 	const { table } = props;
