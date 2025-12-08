@@ -16,12 +16,13 @@ export default {
 			{
 				exclude: /\.module\.s?css$/,
 				test: /\.s?css$/,
-				use: ["css-loader", postcssLoader, "sass-loader"],
+				use: ["style-loader", "css-loader", postcssLoader, "sass-loader"],
 			},
 			{
 				include: /\.module\.s?css$/,
 				test: /\.s?css$/,
 				use: [
+					"style-loader",
 					{
 						loader: "css-loader",
 						options: {
