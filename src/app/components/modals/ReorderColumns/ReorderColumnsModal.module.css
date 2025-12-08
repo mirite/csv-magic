@@ -6,7 +6,7 @@
 }
 
 .button {
-	composes: btn btn-info m-1 from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
+	composes: btn btn-info m-1 from "~bootstrap/dist/css/bootstrap.css";
 }
 
 .label {

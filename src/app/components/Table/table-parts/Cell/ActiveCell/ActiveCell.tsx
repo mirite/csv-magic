@@ -1,4 +1,4 @@
-import * as styles from "./Cell.module.css";
+import * as styles from "../Cell.module.css";
 import type { ChangeEvent, ReactElement } from "react";
 import { useState } from "react";
 import type { Cell } from "@/types.js";

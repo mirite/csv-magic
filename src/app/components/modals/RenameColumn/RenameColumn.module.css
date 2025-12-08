@@ -4,9 +4,9 @@
 }
 
 .group {
-	composes: m-2 from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
+	composes: m-2 from "~bootstrap/dist/css/bootstrap.css";
 }
 
 .input {
-	composes: form-control from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
+	composes: form-control from "~bootstrap/dist/css/bootstrap.css";
 }

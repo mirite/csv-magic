@@ -1,4 +1,4 @@
 .container {
-	composes: modal-dialog from "../../../../node_modules/bootstrap/dist/css/bootstrap.css";
+	composes: modal-dialog from "~bootstrap/dist/css/bootstrap.css";
 	max-width: 1000px;
 }

@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"module": "nodenext",
 		"target": "esnext",
+		"outDir": "dist",
 		"types": [],
 		"sourceMap": true,
 		"declaration": true,
