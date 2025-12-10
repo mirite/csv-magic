@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactElement } from "react";
 import { useContext } from "react";
 
-import { ModalContext } from "../../Editor/Editor.js";
-import { modals } from "../../modals/index.js";
+import { ModalContext } from "@/lib/index.js";
+import { modals } from "@/app/editor/modals/index.js";
 
 import styles from "./SuperTools.module.css";
 

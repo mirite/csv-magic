@@ -11,10 +11,10 @@ import { useContext } from "react";
 import type { ReactElement } from "react";
 import type { Column, Sorts } from "@/types.js";
 
-import { ModalContext } from "../../../../Editor/Editor.js";
-import { modals } from "@/app/components/modals/index.js";
+import { modals } from "@/app/editor/modals/index.js";
 
 import styles from "./TableHeading.module.css";
+import { ModalContext } from "@/lib/index.js";
 
 interface HeadingsProps {
 	activeSorts: Sorts;

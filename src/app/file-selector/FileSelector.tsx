@@ -6,7 +6,7 @@ import FileInput from "./FileInput/FileInput.js";
 import styles from "./FileSelector.module.css";
 import SubmitButton from "./SubmitButton/SubmitButton.js";
 
-const FileSelector = (): ReactElement => {
+export const FileSelector = (): ReactElement => {
 	const { addFile, files, setCurrentIndex } = useFileStore();
 	const [processing, setProcessing] = useState<boolean>(false);
 	const [fileTextContent, setFileTextContent] = useState<string>("");
@@ -56,5 +56,3 @@ const FileSelector = (): ReactElement => {
 		</div>
 	);
 };
-
-export default FileSelector;

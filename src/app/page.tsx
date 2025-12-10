@@ -8,7 +8,7 @@ import styles from "./App.module.css";
 const ViewContainer = React.lazy(
 	() =>
 		import(
-			/* webpackChunkName: "view-container" */ "./components/ViewContainer/ViewContainer.js"
+			/* webpackChunkName: "view-container" */ "./view-container/ViewContainer.js"
 		),
 );
 

@@ -1,7 +1,8 @@
 import type { FunctionComponent, ReactElement } from "react";
 
-import type { RowAction } from "../../../../../Editor/Editor.js";
 import styles from "../TableHeading.module.css";
+import type { RowAction } from "@/types.js";
+import { rowActions } from "@/lib/row-actions.js";
 
 interface RowHeadingProps {
 	onAction: (actionName: RowAction) => void;
@@ -16,14 +17,14 @@ const RowHeading: FunctionComponent<RowHeadingProps> = (
 			<div className={styles.rowHeading}>
 				<button
 					className={styles.button}
-					onClick={() => onAction("duplicate")}
+					onClick={() => onAction(rowActions.duplicate)}
 					type={"button"}
 				>
 					Duplicate
 				</button>
 				<button
 					className={styles.buttonDanger}
-					onClick={() => onAction("delete")}
+					onClick={() => onAction(rowActions.delete)}
 					type={"button"}
 				>
 					Delete

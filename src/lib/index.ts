@@ -3,6 +3,7 @@ export * from "./column-generation/index.js";
 export * from "./csv/index.js";
 export * from "./editing.js";
 export * from "./filtering.js";
+export * from "./modalContext.js";
 export * from "./reordering.js";
 export * from "./row-actions.js";
 export * from "./sorting.js";

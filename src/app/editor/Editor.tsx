@@ -1,40 +1,16 @@
-import { deleteRow, duplicateRow, Sorting, useFileStore } from "@/lib/index.js";
-import {
-	createContext,
-	type ReactElement,
-	useCallback,
-	useMemo,
-	useState,
-} from "react";
-import type { Modal, Row, Sorts, Table } from "@/types.js";
+import { ModalContext, Sorting, useFileStore } from "@/lib/index.js";
+import { type ReactElement, useCallback, useMemo, useState } from "react";
+import type { Modal, Row, RowAction, Sorts, Table } from "@/types.js";
 
-import Chrome from "../Chrome/Chrome.js";
-import TableComponent from "../Table/TableComponent.js";
+import Chrome from "./Chrome/Chrome.js";
+import TableComponent from "./Table/TableComponent.js";
 
-export type ModalContextType = {
-	onClose: (changedTable?: Table) => void;
-	setActiveModal: (modal: Modal) => void;
-	table: Table;
-};
-
-const rowActions = {
-	delete: deleteRow,
-	duplicate: duplicateRow,
-};
-
-export type RowAction = keyof typeof rowActions;
-
-export const ModalContext = createContext<ModalContextType>({
-	onClose: () => {},
-	setActiveModal: () => {},
-	table: { columns: [], contents: [], firstCellId: "" },
-});
 /**
  * The main editor component. Contains the table and the chrome.
  *
  * @returns The editor component.
  */
-function Editor(): ReactElement {
+export function Editor(): ReactElement {
 	const { currentFile, updateCurrentFile } = useFileStore();
 	const file = currentFile()!; //Main makes sure this is not null before calling Editor.
 
@@ -84,7 +60,7 @@ function Editor(): ReactElement {
 			const current = currentFile();
 			if (!current) return;
 
-			const newTable = rowActions[action](current.table, row);
+			const newTable = action(current.table, row);
 			setCoreState(newTable);
 		},
 		[currentFile, setCoreState],
@@ -114,5 +90,3 @@ function Editor(): ReactElement {
 		</ModalContext.Provider>
 	);
 }
-
-export default Editor;

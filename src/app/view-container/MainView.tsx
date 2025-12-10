@@ -1,8 +1,8 @@
 import type { ReactElement } from "react";
 
 import { useFileStore } from "@/lib/index.js";
-import Editor from "../Editor/Editor.js";
-import FileSelector from "../FileSelector/FileSelector.js";
+import { Editor } from "@/app/editor/index.js";
+import { FileSelector } from "@/app/file-selector/index.js";
 
 /**
  * A pane for a file. Shows the open file dialog if there isn't a file yet, or

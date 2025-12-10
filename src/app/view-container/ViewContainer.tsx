@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import MainView from "../MainView/MainView.js";
+import MainView from "./MainView.js";
 
 import ViewTabs from "./ViewTabs/ViewTabs.js";
 

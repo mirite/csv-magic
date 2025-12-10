@@ -1,4 +1,4 @@
-import type { Row, Table } from "@/types.js";
+import type { RowAction } from "@/types.js";
 
 import { cloneDeep, createID } from "@/lib/index.js";
 
@@ -9,13 +9,13 @@ import { cloneDeep, createID } from "@/lib/index.js";
  * @param row The row to delete.
  * @returns A new Table with the row removed.
  */
-export function deleteRow(data: Table, row: Row): Table {
+export const deleteRow: RowAction = (data, row) => {
 	const newData = cloneDeep(data);
 	newData.contents = newData.contents.filter(
 		(rowInTable) => rowInTable.id !== row.id,
 	);
 	return newData;
-}
+};
 
 /**
  * Duplicates a row in a Table.
@@ -24,7 +24,7 @@ export function deleteRow(data: Table, row: Row): Table {
  * @param row The row to duplicate.
  * @returns A new Table with the row duplicated.
  */
-export function duplicateRow(data: Table, row: Row): Table {
+export const duplicateRow: RowAction = (data, row) => {
 	const newData = cloneDeep(data);
 	const rowIndex = newData.contents.findIndex(
 		(rowInTable) => rowInTable.id === row.id,
@@ -37,4 +37,9 @@ export function duplicateRow(data: Table, row: Row): Table {
 	}
 	newData.contents.splice(rowIndex, 0, newRow);
 	return newData;
-}
+};
+
+export const rowActions = {
+	delete: deleteRow,
+	duplicate: duplicateRow,
+};

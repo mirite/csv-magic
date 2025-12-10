@@ -1,7 +1,6 @@
 import type { ReactElement } from "react";
-import type { Cell, Row } from "@/types.js";
+import type { Cell, Row, RowAction } from "@/types.js";
 
-import type { RowAction } from "../../../Editor/Editor.js";
 import ActiveCell from "../Cell/ActiveCell/ActiveCell.js";
 import InactiveCell from "../Cell/InactiveCell.js";
 import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading.js";
@@ -10,10 +9,10 @@ interface IProps extends Row {
 	/** The ID of the active cell within the Table (if there is one) */
 	activeCell?: string;
 
-	onAction: (action: RowAction) => void;
+	onAction: (action: RowAction) => unknown;
 
 	/** Handler for when the data in a cell is changed. */
-	onCellChange: (cell: Cell, newValue: string) => void;
+	onCellChange: (cell: Cell, newValue: string) => unknown;
 }
 
 /**

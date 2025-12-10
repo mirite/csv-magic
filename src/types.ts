@@ -11,7 +11,6 @@ export interface Cell {
 	/** The text content of the cell. */
 	value: string;
 }
-
 export interface Column {
 	id: number;
 	label: string;
@@ -40,10 +39,10 @@ export interface File {
 	table: Table;
 }
 
-//Table Elements
-
 /** A list of previous versions of the Table in a file. */
 export type FileHistory = Array<Table>;
+
+//Table Elements
 
 export interface Filter {
 	column: Column;
@@ -79,6 +78,9 @@ export interface Row {
 	/** The original line index of the row from when it was loaded from a file. */
 	originalIndex: number;
 }
+
+/** A function that takes a Table and a Row and returns a new Table. */
+export type RowAction = (data: Table, row: Row) => Table;
 
 /**
  * A list of sorts being applied to the Table, with the key as the first half of

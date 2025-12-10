@@ -2,9 +2,7 @@ import styles from "./Table.module.css";
 import { updateCell, useFileStore } from "@/lib/index.js";
 import type { ReactElement } from "react";
 import { useCallback } from "react";
-import type { Cell, Row, Table } from "@/types.js";
-
-import type { RowAction } from "../Editor/Editor.js";
+import type { Cell, Row, RowAction, Table } from "@/types.js";
 
 import { RowComponent } from "./table-parts/Row/Row.js";
 import TableHeadings from "./table-parts/TableHeadings/TablesHeadings.js";
