@@ -91,7 +91,7 @@ const TableHeading = (props: HeadingsProps): ReactElement => {
 					</button>
 					<button
 						className={styles.button}
-						onClick={() => props.onSort()}
+						onClick={props.onSort}
 						title="Sort on Column"
 						type={"button"}
 					>

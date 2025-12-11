@@ -1,6 +1,6 @@
 import styles from "./Table.module.css";
 import { updateCell, useFileStore } from "@/lib/index.js";
-import type { ReactElement } from "react";
+import type { ReactElement, MouseEvent } from "react";
 import { useCallback } from "react";
 import type { Cell, Row, RowAction, Table } from "@/types.js";
 
@@ -11,7 +11,7 @@ interface IProps {
 	activeCell?: string;
 	onRowAction: (action: RowAction, row: Row) => void;
 	onSort: (columnID: number) => void;
-	onTableBodyClick: (e: React.MouseEvent<HTMLTableSectionElement>) => void;
+	onTableBodyClick: (e: MouseEvent<HTMLTableSectionElement>) => void;
 	onTableChange: (t: Table) => void;
 }
 
@@ -36,24 +36,25 @@ const TableComponent = (props: IProps): ReactElement => {
 			<table>
 				<TableHeadings
 					activeSorts={activeSorts}
-					onSort={(columnID) => onSort(columnID)}
+					onSort={onSort}
 					table={data}
 					TablePart="thead"
 				/>
 				<tbody onClick={onTableBodyClick}>
 					{data.contents.map((row) => (
 						<RowComponent
-							key={row.id}
-							{...row}
 							activeCell={activeCell}
+							contents={row.contents}
+							key={row.id}
 							onAction={(action) => onRowAction(action, row)}
-							onCellChange={(e, newValue) => handleCellChange(e, newValue)}
+							onCellChange={handleCellChange}
+							originalIndex={row.originalIndex}
 						/>
 					))}
 				</tbody>
 				<TableHeadings
 					activeSorts={activeSorts}
-					onSort={(columnID) => onSort(columnID)}
+					onSort={onSort}
 					table={data}
 					TablePart="tfoot"
 				/>

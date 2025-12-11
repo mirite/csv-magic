@@ -1,4 +1,4 @@
-import type { FunctionComponent, ReactElement } from "react";
+import type { FunctionComponent } from "react";
 
 import styles from "../TableHeading.module.css";
 import type { RowAction } from "@/types.js";
@@ -8,9 +8,7 @@ interface RowHeadingProps {
 	onAction: (actionName: RowAction) => void;
 }
 
-const RowHeading: FunctionComponent<RowHeadingProps> = (
-	props,
-): ReactElement => {
+const RowHeading: FunctionComponent<RowHeadingProps> = (props) => {
 	const { onAction } = props;
 	return (
 		<th className={styles.cell} scope="row">

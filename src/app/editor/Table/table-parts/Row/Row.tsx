@@ -25,16 +25,18 @@ export function RowComponent(props: IProps): ReactElement {
 	const { activeCell, contents: cells, onAction, onCellChange } = props;
 	return (
 		<tr>
-			<RowHeading onAction={(action) => onAction(action)} />
+			<RowHeading onAction={onAction} />
 			{cells.map((cell) =>
 				activeCell === cell.id ? (
 					<ActiveCell
+						columnID={cell.columnID}
+						id={cell.id}
 						key={cell.id}
 						onChange={(newValue) => onCellChange(cell, newValue)}
-						{...cell}
+						value={cell.value}
 					/>
 				) : (
-					<InactiveCell key={cell.id} {...cell} />
+					<InactiveCell id={cell.id} key={cell.id} value={cell.value} />
 				),
 			)}
 		</tr>

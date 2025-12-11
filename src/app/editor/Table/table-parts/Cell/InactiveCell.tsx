@@ -3,10 +3,12 @@ import type { Cell } from "@/types.js";
 
 import { CellComponent } from "./Cell.js";
 
-const InactiveCell = (props: Cell): ReactElement => {
+const InactiveCell = (
+	props: Readonly<Pick<Cell, "id" | "value">>,
+): ReactElement => {
 	const { id, value } = props;
 	return (
-		<CellComponent {...props}>
+		<CellComponent id={id}>
 			<span data-id={id}>{value}</span>
 		</CellComponent>
 	);

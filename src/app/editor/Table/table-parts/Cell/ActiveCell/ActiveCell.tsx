@@ -6,7 +6,7 @@ import type { Cell } from "@/types.js";
 import { CellComponent } from "../Cell.js";
 
 interface Props extends Cell {
-	onChange: (newValue: string) => void;
+	onChange: (newValue: string) => unknown;
 }
 /**
  * A Table cell that is currently selected. This changes the text label into an
@@ -30,7 +30,7 @@ const ActiveCell = (props: Props): ReactElement => {
 	};
 
 	return (
-		<CellComponent {...props}>
+		<CellComponent id={props.id}>
 			<textarea
 				className={styles.input}
 				onChange={handleChange}

@@ -10,7 +10,7 @@ interface TableHeadingsProps {
 	TablePart: "tfoot" | "thead";
 }
 
-const TableHeadings = (props: TableHeadingsProps): ReactElement => {
+const TableHeadings = (props: Readonly<TableHeadingsProps>): ReactElement => {
 	const { activeSorts, onSort, table, TablePart } = props;
 
 	return (
