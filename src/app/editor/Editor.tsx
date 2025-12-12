@@ -2,7 +2,7 @@ import { ModalContext, Sorting, useFileStore } from "@/lib/index.js";
 import { type ReactElement, useCallback, useMemo, useState } from "react";
 import type { Modal, Row, RowAction, Sorts, Table } from "@/types.js";
 
-import Chrome from "./Chrome/Chrome.js";
+import Chrome from "./chrome/Chrome.js";
 import TableComponent from "./Table/TableComponent.js";
 
 /**

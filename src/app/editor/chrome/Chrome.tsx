@@ -3,9 +3,9 @@ import type { ReactElement } from "react";
 import type { Table } from "@/types.js";
 
 import styles from "./Chrome.module.css";
-import SaveAsField from "./SaveAsField/SaveAsField.js";
-import SuperTools from "./SuperTools/SuperTools.js";
-import UndoRedo from "./UndoRedo/UndoRedo.js";
+import SaveAsField from "./SaveAsField.js";
+import SuperTools from "./SuperTools.js";
+import UndoRedo from "./UndoRedo.js";
 
 interface ChromeProps {
 	onTableChange: (table: Table) => void;
