@@ -17,7 +17,7 @@ const FileInput = (props: FileInputProps): ReactElement => {
 				accept=".csv"
 				className="form-control"
 				id={id}
-				onChange={(e) => onAttachFile(e)}
+				onChange={onAttachFile}
 				type="file"
 			/>
 		</div>

@@ -2,9 +2,9 @@ import { useFileStore, CSVLoader } from "@/lib/index.js";
 import type { FormEvent, ReactElement } from "react";
 import { useState } from "react";
 
-import FileInput from "./FileInput/FileInput.js";
+import FileInput from "./FileInput.js";
 import styles from "./FileSelector.module.css";
-import SubmitButton from "./SubmitButton/SubmitButton.js";
+import SubmitButton from "./SubmitButton.js";
 
 export const FileSelector = (): ReactElement => {
 	const { addFile, files, setCurrentIndex } = useFileStore();

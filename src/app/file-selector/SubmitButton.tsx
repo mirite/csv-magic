@@ -1,5 +1,4 @@
 import type { FunctionComponent } from "react";
-import React from "react";
 
 import styles from "./SubmitButton.module.css";
 
@@ -11,15 +10,13 @@ interface SubmitButtonProps {
 const SubmitButton: FunctionComponent<SubmitButtonProps> = (props) => {
 	const { fileAttached, processing } = props;
 
-	const getText = () => {
-		if (processing) {
-			return "Processing...";
-		}
-		if (fileAttached) {
-			return "Open";
-		}
-		return "Select a File";
-	};
+	let text = "Select a File";
+	if (processing) {
+		text = "Processing...";
+	}
+	if (fileAttached) {
+		text = "Open";
+	}
 
 	const isDisabled = processing || !fileAttached;
 
@@ -30,7 +27,7 @@ const SubmitButton: FunctionComponent<SubmitButtonProps> = (props) => {
 			disabled={isDisabled}
 			type="submit"
 		>
-			{getText()}
+			{text}
 		</button>
 	);
 };
