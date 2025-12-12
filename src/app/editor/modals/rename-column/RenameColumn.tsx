@@ -2,8 +2,8 @@ import { renameColumn } from "@/lib/index.js";
 import type { ChangeEvent, ReactElement } from "react";
 import React, { useId, useState } from "react";
 
-import type { ChildModalPropsWithColumn } from "../BaseModal/Modal.js";
-import { Modal } from "../BaseModal/Modal.js";
+import type { ChildModalPropsWithColumn } from "@/app/editor/modals/index.js";
+import { Modal } from "@/app/editor/modals/index.js";
 
 import styles from "./RenameColumn.module.css";
 

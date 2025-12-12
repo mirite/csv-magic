@@ -3,8 +3,8 @@ import type { ReactElement } from "react";
 import React, { useState } from "react";
 import type { Column } from "@/types.js";
 
-import type { ChildModalProps } from "../BaseModal/Modal.js";
-import { Modal } from "../BaseModal/Modal.js";
+import type { ChildModalProps } from "@/app/editor/modals/index.js";
+import { Modal } from "@/app/editor/modals/index.js";
 
 import ColumnValue from "./ColumnValue/ColumnValue.js";
 import styles from "./RemoveColumnsModal.module.css";

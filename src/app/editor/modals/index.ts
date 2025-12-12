@@ -5,6 +5,7 @@ import { RemoveColumns } from "./remove-columns/RemoveColumns.js";
 import { RenameColumn } from "./rename-column/RenameColumn.js";
 import { ReorderColumns } from "./reorder-columns/ReorderColumns.js";
 
+export * from "./Modal.js";
 export const modals = {
 	AddColumn,
 	Filters,

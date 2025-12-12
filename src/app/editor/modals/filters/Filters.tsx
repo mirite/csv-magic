@@ -3,8 +3,8 @@ import type { ReactElement } from "react";
 import React, { useState } from "react";
 import type { Filter } from "@/types.js";
 
-import type { ChildModalPropsWithColumn } from "../BaseModal/Modal.js";
-import { Modal } from "../BaseModal/Modal.js";
+import type { ChildModalPropsWithColumn } from "@/app/editor/modals/index.js";
+import { Modal } from "@/app/editor/modals/index.js";
 
 import styles from "./Filters.module.css";
 import FilterValue from "./FilterValue/FilterValue.js";
