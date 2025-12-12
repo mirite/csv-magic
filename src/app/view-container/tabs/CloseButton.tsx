@@ -1,11 +1,10 @@
-import type { ReactElement } from "react";
-import React from "react";
+import type { MouseEvent, ReactElement } from "react";
 
 import styles from "./ViewTab.module.css";
 
 type Props = {
 	active: boolean;
-	onClose: () => void;
+	onClose: (e: MouseEvent) => unknown;
 };
 
 /**
@@ -18,7 +17,7 @@ function CloseButton(props: Props): ReactElement {
 	const { active, onClose } = props;
 	const closeClass = styles.closeButton + (active ? " " + styles.active : "");
 	return (
-		<button className={closeClass} onClick={() => onClose()} type={"button"}>
+		<button className={closeClass} onClick={onClose} type={"button"}>
 			X
 		</button>
 	);

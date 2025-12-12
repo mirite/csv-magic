@@ -1,19 +1,21 @@
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { ReactElement } from "react";
+import type { ReactElement, MouseEvent } from "react";
 
 import { useFileStore } from "@/lib/index.js";
 
-import ViewTab from "./ViewTab/ViewTab.js";
+import ViewTab from "./ViewTab.js";
 
 const ViewTabs = (): ReactElement => {
 	const { currentIndex, files, removeFile, setCurrentIndex } = useFileStore();
 
-	const handleTabClick = (index: number) => {
+	const handleTabClick = (e: MouseEvent, index: number) => {
+		e.preventDefault();
 		setCurrentIndex(index);
 	};
 
-	const handleTabClose = (index: number) => {
+	const handleTabClose = (e: MouseEvent, index: number) => {
+		e.preventDefault();
 		removeFile(index);
 	};
 
@@ -25,8 +27,8 @@ const ViewTabs = (): ReactElement => {
 					home={false}
 					key={file.id}
 					label={`${file.prettyName} - (${file.prettyID})`}
-					onClick={() => handleTabClick(index)}
-					onClose={() => handleTabClose(index)}
+					onClick={(e) => handleTabClick(e, index)}
+					onClose={(e) => handleTabClose(e, index)}
 				/>
 			))}
 			<ViewTab
@@ -39,8 +41,8 @@ const ViewTabs = (): ReactElement => {
 						"CSV Magic"
 					)
 				}
-				onClick={() => handleTabClick(-1)}
-				onClose={() => handleTabClose(-1)}
+				onClick={(e) => handleTabClick(e, -1)}
+				onClose={(e) => handleTabClose(e, -1)}
 			/>
 		</ul>
 	);

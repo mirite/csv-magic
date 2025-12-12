@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 
 import MainView from "./MainView.js";
 
-import ViewTabs from "./ViewTabs/ViewTabs.js";
+import ViewTabs from "./tabs/ViewTabs.js";
 
 /**
  * The container for the view tabs and main view.

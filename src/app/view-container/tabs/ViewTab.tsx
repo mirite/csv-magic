@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode } from "react";
+import type { ReactElement, ReactNode, MouseEvent } from "react";
 
 import CloseButton from "./CloseButton.js";
 import styles from "./ViewTab.module.css";
@@ -14,10 +14,10 @@ interface IProps {
 	label: ReactNode | string;
 
 	/** The event to call when the tab is clicked on. */
-	onClick: () => void;
+	onClick: (e: MouseEvent) => unknown;
 
 	/** The event to call when the tabs close button is clicked. */
-	onClose: () => void;
+	onClose: (e: MouseEvent) => unknown;
 }
 
 /**
@@ -33,22 +33,17 @@ function ViewTab(props: IProps): ReactElement {
 		(home ? styles.homeButton : styles.titleButton) +
 		(active ? " " + styles.active : "");
 
-	const handleClick = (e: React.MouseEvent) => {
-		e.preventDefault();
-		onClick();
-	};
-
 	return (
 		<li className={styles.navItem}>
 			<button
 				aria-current="page"
 				className={titleClass}
-				onClick={(e) => handleClick(e)}
+				onClick={onClick}
 				type={"button"}
 			>
 				{label}
 			</button>
-			{home ? "" : <CloseButton active={active} onClose={onClose} />}
+			{home === false && <CloseButton active={active} onClose={onClose} />}
 		</li>
 	);
 }
