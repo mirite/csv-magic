@@ -1,9 +1,9 @@
-import { AddColumn } from "./AddColumn/AddColumn.js";
-import { Filters } from "./Filters/Filters.js";
-import { FindAndReplace } from "./FindAndReplace/FindAndReplace.js";
-import { RemoveColumns } from "./RemoveColumns/RemoveColumns.js";
-import { RenameColumn } from "./RenameColumn/RenameColumn.js";
-import { ReorderColumns } from "./ReorderColumns/ReorderColumns.js";
+import { AddColumn } from "./add-column/AddColumn.js";
+import { Filters } from "./filters/Filters.js";
+import { FindAndReplace } from "./find-replace/FindAndReplace.js";
+import { RemoveColumns } from "./remove-columns/RemoveColumns.js";
+import { RenameColumn } from "./rename-column/RenameColumn.js";
+import { ReorderColumns } from "./reorder-columns/ReorderColumns.js";
 
 export const modals = {
 	AddColumn,
