@@ -4,8 +4,8 @@ import type { ReactElement, MouseEvent } from "react";
 import { useCallback } from "react";
 import type { Cell, Row, RowAction, Table } from "@/types.js";
 
-import { RowComponent } from "./table-parts/Row/Row.js";
-import TableHeadings from "./table-parts/TableHeadings/TablesHeadings.js";
+import { RowComponent } from "./table-parts/Row.js";
+import TableHeadings from "./table-parts/TablesHeadings.js";
 
 interface IProps {
 	activeCell?: string;

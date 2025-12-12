@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "react";
 
-import styles from "../TableHeading.module.css";
+import styles from "./TableHeading.module.css";
 import type { RowAction } from "@/types.js";
 import { rowActions } from "@/lib/row-actions.js";
 

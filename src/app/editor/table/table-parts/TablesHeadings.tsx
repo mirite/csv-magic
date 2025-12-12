@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { Sorts, Table } from "@/types.js";
 
-import TableHeading from "./TableHeading/TableHeading.js";
+import TableHeading from "./TableHeading.js";
 
 interface TableHeadingsProps {
 	activeSorts: Sorts;

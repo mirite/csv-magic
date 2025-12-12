@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 import type { Cell, Row, RowAction } from "@/types.js";
 
-import ActiveCell from "../Cell/ActiveCell/ActiveCell.js";
-import InactiveCell from "../Cell/InactiveCell.js";
-import RowHeading from "../TableHeadings/TableHeading/RowHeading/RowHeading.js";
+import ActiveCell from "./cell/ActiveCell/ActiveCell.js";
+import InactiveCell from "./cell/InactiveCell.js";
+import RowHeading from "./RowHeading.js";
 
 interface IProps extends Row {
 	/** The ID of the active cell within the Table (if there is one) */
