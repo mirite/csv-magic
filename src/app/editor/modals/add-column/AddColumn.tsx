@@ -1,12 +1,4 @@
-import {
-	addColumn,
-	Blank,
-	Duplicate,
-	Lookup,
-	Pool,
-	Statically,
-	type GenerateColumnStrategy,
-} from "@/lib/index.js";
+import { addColumn, type GenerateColumnStrategy } from "@/lib/index.js";
 import type { ChangeEvent, ReactElement } from "react";
 import { useState } from "react";
 
@@ -15,56 +7,8 @@ import { Modal } from "@/app/editor/modals/index.js";
 
 import styles from "./AddColumn.module.css";
 import ColumnTypeRadio from "./ColumnType.js";
-import DuplicateOptions from "./options/DuplicateOptions.js";
-import LookupOptions from "./options/LookupOptions.js";
-import PoolOptions from "./options/PoolOptions.js";
-import StaticOptions from "./options/StaticOptions.js";
-import type { ColumnConfig, ColumnParameterValue } from "./types.js";
-
-/**
- * Configuration object mapping column types to their UI and Strategy
- * definitions.
- *
- * We allow 'any' for the OptionsComponent prop type here to simplify the map,
- * but individual strategies are strictly typed in usage.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const COLUMN_CONFIG: Record<string, ColumnConfig<any>> = {
-	Blank: {
-		description: "An empty column, nothing magical here.",
-		label: "Blank",
-		strategyType: Blank,
-	},
-	Duplicate: {
-		description: "A column that is an exact clone of a column in this table.",
-		label: "Duplicate",
-		OptionsComponent: DuplicateOptions,
-		strategyType: Duplicate,
-	},
-	Lookup: {
-		description:
-			"A column filled with data from matches in another open table. Basically a portal.",
-		label: "Lookup",
-		OptionsComponent: LookupOptions,
-		strategyType: Lookup,
-	},
-	Pool: {
-		description:
-			"A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want).",
-		label: "Pool",
-		OptionsComponent: PoolOptions,
-		strategyType: Pool,
-	},
-	Static: {
-		description:
-			"A column filled with a set value. It could be blank if you are really opposed to using the blank option.",
-		label: "Static",
-		OptionsComponent: StaticOptions,
-		strategyType: Statically,
-	},
-};
-
-type ColumnTypeKey = keyof typeof COLUMN_CONFIG;
+import type { ColumnParameterValue } from "./types.js";
+import { COLUMN_CONFIG, type ColumnTypeKey } from "./options/index.js";
 
 export const AddColumn = (props: ChildModalProps): ReactElement => {
 	const { onClose, table } = props;
@@ -83,10 +27,9 @@ export const AddColumn = (props: ChildModalProps): ReactElement => {
 		setColumnParameters(undefined);
 	};
 
+	const currentConfig = COLUMN_CONFIG[columnType];
 	const handleApply = () => {
-		const config = COLUMN_CONFIG[columnType];
-
-		const strategy = config.strategyType as GenerateColumnStrategy<
+		const strategy = currentConfig.strategyType as GenerateColumnStrategy<
 			typeof columnParameters
 		>;
 
@@ -94,7 +37,6 @@ export const AddColumn = (props: ChildModalProps): ReactElement => {
 
 		onClose(newTable);
 	};
-	const currentConfig = COLUMN_CONFIG[columnType];
 	const OptionsComponent = currentConfig.OptionsComponent;
 
 	const isParamsValid = OptionsComponent ? !!columnParameters : true;

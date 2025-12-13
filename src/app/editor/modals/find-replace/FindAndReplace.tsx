@@ -14,17 +14,15 @@ export const FindAndReplace = (
 	const [findValue, setFindValue] = useState("");
 	const [replaceValue, setReplaceValue] = useState("");
 
-	const handleFindChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		const { value } = e.currentTarget;
-		setFindValue(value);
+	const handleFindChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setFindValue(e.currentTarget.value);
 	};
 
-	const handleReplaceChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		const { value } = e.currentTarget;
-		setReplaceValue(value);
+	const handleReplaceChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setReplaceValue(e.currentTarget.value);
 	};
 
-	const handleApply = (): void => {
+	const handleApply = () => {
 		const newTable = findAndReplaceInColumn(
 			table,
 			column,

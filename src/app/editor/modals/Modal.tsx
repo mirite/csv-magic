@@ -1,24 +1,7 @@
-import type { PropsWithChildren, ReactElement } from "react";
-
-import type { Column, Table } from "@/types.js";
+import type { ReactElement } from "react";
 
 import styles from "./Modal.module.css";
-
-export type BaseModalProps = PropsWithChildren<{
-	applyText?: string;
-	isValid?: boolean;
-	onApply: () => void;
-	onClose: (changedTable?: Table) => void;
-	table: Table;
-	title?: string;
-}>;
-
-export type ChildModalProps = Omit<
-	BaseModalProps,
-	"applyText" | "isValid" | "onApply" | "title"
->;
-
-export type ChildModalPropsWithColumn = ChildModalProps & { column: Column };
+import type { BaseModalProps } from "./types.js";
 
 export const Modal = (props: BaseModalProps): ReactElement => {
 	const {

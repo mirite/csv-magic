@@ -6,6 +6,7 @@ import { RenameColumn } from "./rename-column/RenameColumn.js";
 import { ReorderColumns } from "./reorder-columns/ReorderColumns.js";
 
 export * from "./Modal.js";
+export * from "./types.js";
 export const modals = {
 	AddColumn,
 	Filters,
