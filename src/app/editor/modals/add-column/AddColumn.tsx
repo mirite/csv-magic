@@ -50,39 +50,37 @@ export const AddColumn = (props: ChildModalProps): ReactElement => {
 			{...props}
 		>
 			<div>
-				<div>
+				<div className={styles.group}>
+					<label htmlFor="name-input">Column Name:</label>
+					<input
+						className={styles.input}
+						id="name-input"
+						onChange={handleNameChange}
+						type="text"
+						value={columnName}
+					/>
+				</div>
+				<div className={styles.group}>
+					<h3>Column Type:</h3>
+					{Object.entries(COLUMN_CONFIG).map(([key, value]) => (
+						<ColumnTypeRadio
+							checked={columnType === key}
+							description={value.description}
+							key={key}
+							label={value.label}
+							onChange={() => handleTypeChange(key)}
+						/>
+					))}
+				</div>
+				{OptionsComponent ? (
 					<div className={styles.group}>
-						<label htmlFor="name-input">Column Name:</label>
-						<input
-							className={styles.input}
-							id="name-input"
-							onChange={handleNameChange}
-							type="text"
-							value={columnName}
+						<h3>Options:</h3>
+						<OptionsComponent
+							onChange={setColumnParameters}
+							value={columnParameters}
 						/>
 					</div>
-					<div className={styles.group}>
-						<h3>Column Type:</h3>
-						{Object.entries(COLUMN_CONFIG).map(([key, value]) => (
-							<ColumnTypeRadio
-								checked={columnType === key}
-								description={value.description}
-								key={key}
-								label={value.label}
-								onChange={() => handleTypeChange(key)}
-							/>
-						))}
-					</div>
-					{OptionsComponent ? (
-						<div className={styles.group}>
-							<h3>Options:</h3>
-							<OptionsComponent
-								onChange={setColumnParameters}
-								value={columnParameters}
-							/>
-						</div>
-					) : null}
-				</div>
+				) : null}
 			</div>
 		</Modal>
 	);

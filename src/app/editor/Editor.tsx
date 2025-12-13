@@ -1,6 +1,6 @@
 import { ModalContext, Sorting, useFileStore } from "@/lib/index.js";
 import { type ReactElement, useCallback, useMemo, useState } from "react";
-import type { Modal, Row, RowAction, Sorts, Table } from "@/types.js";
+import type { Modal, RowActionHandler, Sorts, Table } from "@/types.js";
 
 import Chrome from "./chrome/Chrome.js";
 import TableComponent from "./table/TableComponent.js";
@@ -55,8 +55,8 @@ export function Editor(): ReactElement {
 		[currentFile, setCoreState],
 	);
 
-	const handleRowAction = useCallback(
-		(action: RowAction, row: Row) => {
+	const handleRowAction = useCallback<RowActionHandler>(
+		(row, action) => {
 			const current = currentFile();
 			if (!current) return;
 

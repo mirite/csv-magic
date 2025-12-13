@@ -11,6 +11,8 @@ export interface Cell {
 	/** The text content of the cell. */
 	value: string;
 }
+export type CellUpdateHandler = (cell: Cell, value: string) => unknown;
+
 export interface Column {
 	id: number;
 	label: string;
@@ -39,10 +41,10 @@ export interface File {
 	table: Table;
 }
 
+//Table Elements
+
 /** A list of previous versions of the Table in a file. */
 export type FileHistory = Array<Table>;
-
-//Table Elements
 
 export interface Filter {
 	column: Column;
@@ -81,7 +83,7 @@ export interface Row {
 
 /** A function that takes a Table and a Row and returns a new Table. */
 export type RowAction = (data: Table, row: Row) => Table;
-
+export type RowActionHandler = (row: Row, action: RowAction) => unknown;
 /**
  * A list of sorts being applied to the Table, with the key as the first half of
  * a tuple and ascending? as the second.

@@ -1,9 +1,17 @@
-import type { PropsWithChildren, ReactElement } from "react";
-import type { Cell } from "@/types.js";
+import type { ReactElement } from "react";
+import type { Cell, CellUpdateHandler } from "@/types.js";
 
 import styles from "./Cell.module.css";
+import ActiveCell from "./ActiveCell.js";
+import InactiveCell from "./InactiveCell.js";
 
-type IProps = Pick<Cell, "id"> & PropsWithChildren;
+interface IProps {
+	cell: Cell;
+	/** The ID of the active cell within the Table (if there is one) */
+	isActive: boolean;
+	/** Handler for when the data in a cell is changed. */
+	onCellChange: CellUpdateHandler;
+}
 
 /**
  * A single cell within a Table.
@@ -12,11 +20,15 @@ type IProps = Pick<Cell, "id"> & PropsWithChildren;
  * @returns The cell component.
  */
 export function CellComponent(props: Readonly<IProps>): ReactElement {
-	const { children, id } = props;
+	const { cell, isActive, onCellChange } = props;
 
 	return (
-		<td className={styles.container} data-id={id}>
-			{children}
+		<td className={styles.container} data-id={cell.id}>
+			{isActive ? (
+				<ActiveCell cell={cell} onChange={onCellChange} />
+			) : (
+				<InactiveCell cell={cell} />
+			)}
 		</td>
 	);
 }

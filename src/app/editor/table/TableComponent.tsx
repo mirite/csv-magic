@@ -2,14 +2,14 @@ import styles from "./Table.module.css";
 import { updateCell, useFileStore } from "@/lib/index.js";
 import type { ReactElement, MouseEvent } from "react";
 import { useCallback } from "react";
-import type { Cell, Row, RowAction, Table } from "@/types.js";
+import type { CellUpdateHandler, RowActionHandler, Table } from "@/types.js";
 
 import { RowComponent } from "./table-parts/Row.js";
 import TableHeadings from "./table-parts/TablesHeadings.js";
 
 interface IProps {
 	activeCell?: string;
-	onRowAction: (action: RowAction, row: Row) => void;
+	onRowAction: RowActionHandler;
 	onSort: (columnID: number) => void;
 	onTableBodyClick: (e: MouseEvent<HTMLTableSectionElement>) => void;
 	onTableChange: (t: Table) => void;
@@ -21,8 +21,8 @@ const TableComponent = (props: IProps): ReactElement => {
 	const currentFile = useFileStore().currentFile()!;
 	const { activeSorts, table: data } = currentFile;
 
-	const handleCellChange = useCallback(
-		(changedCell: Cell, newValue: string) => {
+	const handleCellChange = useCallback<CellUpdateHandler>(
+		(changedCell, newValue) => {
 			const newCell = { ...changedCell };
 			newCell.value = newValue;
 			const newData = updateCell(data, newCell);
@@ -44,11 +44,10 @@ const TableComponent = (props: IProps): ReactElement => {
 					{data.contents.map((row) => (
 						<RowComponent
 							activeCell={activeCell}
-							contents={row.contents}
 							key={row.id}
-							onAction={(action) => onRowAction(action, row)}
+							onAction={onRowAction}
 							onCellChange={handleCellChange}
-							originalIndex={row.originalIndex}
+							row={row}
 						/>
 					))}
 				</tbody>

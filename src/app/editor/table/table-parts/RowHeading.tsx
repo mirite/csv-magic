@@ -1,28 +1,29 @@
 import type { FunctionComponent } from "react";
 
 import styles from "./TableHeading.module.css";
-import type { RowAction } from "@/types.js";
+import type { Row, RowAction } from "@/types.js";
 import { rowActions } from "@/lib/index.js";
 
 interface RowHeadingProps {
-	onAction: (actionName: RowAction) => unknown;
+	onAction: (row: Row, actionName: RowAction) => unknown;
+	row: Row;
 }
 
 const RowHeading: FunctionComponent<RowHeadingProps> = (props) => {
-	const { onAction } = props;
+	const { onAction, row } = props;
 	return (
 		<th className={styles.cell} scope="row">
 			<div className={styles.rowHeading}>
 				<button
 					className={styles.button}
-					onClick={() => onAction(rowActions.duplicate)}
+					onClick={() => onAction(row, rowActions.duplicate)}
 					type={"button"}
 				>
 					Duplicate
 				</button>
 				<button
 					className={styles.buttonDanger}
-					onClick={() => onAction(rowActions.delete)}
+					onClick={() => onAction(row, rowActions.delete)}
 					type={"button"}
 				>
 					Delete
