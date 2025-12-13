@@ -1,5 +1,4 @@
 import type { ChangeEvent, FunctionComponent } from "react";
-import React from "react";
 
 interface FilterValueProps {
 	checked: boolean;

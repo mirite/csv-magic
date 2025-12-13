@@ -5,10 +5,11 @@ import KeyInFileSelector from "../KeyInFileSelector.js";
 
 interface LookupOptionsProps {
 	onChange: (e: number) => void;
+	state: number;
 }
 
 const DuplicateOptions = (props: LookupOptionsProps): ReactElement => {
-	const { onChange } = props;
+	const { onChange, state } = props;
 
 	const activeFile = useFileStore();
 	const currentFile = activeFile.currentFile();
@@ -22,6 +23,7 @@ const DuplicateOptions = (props: LookupOptionsProps): ReactElement => {
 			label="Key in this table to duplicate:"
 			onChange={onChange}
 			table={currentFile.table}
+			value={state}
 		/>
 	);
 };

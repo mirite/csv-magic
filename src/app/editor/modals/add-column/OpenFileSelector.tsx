@@ -1,6 +1,5 @@
 import { useFileStore } from "@/lib/index.js";
-import type { FunctionComponent } from "react";
-import React from "react";
+import type { ChangeEvent, FunctionComponent } from "react";
 import type { File } from "@/types.js";
 
 interface OpenFileSelectorProps {
@@ -16,7 +15,7 @@ const OpenFileSelector: FunctionComponent<OpenFileSelectorProps> = (props) => {
 		(file) => file.fileName?.trim() && file.id !== props.currentFile?.id,
 	);
 
-	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+	const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
 		const fileID = Number.parseInt(e.currentTarget.value);
 		const file = cleanedFiles.find(
 			(currentFileInLoop) => currentFileInLoop.id === fileID,

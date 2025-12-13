@@ -37,6 +37,7 @@ interface ColumnConfig<T extends ColumnParameterValue> {
 	 */
 	OptionsComponent?: ComponentType<{
 		onChange: (value: T) => void;
+		state: T;
 	}>;
 	/**
 	 * The Strategy class or object used by the business logic to generate the
@@ -168,7 +169,10 @@ export const AddColumn = (props: ChildModalProps): ReactElement => {
 					{OptionsComponent ? (
 						<div className={styles.group}>
 							<h3>Options:</h3>
-							<OptionsComponent onChange={setColumnParameters} />
+							<OptionsComponent
+								onChange={setColumnParameters}
+								state={columnParameters}
+							/>
 						</div>
 					) : null}
 				</div>

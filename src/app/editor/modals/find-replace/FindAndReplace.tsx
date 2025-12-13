@@ -1,6 +1,6 @@
 import { countOccurrences, findAndReplaceInColumn } from "@/lib/index.js";
-import type { ReactElement } from "react";
-import React, { useState } from "react";
+import type { ChangeEvent, ReactElement } from "react";
+import { useMemo, useState } from "react";
 
 import type { ChildModalPropsWithColumn } from "@/app/editor/modals/index.js";
 import { Modal } from "@/app/editor/modals/index.js";
@@ -13,19 +13,14 @@ export const FindAndReplace = (
 	const { column, onClose, table } = props;
 	const [findValue, setFindValue] = useState("");
 	const [replaceValue, setReplaceValue] = useState("");
-	const [testResult, setTestResult] = useState(
-		"Test to see how many rows this will impact.",
-	);
 
-	const handleFindChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-		const { value } = e.target;
+	const handleFindChange = (e: ChangeEvent<HTMLInputElement>): void => {
+		const { value } = e.currentTarget;
 		setFindValue(value);
 	};
 
-	const handleReplaceChange = (
-		e: React.ChangeEvent<HTMLInputElement>,
-	): void => {
-		const { value } = e.target;
+	const handleReplaceChange = (e: ChangeEvent<HTMLInputElement>): void => {
+		const { value } = e.currentTarget;
 		setReplaceValue(value);
 	};
 
@@ -39,9 +34,9 @@ export const FindAndReplace = (
 		onClose(newTable);
 	};
 
-	const testQuery = (): number => {
+	const testResult = useMemo(() => {
 		const result = countOccurrences(table, column.id, findValue);
-		let message: string;
+		let message = "";
 		if (result === 0) {
 			message = "This query will not affect any rows";
 		} else if (result === 1) {
@@ -49,20 +44,17 @@ export const FindAndReplace = (
 		} else {
 			message = `${result} rows affected`;
 		}
-		setTestResult(message);
-		return result;
-	};
-
-	const options: React.ComponentProps<typeof Modal> = {
-		...props,
-		applyText: "Replace",
-		isValid: findValue !== "",
-		onApply: handleApply,
-		title: "Find and Replace In Column",
-	};
+		return message;
+	}, [table, column.id, findValue]);
 
 	return (
-		<Modal {...options}>
+		<Modal
+			{...props}
+			applyText="Replace"
+			isValid={findValue !== ""}
+			onApply={handleApply}
+			title="Find and Replace In Column"
+		>
 			<div>
 				<p>Searching in &quot;{column.label}&quot;</p>
 				<div className={styles.container}>
@@ -89,10 +81,6 @@ export const FindAndReplace = (
 					</div>
 				</div>
 				<div className={styles.tester}>
-					type={"button"}
-					<button className={styles.button} onClick={testQuery} type={"button"}>
-						Test
-					</button>
 					<input
 						className={styles.output}
 						readOnly

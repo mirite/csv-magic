@@ -6,12 +6,13 @@ interface KeyInFileSelectorProps {
 	label: string;
 	onChange: (value: number) => unknown;
 	table: Table;
+	value: number;
 }
 
 const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
 	props,
 ) => {
-	const { label, onChange, table } = props;
+	const { label, onChange, table, value } = props;
 	const columns = table.columns;
 	const id = useId();
 
@@ -26,7 +27,7 @@ const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
 			>
 				<option value="">Please select a key</option>
 				{columns.map((key) => (
-					<option key={key.id} value={key.id}>
+					<option key={key.id} selected={value === key.id} value={key.id}>
 						{key.label}
 					</option>
 				))}
