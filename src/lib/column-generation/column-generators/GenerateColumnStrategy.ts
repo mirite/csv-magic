@@ -1,6 +1,11 @@
 import type { Row } from "@/types.js";
 
 export type GenerateColumnStrategy<T> = {
-	generate: (row: Row, params: T) => string;
-	init?: (params: T) => void;
+	generate: GenerateColumnStrategyGenerator<T>;
+	init?: (params: T) => unknown;
 };
+
+type GenerateColumnStrategyGenerator<TData> = (
+	row: Row,
+	parmas: TData,
+) => string;

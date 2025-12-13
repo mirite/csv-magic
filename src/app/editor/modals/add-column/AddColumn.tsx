@@ -7,114 +7,144 @@ import {
 	Statically,
 	type GenerateColumnStrategy,
 } from "@/lib/index.js";
-import type { ReactElement } from "react";
-import React, { useState } from "react";
+import type { ChangeEvent, ComponentType, ReactElement } from "react";
+import { useState } from "react";
 import type { MappedColumn } from "@/types.js";
 
 import type { ChildModalProps } from "@/app/editor/modals/index.js";
 import { Modal } from "@/app/editor/modals/index.js";
 
 import styles from "./AddColumn.module.css";
-import ColumnTypeRadio from "./AddColumnOptions/ColumnType.js";
-import DuplicateOptions from "./AddColumnOptions/options/DuplicateOptions.js";
-import LookupOptions from "./AddColumnOptions/options/LookupOptions.js";
-import PoolOptions from "./AddColumnOptions/options/PoolOptions.js";
-import StaticOptions from "./AddColumnOptions/options/StaticOptions.js";
+import ColumnTypeRadio from "./ColumnType.js";
+import DuplicateOptions from "./options/DuplicateOptions.js";
+import LookupOptions from "./options/LookupOptions.js";
+import PoolOptions from "./options/PoolOptions.js";
+import StaticOptions from "./options/StaticOptions.js";
 
-const columnTypeRadios = {
+/**
+ * Interface defining the structure of a Column Configuration Entry.
+ *
+ * @template T - The type of the parameter value expected by the
+ *   OptionsComponent.
+ */
+interface ColumnConfig<T extends ColumnParameterValue> {
+	default?: boolean;
+	description: string;
+	label: string;
+	/**
+	 * The React Component used to render the options form for this column type.
+	 * If undefined, this column type requires no extra parameters.
+	 */
+	OptionsComponent?: ComponentType<{
+		onChange: (value: T) => void;
+	}>;
+	/**
+	 * The Strategy class or object used by the business logic to generate the
+	 * column.
+	 */
+	strategyType: unknown;
+}
+
+/**
+ * Union type for all possible parameter values across different column
+ * strategies.
+ */
+type ColumnParameterValue =
+	| MappedColumn
+	| number
+	| string
+	| string[]
+	| undefined;
+
+/**
+ * Configuration object mapping column types to their UI and Strategy
+ * definitions.
+ *
+ * We allow 'any' for the OptionsComponent prop type here to simplify the map,
+ * but individual strategies are strictly typed in usage.
+ */
+const COLUMN_CONFIG: Record<string, ColumnConfig<any>> = {
 	Blank: {
-		default: true,
 		description: "An empty column, nothing magical here.",
 		label: "Blank",
-		OptionsComponent: () => <span>There are no options for blank.</span>,
-		type: Blank,
+		strategyType: Blank,
 	},
 	Duplicate: {
 		description: "A column that is an exact clone of a column in this table.",
 		label: "Duplicate",
-		OptionsComponent: (setParams: (value: number) => void) => (
-			<DuplicateOptions onChange={(value) => setParams(value)} />
-		),
-		type: Duplicate,
+		OptionsComponent: DuplicateOptions,
+		strategyType: Duplicate,
 	},
 	Lookup: {
 		description:
 			"A column filled with data from matches in another open table. Basically a portal.",
 		label: "Lookup",
-		OptionsComponent: (setParams: (value: MappedColumn) => void) => (
-			<LookupOptions onChange={(value: MappedColumn) => setParams(value)} />
-		),
-		type: Lookup,
+		OptionsComponent: LookupOptions,
+		strategyType: Lookup,
 	},
 	Pool: {
 		description:
 			"A column with values randomly (but evenly) assigned from a pool of available values. (We can pretend it's a cauldron if you want).",
 		label: "Pool",
-		OptionsComponent: (setParams: (value: string[]) => void) => (
-			<PoolOptions onChange={(values: string[]) => setParams(values)} />
-		),
-		type: Pool,
+		OptionsComponent: PoolOptions,
+		strategyType: Pool,
 	},
 	Static: {
 		description:
-			"A column filled with a set value, It could be blank if you are really opposed to using the blank option.",
+			"A column filled with a set value. It could be blank if you are really opposed to using the blank option.",
 		label: "Static",
-		OptionsComponent: (setParams: (value: string) => void) => (
-			<StaticOptions onChange={(value: string) => setParams(value)} />
-		),
-		type: Statically,
+		OptionsComponent: StaticOptions,
+		strategyType: Statically,
 	},
-} as const;
+};
 
-type ColumnDefinitions = typeof columnTypeRadios;
-type ColumnType = keyof ColumnDefinitions;
+type ColumnTypeKey = keyof typeof COLUMN_CONFIG;
 
 export const AddColumn = (props: ChildModalProps): ReactElement => {
 	const { onClose, table } = props;
-	const [columnName, setColumnName] = useState<string>("");
-	const [columnType, setColumnType] = useState<ColumnType>("Blank");
-	const [columnParameters, setColumnParameters] = useState<
-		MappedColumn | number | string | string[] | undefined
-	>(undefined);
+	const [columnName, setColumnName] = useState("");
+	const [columnType, setColumnType] = useState<ColumnTypeKey>("Blank");
+	const [columnParameters, setColumnParameters] =
+		useState<ColumnParameterValue>(undefined);
 
-	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
 		setColumnName(value);
 	};
 
-	const handleTypeChange = (e: ColumnType) => {
+	const handleTypeChange = (e: ColumnTypeKey) => {
 		setColumnType(e);
 		setColumnParameters(undefined);
 	};
 
 	const handleApply = () => {
-		const newTable = addColumn<typeof columnParameters>(
-			table,
-			columnName,
-			columnTypeRadios[columnType].type as GenerateColumnStrategy<
-				typeof columnParameters
-			>,
-			columnParameters,
-		);
+		const config = COLUMN_CONFIG[columnType];
+
+		const strategy = config.strategyType as GenerateColumnStrategy<
+			typeof columnParameters
+		>;
+
+		const newTable = addColumn(table, columnName, strategy, columnParameters);
+
 		onClose(newTable);
 	};
+	const currentConfig = COLUMN_CONFIG[columnType];
+	const OptionsComponent = currentConfig.OptionsComponent;
 
-	const options: React.ComponentProps<typeof Modal> = {
-		...props,
-		applyText: "Add Column",
-		isValid: !!((columnParameters || columnType === "Blank") && columnName),
-		onApply: handleApply,
-		title: "Add Column",
-	};
-
+	const isParamsValid = OptionsComponent ? !!columnParameters : true;
+	const isValid = !!columnName && isParamsValid;
 	return (
-		<Modal {...options}>
+		<Modal
+			applyText="Add Column"
+			isValid={isValid}
+			onApply={handleApply}
+			title="Add Column"
+			{...props}
+		>
 			<div>
 				<div>
 					<div className={styles.group}>
-						<label htmlFor="name-input">
-							<h3>Column Name:</h3>
-						</label>
+						<label htmlFor="name-input">Column Name:</label>
 						<input
 							className={styles.input}
 							id="name-input"
@@ -125,20 +155,22 @@ export const AddColumn = (props: ChildModalProps): ReactElement => {
 					</div>
 					<div className={styles.group}>
 						<h3>Column Type:</h3>
-						{Object.entries(columnTypeRadios).map(([key, value]) => (
+						{Object.entries(COLUMN_CONFIG).map(([key, value]) => (
 							<ColumnTypeRadio
-								default={!("default" in value) || value.default}
+								checked={columnType === key}
 								description={value.description}
 								key={key}
 								label={value.label}
-								onChange={() => handleTypeChange(key as ColumnType)}
+								onChange={() => handleTypeChange(key)}
 							/>
 						))}
 					</div>
-					<div className={styles.group}>
-						<h3>Options:</h3>
-						{columnTypeRadios[columnType].OptionsComponent(setColumnParameters)}
-					</div>
+					{OptionsComponent ? (
+						<div className={styles.group}>
+							<h3>Options:</h3>
+							<OptionsComponent onChange={setColumnParameters} />
+						</div>
+					) : null}
 				</div>
 			</div>
 		</Modal>

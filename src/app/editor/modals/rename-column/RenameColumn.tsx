@@ -1,6 +1,6 @@
 import { renameColumn } from "@/lib/index.js";
 import type { ChangeEvent, ReactElement } from "react";
-import React, { useId, useState } from "react";
+import { useId, useState } from "react";
 
 import type { ChildModalPropsWithColumn } from "@/app/editor/modals/index.js";
 import { Modal } from "@/app/editor/modals/index.js";
@@ -11,7 +11,7 @@ export const RenameColumn = (
 	props: ChildModalPropsWithColumn,
 ): ReactElement => {
 	const { column, onClose, table } = props;
-	const [newName, setNewName] = useState<string>("");
+	const [newName, setNewName] = useState("");
 
 	const handleNewNameChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
@@ -25,16 +25,14 @@ export const RenameColumn = (
 
 	const id = useId();
 
-	const options: React.ComponentProps<typeof Modal> = {
-		...props,
-		applyText: "Rename",
-		isValid: newName.trim() !== "",
-		onApply: handleApply,
-		title: "Rename Column",
-	};
-
 	return (
-		<Modal {...options}>
+		<Modal
+			{...props}
+			applyText="Rename"
+			isValid={newName.trim() !== ""}
+			onApply={handleApply}
+			title="Rename Column"
+		>
 			<div>
 				<p>Renaming &quot;{column.label}&quot;</p>
 				<div className={styles.container}>

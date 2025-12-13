@@ -1,8 +1,8 @@
 import type { FunctionComponent } from "react";
-import React, { useId } from "react";
+import { useId } from "react";
 
 interface ColumnTypeRadioProps {
-	default?: boolean;
+	checked: boolean;
 	description: string;
 	label: string;
 	onChange: () => void;
@@ -13,10 +13,10 @@ const ColumnTypeRadio: FunctionComponent<ColumnTypeRadioProps> = (props) => {
 	return (
 		<div>
 			<input
-				defaultChecked={props.default}
+				defaultChecked={props.checked}
 				id={id}
 				name="column-type"
-				onChange={() => props.onChange()}
+				onChange={props.onChange}
 				type="radio"
 			/>
 			<label htmlFor={id}>

@@ -4,7 +4,7 @@ import type { Table } from "@/types.js";
 
 interface KeyInFileSelectorProps {
 	label: string;
-	onChange: (value: number) => void;
+	onChange: (value: number) => unknown;
 	table: Table;
 }
 
@@ -14,9 +14,6 @@ const KeyInFileSelector: FunctionComponent<KeyInFileSelectorProps> = (
 	const { label, onChange, table } = props;
 	const columns = table.columns;
 	const id = useId();
-	if (!props.table) {
-		return <p>No Keys Found In File</p>;
-	}
 
 	return (
 		<div>

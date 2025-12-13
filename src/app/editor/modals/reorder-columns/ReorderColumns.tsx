@@ -1,48 +1,46 @@
 import { reorderColumns } from "@/lib/index.js";
-import type { ComponentProps, ReactElement } from "react";
+import type { ReactElement } from "react";
 import { useState } from "react";
-import type { Column } from "@/types.js";
 
 import type { ChildModalProps } from "@/app/editor/modals/index.js";
 import { Modal } from "@/app/editor/modals/index.js";
 
-import ColumnPosition from "./ColumnPosition/ColumnPosition.js";
+import ColumnPosition from "./ColumnPosition.js";
 import styles from "./ReorderColumnsModal.module.css";
 
 export const ReorderColumns = (props: ChildModalProps): ReactElement => {
-	const { table } = props;
-	const originalColumns = table.columns;
-	const [columns, setColumns] = useState<Column[]>(originalColumns);
+	const { onClose, table } = props;
+	const [columns, setColumns] = useState(table.columns);
 
 	const handleChange = (initialIndex: number, distance: number) => {
-		const newIndex = initialIndex + distance;
-		const newOrder = [...columns];
-		const columnToMove = newOrder[initialIndex];
-		newOrder.splice(initialIndex, 1);
-		newOrder.splice(newIndex, 0, columnToMove);
-		setColumns(newOrder);
+		setColumns((prev) => {
+			const newIndex = initialIndex + distance;
+			const newOrder = [...prev];
+			const columnToMove = newOrder[initialIndex];
+			newOrder.splice(initialIndex, 1);
+			newOrder.splice(newIndex, 0, columnToMove);
+			return newOrder;
+		});
 	};
 
-	const handleApply = (): void => {
-		const ids = columns.map((column: Column) => column.id);
+	const handleApply = () => {
+		const ids = columns.map(({ id }) => id);
 		const newTable = reorderColumns(table, ids);
-		props.onClose(newTable);
-	};
-
-	const options: ComponentProps<typeof Modal> = {
-		...props,
-		applyText: "Reorder Columns",
-		onApply: handleApply,
-		title: "Reorder Columns",
+		onClose(newTable);
 	};
 
 	return (
-		<Modal {...options}>
+		<Modal
+			applyText="Reorder Columns"
+			onApply={handleApply}
+			title="Reorder Columns"
+			{...props}
+		>
 			<div className={styles.list}>
 				{columns.map((column, index) => (
 					<ColumnPosition
 						key={column.id}
-						onMove={(distance: number) => handleChange(index, distance)}
+						onMove={(distance) => handleChange(index, distance)}
 						toEnd={columns.length - 1 - index}
 						toStart={-1 * index}
 						value={column}
