@@ -4,14 +4,12 @@ import type { MappedColumn } from "@/types.js";
 
 import KeyInFileSelector from "../KeyInFileSelector.js";
 import OpenFileSelector from "../OpenFileSelector.js";
+import type { AddColumnComponentProps } from "../types.js";
 
-interface LookupOptionsProps {
-	onChange: (e: MappedColumn) => void;
-	state: MappedColumn;
-}
-
-const LookupOptions = (props: LookupOptionsProps): ReactElement => {
-	const { onChange, state } = props;
+const LookupOptions = (
+	props: AddColumnComponentProps<MappedColumn>,
+): ReactElement => {
+	const { onChange, value } = props;
 
 	const activeFile = useFileStore();
 	const currentFile = activeFile.currentFile();
@@ -23,27 +21,27 @@ const LookupOptions = (props: LookupOptionsProps): ReactElement => {
 		<div>
 			<OpenFileSelector
 				currentFile={currentFile}
-				onChange={(key) => onChange({ ...state, foreignTable: key.table })}
+				onChange={(key) => onChange({ ...value, foreignTable: key.table })}
 			/>
 			<KeyInFileSelector
 				label="Key in this table to match on:"
-				onChange={(key) => onChange({ ...state, sourceMatchID: key })}
+				onChange={(key) => onChange({ ...value, sourceMatchID: key })}
 				table={currentFile.table}
-				value={state.sourceMatchID}
+				value={value.sourceMatchID}
 			/>
-			{state.foreignTable ? (
+			{value.foreignTable ? (
 				<div>
 					<KeyInFileSelector
 						label="Key in the other table to match on:"
-						onChange={(key) => onChange({ ...state, foreignMatchID: key })}
-						table={state.foreignTable}
-						value={state.foreignMatchID}
+						onChange={(key) => onChange({ ...value, foreignMatchID: key })}
+						table={value.foreignTable}
+						value={value.foreignMatchID}
 					/>
 					<KeyInFileSelector
 						label="Key in the other table to import:"
-						onChange={(key) => onChange({ ...state, foreignImportID: key })}
-						table={state.foreignTable}
-						value={state.foreignImportID}
+						onChange={(key) => onChange({ ...value, foreignImportID: key })}
+						table={value.foreignTable}
+						value={value.foreignImportID}
 					/>
 				</div>
 			) : (

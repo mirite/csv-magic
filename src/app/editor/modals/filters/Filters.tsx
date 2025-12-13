@@ -47,9 +47,8 @@ export const Filters = (props: ChildModalPropsWithColumn): ReactElement => {
 		const oldActiveValues = filterList.values;
 		const values = allValues
 			.map((item) => item[0])
-			.filter((item) => !oldActiveValues.includes(item));
-		const newFilterList: Filter = { column, values };
-		setFilterList(newFilterList);
+			.filter((item) => !oldActiveValues.includes(item[0]));
+		setFilterList({ column, values });
 	};
 
 	return (

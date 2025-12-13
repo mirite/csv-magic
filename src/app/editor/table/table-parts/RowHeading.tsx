@@ -2,10 +2,10 @@ import type { FunctionComponent } from "react";
 
 import styles from "./TableHeading.module.css";
 import type { RowAction } from "@/types.js";
-import { rowActions } from "@/lib/row-actions.js";
+import { rowActions } from "@/lib/index.js";
 
 interface RowHeadingProps {
-	onAction: (actionName: RowAction) => void;
+	onAction: (actionName: RowAction) => unknown;
 }
 
 const RowHeading: FunctionComponent<RowHeadingProps> = (props) => {

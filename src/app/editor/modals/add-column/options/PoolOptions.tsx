@@ -2,17 +2,15 @@ import type { ReactElement } from "react";
 import { useId } from "react";
 
 import styles from "../AddColumnOptions.module.css";
+import type { AddColumnComponentProps } from "../types.js";
 
-interface PoolOptionsProps {
-	onChange: (e: string[]) => void;
-	state: string[];
-}
-
-const PoolOptions = (props: PoolOptionsProps): ReactElement => {
-	const { onChange, state } = props;
+const PoolOptions = (
+	props: AddColumnComponentProps<string[]>,
+): ReactElement => {
+	const { onChange, value } = props;
 	const id = useId();
 	const splitValues = (values: string) => {
-		const newList = values.split(",").map((value) => value.trim());
+		const newList = values.split(",").map((poolValue) => poolValue.trim());
 		onChange(newList);
 	};
 
@@ -32,8 +30,8 @@ const PoolOptions = (props: PoolOptionsProps): ReactElement => {
 			<div>
 				<h4>Values in Pool:</h4>
 				<ul>
-					{state.map((value) => (
-						<li key={value}>{value}</li>
+					{value.map((poolValue) => (
+						<li key={poolValue}>{poolValue}</li>
 					))}
 				</ul>
 			</div>

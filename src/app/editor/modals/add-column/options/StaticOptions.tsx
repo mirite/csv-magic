@@ -1,13 +1,11 @@
 import type { ReactElement } from "react";
-import React from "react";
 
 import styles from "../AddColumnOptions.module.css";
+import type { AddColumnComponentProps } from "../types.js";
 
-interface StaticOptionsProps {
-	onChange: (e: string) => void;
-}
-
-const StaticOptions = (props: StaticOptionsProps): ReactElement => {
+const StaticOptions = (
+	props: AddColumnComponentProps<string>,
+): ReactElement => {
 	return (
 		<div>
 			<label className={styles.label} htmlFor="static-option">
@@ -18,6 +16,7 @@ const StaticOptions = (props: StaticOptionsProps): ReactElement => {
 				id="static-option"
 				onChange={(e) => props.onChange(e.target.value)}
 				type="text"
+				value={props.value}
 			/>
 		</div>
 	);

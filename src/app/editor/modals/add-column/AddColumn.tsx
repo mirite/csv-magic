@@ -7,9 +7,8 @@ import {
 	Statically,
 	type GenerateColumnStrategy,
 } from "@/lib/index.js";
-import type { ChangeEvent, ComponentType, ReactElement } from "react";
+import type { ChangeEvent, ReactElement } from "react";
 import { useState } from "react";
-import type { MappedColumn } from "@/types.js";
 
 import type { ChildModalProps } from "@/app/editor/modals/index.js";
 import { Modal } from "@/app/editor/modals/index.js";
@@ -20,42 +19,7 @@ import DuplicateOptions from "./options/DuplicateOptions.js";
 import LookupOptions from "./options/LookupOptions.js";
 import PoolOptions from "./options/PoolOptions.js";
 import StaticOptions from "./options/StaticOptions.js";
-
-/**
- * Interface defining the structure of a Column Configuration Entry.
- *
- * @template T - The type of the parameter value expected by the
- *   OptionsComponent.
- */
-interface ColumnConfig<T extends ColumnParameterValue> {
-	default?: boolean;
-	description: string;
-	label: string;
-	/**
-	 * The React Component used to render the options form for this column type.
-	 * If undefined, this column type requires no extra parameters.
-	 */
-	OptionsComponent?: ComponentType<{
-		onChange: (value: T) => void;
-		state: T;
-	}>;
-	/**
-	 * The Strategy class or object used by the business logic to generate the
-	 * column.
-	 */
-	strategyType: unknown;
-}
-
-/**
- * Union type for all possible parameter values across different column
- * strategies.
- */
-type ColumnParameterValue =
-	| MappedColumn
-	| number
-	| string
-	| string[]
-	| undefined;
+import type { ColumnConfig, ColumnParameterValue } from "./types.js";
 
 /**
  * Configuration object mapping column types to their UI and Strategy
@@ -64,6 +28,7 @@ type ColumnParameterValue =
  * We allow 'any' for the OptionsComponent prop type here to simplify the map,
  * but individual strategies are strictly typed in usage.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const COLUMN_CONFIG: Record<string, ColumnConfig<any>> = {
 	Blank: {
 		description: "An empty column, nothing magical here.",
@@ -171,7 +136,7 @@ export const AddColumn = (props: ChildModalProps): ReactElement => {
 							<h3>Options:</h3>
 							<OptionsComponent
 								onChange={setColumnParameters}
-								state={columnParameters}
+								value={columnParameters}
 							/>
 						</div>
 					) : null}
