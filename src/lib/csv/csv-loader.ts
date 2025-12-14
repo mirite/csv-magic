@@ -1,7 +1,8 @@
 import { parseString } from "@mirite/csv-json-parser";
-import type { File, RawTable, Row, Table } from "@/types.js";
+import type { File, Row, Table } from "@/types.js";
 
 import { createCellID, createID } from "@/lib/index.js";
+import type { RawTable } from "./types.js";
 
 /**
  * Converts the text content of a CSV file into a File object.

@@ -1,23 +1,10 @@
 import type { ReactNode } from "react";
 
 /** A single cell within the Table. */
-export interface Cell {
-	/** The key or column that the cell belongs to. */
-	columnID: number;
-
-	/** A unique identifier in the form {row.id?cellIndex} */
-	id: string;
-
-	/** The text content of the cell. */
-	value: string;
-}
+export type Cell = Row["contents"][number];
 export type CellUpdateHandler = (cell: Cell, value: string) => unknown;
 
-export interface Column {
-	id: number;
-	label: string;
-	position: number;
-}
+export type Column = Table["columns"][number];
 
 /** A single editor window/file. */
 export interface File {
@@ -38,7 +25,43 @@ export interface File {
 	prettyName: string;
 
 	/** The current state of the Table in the file */
-	table: Table;
+	table: {
+		columns: {
+			id: number;
+			label: string;
+			position: number;
+		}[];
+
+		/** An array of the rows within the Table. */
+		contents: {
+			/** An array of the cells that comprise the row. */
+			contents: {
+				/** The key or column that the cell belongs to. */
+				columnID: number;
+
+				/** A unique identifier in the form {row.id?cellIndex} */
+				id: string;
+
+				/** The text content of the cell. */
+				value: string;
+			}[];
+
+			/**
+			 * A unique id for keying the row and allowing quicker access to the cells
+			 * within.
+			 */
+			id?: number;
+
+			/** The original line index of the row from when it was loaded from a file. */
+			originalIndex: number;
+		}[];
+
+		/**
+		 * The ID of the fist cell in a Table, used as the default cell being
+		 * edited.
+		 */
+		firstCellId?: string;
+	};
 }
 
 //Table Elements
@@ -60,26 +83,8 @@ export interface MappedColumn {
 
 export type Modal = ReactNode;
 
-/** A Table row as loaded from the file without any additional processing. */
-export type RawRow = Record<string, string>;
-
-/** A Table as loaded from the file without any additional processing. */
-export type RawTable = Array<RawRow>;
-
 /** A single row within the Table. */
-export interface Row {
-	/** An array of the cells that comprise the row. */
-	contents: Array<Cell>;
-
-	/**
-	 * A unique id for keying the row and allowing quicker access to the cells
-	 * within.
-	 */
-	id?: number;
-
-	/** The original line index of the row from when it was loaded from a file. */
-	originalIndex: number;
-}
+export type Row = Table["contents"][number];
 
 /** A function that takes a Table and a Row and returns a new Table. */
 export type RowAction = (data: Table, row: Row) => Table;
@@ -91,12 +96,4 @@ export type RowActionHandler = (row: Row, action: RowAction) => unknown;
 export type Sorts = Array<[number, boolean]>;
 
 /** A Table with rows and columns. */
-export interface Table {
-	columns: Array<Column>;
-
-	/** An array of the rows within the Table. */
-	contents: Array<Row>;
-
-	/** The ID of the fist cell in a Table, used as the default cell being edited. */
-	firstCellId?: string;
-}
+export type Table = File["table"];

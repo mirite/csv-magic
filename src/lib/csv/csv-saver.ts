@@ -1,6 +1,6 @@
 import { Parser } from "@json2csv/plainjs";
-import type { RawRow, RawTable, Table } from "@/types.js";
-
+import type { Table } from "@/types.js";
+import type { RawRow, RawTable } from "./types.js";
 import { getColumnNameByID } from "@/lib/index.js";
 
 export type supportedFileTypes = "csv" | "json" | "sql";
